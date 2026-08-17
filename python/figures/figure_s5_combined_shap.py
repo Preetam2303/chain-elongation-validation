@@ -63,13 +63,17 @@ def generate_figure_s5(max_display=15):
     print(shap_df.head(max_display).to_string(index=False))
 
     plt.figure(figsize=(8, 6.5))
-    shap.summary_plot(shap_values, X_scaled, max_display=max_display, show=False)
+
+    shap.summary_plot(shap_values, X_scaled, max_display=max_display, show=False, cmap=plt.get_cmap("coolwarm"))
+    
     ax = plt.gca()
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
     ax.set_xlabel("SHAP value (impact on predicted caproate, standardized units)", fontsize=11, fontweight="bold")
+    
     plt.title("Figure S5. Combined Chemistry, Operational, and Genus-Level SHAP Attribution",
-              loc="left", fontweight="bold", fontsize=11)
+              loc="center", fontweight="bold", fontsize=11, pad=15)
+              
     plt.tight_layout()
     plt.savefig(os.path.join(OUTPUT_DIR, "Figure_S5_Combined_SHAP.png"))
     plt.savefig(os.path.join(OUTPUT_DIR, "Figure_S5_Combined_SHAP.pdf"))
