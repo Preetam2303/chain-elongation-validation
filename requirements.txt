@@ -1,0 +1,14 @@
+# Exact versions used to generate every number and figure in the manuscript.
+# Pin these exactly -- XGBoost in particular does not guarantee bit-identical
+# output across versions even with a fixed random_state (see README).
+# Python 3.13.9
+
+pandas==2.3.3
+numpy==2.3.5
+scipy==1.16.3
+scikit-learn==1.7.2
+xgboost==3.3.0
+lightgbm==4.7.0
+shap==0.52.0
+matplotlib==3.10.6
+seaborn==0.13.2
