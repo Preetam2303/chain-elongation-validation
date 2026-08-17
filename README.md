@@ -3,7 +3,7 @@
 Code accompanying:
 
 > **Quantitative Fragility and Ecological Robustness in Machine-Learning-Predicted Chain Elongation: A Multi-Study, Multi-Platform Validation Framework**
-> Preetam Banerjee. Water Supply and Bioeconomy Division, Poznań University of Technology. MSCA-LeAD, BIOTWIN/BioRef, WP6 Task 6.5.
+> Preetam Banerjee. Water Supply and Bioeconomy Division, Poznań University of Technology. MSCA-LeAD, BioRef, WP6 Task 6.5.
 
 ## What this is
 
