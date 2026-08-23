@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.Rhistory
+.RData
+.Rproj.user/
+.DS_Store
+figures_output/*.png
+figures_output/*.pdf
+!figures_output/.gitkeep

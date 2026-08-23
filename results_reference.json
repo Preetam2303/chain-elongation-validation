@@ -1,0 +1,286 @@
+{
+  "_about": {
+    "purpose": "Every quantitative value reported in the manuscript, paired with the script that produces it and how exactly it should be expected to reproduce. Intended both as a human-readable audit trail and as a machine-checkable target for anyone re-running this pipeline.",
+    "manuscript": "Quantitative Fragility and Ecological Robustness in Machine-Learning-Predicted Chain Elongation: A Multi-Study, Multi-Platform Validation Framework",
+    "reference_environment": {
+      "python": "3.13.9",
+      "os": "Windows",
+      "packages": "exactly as pinned in requirements.txt",
+      "note": "All values below were generated in this environment."
+    },
+    "tolerance_classes": {
+      "exact": {
+        "abs_tol": 0.001,
+        "meaning": "No stochastic subsampling in the fitted model, or no model at all. Reproduces to at least three decimals on any platform with the pinned package versions.",
+        "verified_by": "Independent re-execution on Linux / Python 3.12.3 with the pinned package versions reproduced every value in this class to three or more decimals."
+      },
+      "environment_sensitive": {
+        "abs_tol": 0.25,
+        "meaning": "Model fitted with subsample=0.8 and colsample_bytree=0.8. XGBoost's subsampling RNG consumption pattern is not stable across library builds or platforms, so random_state=42 fixes results within an environment but not across environments. Sign and qualitative conclusion are stable; exact decimals are not.",
+        "verified_by": "Same Linux re-execution reproduced the sign and conclusion of every value in this class but not the exact decimals. Verified NOT to be thread nondeterminism: identical across n_jobs in {1, 2, 4, -1} and across repeated runs within one environment.",
+        "tolerance_caveat": "abs_tol is a rough guide for R2-scale quantities only. It does not apply to Table 5's Duber_2025 row, where the ratio of test variance to error makes R2 unbounded below; judge that row by sign and by the Spearman rho instead."
+      },
+      "monte_carlo": {
+        "meaning": "Estimated from a finite number of random draws. Reproduces exactly only under identical seeding; otherwise varies within its own sampling error.",
+        "verified_by": "An independent RNG over the same 999-shuffle design returned p = 0.055 (k = 54), within one standard error of the reported 0.062."
+      }
+    }
+  },
+
+  "data_construction": {
+    "_tolerance": "exact",
+    "_script": "R/01a-01f, R/02-04, python/pipeline/01_genus_aggregation.py",
+    "_note": "Deterministic set operations and arithmetic. No model is fitted. These must match byte-for-byte; a mismatch here means the input data differ, not the environment.",
+    "raw_asv_columns": 18870,
+    "prevalence_threshold_fraction": 0.05,
+    "prevalence_threshold_min_samples": 7,
+    "core_asvs_retained": 4027,
+    "asvs_pruned": 14843,
+    "illumina_samples": 130,
+    "illumina_genera_after_collapse": 65,
+    "nanopore_samples": 54,
+    "nanopore_genera_after_collapse": 124,
+    "genera_shared_across_platforms": 19,
+    "final_matrix_samples": 184,
+    "final_matrix_genera": 170,
+    "final_matrix_total_features": 199,
+    "algorithm_selection_feature_count": 4037
+  },
+
+  "table_1_sample_counts": {
+    "_tolerance": "exact",
+    "_script": "R/04_metadata_merge.R",
+    "Duber_2022": 27,
+    "Brodowski_2022": 13,
+    "Brodowski_2022_EXTERNAL_ACETATE": 16,
+    "Duber_2024": 51,
+    "Brodowski_2025": 14,
+    "Duber_2020": 9,
+    "Hanna_2025": 54,
+    "total": 184,
+    "_note": "Paper_ID 'Duber_2024' corresponds to Duber et al. (2025) in the reference list; 'Hanna_2025' corresponds to Prusak et al. (2026). Internal keys were fixed before final publication years were known."
+  },
+
+  "table_2_prevalence": {
+    "_tolerance": "exact",
+    "_script": "python/pipeline/01_genus_aggregation.py",
+    "_definition": "Detected = relative abundance strictly greater than zero in the final 184-sample matrix.",
+    "Caproiciproducens": {"samples": 172, "of": 184, "percent": 93.5, "groups": 7},
+    "Clostridium_sensu_stricto_12": {"samples": 167, "of": 184, "percent": 90.8, "groups": 7,
+      "caveat": "Not cross-platform comparable. The synonym dictionary (Methods 2.2) maps every Nanopore NCBI 'Clostridium' assignment onto this single clade, while the Illumina data resolve seven separate Clostridium sensu stricto clades. Illumina detection 114/130 (87.7%, mean rel. abundance 4.66%); Nanopore detection 53/54 (98.1%, mean rel. abundance 14.10%)."},
+    "Lacticaseibacillus": {"samples": 116, "of": 184, "percent": 63.0, "groups": 5},
+    "Stenotrophomonas": {"samples": 51, "of": 184, "percent": 27.7, "groups": 6},
+    "Lactobacillus": {"samples": 34, "of": 184, "percent": 18.5, "groups": 5},
+    "Gudongella": {"samples": 27, "of": 184, "percent": 14.7, "groups": 1},
+    "Acinetobacter": {"samples": 24, "of": 184, "percent": 13.0, "groups": 2}
+  },
+
+  "replicate_structure": {
+    "_tolerance": "exact",
+    "_reported_in": "Methods 2.6",
+    "unique_reactor_days": 104,
+    "reactor_days_with_replicates": 44,
+    "rows_in_replicated_reactor_days": 124,
+    "max_replicates_at_one_timepoint": 5
+  },
+
+  "table_3a_naive_schemes": {
+    "_tolerance": "environment_sensitive",
+    "_note": "All fitted with subsample=0.8, colsample_bytree=0.8.",
+    "single_random_80_20": {
+      "r2": 0.915, "rmse": 27.265, "n": 130, "features": 4037,
+      "feature_set": "5 operational + 5 foundational substrates + 4027 ASVs",
+      "script": "python/pipeline/07b_algorithm_comparison_lightgbm_standard.py (XGBoost baseline)"
+    },
+    "random_5_fold_cv": {
+      "r2_mean": 0.602, "r2_sd": 0.273,
+      "folds": [0.873, 0.167, 0.700, 0.411, 0.857],
+      "n": 130, "features": 4027,
+      "feature_set": "ASV-only. Deliberately NOT the same predictor set as the 80/20 row above.",
+      "script": "python/pipeline/07b_algorithm_comparison_lightgbm_standard.py"
+    },
+    "shuffled_10_fold_cv": {
+      "r2_mean": 0.835, "r2_sd": 0.080, "rmse": 44.4, "n": 184, "features": 170,
+      "uses_per_fold_shap_top25": true,
+      "script": "python/pipeline/02_loso_by_study.py"
+    },
+    "single_study_internal_80_20": {
+      "r2": 0.985, "rmse": 10.9, "n": 51, "study": "Duber_2024",
+      "script": "python/pipeline/05_intrastudy_transferability_table5.py"
+    }
+  },
+
+  "table_3b_grouped_schemes": {
+    "loso_full_genus_set_tier4": {
+      "_tolerance": "exact",
+      "r2_mean": -0.095, "r2_sd": 0.387, "rmse": 93.1, "rmse_sd": 47.0,
+      "n": 184, "grouping": "study (7 groups)",
+      "uses_per_fold_shap_top25": false,
+      "uses_subsampling": false,
+      "script": "python/pipeline/02_loso_by_study.py",
+      "_note": "The headline result. Reproduces exactly across platforms because no subsampling is applied."
+    },
+    "loso_shap_top25_dynamic": {
+      "_tolerance": "environment_sensitive",
+      "r2_mean": -0.493, "r2_sd": 0.375, "rmse": 105.2, "n": 184,
+      "uses_per_fold_shap_top25": true,
+      "script": "python/pipeline/02_loso_by_study.py"
+    },
+    "groupkfold_vessel_cstr_only": {
+      "_tolerance": "environment_sensitive",
+      "r2_mean": 0.036, "r2_sd": 0.197, "rmse": 105.5, "n": 151,
+      "grouping": "physical reactor",
+      "uses_per_fold_shap_top25": true,
+      "script": "python/pipeline/04_vessel_grouped_deployability.py"
+    },
+    "groupkfold_vessel_all_reactors": {
+      "_tolerance": "environment_sensitive",
+      "r2_mean": 0.046, "r2_sd": 0.158, "rmse": 106.9, "n": 184,
+      "grouping": "physical reactor",
+      "uses_per_fold_shap_top25": true,
+      "script": "python/pipeline/04_vessel_grouped_deployability.py"
+    },
+    "platform_transfer_raw_counts": {
+      "_tolerance": "exact",
+      "r2": -0.207, "rmse": 147.9, "train_n": 130, "test_n": 54,
+      "uses_subsampling": false,
+      "script": "python/pipeline/06_cross_platform_transfer.py"
+    },
+    "platform_transfer_relative_abundance": {
+      "_tolerance": "exact",
+      "r2": -0.170, "rmse": 145.6, "train_n": 130, "test_n": 54,
+      "uses_subsampling": false,
+      "feature_note": "This configuration includes Ethanol; the raw-counts configuration does not. The difference is intentional and preserved as originally run.",
+      "script": "python/pipeline/06_cross_platform_transfer.py"
+    }
+  },
+
+  "table_4_substrate_ladder": {
+    "_tolerance": "exact",
+    "_script": "python/pipeline/02_loso_by_study.py",
+    "_note": "No subsampling. All eight values reproduce to three decimals across platforms.",
+    "cstr_only": {
+      "tier_1_operational_plus_genera":  {"r2": -0.163, "sd": 0.413, "rmse": 104.2, "rmse_sd": 40.4},
+      "tier_2_plus_foundational_feeds":  {"r2": -0.198, "sd": 0.410, "rmse": 105.8, "rmse_sd": 41.2},
+      "tier_3_plus_intermediates":       {"r2": -0.376, "sd": 0.573, "rmse": 110.5, "rmse_sd": 38.5},
+      "tier_4_plus_downstream_proxies":  {"r2": -0.425, "sd": 0.297, "rmse": 112.3, "rmse_sd": 30.6}
+    },
+    "full_matrix": {
+      "tier_1_operational_plus_genera":  {"r2": -0.775, "sd": 0.723, "rmse": 111.9, "rmse_sd": 44.5},
+      "tier_2_plus_foundational_feeds":  {"r2": -0.923, "sd": 0.644, "rmse": 117.9, "rmse_sd": 46.0},
+      "tier_3_plus_intermediates":       {"r2": -0.320, "sd": 0.309, "rmse": 101.9, "rmse_sd": 45.1},
+      "tier_4_plus_downstream_proxies":  {"r2": -0.095, "sd": 0.387, "rmse": 93.1,  "rmse_sd": 47.0}
+    },
+    "chemistry_only_no_genera": {"r2": -0.516, "sd": 0.840, "rmse": 104.0, "rmse_sd": 44.1}
+  },
+
+  "table_5_intrastudy_reactor_transfer": {
+    "_tolerance": "environment_sensitive",
+    "_script": "python/pipeline/05_intrastudy_transferability_table5.py",
+    "_note": "Small training partitions (n = 3 to 30) with subsampling active make these the most environment-sensitive values in the project. Judge by sign and Spearman rho rather than by R2 magnitude.",
+    "Brodowski_2022":  {"split": "B1->B2", "train_n": 9,  "test_n": 7,  "r2": 0.442,  "rmse": 97.7,  "mae": 90.1,  "spearman_rho": 0.324},
+    "Brodowski_2025":  {"split": "B1->B2", "train_n": 7,  "test_n": 7,  "r2": 0.400,  "rmse": 58.3,  "mae": 41.3,  "spearman_rho": 0.964},
+    "Duber_2022":      {"split": "R1->R2", "train_n": 3,  "test_n": 3,  "r2": 0.008,  "rmse": 43.6,  "mae": 26.8,  "spearman_rho": 1.000},
+    "Hanna_2025":      {"split": "B1->B2", "train_n": 25, "test_n": 29, "r2": -0.140, "rmse": 99.0,  "mae": 76.5,  "spearman_rho": 0.792},
+    "Duber_2024":      {"split": "B1->B2", "train_n": 30, "test_n": 21, "r2": -5.869, "rmse": 150.8, "mae": 114.9, "spearman_rho": -0.569}
+  },
+
+  "figure_3_leakage_tightening_progression": {
+    "_note": "The identical Duber_2024 B1(n=30) -> B2(n=21) split evaluated three times as leakage controls were tightened. No sample changed between stages.",
+    "stage_1_unscaled_random_forest": {
+      "_tolerance": "exact",
+      "r2": 0.217206, "rmsd": 50.892162,
+      "model": "sklearn RandomForestRegressor, deterministic under random_state",
+      "leakage_controls": "none; downstream co-products retained, no scaling",
+      "script": "python/pipeline/07d_figure3_stage1_random_forest.py"
+    },
+    "stage_2_intermediate_unscaled_xgboost": {
+      "_tolerance": "environment_sensitive",
+      "r2": -0.228, "rmse": 63.736,
+      "leakage_controls": "partial only. Drops sparse/junk columns but NOT valerate, isobutyrate, heptanoate or caprylate; no training-only scaling.",
+      "top_shap_features": ["DAY", "Valerate", "g__Clostridium_sensu_stricto_11", "Isobutyrate", "Acetate"],
+      "script": "python/pipeline/07c_figure3_intermediate_unscaled_xgboost.py",
+      "_caveat": "DAY dominates this model's attribution at roughly five times the next feature. The manuscript (Section 3.5) describes this stage accurately as retaining downstream co-products; do not describe it as leakage-controlled."
+    },
+    "stage_3_fully_leakage_controlled": {
+      "_tolerance": "environment_sensitive",
+      "r2": -5.869, "rmse": 150.8,
+      "leakage_controls": "full; downstream co-products excluded, training-only scaling, sorted feature order",
+      "script": "python/pipeline/05_intrastudy_transferability_table5.py"
+    }
+  },
+
+  "permutation_control": {
+    "_script": "python/pipeline/03_permutation_test_999.py",
+    "observed_r2": {
+      "_tolerance": "exact",
+      "value": -0.095,
+      "_note": "No subsampling; reproduces exactly."
+    },
+    "null_distribution": {
+      "_tolerance": "monte_carlo",
+      "iterations": 999,
+      "mean": -0.451,
+      "sd": 1.639,
+      "seeding": "random_state = iteration index, per shuffle",
+      "k_shuffles_at_or_above_observed": 61,
+      "shuffles_beaten_by_true_labels": 938,
+      "p_value_one_sided": 0.062,
+      "p_value_formula": "(k + 1) / (n_iterations + 1)",
+      "monte_carlo_standard_error": 0.008,
+      "_note": "Reported as suggestive rather than significant; only seven independent groups are available to permute across."
+    }
+  },
+
+  "algorithm_selection": {
+    "_tolerance": "environment_sensitive",
+    "_reported_in": "Methods 2.7",
+    "_note": "All on the same 4,037-predictor ASV-level feature set and identical 80/20 split (random_state=42), except the LightGBM-RF 'maximum' scope which admits the full chemistry panel.",
+    "xgboost": {"r2": 0.915, "rmse": 27.265},
+    "lightgbm_gbdt": {"r2": 0.861, "rmse": 34.898,
+      "script": "python/pipeline/07b_algorithm_comparison_lightgbm_standard.py"},
+    "lightgbm_rf": {
+      "script": "python/pipeline/07a_algorithm_comparison_lightgbm_rf.py",
+      "base_ops_plus_asvs":        {"features": 4032, "r2": 0.354, "rmse": 75.267},
+      "ultimate_ops_subs_asvs":    {"features": 4037, "r2": 0.359, "rmse": 74.967},
+      "maximum_ops_all_chems_asvs":{"features": 4049, "r2": 0.657, "rmse": 54.861},
+      "_leakage_demonstration": "Admitting the downstream co-products caprylate, heptanoate and isovalerate raises R2 from 0.359 to 0.657 on an otherwise identical feature scope, nearly doubling apparent accuracy. This is the concrete target-leakage demonstration cited in Methods 2.7 and motivating their exclusion throughout."
+    }
+  },
+
+  "ecological_robustness_claim": {
+    "_tolerance": "exact",
+    "_reported_in": "Sections 3.7 and 4.3, Figure 5",
+    "_definition": "SHAP rank of each taxon by mean absolute attribution, computed per fold across 23 folds spanning LOSO, GroupKFold-by-vessel, shuffled 10-fold, and the Illumina-only 65-genus universe.",
+    "Caproiciproducens": {
+      "rank_1_in_folds": 23, "of_folds": 23, "median_rank": 1, "worst_rank": 1,
+      "claim": "Leading SHAP contributor in every fold of every architecture tested. This is the paper's stability result."
+    },
+    "Clostridium_sensu_stricto_12": {
+      "median_rank": 23, "worst_rank": 40,
+      "in_top_10_folds": 2, "in_top_25_folds": 15, "of_folds": 23,
+      "claim": "Satisfies the prevalence criterion but NOT the attribution criterion. Classified as a prevalent community member with regime-dependent contribution, not a co-dominant driver. Do not describe it as a leading SHAP contributor."
+    }
+  },
+
+  "known_nonreproducible": {
+    "_note": "Recorded deliberately. These are not defects to be fixed.",
+    "items": [
+      {
+        "what": "Historical 122-row Illumina matrix",
+        "detail": "Naive baselines reported in earlier drafts (R2 = 0.809, 0.668) were computed on a 122-row version of BIOTWIN_FINAL_ML_MATRIX.csv that no longer exists. The current matrix has 130 rows and yields 0.915 and 0.602. Only the current values are reported in the manuscript.",
+        "action": "None. The superseded values appear nowhere in the submitted manuscript."
+      },
+      {
+        "what": "07c and 07d depend on a historical snapshot",
+        "detail": "Both read data/historical/BIOTWIN_GENUS_ML_MATRIX.csv and are not reproducible from the current output of 01_genus_aggregation.py. They are retained so Figure 3's full three-stage progression stays runnable.",
+        "action": "Place the snapshot in data/historical/ before running."
+      },
+      {
+        "what": "sorted(list(set(...))) idiom",
+        "detail": "Feature lists are built with sorted(list(set(...))) throughout. The sorted() is load-bearing: without it, Python's set iteration order varies between interpreter sessions and silently changes XGBoost column order, which changes results.",
+        "action": "Do not remove the sorted() call."
+      }
+    ]
+  }
+}

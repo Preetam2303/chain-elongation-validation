@@ -1,0 +1,18 @@
+# Exact R package versions used for sequence processing (R/ directory).
+# R version 4.6.0 (2026-04-24 ucrt)
+
+dada2==1.40.0
+phyloseq==1.56.0
+dplyr==1.2.1
+
+# To verify your own environment against this list:
+#
+# packages <- c("dada2", "phyloseq", "dplyr")
+# cat(R.version.string, "\n\n")
+# for (pkg in packages) {
+#   if (requireNamespace(pkg, quietly = TRUE)) {
+#     cat(pkg, "==", as.character(packageVersion(pkg)), "\n")
+#   } else {
+#     cat(pkg, "is not installed in this environment.\n")
+#   }
+# }
