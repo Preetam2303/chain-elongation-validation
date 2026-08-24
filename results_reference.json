@@ -26,7 +26,6 @@
       }
     }
   },
-
   "data_construction": {
     "_tolerance": "exact",
     "_script": "R/01a-01f, R/02-04, python/pipeline/01_genus_aggregation.py",
@@ -46,7 +45,6 @@
     "final_matrix_total_features": 199,
     "algorithm_selection_feature_count": 4037
   },
-
   "table_1_sample_counts": {
     "_tolerance": "exact",
     "_script": "R/04_metadata_merge.R",
@@ -60,21 +58,54 @@
     "total": 184,
     "_note": "Paper_ID 'Duber_2024' corresponds to Duber et al. (2025) in the reference list; 'Hanna_2025' corresponds to Prusak et al. (2026). Internal keys were fixed before final publication years were known."
   },
-
   "table_2_prevalence": {
     "_tolerance": "exact",
     "_script": "python/pipeline/01_genus_aggregation.py",
     "_definition": "Detected = relative abundance strictly greater than zero in the final 184-sample matrix.",
-    "Caproiciproducens": {"samples": 172, "of": 184, "percent": 93.5, "groups": 7},
-    "Clostridium_sensu_stricto_12": {"samples": 167, "of": 184, "percent": 90.8, "groups": 7,
-      "caveat": "Not cross-platform comparable. The synonym dictionary (Methods 2.2) maps every Nanopore NCBI 'Clostridium' assignment onto this single clade, while the Illumina data resolve seven separate Clostridium sensu stricto clades. Illumina detection 114/130 (87.7%, mean rel. abundance 4.66%); Nanopore detection 53/54 (98.1%, mean rel. abundance 14.10%)."},
-    "Lacticaseibacillus": {"samples": 116, "of": 184, "percent": 63.0, "groups": 5},
-    "Stenotrophomonas": {"samples": 51, "of": 184, "percent": 27.7, "groups": 6},
-    "Lactobacillus": {"samples": 34, "of": 184, "percent": 18.5, "groups": 5},
-    "Gudongella": {"samples": 27, "of": 184, "percent": 14.7, "groups": 1},
-    "Acinetobacter": {"samples": 24, "of": 184, "percent": 13.0, "groups": 2}
+    "Caproiciproducens": {
+      "samples": 172,
+      "of": 184,
+      "percent": 93.5,
+      "groups": 7
+    },
+    "Clostridium_sensu_stricto_12": {
+      "samples": 167,
+      "of": 184,
+      "percent": 90.8,
+      "groups": 7,
+      "caveat": "Not cross-platform comparable. The synonym dictionary (Methods 2.2) maps every Nanopore NCBI 'Clostridium' assignment onto this single clade, while the Illumina data resolve seven separate Clostridium sensu stricto clades. Illumina detection 114/130 (87.7%, mean rel. abundance 4.66%); Nanopore detection 53/54 (98.1%, mean rel. abundance 14.10%)."
+    },
+    "Lacticaseibacillus": {
+      "samples": 116,
+      "of": 184,
+      "percent": 63.0,
+      "groups": 5
+    },
+    "Stenotrophomonas": {
+      "samples": 51,
+      "of": 184,
+      "percent": 27.7,
+      "groups": 6
+    },
+    "Lactobacillus": {
+      "samples": 34,
+      "of": 184,
+      "percent": 18.5,
+      "groups": 5
+    },
+    "Gudongella": {
+      "samples": 27,
+      "of": 184,
+      "percent": 14.7,
+      "groups": 1
+    },
+    "Acinetobacter": {
+      "samples": 24,
+      "of": 184,
+      "percent": 13.0,
+      "groups": 2
+    }
   },
-
   "replicate_structure": {
     "_tolerance": "exact",
     "_reported_in": "Methods 2.6",
@@ -83,38 +114,58 @@
     "rows_in_replicated_reactor_days": 124,
     "max_replicates_at_one_timepoint": 5
   },
-
   "table_3a_naive_schemes": {
     "_tolerance": "environment_sensitive",
     "_note": "All fitted with subsample=0.8, colsample_bytree=0.8.",
     "single_random_80_20": {
-      "r2": 0.915, "rmse": 27.265, "n": 130, "features": 4037,
+      "r2": 0.915,
+      "rmse": 27.265,
+      "n": 130,
+      "features": 4037,
       "feature_set": "5 operational + 5 foundational substrates + 4027 ASVs",
       "script": "python/pipeline/07b_algorithm_comparison_lightgbm_standard.py (XGBoost baseline)"
     },
     "random_5_fold_cv": {
-      "r2_mean": 0.602, "r2_sd": 0.273,
-      "folds": [0.873, 0.167, 0.700, 0.411, 0.857],
-      "n": 130, "features": 4027,
+      "r2_mean": 0.602,
+      "r2_sd": 0.273,
+      "folds": [
+        0.873,
+        0.167,
+        0.7,
+        0.411,
+        0.857
+      ],
+      "n": 130,
+      "features": 4027,
       "feature_set": "ASV-only. Deliberately NOT the same predictor set as the 80/20 row above.",
       "script": "python/pipeline/07b_algorithm_comparison_lightgbm_standard.py"
     },
     "shuffled_10_fold_cv": {
-      "r2_mean": 0.835, "r2_sd": 0.080, "rmse": 44.4, "n": 184, "features": 170,
+      "r2_mean": 0.835,
+      "r2_sd": 0.08,
+      "rmse": 44.4,
+      "n": 184,
+      "features": 170,
       "uses_per_fold_shap_top25": true,
       "script": "python/pipeline/02_loso_by_study.py"
     },
     "single_study_internal_80_20": {
-      "r2": 0.985, "rmse": 10.9, "n": 51, "study": "Duber_2024",
+      "r2": 0.985,
+      "rmse": 10.9,
+      "n": 51,
+      "study": "Duber_2024",
       "script": "python/pipeline/05_intrastudy_transferability_table5.py"
     }
   },
-
   "table_3b_grouped_schemes": {
     "loso_full_genus_set_tier4": {
       "_tolerance": "exact",
-      "r2_mean": -0.095, "r2_sd": 0.387, "rmse": 93.1, "rmse_sd": 47.0,
-      "n": 184, "grouping": "study (7 groups)",
+      "r2_mean": -0.095,
+      "r2_sd": 0.387,
+      "rmse": 93.1,
+      "rmse_sd": 47.0,
+      "n": 184,
+      "grouping": "study (7 groups)",
       "uses_per_fold_shap_top25": false,
       "uses_subsampling": false,
       "script": "python/pipeline/02_loso_by_study.py",
@@ -122,94 +173,199 @@
     },
     "loso_shap_top25_dynamic": {
       "_tolerance": "environment_sensitive",
-      "r2_mean": -0.493, "r2_sd": 0.375, "rmse": 105.2, "n": 184,
+      "r2_mean": -0.493,
+      "r2_sd": 0.375,
+      "rmse": 105.2,
+      "n": 184,
       "uses_per_fold_shap_top25": true,
       "script": "python/pipeline/02_loso_by_study.py"
     },
     "groupkfold_vessel_cstr_only": {
       "_tolerance": "environment_sensitive",
-      "r2_mean": 0.036, "r2_sd": 0.197, "rmse": 105.5, "n": 151,
+      "r2_mean": 0.036,
+      "r2_sd": 0.197,
+      "rmse": 105.5,
+      "n": 151,
       "grouping": "physical reactor",
       "uses_per_fold_shap_top25": true,
       "script": "python/pipeline/04_vessel_grouped_deployability.py"
     },
     "groupkfold_vessel_all_reactors": {
       "_tolerance": "environment_sensitive",
-      "r2_mean": 0.046, "r2_sd": 0.158, "rmse": 106.9, "n": 184,
+      "r2_mean": 0.046,
+      "r2_sd": 0.158,
+      "rmse": 106.9,
+      "n": 184,
       "grouping": "physical reactor",
       "uses_per_fold_shap_top25": true,
       "script": "python/pipeline/04_vessel_grouped_deployability.py"
     },
     "platform_transfer_raw_counts": {
       "_tolerance": "exact",
-      "r2": -0.207, "rmse": 147.9, "train_n": 130, "test_n": 54,
+      "r2": -0.207,
+      "rmse": 147.9,
+      "train_n": 130,
+      "test_n": 54,
       "uses_subsampling": false,
       "script": "python/pipeline/06_cross_platform_transfer.py"
     },
     "platform_transfer_relative_abundance": {
       "_tolerance": "exact",
-      "r2": -0.170, "rmse": 145.6, "train_n": 130, "test_n": 54,
+      "r2": -0.17,
+      "rmse": 145.6,
+      "train_n": 130,
+      "test_n": 54,
       "uses_subsampling": false,
       "feature_note": "This configuration includes Ethanol; the raw-counts configuration does not. The difference is intentional and preserved as originally run.",
       "script": "python/pipeline/06_cross_platform_transfer.py"
     }
   },
-
   "table_4_substrate_ladder": {
     "_tolerance": "exact",
     "_script": "python/pipeline/02_loso_by_study.py",
     "_note": "No subsampling. All eight values reproduce to three decimals across platforms.",
     "cstr_only": {
-      "tier_1_operational_plus_genera":  {"r2": -0.163, "sd": 0.413, "rmse": 104.2, "rmse_sd": 40.4},
-      "tier_2_plus_foundational_feeds":  {"r2": -0.198, "sd": 0.410, "rmse": 105.8, "rmse_sd": 41.2},
-      "tier_3_plus_intermediates":       {"r2": -0.376, "sd": 0.573, "rmse": 110.5, "rmse_sd": 38.5},
-      "tier_4_plus_downstream_proxies":  {"r2": -0.425, "sd": 0.297, "rmse": 112.3, "rmse_sd": 30.6}
+      "tier_1_operational_plus_genera": {
+        "r2": -0.163,
+        "sd": 0.413,
+        "rmse": 104.2,
+        "rmse_sd": 40.4
+      },
+      "tier_2_plus_foundational_feeds": {
+        "r2": -0.198,
+        "sd": 0.41,
+        "rmse": 105.8,
+        "rmse_sd": 41.2
+      },
+      "tier_3_plus_intermediates": {
+        "r2": -0.376,
+        "sd": 0.573,
+        "rmse": 110.5,
+        "rmse_sd": 38.5
+      },
+      "tier_4_plus_downstream_proxies": {
+        "r2": -0.425,
+        "sd": 0.297,
+        "rmse": 112.3,
+        "rmse_sd": 30.6
+      }
     },
     "full_matrix": {
-      "tier_1_operational_plus_genera":  {"r2": -0.775, "sd": 0.723, "rmse": 111.9, "rmse_sd": 44.5},
-      "tier_2_plus_foundational_feeds":  {"r2": -0.923, "sd": 0.644, "rmse": 117.9, "rmse_sd": 46.0},
-      "tier_3_plus_intermediates":       {"r2": -0.320, "sd": 0.309, "rmse": 101.9, "rmse_sd": 45.1},
-      "tier_4_plus_downstream_proxies":  {"r2": -0.095, "sd": 0.387, "rmse": 93.1,  "rmse_sd": 47.0}
+      "tier_1_operational_plus_genera": {
+        "r2": -0.775,
+        "sd": 0.723,
+        "rmse": 111.9,
+        "rmse_sd": 44.5
+      },
+      "tier_2_plus_foundational_feeds": {
+        "r2": -0.923,
+        "sd": 0.644,
+        "rmse": 117.9,
+        "rmse_sd": 46.0
+      },
+      "tier_3_plus_intermediates": {
+        "r2": -0.32,
+        "sd": 0.309,
+        "rmse": 101.9,
+        "rmse_sd": 45.1
+      },
+      "tier_4_plus_downstream_proxies": {
+        "r2": -0.095,
+        "sd": 0.387,
+        "rmse": 93.1,
+        "rmse_sd": 47.0
+      }
     },
-    "chemistry_only_no_genera": {"r2": -0.516, "sd": 0.840, "rmse": 104.0, "rmse_sd": 44.1}
+    "chemistry_only_no_genera": {
+      "r2": -0.516,
+      "sd": 0.84,
+      "rmse": 104.0,
+      "rmse_sd": 44.1
+    }
   },
-
   "table_5_intrastudy_reactor_transfer": {
     "_tolerance": "environment_sensitive",
     "_script": "python/pipeline/05_intrastudy_transferability_table5.py",
     "_note": "Small training partitions (n = 3 to 30) with subsampling active make these the most environment-sensitive values in the project. Judge by sign and Spearman rho rather than by R2 magnitude.",
-    "Brodowski_2022":  {"split": "B1->B2", "train_n": 9,  "test_n": 7,  "r2": 0.442,  "rmse": 97.7,  "mae": 90.1,  "spearman_rho": 0.324},
-    "Brodowski_2025":  {"split": "B1->B2", "train_n": 7,  "test_n": 7,  "r2": 0.400,  "rmse": 58.3,  "mae": 41.3,  "spearman_rho": 0.964},
-    "Duber_2022":      {"split": "R1->R2", "train_n": 3,  "test_n": 3,  "r2": 0.008,  "rmse": 43.6,  "mae": 26.8,  "spearman_rho": 1.000},
-    "Hanna_2025":      {"split": "B1->B2", "train_n": 25, "test_n": 29, "r2": -0.140, "rmse": 99.0,  "mae": 76.5,  "spearman_rho": 0.792},
-    "Duber_2024":      {"split": "B1->B2", "train_n": 30, "test_n": 21, "r2": -5.869, "rmse": 150.8, "mae": 114.9, "spearman_rho": -0.569}
+    "Brodowski_2022": {
+      "split": "B1->B2",
+      "train_n": 9,
+      "test_n": 7,
+      "r2": 0.442,
+      "rmse": 97.7,
+      "mae": 90.1,
+      "spearman_rho": 0.324
+    },
+    "Brodowski_2025": {
+      "split": "B1->B2",
+      "train_n": 7,
+      "test_n": 7,
+      "r2": 0.4,
+      "rmse": 58.3,
+      "mae": 41.3,
+      "spearman_rho": 0.964
+    },
+    "Duber_2022": {
+      "split": "R1->R2",
+      "train_n": 3,
+      "test_n": 3,
+      "r2": 0.008,
+      "rmse": 43.6,
+      "mae": 26.8,
+      "spearman_rho": 1.0
+    },
+    "Hanna_2025": {
+      "split": "B1->B2",
+      "train_n": 25,
+      "test_n": 29,
+      "r2": -0.14,
+      "rmse": 99.0,
+      "mae": 76.5,
+      "spearman_rho": 0.792
+    },
+    "Duber_2024": {
+      "split": "B1->B2",
+      "train_n": 30,
+      "test_n": 21,
+      "r2": -5.869,
+      "rmse": 150.8,
+      "mae": 114.9,
+      "spearman_rho": -0.569
+    }
   },
-
   "figure_3_leakage_tightening_progression": {
     "_note": "The identical Duber_2024 B1(n=30) -> B2(n=21) split evaluated three times as leakage controls were tightened. No sample changed between stages.",
     "stage_1_unscaled_random_forest": {
       "_tolerance": "exact",
-      "r2": 0.217206, "rmsd": 50.892162,
+      "r2": 0.217206,
+      "rmsd": 50.892162,
       "model": "sklearn RandomForestRegressor, deterministic under random_state",
       "leakage_controls": "none; downstream co-products retained, no scaling",
       "script": "python/pipeline/07d_figure3_stage1_random_forest.py"
     },
     "stage_2_intermediate_unscaled_xgboost": {
       "_tolerance": "environment_sensitive",
-      "r2": -0.228, "rmse": 63.736,
+      "r2": -0.228,
+      "rmse": 63.736,
       "leakage_controls": "partial only. Drops sparse/junk columns but NOT valerate, isobutyrate, heptanoate or caprylate; no training-only scaling.",
-      "top_shap_features": ["DAY", "Valerate", "g__Clostridium_sensu_stricto_11", "Isobutyrate", "Acetate"],
+      "top_shap_features": [
+        "DAY",
+        "Valerate",
+        "g__Clostridium_sensu_stricto_11",
+        "Isobutyrate",
+        "Acetate"
+      ],
       "script": "python/pipeline/07c_figure3_intermediate_unscaled_xgboost.py",
       "_caveat": "DAY dominates this model's attribution at roughly five times the next feature. The manuscript (Section 3.5) describes this stage accurately as retaining downstream co-products; do not describe it as leakage-controlled."
     },
     "stage_3_fully_leakage_controlled": {
       "_tolerance": "environment_sensitive",
-      "r2": -5.869, "rmse": 150.8,
+      "r2": -5.869,
+      "rmse": 150.8,
       "leakage_controls": "full; downstream co-products excluded, training-only scaling, sorted feature order",
       "script": "python/pipeline/05_intrastudy_transferability_table5.py"
     }
   },
-
   "permutation_control": {
     "_script": "python/pipeline/03_permutation_test_999.py",
     "observed_r2": {
@@ -231,38 +387,59 @@
       "_note": "Reported as suggestive rather than significant; only seven independent groups are available to permute across."
     }
   },
-
   "algorithm_selection": {
     "_tolerance": "environment_sensitive",
     "_reported_in": "Methods 2.7",
     "_note": "All on the same 4,037-predictor ASV-level feature set and identical 80/20 split (random_state=42), except the LightGBM-RF 'maximum' scope which admits the full chemistry panel.",
-    "xgboost": {"r2": 0.915, "rmse": 27.265},
-    "lightgbm_gbdt": {"r2": 0.861, "rmse": 34.898,
-      "script": "python/pipeline/07b_algorithm_comparison_lightgbm_standard.py"},
+    "xgboost": {
+      "r2": 0.915,
+      "rmse": 27.265
+    },
+    "lightgbm_gbdt": {
+      "r2": 0.861,
+      "rmse": 34.898,
+      "script": "python/pipeline/07b_algorithm_comparison_lightgbm_standard.py"
+    },
     "lightgbm_rf": {
       "script": "python/pipeline/07a_algorithm_comparison_lightgbm_rf.py",
-      "base_ops_plus_asvs":        {"features": 4032, "r2": 0.354, "rmse": 75.267},
-      "ultimate_ops_subs_asvs":    {"features": 4037, "r2": 0.359, "rmse": 74.967},
-      "maximum_ops_all_chems_asvs":{"features": 4049, "r2": 0.657, "rmse": 54.861},
+      "base_ops_plus_asvs": {
+        "features": 4032,
+        "r2": 0.354,
+        "rmse": 75.267
+      },
+      "ultimate_ops_subs_asvs": {
+        "features": 4037,
+        "r2": 0.359,
+        "rmse": 74.967
+      },
+      "maximum_ops_all_chems_asvs": {
+        "features": 4049,
+        "r2": 0.657,
+        "rmse": 54.861
+      },
       "_leakage_demonstration": "Admitting the downstream co-products caprylate, heptanoate and isovalerate raises R2 from 0.359 to 0.657 on an otherwise identical feature scope, nearly doubling apparent accuracy. This is the concrete target-leakage demonstration cited in Methods 2.7 and motivating their exclusion throughout."
     }
   },
-
   "ecological_robustness_claim": {
     "_tolerance": "exact",
     "_reported_in": "Sections 3.7 and 4.3, Figure 5",
     "_definition": "SHAP rank of each taxon by mean absolute attribution, computed per fold across 23 folds spanning LOSO, GroupKFold-by-vessel, shuffled 10-fold, and the Illumina-only 65-genus universe.",
     "Caproiciproducens": {
-      "rank_1_in_folds": 23, "of_folds": 23, "median_rank": 1, "worst_rank": 1,
+      "rank_1_in_folds": 23,
+      "of_folds": 23,
+      "median_rank": 1,
+      "worst_rank": 1,
       "claim": "Leading SHAP contributor in every fold of every architecture tested. This is the paper's stability result."
     },
     "Clostridium_sensu_stricto_12": {
-      "median_rank": 23, "worst_rank": 40,
-      "in_top_10_folds": 2, "in_top_25_folds": 15, "of_folds": 23,
+      "median_rank": 23,
+      "worst_rank": 40,
+      "in_top_10_folds": 2,
+      "in_top_25_folds": 15,
+      "of_folds": 23,
       "claim": "Satisfies the prevalence criterion but NOT the attribution criterion. Classified as a prevalent community member with regime-dependent contribution, not a co-dominant driver. Do not describe it as a leading SHAP contributor."
     }
   },
-
   "known_nonreproducible": {
     "_note": "Recorded deliberately. These are not defects to be fixed.",
     "items": [
@@ -282,5 +459,103 @@
         "action": "Do not remove the sorted() call."
       }
     ]
+  },
+  "shared_subspace_transfer_control": {
+    "_tolerance": "exact",
+    "_script": "python/pipeline/08_shared_genus_transfer_control.py",
+    "_reported_in": "Section 3.6, Supplementary Table S4",
+    "_note": "No subsampling; verified to reproduce identically on an independent OS.",
+    "shared_feature_space": {
+      "genera_total": 170,
+      "detected_illumina": 65,
+      "detected_nanopore": 124,
+      "shared_both_platforms": 19,
+      "illumina_only": 46,
+      "nanopore_only": 105,
+      "shared_mass_illumina_percent": 67.8,
+      "shared_mass_nanopore_percent": 40.8
+    },
+    "illumina_to_nanopore": {
+      "chemistry_ops_only": {
+        "n_feat": 6,
+        "r2": -0.668,
+        "rmse": 173.9,
+        "mae": 135.6,
+        "rho": 0.34
+      },
+      "shared_19_genera_only": {
+        "n_feat": 19,
+        "r2": 0.109,
+        "rmse": 127.1,
+        "mae": 95.9,
+        "rho": 0.493,
+        "_note": "Only positive transfer R2 obtained anywhere in this study. Drops to 0.055 under within-subset renormalization."
+      },
+      "all_170_genera_only": {
+        "n_feat": 170,
+        "r2": -0.214,
+        "rmse": 148.4,
+        "mae": 99.0,
+        "rho": 0.422
+      },
+      "shared_19_plus_chem_ops": {
+        "n_feat": 25,
+        "r2": -0.229,
+        "rmse": 149.3,
+        "mae": 103.4,
+        "rho": 0.122,
+        "_note": "THE KEY TEST. Restricting to shared features does not rescue transfer."
+      },
+      "shared_18_no_unclassified": {
+        "n_feat": 24,
+        "r2": -0.24,
+        "rmse": 149.9,
+        "mae": 106.3,
+        "rho": 0.046
+      },
+      "all_170_plus_chem_ops_baseline": {
+        "n_feat": 176,
+        "r2": -0.171,
+        "rmse": 145.7,
+        "mae": 97.8,
+        "rho": 0.116,
+        "_note": "Reproduces Table 3b (-0.170/145.6); 0.001 offset is sorted vs unsorted feature order."
+      }
+    },
+    "nanopore_to_illumina_reverse": {
+      "shared_19_plus_chem_ops": {
+        "n_feat": 25,
+        "r2": -0.16,
+        "rmse": 116.3,
+        "mae": 86.6,
+        "rho": 0.56
+      },
+      "all_170_plus_chem_ops": {
+        "n_feat": 176,
+        "r2": -0.083,
+        "rmse": 112.3,
+        "mae": 72.6,
+        "rho": 0.544
+      }
+    },
+    "within_illumina_loso_guard": {
+      "_note": "Matched comparison only; not comparable to Table 4's absolute values (different feature tiers, 6-group universe).",
+      "shared_19_plus_chem_ops": {
+        "r2_mean": -5.573,
+        "sd": 8.474
+      },
+      "illumina_65_plus_chem_ops": {
+        "r2_mean": -1.328,
+        "sd": 0.832
+      },
+      "shared_19_only": {
+        "r2_mean": -12.888,
+        "sd": 27.095
+      },
+      "illumina_65_only": {
+        "r2_mean": -1.317,
+        "sd": 1.664
+      }
+    }
   }
 }
