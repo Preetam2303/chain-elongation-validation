@@ -463,7 +463,7 @@
   "shared_subspace_transfer_control": {
     "_tolerance": "exact",
     "_script": "python/pipeline/08_shared_genus_transfer_control.py",
-    "_reported_in": "Section 3.6, Supplementary Table S4",
+    "_reported_in": "Section 3.6, Supplementary Table S6",
     "_note": "No subsampling; verified to reproduce identically on an independent OS.",
     "shared_feature_space": {
       "genera_total": 170,
