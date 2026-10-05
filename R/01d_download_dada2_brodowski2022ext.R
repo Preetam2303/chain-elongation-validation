@@ -6,6 +6,14 @@
 
 library(dada2)
 
+# --- Primer removal settings (primer-trimmed rerun) ---
+# EDIT THIS: path to cutadapt (5.2, installed in its own conda environment "cutadapt").
+cutadapt <- "C:/Users/IISiIS-ZWW-233/anaconda3/envs/cutadapt/Scripts/cutadapt.exe"
+primer_fwd <- "CCTACGGGNGGCWGCAG"      # 341F, 17 bases
+primer_rev <- "GACTACHVGGGTATCTAATCC"  # 805R, 21 bases
+# Every output of this run goes into a new dated folder, so earlier results are never overwritten.
+run_tag <- paste0("primer_trimmed_", format(Sys.Date(), "%Y-%m-%d"))
+
 # --- 1. Workspace Setup ---
 # Creating a dedicated folder for the full Brodowski dataset
 # ============================================================================
@@ -60,25 +68,53 @@ fnFs <- sort(list.files(workdir, pattern="_1.fastq.gz", full.names = TRUE))
 fnRs <- sort(list.files(workdir, pattern="_2.fastq.gz", full.names = TRUE))
 sample.names <- sapply(strsplit(basename(fnFs), "_"), `[`, 1)
 
-filt_path <- file.path(workdir, "filtered")
+# All outputs of this run go into the dated run folder; the old filtered/ folder and .rds are left untouched.
+run_dir <- file.path(workdir, run_tag)
+if(file.exists(file.path(run_dir, "seqtab_Brodowski_PRJNA715197_Master.rds"))) stop("This run already finished: ", run_dir, ". Rename or move that folder before rerunning.")
+if(!dir.exists(run_dir)) dir.create(run_dir)
+
+# --- 5. Primer Removal (cutadapt) ---
+# The 341F/805R primers are cut off before DADA2. A fixed trimLeft cut is not used because some primer
+# copies are 1-2 bases shorter than 17/21 bases; cutadapt finds where the primer ends in each read.
+# ^ anchors each primer at the start of the read, -e 2 allows up to 2 mismatches or indels, and
+# read pairs missing either primer are discarded (--discard-untrimmed with --pair-filter=any).
+# The ~464 bp amplicon is longer than the reads, so the opposite primer never appears at the read ends.
+cut_path <- file.path(run_dir, "cutadapt")
+if(!dir.exists(cut_path)) dir.create(cut_path)
+cutFs <- file.path(cut_path, basename(fnFs))
+cutRs <- file.path(cut_path, basename(fnRs))
+
+message("Removing primers with cutadapt...")
+cut_reports <- lapply(seq_along(fnFs), function(i) {
+  report <- system2(cutadapt, args = c(
+    "-g", paste0("^", primer_fwd), "-G", paste0("^", primer_rev),
+    "-e", "2", "--discard-untrimmed", "--pair-filter=any", "--report=minimal",
+    "-o", shQuote(cutFs[i]), "-p", shQuote(cutRs[i]),
+    shQuote(fnFs[i]), shQuote(fnRs[i])), stdout = TRUE)
+  if(!is.null(attr(report, "status"))) stop("cutadapt failed on ", basename(fnFs[i]))
+  read.delim(text = report)
+})
+
+filt_path <- file.path(run_dir, "filtered")
 if(!dir.exists(filt_path)) dir.create(filt_path)
 filtFs <- file.path(filt_path, paste0(sample.names, "_F_filt.fastq.gz"))
 filtRs <- file.path(filt_path, paste0(sample.names, "_R_filt.fastq.gz"))
 names(filtFs) <- sample.names
 names(filtRs) <- sample.names
 
-# --- 5. Filtering & Trimming ---
+# --- 6. Filtering & Trimming ---
 message("Filtering reads... (This will take a moment)")
-out <- filterAndTrim(fnFs, filtFs, fnRs, filtRs, truncLen=c(250,250),
+# truncLen is the old 250 minus the primer lengths (17, 21), so reads cover the same 16S stretch as before.
+out <- filterAndTrim(cutFs, filtFs, cutRs, filtRs, truncLen=c(233,229),
                      maxN=0, maxEE=c(2,2), truncQ=2, rm.phix=TRUE,
                      compress=TRUE, multithread=FALSE) # CRITICAL for Windows
 
-# --- 6. The Heavy Grind: Learning Errors ---
+# --- 7. The Heavy Grind: Learning Errors ---
 message("Building Error Models across 16 samples. Go hit the gym...")
 errF <- learnErrors(filtFs, multithread=FALSE)
 errR <- learnErrors(filtRs, multithread=FALSE)
 
-# --- 7. Denoising & Merging ---
+# --- 8. Denoising & Merging ---
 message("Denoising and Merging... almost done.")
 derepFs <- derepFastq(filtFs, verbose=FALSE)
 derepRs <- derepFastq(filtRs, verbose=FALSE)
@@ -88,17 +124,42 @@ dadaRs <- dada(derepRs, err=errR, multithread=FALSE)
 
 mergers <- mergePairs(dadaFs, derepFs, dadaRs, derepRs, verbose=FALSE)
 
-# --- 8. Generate Sequence Table & Save ---
+# --- 9. Generate Sequence Table & Save ---
 seqtab.master <- makeSequenceTable(mergers)
 
 message("Saving Master Sequence Table...")
-saveRDS(seqtab.master, "seqtab_Brodowski_PRJNA715197_Master.rds")
+saveRDS(seqtab.master, file.path(run_dir, "seqtab_Brodowski_PRJNA715197_Master.rds"))
 
 message("==========================================================")
 message("PIPELINE COMPLETE. Master table safely saved as .rds file.")
 message("Dimensions of final matrix:")
 print(dim(seqtab.master))
 message("==========================================================")
+
+# --- 10. Stage 1 Checks & Read Tracking ---
+# No ASV should still start with the 341F primer or end with the reverse complement of 805R.
+asvs <- colnames(seqtab.master)
+message("ASVs starting with 341F (CCTACGGG): ", sum(grepl("^CCTACGGG", asvs)), "  (should be 0)")
+message("ASVs ending with 805R reverse complement: ",
+        sum(grepl("GGATTAGATACCC[CGT][AGT]GTAGTC$", asvs)), "  (should be 0)")
+
+# Reads kept at each step, per sample. merged_old_run is the same sample in the old (primers kept) run.
+getN <- function(x) sum(getUniques(x))
+track <- data.frame(sample = sample.names,
+                    raw = sapply(cut_reports, `[[`, "in_reads"),
+                    primers_removed = sapply(cut_reports, `[[`, "out_reads"),
+                    filtered = out[, "reads.out"],
+                    denoisedF = sapply(dadaFs, getN),
+                    denoisedR = sapply(dadaRs, getN),
+                    merged = sapply(mergers, getN))
+track$pct_with_primers <- round(100 * track$primers_removed / track$raw, 1)
+track$pct_merged_of_filtered <- round(100 * track$merged / track$filtered, 1)
+old_file <- file.path(workdir, "seqtab_Brodowski_PRJNA715197_Master.rds")
+if(file.exists(old_file)) {
+  track$merged_old_run <- rowSums(readRDS(old_file))[track$sample]
+}
+write.csv(track, file.path(run_dir, "read_tracking_Brodowski_PRJNA715197_Master.csv"), row.names = FALSE)
+print(track)
 #########################
 # ==============================================================================
 # POST-PIPELINE CLEANING: REMOVING THE MOCK CONTROL
@@ -109,7 +170,9 @@ message("==========================================================")
 setwd("C:/Users/IISiIS-ZWW-233/Documents/BIOTWIN_Brodowski_Full")
 
 # 2. Load the master sequence table back into R
-seqtab.master <- readRDS("seqtab_Brodowski_PRJNA715197_Master.rds")
+# If you closed RStudio, also set run_dir to this run's dated folder, e.g.
+# run_dir <- "C:/Users/IISiIS-ZWW-233/Documents/BIOTWIN_Brodowski_Full/primer_trimmed_YYYY-MM-DD"
+seqtab.master <- readRDS(file.path(run_dir, "seqtab_Brodowski_PRJNA715197_Master.rds"))
 
 # Check the original size before modifications (Should print: 16  [number of ASVs])
 message("Original matrix dimensions:")
@@ -126,6 +189,6 @@ print(dim(seqtab.cleaned))
 
 # 5. Save the cleaned matrix to a brand new file
 # Pro-tip: Saving it under a new name keeps your original 16-sample file safe as a backup
-saveRDS(seqtab.cleaned, "seqtab_Brodowski_PRJNA715197_Cleaned.rds")
+saveRDS(seqtab.cleaned, file.path(run_dir, "seqtab_Brodowski_PRJNA715197_Cleaned.rds"))
 
 message("Operation successful! Cleaned matrix saved as seqtab_Brodowski_PRJNA715197_Cleaned.rds")
