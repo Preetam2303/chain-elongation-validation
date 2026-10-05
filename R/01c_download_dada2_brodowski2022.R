@@ -111,16 +111,16 @@ out <- filterAndTrim(cutFs, filtFs, cutRs, filtRs, truncLen=c(233,229),
 
 # --- 7. Learning Errors ---
 message("Building Error Models across 10 samples...")
-errF <- learnErrors(filtFs, multithread=FALSE)
-errR <- learnErrors(filtRs, multithread=FALSE)
+errF <- learnErrors(filtFs, multithread=TRUE)
+errR <- learnErrors(filtRs, multithread=TRUE)
 
 # --- 8. Denoising & Merging ---
 message("Denoising and Merging...")
 derepFs <- derepFastq(filtFs, verbose=FALSE)
 derepRs <- derepFastq(filtRs, verbose=FALSE)
 
-dadaFs <- dada(derepFs, err=errF, multithread=FALSE)
-dadaRs <- dada(derepRs, err=errR, multithread=FALSE)
+dadaFs <- dada(derepFs, err=errF, multithread=TRUE)
+dadaRs <- dada(derepRs, err=errR, multithread=TRUE)
 
 mergers <- mergePairs(dadaFs, derepFs, dadaRs, derepRs, verbose=FALSE)
 
