@@ -20,7 +20,7 @@ workdir <- "C:/Users/IISiIS-ZWW-233/Documents/BIOTWIN_Grand_Merge"
 setwd(workdir)
 message("Working directory set to: ", getwd())
 
-# Read from, and write into, the primer-trimmed run folder made by 03_grand_merge.R (run 03 first).
+# Read from, and write into, the primer-trimmed run folder made by 02_grand_merge.R (run 02 first).
 run_dir <- Sys.glob(file.path(workdir, "primer_trimmed_*"))
 if(length(run_dir) != 1) stop("Expected exactly one primer_trimmed_* folder in ", workdir, ", found ", length(run_dir))
 if(file.exists(file.path(run_dir, "ASV_Taxonomy_Master.csv"))) stop("Taxonomy already assigned in ", run_dir, ". Rename or move that folder before rerunning.")

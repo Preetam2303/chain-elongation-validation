@@ -6,7 +6,7 @@
 # sequencing run); the same organism receives different ASV IDs in different
 # labs, so any cross-study comparison must operate at genus level or above.
 #
-# Input: the six short-read (Illumina) sequence tables merged in 03_grand_merge.R
+# Input: the six short-read (Illumina) sequence tables merged in 02_grand_merge.R
 #        and 04_metadata_merge.R (BIOTWIN_FINAL_ML_MATRIX.csv), plus the
 #        long-read (Nanopore) contribution bridged to SILVA nomenclature
 #        (see nanopore/ notebook -- taxonomy synonym dictionary resolving
