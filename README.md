@@ -116,6 +116,9 @@ data/
   BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv   The canonical 184-sample matrix.
                                               Used by every script except
                                               07a/07b/07c/07d below.
+  study_provenance.csv                       One row per short-read study: Paper_ID,
+                                              R script, paper, sequence accession used
+                                              and the one the paper states, sample counts.
   historical/
     BIOTWIN_GENUS_ML_MATRIX.csv              Used by 07c and 07d -- an
                                               intermediate snapshot predating
