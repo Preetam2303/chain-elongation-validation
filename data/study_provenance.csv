@@ -1,0 +1,7 @@
+Paper_ID,dada2_study_key,R_script,paper_file,accession_used,accession_stated_in_paper,samples_sequenced_in_rerun,rows_in_matrix,note
+Duber_2020,Duber_2020,01a_download_dada2_duber2020.R,Duber 2020_Evaluation of the feed composition ... open culture fermentation.pdf,ERP114146,ERP114146,9,9,ERR3200162 is the seed sludge (day 0). The paper's 9 sequenced samples are the inoculum + days 7-125 + the flow-sorted active-cell fraction 107-P6 (Chelex DNA extraction).
+Duber_2022,Duber_2022,01b_download_dada2_duber2022.R,lactate-and-ethanol-chain-elongation-in-the-presence-of-lactose-insight-into-product-selectivity-and-microbiome.pdf,PRJNA808231,PRJNA808231,19,27,
+Brodowski_2022,Brodowski_2022,01c_download_dada2_brodowski2022.R,Brodowski_2022.pdf,PRJNA833049,PRJNA833049,10,13,
+Brodowski_2022_EXTERNAL_ACETATE,Brodowski_PRJNA715197,01d_download_dada2_brodowski2022ext.R,Effect of external acetate on lactate-based carboxylate platform ... hydrogen co-production.pdf,PRJNA715197,PRJNA694955 (BioSamples SAMN18336565-SAMN18336580),15,16,PRJNA715197 confirmed by the paper's first author as holding this study's data. The paper's Data section names PRJNA694955 instead. Mock community removed in 01d (16 -> 15 samples).
+Brodowski_2025,Brodowski_2025,01e_download_dada2_brodowski2025.R,Brodowski_2025.pdf,PRJNA1078716,PRJNA1078716,15,14,
+Duber_2024,Duber_2025,01f_download_dada2_duber2024.R,Duber_2024.pdf,PRJNA1079195,PRJNA1079195,53,51,Paper_ID says 2024 while the R study key says 2025; same study. 16S samples only (shotgun and ITS runs excluded).
