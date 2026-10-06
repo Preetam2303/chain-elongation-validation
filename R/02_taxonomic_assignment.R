@@ -20,6 +20,12 @@ workdir <- "C:/Users/IISiIS-ZWW-233/Documents/BIOTWIN_Grand_Merge"
 setwd(workdir)
 message("Working directory set to: ", getwd())
 
+# Read from, and write into, the primer-trimmed run folder made by 03_grand_merge.R (run 03 first).
+run_dir <- Sys.glob(file.path(workdir, "primer_trimmed_*"))
+if(length(run_dir) != 1) stop("Expected exactly one primer_trimmed_* folder in ", workdir, ", found ", length(run_dir))
+if(file.exists(file.path(run_dir, "ASV_Taxonomy_Master.csv"))) stop("Taxonomy already assigned in ", run_dir, ". Rename or move that folder before rerunning.")
+message("Run folder: ", run_dir)
+
 # ==============================================================================
 # 2. DOWNLOAD SILVA v138.1 REFERENCE DATABASES
 # ==============================================================================
@@ -49,11 +55,13 @@ if(!file.exists(species_file)) {
 # 3. LOAD DATA AND ASSIGN TAXONOMY
 # ==============================================================================
 message("Loading master matrix from local NVMe SSD...")
-seqtab.nochim <- readRDS("BIOTWIN_Global_Master_Matrix_NoChim.rds")
+seqtab.nochim <- readRDS(file.path(run_dir, "BIOTWIN_Global_Master_Matrix_NoChim.rds"))
 
 message("Assigning taxonomy...")
 # Taking full advantage of the Intel Ultra 5 and 32GB RAM. 
-# RcppParallel will utilize multiple cores here to process the 18,870 ASVs.
+# RcppParallel will utilize multiple cores here.
+# assignTaxonomy uses random bootstrapping; the fixed seed makes the assignments reproducible.
+set.seed(100)
 taxa <- assignTaxonomy(seqtab.nochim, train_file, multithread = TRUE)
 
 message("Adding species level assignments...")
@@ -88,7 +96,17 @@ rownames(taxa_df) <- NULL
 # ==============================================================================
 # 5. EXPORT PREPARED ASSETS
 # ==============================================================================
-write.csv(asv_counts, "ASV_Count_Matrix_Clean.csv", row.names = FALSE)
-write.csv(taxa_df, "ASV_Taxonomy_Master.csv", row.names = FALSE)
+write.csv(asv_counts, file.path(run_dir, "ASV_Count_Matrix_Clean.csv"), row.names = FALSE)
+write.csv(taxa_df, file.path(run_dir, "ASV_Taxonomy_Master.csv"), row.names = FALSE)
 
-message("Pipeline complete. Clean ASV CSVs are saved in BIOTWIN_Grand_Merge.")
+# Record the software and reference versions used (Stage 0 of the rerun plan).
+writeLines(c(paste("Date:", Sys.time()),
+             R.version.string,
+             paste("dada2", as.character(packageVersion("dada2"))),
+             paste("SILVA training set:", train_file),
+             paste("SILVA species file:", species_file),
+             paste("cutadapt:", tryCatch(system2("C:/Users/IISiIS-ZWW-233/anaconda3/envs/cutadapt/Scripts/cutadapt.exe", "--version", stdout = TRUE),
+                                         error = function(e) "not found"))),
+           file.path(run_dir, "versions_R_dada2_silva.txt"))
+
+message("Pipeline complete. Clean ASV CSVs are saved in ", run_dir)
