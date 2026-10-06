@@ -18,8 +18,9 @@ This repository contains the complete pipeline: raw sequence processing through 
 ```
 R/                     Sequence processing, in the order it was actually run
   01a-01f_...           DADA2 processing for each of the six short-read studies
-  02_taxonomic_assignment.R
-  03_grand_merge.R       Merges the six studies' ASV tables into one matrix
+  02_grand_merge.R       Merges the six studies' ASV tables into one matrix and
+                          removes chimeras
+  03_taxonomic_assignment.R  Assigns SILVA v138.1 taxonomy to the merged ASVs
   04_metadata_merge.R    Joins operational/metabolite metadata (Day-0 inoculum
                           duplication logic, NA-vs-zero handling)
 
