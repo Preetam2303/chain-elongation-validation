@@ -119,6 +119,13 @@ data/
   study_provenance.csv                       One row per short-read study: Paper_ID,
                                               R script, paper, sequence accession used
                                               and the one the paper states, sample counts.
+  corrections/
+    excluded_samples.csv                     Samples removed from the modelling data,
+                                              each with its reason and source.
+    metadata_corrections.csv                 Cell-level fixes (old value, new value,
+                                              source, reason), applied by
+                                              R/04_metadata_merge.R (Illumina) and at
+                                              the Nanopore merge (Hanna_2025 rows).
   historical/
     BIOTWIN_GENUS_ML_MATRIX.csv              Used by 07c and 07d -- an
                                               intermediate snapshot predating

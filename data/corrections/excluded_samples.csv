@@ -1,0 +1,2 @@
+Paper_ID,Sample_ID,reason,source
+Duber_2020,ERR3200169,"Flow-sorted active-cell fraction 107-P6 (Chelex DNA extraction), not a reactor community sample; it was given the bulk day-107 chemistry.",SRA/ENA metadata PRJEB31575: sample name 107-P6_S35; Duber et al. 2020 Methods 2.1; community matches the paper's 107-P6 (audit 2026-10-06)
