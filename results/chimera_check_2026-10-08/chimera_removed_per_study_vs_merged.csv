@@ -1,0 +1,7 @@
+"study","samples","reads_before","reads_kept_merged_consensus","reads_kept_per_study_consensus","pct_removed_merged","pct_removed_per_study"
+"Brodowski_PRJNA715197",15,1436953,887573,868593,38.2,39.6
+"Brodowski_2025",15,1577313,1331287,1323922,15.6,16.1
+"Brodowski_2022",10,985217,571728,569135,42,42.2
+"Duber_2025",53,2213329,1394547,1393675,37,37
+"Duber_2022",19,982974,865333,864820,12,12
+"Duber_2020",9,667033,558492,557763,16.3,16.4

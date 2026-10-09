@@ -144,6 +144,24 @@ data/
 
 All four dataset snapshots are provided so the complete history behind Figure 3 -- not just its final, headline number -- stays runnable, in keeping with this repository's whole premise: every reported number traceable to a script that produces it.
 
+## Primer-trimmed rerun: chimera removal
+
+After primer trimming, chimera removal (`removeBimeraDenovo`, consensus method, DADA2's default `minFoldParentOverAbundance = 1.5`) still removes far more reads in three studies than in the other three. The setting was kept at the default. The two checks behind that choice are in `R/diagnostics/`, and their outputs are in `results/chimera_check_2026-10-08/`.
+
+- `chimera_check_per_study.R`: running consensus once per study removes the same share of reads as running it once on the merged table (for example, 42.2% vs 42.0% for Brodowski 2022), so merging the studies is not the cause.
+- `chimera_fold_sensitivity.R`: percent of reads removed per study when a chimera's parents must be at least 1.5, 4 or 8 times as abundant as it.
+
+| Study | 1.5× (used) | 4× | 8× |
+|---|---|---|---|
+| Brodowski_PRJNA715197 (external acetate) | 39.6 | 32.4 | 26.4 |
+| Brodowski_2022 | 42.2 | 37.7 | 32.2 |
+| Duber_2025 | 37.0 | 34.8 | 28.5 |
+| Brodowski_2025 | 16.1 | 15.9 | 15.7 |
+| Duber_2022 | 12.0 | 10.7 | 9.9 |
+| Duber_2020 | 16.4 | 15.8 | 14.2 |
+
+Even at 8× the first three studies lose 26-32% of reads, so most of their loss is not an artefact of the parent-abundance threshold. In one Brodowski 2022 sample (SRR18962128), the most abundant flagged sequences were 1-2 base variants of abundant Enterobacteriaceae sequences. BLAST could not separate them from their parents: flagged sequences and parents all matched type strains at 99.3-99.8% identity over their full length.
+
 ## Resolved during development (kept here for the record)
 
 - Figure 3's full three-stage progression (R²=0.217 → −0.228 → −5.869) is backed end to end: `07d_figure3_stage1_random_forest.py`, `07c_figure3_intermediate_unscaled_xgboost.py`, and `05_intrastudy_transferability_table5.py` respectively.
