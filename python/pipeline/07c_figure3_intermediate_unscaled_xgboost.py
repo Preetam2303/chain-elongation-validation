@@ -23,9 +23,12 @@
 #      unaffected and the overall three-step "tightening rigor" narrative
 #      still holds.
 #
-# Expected output (confirmed against the original run):
-#   Intra-Study R-squared (R2): -0.228
-#   Intra-Study RMSE: 63.736 mM C
+# Published output (-0.228, RMSE 63.736 mM C) came from a run with
+# subsample/colsample_bytree 0.8. Since 2026-10-10 every XGBoost model uses
+# the shared settings in pipeline_settings.py (no subsampling), so the number
+# reproduces exactly. The broad predictor list is kept on purpose: Figure 3
+# shows what this earlier, looser setup gives. It reads the Illumina genus
+# matrix from 00 (BIOTWIN_GENUS), so inoculum samples are not in it.
 
 import os
 import pandas as pd
@@ -34,6 +37,9 @@ import xgboost as xgb
 import shap
 from sklearn.metrics import root_mean_squared_error, r2_score
 import warnings
+
+from pipeline_settings import XGB_PARAMS
+
 warnings.filterwarnings('ignore')
 
 # 1. Load the (historical) genus-level matrix
@@ -65,12 +71,9 @@ y_train = pd.to_numeric(df_train[TARGET_METABOLITE], errors='coerce').fillna(0)
 X_test = df_test.drop(columns=[TARGET_METABOLITE, 'BIOREACTOR']).apply(pd.to_numeric, errors='coerce').dropna(axis=1, how='all')
 y_test = pd.to_numeric(df_test[TARGET_METABOLITE], errors='coerce').fillna(0)
 
-X_test = X_test[X_train.columns]  # align columns; no scaling applied at this stage
+X_test = X_test.reindex(columns=X_train.columns)  # align columns; no scaling applied at this stage
 
-xgb_params = {
-    'n_estimators': 150, 'learning_rate': 0.05, 'max_depth': 3,
-    'subsample': 0.8, 'colsample_bytree': 0.8, 'random_state': 42, 'n_jobs': -1,
-}
+xgb_params = {k: v for k, v in XGB_PARAMS.items() if k != 'enable_categorical'}  # all predictors numeric here
 
 print("\n--- TRAINING INTRA-STUDY MODEL (LIU ET AL. REPLICATION) ---")
 model = xgb.XGBRegressor(**xgb_params).fit(X_train, y_train)

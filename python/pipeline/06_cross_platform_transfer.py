@@ -1,58 +1,55 @@
+# 06_cross_platform_transfer.py
+# Table 3b, platform transfer: train on all Illumina rows, test on the Nanopore
+# study, with the core predictor set and the settings in pipeline_settings.py
+# (no subsampling). Run twice: genera as raw read counts and as relative
+# abundance. The training-mean benchmark (predict the Illumina rows' mean
+# caproate) is printed next to them (review item 5).
+#
+# Spearman rho between measured and predicted caproate is computed on
+# sampling-day means, so the Nanopore triplicates count once (18 days).
+
 import os
-import pandas as pd
-import numpy as np
+import warnings
+
 import xgboost as xgb
-from sklearn.metrics import root_mean_squared_error, r2_score
 
-# 1. Load the merged dataset
+from pipeline_settings import (CAT_COLS, CORE_CHEM, NANOPORE_ID, OPS, TARGET, XGB_PARAMS, load_matrix,
+                               present, r2_rmse, sampling_units, save_table, spearman_by_unit,
+                               training_mean_r2_rmse)
+
+warnings.filterwarnings('ignore')
+
 file_path = os.environ.get("BIOTWIN_MATRIX", "../../data/BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv")
-df = pd.read_csv(file_path)
 
-hania_paper_id = 'Hanna_2025'  # Exact string for Hania's dataset
+table = []
+for relative, label in [(False, "raw counts"), (True, "relative abundance")]:
+    df, genus_cols = load_matrix(file_path, relative=relative)
+    units = sampling_units(df)
+    train_df = df[df['Paper_ID'] != NANOPORE_ID]
+    test_df = df[df['Paper_ID'] == NANOPORE_ID]
+    features = sorted(set(genus_cols + present(OPS + CORE_CHEM + CAT_COLS, df)))
 
-# 2. Convert Bacteria to Relative Abundance (Row-wise normalization)
-genus_cols = [col for col in df.columns if col.startswith('g__')]
-df[genus_cols] = df[genus_cols].fillna(0)
+    model = xgb.XGBRegressor(**XGB_PARAMS).fit(train_df[features], train_df[TARGET])
+    y_pred = model.predict(test_df[features])
+    r2, rmse = r2_rmse(test_df[TARGET], y_pred)
+    rho, n_days = spearman_by_unit(test_df[TARGET], y_pred, units[test_df.index])
 
-# Divide each cell by its sample's total genus reads
-row_sums = df[genus_cols].sum(axis=1)
-# Prevent division by zero if a sample has 0 total reads
-row_sums = row_sums.replace(0, 1) 
-df[genus_cols] = df[genus_cols].div(row_sums, axis=0)
+    print(f"--- {label.upper()}: ILLUMINA -> NANOPORE TRANSFER ---")
+    print(f"Training Samples (Illumina): {len(train_df)}")
+    print(f"Testing Samples (Nanopore): {len(test_df)} ({n_days} sampling days)")
+    print(f"Features: {len(features)}")
+    print(f"Transfer R2:   {r2:.3f}")
+    print(f"Transfer RMSE: {rmse:.3f} mM C")
+    print(f"Spearman rho (sampling-day means): {rho:.3f}")
+    table.append({'table': 'Table 3b', 'scheme': f'Platform transfer, {label}', 'model': 'XGBoost, core set',
+                  'train_n': len(train_df), 'test_n': len(test_df), 'r2': r2, 'rmse': rmse,
+                  'spearman_rho_day_means': rho})
 
-# 3. Hard Split: Train on Illumina (Master), Test on Nanopore (Hania)
-train_df = df[df['Paper_ID'] != hania_paper_id].copy()
-test_df = df[df['Paper_ID'] == hania_paper_id].copy()
-
-# 4. Define Features and Target
-TARGET = 'Caproate'
-op_and_substrates = ['PH', 'TEMP', 'HRT', 'Lactate', 'Acetate', 'Ethanol']
-
-# Intersect to keep only features present in the dataframe
-features = genus_cols + [col for col in op_and_substrates if col in df.columns]
-
-X_train = train_df[features].apply(pd.to_numeric, errors='coerce').fillna(0)
-y_train = pd.to_numeric(train_df[TARGET], errors='coerce').fillna(0)
-
-X_test = test_df[features].apply(pd.to_numeric, errors='coerce').fillna(0)
-y_test = pd.to_numeric(test_df[TARGET], errors='coerce').fillna(0)
-
-# 5. Train on Short-Read, Test on Long-Read
-model = xgb.XGBRegressor(
-    n_estimators=150, 
-    learning_rate=0.05, 
-    max_depth=3, 
-    random_state=42
-).fit(X_train, y_train)
-
-y_pred = model.predict(X_test)
-
-# 6. Print Results
-print("--- RELATIVE ABUNDANCE ILLUMINA -> NANOPORE TRANSFER ---")
-print(f"Training Samples (Illumina): {X_train.shape[0]}")
-print(f"Testing Samples (Nanopore): {X_test.shape[0]}")
-print(f"Transfer R2:   {r2_score(y_test, y_pred):.3f}")
-print(f"Transfer RMSE: {root_mean_squared_error(y_test, y_pred):.3f} mM C")
-
-
-
+b_r2, b_rmse = training_mean_r2_rmse(train_df[TARGET], test_df[TARGET])
+print("--- TRAINING-MEAN BENCHMARK (predict the Illumina mean) ---")
+print(f"Benchmark R2:   {b_r2:.3f}")
+print(f"Benchmark RMSE: {b_rmse:.3f} mM C")
+table.append({'table': 'Table 3b', 'scheme': 'Platform transfer', 'model': 'Training-mean benchmark',
+              'train_n': len(train_df), 'test_n': len(test_df), 'r2': b_r2, 'rmse': b_rmse,
+              'spearman_rho_day_means': float('nan')})
+save_table(table, "06_platform_transfer.csv")

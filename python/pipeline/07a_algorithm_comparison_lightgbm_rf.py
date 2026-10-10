@@ -6,16 +6,23 @@
 # comparisons in this project). This is the run that surfaced the concrete
 # target-leakage demonstration cited in Methods 2.7: admitting the full
 # chemistry panel, including the downstream co-products caprylate, heptanoate
-# and isovalerate, nearly doubles apparent accuracy (0.359 -> 0.657) on an
-# otherwise identical feature scope, motivating their exclusion from every
-# leakage-controlled script elsewhere in this pipeline (Methods 2.5).
+# and isovalerate, nearly doubled apparent accuracy (0.359 -> 0.657 in the
+# published run) on an otherwise identical feature scope, motivating their
+# exclusion from every leakage-controlled script elsewhere in this pipeline
+# (Methods 2.5).
 #
-# Expected output (confirmed against the original run):
-#   1. Base Model (Ops + ASVs):                    R2 = 0.354, RMSE = 75.267 mM C
-#   2. Ultimate Model (Ops + Limited Subs + ASVs):  R2 = 0.359, RMSE = 74.967 mM C
-#   3. Maximum Model (Ops + All Chems + ASVs):      R2 = 0.657, RMSE = 54.861 mM C
-#   Winner: Maximum Model, R2 = 0.657 -- still well below XGBoost's 0.915 on
-#   the equivalent feature scope (see 02_loso_by_study.py / Table 3a).
+# Feature scopes follow the decision of 2026-10-10 (pipeline_settings.py):
+#   1. Base:     pH, temperature, HRT, the 2 categoricals + ASVs
+#   2. Ultimate: the core set (adds lactate, acetate, ethanol, butyrate,
+#                propionate) + ASVs
+#   3. Maximum:  the core set + the Illumina-only compounds (valerate,
+#                isovalerate, caprylate, heptanoate, isocaproate) + ASVs, the
+#                leakage demonstration
+# NaOH, DAY and the other never-modelled columns are no longer used; blank
+# (unmeasured) cells stay blank. The values published before this change
+# (0.354 / 0.359 / 0.657) came from the earlier scopes, which included NaOH and
+# DAY. LightGBM's Random-Forest mode needs bagging (subsample < 1), so this
+# script keeps it; it is the only model in the pipeline that samples rows.
 #
 # Note: this operates on the ASV-level (pre-genus-collapse) matrix, not the
 # 184-sample genus-level matrix used throughout the rest of this pipeline --
@@ -31,6 +38,8 @@ from sklearn.metrics import root_mean_squared_error, r2_score
 import shap
 import copy
 
+from pipeline_settings import CAT_COLS, CORE_CHEM, ILLUMINA_ONLY_TIER3, ILLUMINA_ONLY_TIER4, OPS, TARGET
+
 # ==============================================================================
 # 1. LOAD THE PRUNED MATRIX & IDENTIFY ASVs
 # ==============================================================================
@@ -42,27 +51,27 @@ core_asvs = [col for col in df.columns if str(col).startswith('ASV_')]
 print(f"Loaded {df.shape[0]} samples and {len(core_asvs)} core ASVs.")
 
 # ==============================================================================
-# 2. PREPROCESS (FIX ONLY CAPROATE NaNs)
+# 2. PREPROCESS: numeric predictors, unmeasured cells left blank
 # ==============================================================================
-TARGET_METABOLITE = 'Caproate'
-op_cols = ['PH', 'TEMP', 'HRT', 'NAOH', 'DAY']
-substrate_cols = ['Lactate', 'Acetate', 'Butyrate', 'Ethanol', 'Propionate']
-all_chem_cols = ['Lactate', 'Lactose', 'succinate', 'Acetate', 'Propionate',
-                  'Isobutyrate', 'Butyrate', 'Isovalerate', 'Valerate',
-                  'Isocaproate', 'Heptanoate', 'Caprylate', 'Ethanol',
-                  'i-propanol', 'Propanol', 'izo-butanol', 'Butanol']
+TARGET_METABOLITE = TARGET
+base_cols = OPS + CAT_COLS
+core_cols = OPS + CORE_CHEM + CAT_COLS
+maximum_cols = core_cols + ILLUMINA_ONLY_TIER3 + ILLUMINA_ONLY_TIER4
 
-df[TARGET_METABOLITE] = pd.to_numeric(df[TARGET_METABOLITE], errors='coerce').fillna(0)
-for col in op_cols + all_chem_cols:
+for col in OPS + CORE_CHEM + ILLUMINA_ONLY_TIER3 + ILLUMINA_ONLY_TIER4 + [TARGET]:
     df[col] = pd.to_numeric(df[col], errors='coerce')
+for col in CAT_COLS:
+    df[col] = df[col].astype('category')
+if df[TARGET].isna().any():
+    raise SystemExit("Caproate is missing in the ASV-level matrix; every modelled row needs it.")
 
 # ==============================================================================
 # 3. SETUP THE LIGHTGBM RANDOM FOREST
 # ==============================================================================
 models_to_test = {
-    "1. Base Model (Ops + ASVs)": op_cols + core_asvs,
-    "2. Ultimate Model (Ops + Limited Subs + ASVs)": op_cols + substrate_cols + core_asvs,
-    "3. Maximum Model (Ops + All Chems + ASVs)": op_cols + all_chem_cols + core_asvs,
+    "1. Base Model (Ops + categoricals + ASVs)": base_cols + core_asvs,
+    "2. Ultimate Model (core set + ASVs)": core_cols + core_asvs,
+    "3. Maximum Model (core set + Illumina-only compounds + ASVs)": maximum_cols + core_asvs,
 }
 
 # 'rf' boosting_type requires both bagging and feature sampling to be < 1.0
@@ -110,6 +119,11 @@ print("=" * 50)
 print("\nCalculating SHAP values for the winning model...")
 explainer = shap.TreeExplainer(best_model)
 shap_values = explainer(best_X_test)
-print("SHAP values calculated. Top features by mean |SHAP| for the Maximum model "
-      "should show isovalerate, heptanoate, and caprylate leading -- the target-"
-      "leakage demonstration cited in Methods 2.7.")
+mean_abs = pd.Series(np.abs(shap_values.values).mean(axis=0), index=best_X_test.columns)
+# Only the order is printed: for LightGBM's Random-Forest mode the SHAP values
+# are summed over trees rather than averaged, so their size is not in mM C.
+print(f"Top 10 features by mean |SHAP| ({best_name}):")
+for rank, feature in enumerate(mean_abs.sort_values(ascending=False, kind='mergesort').head(10).index, 1):
+    print(f"  {rank:2d}. {feature}")
+print("If the Maximum model wins and the Illumina-only compounds (caprylate, heptanoate, "
+      "isovalerate) lead, that is the target-leakage demonstration cited in Methods 2.7.")

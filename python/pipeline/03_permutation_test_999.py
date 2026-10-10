@@ -1,101 +1,94 @@
-import pandas as pd
-import numpy as np
-import xgboost as xgb
-from sklearn.model_selection import LeaveOneGroupOut
-from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import r2_score
-import time
+# 03_permutation_test_999.py
+# Target-permutation control for the headline (Section 3.2, Figure 2): the
+# full-matrix LOSO with exactly the core predictor set, the same model as
+# Table 3b's LOSO row and Table 4's full-matrix tier 3 (02_loso_by_study.py).
+#
+# Caproate is shuffled by sampling unit, not by row (decision 2026-10-08): the
+# three same-day replicate samples of Duber 2024 and of the Nanopore study
+# share one caproate value, so they move together; every other row is its own
+# unit. Shuffle i uses random_state = i, as before. The observed value is
+# computed in the same run, with the true labels and the same features.
+#
+# p = (k + 1) / (N + 1), where k is the number of shuffles whose mean LOSO R2
+# reaches the observed one.
+#
+# Output (in BIOTWIN_RESULTS_DIR, default ../../results):
+#   permutation_null_distribution_<N>.csv   every shuffle's mean LOSO R2
+# Set BIOTWIN_N_PERMUTATIONS (default 999) to e.g. 20 for a quick check.
+
 import os
+import time
 import warnings
+
+import numpy as np
+import pandas as pd
+import xgboost as xgb
+from sklearn.metrics import r2_score
+from sklearn.model_selection import LeaveOneGroupOut
+
+from pipeline_settings import (CAT_COLS, CORE_CHEM, OPS, TARGET, XGB_PARAMS, load_matrix, present,
+                               sampling_units, scale)
+
 warnings.filterwarnings('ignore')
 
-# ==============================================================================
-# CONFIG
-# ==============================================================================
 MATRIX_PATH = os.environ.get("BIOTWIN_MATRIX", "../../data/BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv")
 OUTPUT_DIR = os.environ.get("BIOTWIN_RESULTS_DIR", "../../results")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
+N_ITERATIONS = int(os.environ.get("BIOTWIN_N_PERMUTATIONS", 999))
 
-df = pd.read_csv(MATRIX_PATH, low_memory=False)
+df, genus_cols = load_matrix(MATRIX_PATH)
+features = sorted(set(present(OPS + CORE_CHEM + CAT_COLS, df) + genus_cols))
+X = df[features]
+papers = df['Paper_ID']
+y_true = df[TARGET]
 
-genus_cols = sorted([col for col in df.columns if col.startswith('g__')])
-df[genus_cols] = df[genus_cols].fillna(0)
-row_sums = df[genus_cols].sum(axis=1).replace(0, 1)
-df[genus_cols] = df[genus_cols].div(row_sums, axis=0)
-
-TARGET = 'Caproate'
-cat_cols = ['Feed_Complexity', 'Primary_Carbon_Signature']
-for c in cat_cols:
-    if c in df.columns:
-        df[c] = df[c].astype('category')
-
-papers_cstr = df['Paper_ID'].astype(str).str.strip()
-y_true = pd.to_numeric(df[TARGET], errors='coerce').fillna(0)
-
-all_chems = ['Lactate', 'Acetate', 'Ethanol', 'Butyrate', 'Valerate', 'Isovalerate', 'Propionate', 'Caprylate', 'Heptanoate']
-base_ops = sorted([col for col in df.columns if col not in genus_cols + cat_cols + ['Paper_ID', 'Sample_ID', 'BIOREACTOR', 'Operation_Mode', 'DAY', TARGET, 'succinate'] + all_chems and not pd.api.types.is_string_dtype(df[col])])
-
-valid_features = sorted(list(set(base_ops + cat_cols + genus_cols + all_chems)))
-X = df[valid_features].copy()
-numeric_cols = [col for col in X.columns if col not in cat_cols]
-for c in numeric_cols:
-    X[c] = pd.to_numeric(X[c], errors='coerce').fillna(0)
-
-N_ITERATIONS = int(os.environ.get("BIOTWIN_N_PERMUTATIONS", 999))  # set to e.g. 20 to sanity-check first, then run the real 999
-
-logo = LeaveOneGroupOut()
-xgb_params = {'n_estimators': 150, 'learning_rate': 0.05, 'max_depth': 3, 'random_state': 42, 'n_jobs': -1, 'enable_categorical': True, 'tree_method': 'hist'}
+# Precompute the folds and their scaled predictors once; only y changes per shuffle.
+folds = []
+for train_idx, test_idx in LeaveOneGroupOut().split(X, y_true, groups=papers):
+    if len(test_idx) > 1:
+        X_train, X_test = scale(X.iloc[train_idx], X.iloc[test_idx])
+        folds.append((train_idx, test_idx, X_train, X_test))
 
 
 def loso_mean_r2(y):
     fold_r2 = []
-    for train_idx, test_idx in logo.split(X, y, groups=papers_cstr):
-        X_train, X_test = X.iloc[train_idx].copy(), X.iloc[test_idx].copy()
-        y_train, y_test = y.iloc[train_idx], y.iloc[test_idx]
-
-        scaler = StandardScaler()
-        if len(numeric_cols) > 0:
-            X_train[numeric_cols] = scaler.fit_transform(X_train[numeric_cols])
-            X_test[numeric_cols] = scaler.transform(X_test[numeric_cols])
-
-        model = xgb.XGBRegressor(**xgb_params).fit(X_train, y_train)
-        y_pred = model.predict(X_test)
-        if len(y_test) > 1:
-            fold_r2.append(r2_score(y_test, y_pred))
+    for train_idx, test_idx, X_train, X_test in folds:
+        model = xgb.XGBRegressor(**XGB_PARAMS).fit(X_train, y.iloc[train_idx])
+        fold_r2.append(r2_score(y.iloc[test_idx], model.predict(X_test)))
     return np.mean(fold_r2)
 
 
-# The observed value is computed here, with the true labels and the same
-# features, so it always matches the matrix being tested (-0.095 on the
-# published matrix; it used to be typed in by hand).
+units = sampling_units(df)
+unit_values = y_true.groupby(units).first()   # one caproate value per sampling unit
+unit_order = unit_values.index
+
+
+def shuffled_target(seed):
+    shuffled = pd.Series(unit_values.sample(frac=1.0, random_state=seed).values, index=unit_order)
+    return pd.Series(units.map(shuffled).values, index=df.index)
+
+
 TRUE_OBSERVED_R2 = round(loso_mean_r2(y_true), 3)
 
-print(f"\n--- EXECUTING FORMAL {N_ITERATIONS}-ITERATION TARGET PERMUTATION TEST ---")
-print(f"Benchmarking against Observed True-Label LOGO R2: {TRUE_OBSERVED_R2}")
+print(f"\n--- {N_ITERATIONS}-SHUFFLE TARGET PERMUTATION TEST (headline: full-matrix LOSO, core set) ---")
+print(f"Rows: {len(df)} | sampling units shuffled: {len(unit_values)} "
+      f"(same-day replicates move together) | predictors: {len(features)}")
+print(f"Observed LOSO R2 (true labels): {TRUE_OBSERVED_R2}")
 print("-" * 80)
 
 permuted_r2_scores = []
 start_time = time.time()
-
 for iteration in range(1, N_ITERATIONS + 1):
-    y_permuted = y_true.sample(frac=1.0, random_state=iteration).reset_index(drop=True)
-    iter_mean_r2 = loso_mean_r2(y_permuted)
+    iter_mean_r2 = loso_mean_r2(shuffled_target(iteration))
     permuted_r2_scores.append(iter_mean_r2)
-
     if iteration % 10 == 0 or iteration == 1 or iteration == N_ITERATIONS:
         elapsed = time.time() - start_time
         print(f"Iteration {iteration:03d}/{N_ITERATIONS} | Permuted LOGO R2: {iter_mean_r2:6.3f} | Elapsed Time: {elapsed:.1f}s")
 
-# ==============================================================================
-# NEW: save EVERY iteration's result (not just the printed subset) -- this is
-# the file Figure 2 will load. This is also the file that belongs in the
-# GitHub repository's results/ directory once we get there.
-# ==============================================================================
-results_df = pd.DataFrame({
-    'iteration': range(1, N_ITERATIONS + 1),
-    'permuted_r2': permuted_r2_scores,
-})
+results_df = pd.DataFrame({'iteration': range(1, N_ITERATIONS + 1), 'permuted_r2': permuted_r2_scores})
 save_path = os.path.join(OUTPUT_DIR, f'permutation_null_distribution_{N_ITERATIONS}.csv')
+if os.path.exists(save_path):
+    raise SystemExit(f"{save_path} already exists.")
 results_df.to_csv(save_path, index=False)
 
 k_beats = sum(r2 >= TRUE_OBSERVED_R2 for r2 in permuted_r2_scores)
@@ -103,7 +96,8 @@ empirical_p_val = (k_beats + 1) / (N_ITERATIONS + 1)
 
 print("-" * 80)
 print(f"NULL DISTRIBUTION SUMMARY (N={N_ITERATIONS}):")
-print(f"  Mean Permuted R2 : {np.mean(permuted_r2_scores):.3f} (\u00b1 {np.std(permuted_r2_scores):.3f})")
+print(f"  Mean Permuted R2 : {np.mean(permuted_r2_scores):.3f} (± {np.std(permuted_r2_scores):.3f}); "
+      f"median {np.median(permuted_r2_scores):.3f}")
 print(f"  True Observed R2 : {TRUE_OBSERVED_R2:.3f}")
 print(f"  Shuffles Beating True Model (k) : {k_beats} / {N_ITERATIONS}")
 print(f"  --> EMPIRICAL P-VALUE : p = {empirical_p_val:.4f}")

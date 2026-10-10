@@ -14,12 +14,17 @@ library(dplyr)
 workdir <- "C:/Users/IISiIS-ZWW-233/Documents/BIOTWIN_Grand_Merge"
 setwd(workdir)
 
-# Read from, and write into, the primer-trimmed run folder made by 02_grand_merge.R and 03_taxonomic_assignment.R.
+# Read from the primer-trimmed run folder made by 02_grand_merge.R and 03_taxonomic_assignment.R, and write
+# the corrected run into a new dated folder inside it (corrected_<date>), so earlier outputs stay untouched.
 # The metadata Excel file and the old BIOTWIN_FINAL_ML_MATRIX.csv stay in workdir itself.
 run_dir <- Sys.glob(file.path(workdir, "primer_trimmed_*"))
 if(length(run_dir) != 1) stop("Expected exactly one primer_trimmed_* folder in ", workdir, ", found ", length(run_dir))
-if(file.exists(file.path(run_dir, "BIOTWIN_FINAL_ML_MATRIX.csv"))) stop("Metadata already merged in ", run_dir, ". Rename or move that folder before rerunning.")
+existing <- Sys.glob(file.path(run_dir, "corrected_????-??-??"))
+if(length(existing) > 0) stop("A corrected-run folder already exists: ", paste(existing, collapse = ", "), ". Rename or move it (for example add _try1 to its name) before rerunning.")
+out_dir <- file.path(run_dir, paste0("corrected_", format(Sys.Date(), "%Y-%m-%d")))
+dir.create(out_dir)
 message("Run folder: ", run_dir)
+message("Writing to: ", out_dir)
 
 # 2. Load the Clean ASV Matrix
 message("Loading ASV Count Matrix...")
@@ -51,6 +56,9 @@ excluded$Sample_ID <- gsub("[^a-zA-Z0-9]", "", excluded$Sample_ID)
 corrections$Sample_ID <- gsub("[^a-zA-Z0-9]", "", corrections$Sample_ID)
 
 # Applies the corrections to a metadata table, after checking each cell still holds the old value.
+# An old value of NA means the cell must be blank (NA, empty or the text "NA").
+is_blank <- function(x) is.na(x) || as.character(x) %in% c("", "NA")
+is_blank_vec <- function(x) is.na(x) | as.character(x) %in% c("", "NA")
 apply_corrections <- function(tab, corrections) {
   for(i in seq_len(nrow(corrections))) {
     k <- corrections[i, ]
@@ -58,10 +66,15 @@ apply_corrections <- function(tab, corrections) {
     if(length(row) != 1) stop("Correction ", i, ": expected one row for ", k$Sample_ID, ", found ", length(row))
     current <- tab[[k$column]][row]
     num_old <- suppressWarnings(as.numeric(k$old_value))
-    same <- if(is.na(num_old)) identical(as.character(current), as.character(k$old_value))
-            else isTRUE(abs(as.numeric(current) - num_old) < 0.01)
+    same <- if(is_blank(k$old_value)) is_blank(current)
+            else if(is.na(num_old)) identical(as.character(current), as.character(k$old_value))
+            else isTRUE(abs(suppressWarnings(as.numeric(current)) - num_old) < 0.01)
     if(!same) stop("Correction ", i, ": ", k$Sample_ID, " ", k$column, " is ", current, ", expected old value ", k$old_value)
-    tab[[k$column]][row] <- if(is.character(tab[[k$column]])) as.character(k$new_value) else as.numeric(k$new_value)
+    num_new <- suppressWarnings(as.numeric(k$new_value))
+    if(is.character(tab[[k$column]]) && !is.na(num_new) && all(is_blank_vec(tab[[k$column]]) | !is.na(suppressWarnings(as.numeric(tab[[k$column]]))))) {
+      tab[[k$column]] <- suppressWarnings(as.numeric(tab[[k$column]]))  # a numeric column read as text because of "NA" cells
+    }
+    tab[[k$column]][row] <- if(is.character(tab[[k$column]])) as.character(k$new_value) else num_new
   }
   tab
 }
@@ -77,6 +90,8 @@ message("Executing Inner Join on Sample_ID...")
 final_ml_matrix <- inner_join(metadata, asv_matrix, by = "Sample_ID")
 
 # 5. Validation Checks
+# All rows stay in this matrix, including the 17 inoculum rows; 00_prevalence_filter_genus.py leaves the
+# inoculum rows out of the modelling matrices (data/corrections/descriptive_only_samples.csv).
 expected_rows <- 130 - n_excluded_rows
 message("--- Merge Validation ---")
 message("Expected Rows: ", expected_rows, " (122 raw 16S samples + 8 added by the B1/B2 inoculum split, minus ", n_excluded_rows, " excluded)")
@@ -118,7 +133,8 @@ if(file.exists(old_file)) {
 
 # 6. Export the Final Asset
 message("Exporting final BIOTWIN ML Matrix...")
-write.csv(final_ml_matrix, file.path(run_dir, "BIOTWIN_FINAL_ML_MATRIX.csv"), row.names = FALSE)
+write.csv(final_ml_matrix, file.path(out_dir, "BIOTWIN_FINAL_ML_MATRIX.csv"), row.names = FALSE)
+message("Saved: ", file.path(out_dir, "BIOTWIN_FINAL_ML_MATRIX.csv"))
 
 message("==========================================================")
 message("PIPELINE COMPLETE. Data is locked and ready for modeling.")
