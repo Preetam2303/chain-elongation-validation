@@ -13,7 +13,8 @@ shap==0.52.0
 matplotlib==3.10.6
 seaborn==0.13.2
 
-# Platform used for every reported number (matters: see README's
-# reproducibility note -- subsample/colsample_bytree make results
-# environment-sensitive across builds, not just across versions):
+# Platform used for every reported number. The published numbers used
+# subsample/colsample_bytree, which made them environment-sensitive across
+# builds; since 2026-10-10 the pipeline uses no subsampling (see README's
+# reproducibility note):
 #   Python 3.13.9, Windows

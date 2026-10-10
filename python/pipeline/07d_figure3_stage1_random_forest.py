@@ -7,10 +7,9 @@
 # -0.228 (07c) -> -5.869 (05), as leakage controls were progressively
 # tightened on the identical Duber et al. (2025) B1->B2 samples.
 #
-# Requires the historical BIOTWIN_GENUS_ML_MATRIX.csv snapshot (see
-# ../../data/historical/), the same file 07c depends on -- this and 07c are
-# the two scripts in this repository that are not reproducible from
-# 01_genus_aggregation.py's current output.
+# Like 07c, it loads an Illumina genus matrix (BIOTWIN_GENUS_ML_MATRIX.csv):
+# run_stage6.py points it at the corrected run's matrix from 00; run on its
+# own it reads the published-run snapshot in ../../data/historical/.
 #
 # Published output (Duber_2024 B1 -> B2: R2 0.217) came from the historical
 # matrix with rows paired by row order. Since 2026-10-10 the pairs are named
@@ -18,7 +17,9 @@
 # unmeasured cells stay blank instead of 0 (scikit-learn's random forest
 # handles blanks), and the matrix is the run's Illumina genus matrix from 00
 # (BIOTWIN_GENUS), without inoculum samples. The broad predictor list is kept
-# on purpose: Figure 3 shows what this earliest, loosest setup gives.
+# on purpose: Figure 3 shows what this earliest, loosest setup gives. The
+# random forest draws bootstrap samples of rows (scikit-learn's default); it
+# is seeded (random_state=42), so the number reproduces exactly.
 #
 # (Paper_ID "Duber_2024" is the internal pipeline label for what is cited
 # throughout the manuscript as Duber et al., 2025 -- see Table 1.)
@@ -30,14 +31,14 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import r2_score, mean_squared_error
 import warnings
 
-from pipeline_settings import REACTOR_PAIRS
+from pipeline_settings import REACTOR_PAIRS, drop_unmodelled
 
 warnings.filterwarnings('ignore')
 
 # 1. Load the historical genus-level matrix
 file_path = os.environ.get("BIOTWIN_GENUS", "../../data/historical/BIOTWIN_GENUS_ML_MATRIX.csv")
 print("Loading Genus-Level Matrix for Paper-by-Paper Evaluation...")
-df = pd.read_csv(file_path)
+df = drop_unmodelled(pd.read_csv(file_path))
 
 results = []
 

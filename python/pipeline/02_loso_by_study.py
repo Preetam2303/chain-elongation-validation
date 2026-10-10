@@ -90,7 +90,7 @@ runs = [
     # (Table, column, label, data, features, top25)
     ("Table 4", "full matrix", "Tier 1: pH, temperature, HRT, categoricals + genera", df, tier1, False),
     ("Table 4", "full matrix", "Tier 2: + lactate, acetate, ethanol", df, tier2, False),
-    ("Table 4", "full matrix", "Tier 3: + butyrate, propionate (core set; HEADLINE)", df, tier3_core, False),
+    ("Tables 3b and 4", "full matrix", "Tier 3: + butyrate, propionate (core set; HEADLINE)", df, tier3_core, False),
     ("Table 4", "Illumina-only", "Tier 1: pH, temperature, HRT, categoricals + genera", illumina, tier1, False),
     ("Table 4", "Illumina-only", "Tier 2: + lactate, acetate, ethanol", illumina, tier2, False),
     ("Table 4", "Illumina-only", "Tier 3: + butyrate, propionate, valerate, isovalerate", illumina,
@@ -116,7 +116,8 @@ for table_name, column, label, data, features, top25 in runs:
         previous = column
     if column not in benchmark_done:
         print(line("Training-mean benchmark (predict the training studies' mean)", res['mean_r2'], res['mean_rmse']))
-        table.append({'table': 'Tables 3b and 4', 'column': column, 'model': 'Training-mean benchmark',
+        table.append({'table': 'Tables 3b and 4' if column == 'full matrix' else 'Table 4',
+                      'column': column, 'model': 'Training-mean benchmark',
                       'n_rows': len(data), 'n_features': 0,
                       'r2_mean': np.mean(res['mean_r2']), 'r2_sd': np.std(res['mean_r2']),
                       'rmse_mean': np.mean(res['mean_rmse']), 'rmse_sd': np.std(res['mean_rmse']),

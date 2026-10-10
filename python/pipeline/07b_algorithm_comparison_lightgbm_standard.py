@@ -22,7 +22,7 @@ from lightgbm import LGBMRegressor
 from sklearn.metrics import r2_score, root_mean_squared_error
 from sklearn.model_selection import train_test_split
 
-from pipeline_settings import CAT_COLS, CORE_CHEM, OPS, TARGET, XGB_PARAMS
+from pipeline_settings import CAT_COLS, CORE_CHEM, OPS, TARGET, XGB_PARAMS, drop_unmodelled, present
 
 warnings.filterwarnings('ignore')
 
@@ -31,7 +31,7 @@ warnings.filterwarnings('ignore')
 # ==============================================================================
 file_path = os.environ.get("BIOTWIN_PRUNED", "../../data/historical/BIOTWIN_PRUNED_ML_MATRIX.csv")
 print("Loading Pruned ML Matrix...")
-df = pd.read_csv(file_path, low_memory=False)
+df = drop_unmodelled(pd.read_csv(file_path, low_memory=False))
 
 core_asvs = [col for col in df.columns if str(col).startswith('ASV_')]
 
@@ -46,7 +46,8 @@ for col in CAT_COLS:
 if df[TARGET].isna().any():
     raise SystemExit("Caproate is missing in the ASV-level matrix; every modelled row needs it.")
 
-X = df[core_cols + core_asvs]
+# The same columns, in the same order, as the Table 3a single-split baseline
+X = df[sorted(set(present(core_cols, df))) + core_asvs]
 y = df[TARGET]
 # The same 80/20 split as the Table 3a single-split baseline
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)

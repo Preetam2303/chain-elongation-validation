@@ -27,8 +27,9 @@ import shap
 import xgboost as xgb
 from sklearn.model_selection import KFold, train_test_split
 
-from pipeline_settings import (CAT_COLS, CORE_CHEM, OPS, REPLICATE_STUDIES, TARGET, XGB_PARAMS, load_matrix,
-                               present, r2_rmse, sampling_units, save_table, scale)
+from pipeline_settings import (CAT_COLS, CORE_CHEM, OPS, REPLICATE_STUDIES, TARGET, XGB_PARAMS,
+                               drop_unmodelled, load_matrix, present, r2_rmse, sampling_units, save_table,
+                               scale)
 
 warnings.filterwarnings('ignore')
 
@@ -41,6 +42,7 @@ def load_asv_matrix(path):
     df = pd.read_csv(path, low_memory=False)
     for c in ['Paper_ID', 'Sample_ID', 'BIOREACTOR']:
         df[c] = df[c].astype(str).str.strip()
+    df = drop_unmodelled(df)
     for c in OPS + CORE_CHEM + [TARGET]:
         df[c] = pd.to_numeric(df[c], errors='coerce')
     for c in CAT_COLS:

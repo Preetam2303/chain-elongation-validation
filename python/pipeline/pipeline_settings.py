@@ -3,9 +3,10 @@
 # apart. Decided by Preetam on 2026-10-10 (project file
 # rerun/2026-10-10_pr2_plan/DECISION_headline_rows_features_2026-10-10.md):
 #
-#   - Core predictors in every model and every validation scheme: pH,
-#     temperature, HRT, lactate, acetate, ethanol, butyrate, propionate, the
-#     two categorical descriptors, and the genera.
+#   - Core predictors in every validation scheme: pH, temperature, HRT,
+#     lactate, acetate, ethanol, butyrate, propionate, the two categorical
+#     descriptors, and the genera. (Figure 3's first two stages, 07d and 07c,
+#     keep their broader lists on purpose.)
 #   - Headline: full-matrix LOSO with exactly the core set (Table 4 full-matrix
 #     tier 3 = Table 3b's LOSO row).
 #   - Compounds measured only in the Illumina studies (valerate, isovalerate,
@@ -19,10 +20,13 @@
 #     number reproduces exactly on any machine.
 #   - Only predictors are scaled (train rows only); the target never is.
 #
-# Inoculum samples are not in the modelling matrices at all: script 00 leaves
-# them out (data/corrections/descriptive_only_samples.csv).
+# Inoculum samples are never modelled (data/corrections/descriptive_only_samples.csv).
+# Script 00 leaves them out of the corrected-run matrices; drop_unmodelled()
+# also drops them, and the excluded samples, from any other matrix, such as
+# the published ones in data/.
 
 import os
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -68,12 +72,29 @@ NOT_IN_TABLE5 = {
 }
 
 
+CORRECTIONS_DIR = Path(__file__).resolve().parents[2] / 'data' / 'corrections'
+
+
+def drop_unmodelled(df):
+    """Leave out the samples that are never modelled: the inoculum samples
+    (descriptive_only_samples.csv) and the excluded ones (excluded_samples.csv).
+    A no-op on the corrected-run matrices, which no longer contain them."""
+    ids = set()
+    for name in ('descriptive_only_samples.csv', 'excluded_samples.csv'):
+        ids |= set(pd.read_csv(CORRECTIONS_DIR / name)['Sample_ID'].astype(str).str.strip())
+    drop = df['Sample_ID'].astype(str).str.strip().isin(ids)
+    if drop.any():
+        print(f"Rows left out (inoculum or excluded samples, never modelled): {int(drop.sum())}")
+    return df[~drop].reset_index(drop=True)
+
+
 def load_matrix(path, relative=True):
     """Read a modelling matrix. Genera as relative abundance (default), other
     predictors numeric with unmeasured cells left blank. Returns (df, genus_cols)."""
     df = pd.read_csv(path, low_memory=False)
     for c in ['Paper_ID', 'Sample_ID', 'BIOREACTOR']:
         df[c] = df[c].astype(str).str.strip()
+    df = drop_unmodelled(df)
     genus_cols = sorted(c for c in df.columns if c.startswith('g__'))
     df[genus_cols] = df[genus_cols].fillna(0)
     if relative:

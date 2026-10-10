@@ -138,7 +138,8 @@ def main():
     fold_meta = []
 
     # ---- 1. LOSO by study (7 folds) ----
-    X = df[vco + CAT + genus_cols]
+    # Sorted, so the LOSO folds fit exactly the headline model of 02 and 03
+    X = df[sorted(set(vco + CAT + genus_cols))]
     for tr, te in LeaveOneGroupOut().split(X, y, groups=papers):
         held = papers.iloc[te].unique()[0]
         genera, direction = rank_fold(X.iloc[tr], y.iloc[tr], XP, vco + genus_cols)

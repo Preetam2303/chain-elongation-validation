@@ -22,9 +22,8 @@ if(length(run_dir) != 1) stop("Expected exactly one primer_trimmed_* folder in "
 existing <- Sys.glob(file.path(run_dir, "corrected_????-??-??"))
 if(length(existing) > 0) stop("A corrected-run folder already exists: ", paste(existing, collapse = ", "), ". Rename or move it (for example add _try1 to its name) before rerunning.")
 out_dir <- file.path(run_dir, paste0("corrected_", format(Sys.Date(), "%Y-%m-%d")))
-dir.create(out_dir)
 message("Run folder: ", run_dir)
-message("Writing to: ", out_dir)
+message("Will write to: ", out_dir)
 
 # 2. Load the Clean ASV Matrix
 message("Loading ASV Count Matrix...")
@@ -133,6 +132,8 @@ if(file.exists(old_file)) {
 
 # 6. Export the Final Asset
 message("Exporting final BIOTWIN ML Matrix...")
+# The folder is created only now, so a run that stops on a failed correction leaves nothing behind.
+dir.create(out_dir)
 write.csv(final_ml_matrix, file.path(out_dir, "BIOTWIN_FINAL_ML_MATRIX.csv"), row.names = FALSE)
 message("Saved: ", file.path(out_dir, "BIOTWIN_FINAL_ML_MATRIX.csv"))
 

@@ -35,6 +35,9 @@ MATRIX_PATH = os.environ.get("BIOTWIN_MATRIX", "../../data/BIOTWIN_FINAL_GRAND_M
 OUTPUT_DIR = os.environ.get("BIOTWIN_RESULTS_DIR", "../../results")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 N_ITERATIONS = int(os.environ.get("BIOTWIN_N_PERMUTATIONS", 999))
+save_path = os.path.join(OUTPUT_DIR, f'permutation_null_distribution_{N_ITERATIONS}.csv')
+if os.path.exists(save_path):  # checked before the long run, not after it
+    raise SystemExit(f"{save_path} already exists. Set BIOTWIN_RESULTS_DIR to a new folder.")
 
 df, genus_cols = load_matrix(MATRIX_PATH)
 features = sorted(set(present(OPS + CORE_CHEM + CAT_COLS, df) + genus_cols))
@@ -86,9 +89,6 @@ for iteration in range(1, N_ITERATIONS + 1):
         print(f"Iteration {iteration:03d}/{N_ITERATIONS} | Permuted LOGO R2: {iter_mean_r2:6.3f} | Elapsed Time: {elapsed:.1f}s")
 
 results_df = pd.DataFrame({'iteration': range(1, N_ITERATIONS + 1), 'permuted_r2': permuted_r2_scores})
-save_path = os.path.join(OUTPUT_DIR, f'permutation_null_distribution_{N_ITERATIONS}.csv')
-if os.path.exists(save_path):
-    raise SystemExit(f"{save_path} already exists.")
 results_df.to_csv(save_path, index=False)
 
 k_beats = sum(r2 >= TRUE_OBSERVED_R2 for r2 in permuted_r2_scores)

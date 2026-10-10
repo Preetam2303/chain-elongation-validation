@@ -22,12 +22,12 @@
 # (unmeasured) cells stay blank. The values published before this change
 # (0.354 / 0.359 / 0.657) came from the earlier scopes, which included NaOH and
 # DAY. LightGBM's Random-Forest mode needs bagging (subsample < 1), so this
-# script keeps it; it is the only model in the pipeline that samples rows.
+# script keeps it, seeded (random_state=42).
 #
-# Note: this operates on the ASV-level (pre-genus-collapse) matrix, not the
-# 184-sample genus-level matrix used throughout the rest of this pipeline --
-# it predates the genus aggregation step and is retained here exactly as run,
-# for methodological traceability rather than as a headline result.
+# Note: this operates on the ASV-level (pre-genus-collapse) Illumina matrix,
+# not the genus-level matrix used by the validation schemes. It records the
+# algorithm-selection step for methodological traceability rather than a
+# headline result.
 
 import os
 import pandas as pd
@@ -38,14 +38,15 @@ from sklearn.metrics import root_mean_squared_error, r2_score
 import shap
 import copy
 
-from pipeline_settings import CAT_COLS, CORE_CHEM, ILLUMINA_ONLY_TIER3, ILLUMINA_ONLY_TIER4, OPS, TARGET
+from pipeline_settings import (CAT_COLS, CORE_CHEM, ILLUMINA_ONLY_TIER3, ILLUMINA_ONLY_TIER4, OPS, TARGET,
+                               drop_unmodelled)
 
 # ==============================================================================
 # 1. LOAD THE PRUNED MATRIX & IDENTIFY ASVs
 # ==============================================================================
 file_path = os.environ.get("BIOTWIN_PRUNED", "../../data/historical/BIOTWIN_PRUNED_ML_MATRIX.csv")
 print("Loading Pruned ML Matrix...")
-df = pd.read_csv(file_path)
+df = drop_unmodelled(pd.read_csv(file_path))
 
 core_asvs = [col for col in df.columns if str(col).startswith('ASV_')]
 print(f"Loaded {df.shape[0]} samples and {len(core_asvs)} core ASVs.")
