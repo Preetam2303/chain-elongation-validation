@@ -33,6 +33,7 @@
 # Runtime: about a minute. Run from inside python/pipeline/.
 # -----------------------------------------------------------------------------
 
+import os
 import pandas as pd
 import numpy as np
 import xgboost as xgb
@@ -43,7 +44,7 @@ from sklearn.metrics import root_mean_squared_error, r2_score, mean_absolute_err
 import warnings
 warnings.filterwarnings('ignore')
 
-FILE_PATH = "../../data/BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv"
+FILE_PATH = os.environ.get("BIOTWIN_MATRIX", "../../data/BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv")
 NANOPORE_ID = 'Hanna_2025'
 TARGET = 'Caproate'
 OP_AND_SUBSTRATES = ['PH', 'TEMP', 'HRT', 'Lactate', 'Acetate', 'Ethanol']

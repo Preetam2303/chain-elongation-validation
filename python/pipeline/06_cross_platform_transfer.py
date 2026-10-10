@@ -1,10 +1,11 @@
+import os
 import pandas as pd
 import numpy as np
 import xgboost as xgb
 from sklearn.metrics import root_mean_squared_error, r2_score
 
 # 1. Load the merged dataset
-file_path = "../../data/BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv"
+file_path = os.environ.get("BIOTWIN_MATRIX", "../../data/BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv")
 df = pd.read_csv(file_path)
 
 hania_paper_id = 'Hanna_2025'  # Exact string for Hania's dataset

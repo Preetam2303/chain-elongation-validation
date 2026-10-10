@@ -11,6 +11,7 @@
 # Produces both rows of Table 3b's vessel-grouped section: CSTR-only (Mode 1)
 # and all vessel types including batch reactors (Mode 2).
 
+import os
 import pandas as pd
 import numpy as np
 import xgboost as xgb
@@ -21,7 +22,7 @@ from sklearn.metrics import r2_score, root_mean_squared_error
 import warnings
 warnings.filterwarnings('ignore')
 
-MATRIX_PATH = "../../data/BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv"
+MATRIX_PATH = os.environ.get("BIOTWIN_MATRIX", "../../data/BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv")
 df = pd.read_csv(MATRIX_PATH)
 
 genus_cols = [c for c in df.columns if c.startswith('g__')]

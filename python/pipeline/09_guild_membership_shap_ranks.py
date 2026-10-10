@@ -45,6 +45,7 @@
 # Runtime: about two minutes. Run from inside python/pipeline/.
 # -----------------------------------------------------------------------------
 
+import os
 import pandas as pd
 import numpy as np
 import xgboost as xgb
@@ -55,8 +56,8 @@ from sklearn.preprocessing import StandardScaler
 import warnings
 warnings.filterwarnings('ignore')
 
-FILE_PATH = "../../data/BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv"
-GENUS65_PATH = "../../data/historical/BIOTWIN_GENUS_ML_MATRIX.csv"
+FILE_PATH = os.environ.get("BIOTWIN_MATRIX", "../../data/BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv")
+GENUS65_PATH = os.environ.get("BIOTWIN_GENUS", "../../data/historical/BIOTWIN_GENUS_ML_MATRIX.csv")
 NANOPORE_ID = 'Hanna_2025'
 TARGET = 'Caproate'
 CAT = ['Feed_Complexity', 'Primary_Carbon_Signature']
@@ -238,8 +239,8 @@ def main():
     except FileNotFoundError:
         print("\n  [65-genus matrix not found at data/historical/ -- cross-check skipped]")
 
-    s.to_csv("../../results/guild_membership_shap_ranks.csv", index=False)
-    print("\n  Full table written to results/guild_membership_shap_ranks.csv")
+    s.to_csv(os.path.join(os.environ.get("BIOTWIN_RESULTS_DIR", "../../results"), "guild_membership_shap_ranks.csv"), index=False)
+    print("\n  Full table written to " + os.path.join(os.environ.get("BIOTWIN_RESULTS_DIR", "../../results"), "guild_membership_shap_ranks.csv"))
 
 
 if __name__ == "__main__":

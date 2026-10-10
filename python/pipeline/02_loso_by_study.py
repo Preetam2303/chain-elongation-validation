@@ -12,6 +12,7 @@
 # index even under a fixed random_state. This was a real reproducibility bug
 # caught during this project -- see the project log / commit history.
 
+import os
 import pandas as pd
 import numpy as np
 import xgboost as xgb
@@ -21,7 +22,7 @@ from sklearn.metrics import r2_score, root_mean_squared_error
 import warnings
 warnings.filterwarnings('ignore')
 
-MATRIX_PATH = "../../data/BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv"
+MATRIX_PATH = os.environ.get("BIOTWIN_MATRIX", "../../data/BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv")
 
 df = pd.read_csv(MATRIX_PATH)
 

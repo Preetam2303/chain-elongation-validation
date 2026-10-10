@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import numpy as np
 import xgboost as xgb
@@ -6,7 +7,7 @@ from sklearn.metrics import r2_score, root_mean_squared_error
 import warnings
 warnings.filterwarnings('ignore')
 
-file_path = "../../data/BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv"
+file_path = os.environ.get("BIOTWIN_MATRIX", "../../data/BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv")
 print("Loading Grand Merge Matrix for Clean Intra-Study Evaluation...")
 df = pd.read_csv(file_path)
 

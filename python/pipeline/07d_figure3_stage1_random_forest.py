@@ -24,6 +24,7 @@
 # (Paper_ID "Duber_2024" is the internal pipeline label for what is cited
 # throughout the manuscript as Duber et al., 2025 -- see Table 1.)
 
+import os
 import pandas as pd
 import numpy as np
 from sklearn.ensemble import RandomForestRegressor
@@ -32,7 +33,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 # 1. Load the historical genus-level matrix
-file_path = "../../data/historical/BIOTWIN_GENUS_ML_MATRIX.csv"
+file_path = os.environ.get("BIOTWIN_GENUS", "../../data/historical/BIOTWIN_GENUS_ML_MATRIX.csv")
 print("Loading Genus-Level Matrix for Paper-by-Paper Evaluation...")
 df = pd.read_csv(file_path)
 
