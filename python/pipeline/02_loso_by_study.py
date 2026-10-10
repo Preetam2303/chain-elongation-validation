@@ -24,7 +24,7 @@ warnings.filterwarnings('ignore')
 
 MATRIX_PATH = os.environ.get("BIOTWIN_MATRIX", "../../data/BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv")
 
-df = pd.read_csv(MATRIX_PATH)
+df = pd.read_csv(MATRIX_PATH, low_memory=False)
 
 TARGET = 'Caproate'
 papers = df['Paper_ID'].astype(str).str.strip()
@@ -35,11 +35,25 @@ for c in cat_cols:
     if c in df.columns:
         df[c] = df[c].astype('category')
 
+# Genera as relative abundance within each sample, as in 03 and the published
+# Table 4 (raw read counts do not reproduce it).
 genus_cols = sorted([c for c in df.columns if c.startswith('g__')])
-op_params = ['PH', 'TEMP', 'HRT']
+df[genus_cols] = df[genus_cols].fillna(0)
+df[genus_cols] = df[genus_cols].div(df[genus_cols].sum(axis=1).replace(0, 1), axis=0)
+
 foundational_feeds = ['Lactate', 'Acetate', 'Ethanol']
 intermediates = ['Butyrate', 'Valerate', 'Isovalerate', 'Propionate']
 downstream_proxies = ['Caprylate', 'Heptanoate']
+all_chems = foundational_feeds + intermediates + downstream_proxies
+
+# Tier 1 "operational" columns, as published: every numeric column that is not
+# an identifier, the target, succinate or one of the chemistry tiers below.
+# Besides PH, TEMP and HRT this includes Isocaproate, Isobutyrate, Lactose, NAOH
+# and the alcohols (the same base_ops list as 03).
+op_params = sorted([c for c in df.columns
+                    if c not in genus_cols + cat_cols + ['Paper_ID', 'Sample_ID', 'BIOREACTOR', 'Operation_Mode',
+                                                         'DAY', TARGET, 'succinate'] + all_chems
+                    and not pd.api.types.is_string_dtype(df[c])])
 
 step_1_base = op_params + cat_cols + genus_cols
 step_2_feeds = step_1_base + foundational_feeds
@@ -54,12 +68,13 @@ ladders = {
 }
 
 xgb_params = {
-    'n_estimators': 150, 'learning_rate': 0.05, 'max_depth': 3,
-    'subsample': 0.8, 'colsample_bytree': 0.8, 'random_state': 42,
+    # No subsampling, as published for Table 4, so the ladder is exactly reproducible.
+    'n_estimators': 150, 'learning_rate': 0.05, 'max_depth': 3, 'random_state': 42,
     'n_jobs': -1, 'enable_categorical': True, 'tree_method': 'hist',
 }
 
 print("--- RUNNING ZERO-LEAKAGE LOSO SUBSTRATE LADDER (Table 4 / Figure S1) ---")
+print(f"Tier 1 operational columns: {op_params}")
 print("-" * 75)
 
 logo = LeaveOneGroupOut()

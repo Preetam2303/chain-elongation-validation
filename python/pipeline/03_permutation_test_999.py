@@ -41,25 +41,17 @@ numeric_cols = [col for col in X.columns if col not in cat_cols]
 for c in numeric_cols:
     X[c] = pd.to_numeric(X[c], errors='coerce').fillna(0)
 
-TRUE_OBSERVED_R2 = -0.095
-N_ITERATIONS = 999  # <-- set to a small number (e.g. 20) to sanity-check first, then run the real 999
-
-print(f"\n--- EXECUTING FORMAL {N_ITERATIONS}-ITERATION TARGET PERMUTATION TEST ---")
-print(f"Benchmarking against Observed True-Label LOGO R2: {TRUE_OBSERVED_R2}")
-print("-" * 80)
+N_ITERATIONS = int(os.environ.get("BIOTWIN_N_PERMUTATIONS", 999))  # set to e.g. 20 to sanity-check first, then run the real 999
 
 logo = LeaveOneGroupOut()
 xgb_params = {'n_estimators': 150, 'learning_rate': 0.05, 'max_depth': 3, 'random_state': 42, 'n_jobs': -1, 'enable_categorical': True, 'tree_method': 'hist'}
-permuted_r2_scores = []
-start_time = time.time()
 
-for iteration in range(1, N_ITERATIONS + 1):
-    y_permuted = y_true.sample(frac=1.0, random_state=iteration).reset_index(drop=True)
+
+def loso_mean_r2(y):
     fold_r2 = []
-
-    for train_idx, test_idx in logo.split(X, y_permuted, groups=papers_cstr):
+    for train_idx, test_idx in logo.split(X, y, groups=papers_cstr):
         X_train, X_test = X.iloc[train_idx].copy(), X.iloc[test_idx].copy()
-        y_train, y_test = y_permuted.iloc[train_idx], y_permuted.iloc[test_idx]
+        y_train, y_test = y.iloc[train_idx], y.iloc[test_idx]
 
         scaler = StandardScaler()
         if len(numeric_cols) > 0:
@@ -70,8 +62,24 @@ for iteration in range(1, N_ITERATIONS + 1):
         y_pred = model.predict(X_test)
         if len(y_test) > 1:
             fold_r2.append(r2_score(y_test, y_pred))
+    return np.mean(fold_r2)
 
-    iter_mean_r2 = np.mean(fold_r2)
+
+# The observed value is computed here, with the true labels and the same
+# features, so it always matches the matrix being tested (-0.095 on the
+# published matrix; it used to be typed in by hand).
+TRUE_OBSERVED_R2 = round(loso_mean_r2(y_true), 3)
+
+print(f"\n--- EXECUTING FORMAL {N_ITERATIONS}-ITERATION TARGET PERMUTATION TEST ---")
+print(f"Benchmarking against Observed True-Label LOGO R2: {TRUE_OBSERVED_R2}")
+print("-" * 80)
+
+permuted_r2_scores = []
+start_time = time.time()
+
+for iteration in range(1, N_ITERATIONS + 1):
+    y_permuted = y_true.sample(frac=1.0, random_state=iteration).reset_index(drop=True)
+    iter_mean_r2 = loso_mean_r2(y_permuted)
     permuted_r2_scores.append(iter_mean_r2)
 
     if iteration % 10 == 0 or iteration == 1 or iteration == N_ITERATIONS:
