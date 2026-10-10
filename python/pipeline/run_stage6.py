@@ -1,27 +1,28 @@
 # run_stage6.py
-# Stage 6 of the primer-trimmed rerun: run the downstream analyses (02 to 09)
-# on the rerun's matrices, with the published settings, without touching data/
-# or results/.
+# Stage 6 of the primer-trimmed rerun: run the downstream analyses (02 to 10)
+# on the corrected run's matrices, without touching data/ or results/.
 #
 # Each script reads its matrix from an environment variable when it is set,
-# and from data/ otherwise. This runner sets them to the run folder's files:
-#   BIOTWIN_MATRIX       BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv  (00b; 02-06, 08, 09)
-#   BIOTWIN_PRUNED       BIOTWIN_PRUNED_ML_MATRIX.csv              (00; 07a, 07b)
+# and from data/ otherwise. This runner sets them to the files in the run
+# folder's corrected_<date> folder (made by 04_metadata_merge.R, 00 and 00b):
+#   BIOTWIN_MATRIX       BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv  (00b; 02-06, 08-10)
+#   BIOTWIN_PRUNED       BIOTWIN_PRUNED_ML_MATRIX.csv              (00; 07a, 07b, 10)
 #   BIOTWIN_GENUS        BIOTWIN_GENUS_ML_MATRIX.csv               (00; 07c, 07d, 09)
-#   BIOTWIN_RESULTS_DIR  the new dated output folder               (03, 09 write files)
+#   BIOTWIN_RESULTS_DIR  the new dated output folder               (02-06, 09, 10 write tables)
 #
-# Output: a new folder stage6_published_settings_<date> inside the run folder,
-# with one <script>.log per script (everything it printed), the files 03 and 09
-# write, and versions.txt. It refuses to run if that folder already exists.
+# Output: a new folder stage6_corrected_<date> inside the corrected_<date>
+# folder, with one <script>.log per script (everything it printed), the tables
+# the scripts write, and versions.txt. It refuses to run if that folder already
+# exists.
 #
 # Usage, from the repository root:
 #   python python/pipeline/run_stage6.py            all scripts, in order
 #   python python/pipeline/run_stage6.py 02 04 09   only the scripts named
-#   python python/pipeline/run_stage6.py --published 02
-#       environment check: the same scripts on the published matrices in data/,
-#       written to stage6_published_matrix_<date>; on the machine that made the
-#       published numbers, 02 should print tier 4 R2 -0.095 (± 0.387).
-# 03 (the 999-shuffle permutation test) takes about 35 minutes.
+# 03 (the 999-shuffle permutation test) takes the longest.
+#
+# The published numbers (and the 2026-10-10 published-settings check run,
+# with its --published environment check) come from the code at commit
+# 844f478; the settings changed after that.
 
 import datetime
 import glob
@@ -48,12 +49,11 @@ SCRIPTS = [
     "07d_figure3_stage1_random_forest.py",
     "08_shared_genus_transfer_control.py",
     "09_guild_membership_shap_ranks.py",
+    "10_table3a_naive_splits.py",
 ]
 PIPELINE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-args = sys.argv[1:]
-published = "--published" in args
-wanted = [a for a in args if a != "--published"]
+wanted = sys.argv[1:]
 scripts = [s for s in SCRIPTS if not wanted or s.split("_")[0] in wanted]
 unknown = [w for w in wanted if w not in {s.split("_")[0] for s in SCRIPTS}]
 if unknown or not scripts:
@@ -63,31 +63,25 @@ run_dirs = glob.glob(os.path.join(GRAND_MERGE_DIR, "primer_trimmed_*"))
 if len(run_dirs) != 1:
     raise SystemExit(f"Expected exactly one primer_trimmed_* folder in {GRAND_MERGE_DIR}, found {len(run_dirs)}")
 RUN_DIR = run_dirs[0]
-
-if published:
-    data_dir = os.path.join(PIPELINE_DIR, "..", "..", "data")
-    inputs = {
-        "BIOTWIN_MATRIX": os.path.join(data_dir, "BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv"),
-        "BIOTWIN_PRUNED": os.path.join(data_dir, "historical", "BIOTWIN_PRUNED_ML_MATRIX.csv"),
-        "BIOTWIN_GENUS": os.path.join(data_dir, "historical", "BIOTWIN_GENUS_ML_MATRIX.csv"),
-    }
-else:
-    inputs = {
-        "BIOTWIN_MATRIX": os.path.join(RUN_DIR, "BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv"),
-        "BIOTWIN_PRUNED": os.path.join(RUN_DIR, "BIOTWIN_PRUNED_ML_MATRIX.csv"),
-        "BIOTWIN_GENUS": os.path.join(RUN_DIR, "BIOTWIN_GENUS_ML_MATRIX.csv"),
-    }
+corrected_dirs = glob.glob(os.path.join(RUN_DIR, "corrected_????-??-??"))
+if len(corrected_dirs) != 1:
+    raise SystemExit(f"Expected exactly one corrected_<date> folder in {RUN_DIR}, found {len(corrected_dirs)}")
+CORRECTED_DIR = corrected_dirs[0]
+inputs = {
+    "BIOTWIN_MATRIX": os.path.join(CORRECTED_DIR, "BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv"),
+    "BIOTWIN_PRUNED": os.path.join(CORRECTED_DIR, "BIOTWIN_PRUNED_ML_MATRIX.csv"),
+    "BIOTWIN_GENUS": os.path.join(CORRECTED_DIR, "BIOTWIN_GENUS_ML_MATRIX.csv"),
+}
 inputs = {k: os.path.abspath(v) for k, v in inputs.items()}
 for name, path in inputs.items():
     if not os.path.exists(path):
-        raise SystemExit(f"Missing input {path} ({name}). Run 00 and 00b first.")
+        raise SystemExit(f"Missing input {path} ({name}). Run 04_metadata_merge.R, 00 and 00b first.")
 
-label = "stage6_published_matrix" if published else "stage6_published_settings"
-OUT_DIR = os.path.join(RUN_DIR, f"{label}_{datetime.date.today():%Y-%m-%d}")
+OUT_DIR = os.path.join(CORRECTED_DIR, f"stage6_corrected_{datetime.date.today():%Y-%m-%d}")
 if os.path.exists(OUT_DIR):
     raise SystemExit(f"{OUT_DIR} already exists. Rename or move it before rerunning.")
 os.makedirs(OUT_DIR)
-print(f"Run folder: {RUN_DIR}")
+print(f"Corrected-run folder: {CORRECTED_DIR}")
 print(f"Writing to: {OUT_DIR}")
 
 env = dict(os.environ, **inputs, BIOTWIN_RESULTS_DIR=OUT_DIR,

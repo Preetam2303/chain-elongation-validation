@@ -14,11 +14,16 @@
 #   (2) whether "functionally redundant guild" is defensible as a multi-genus
 #       claim, or whether the honest scope is strain-level within one genus.
 #
-# 23 folds across four architectures, matching the paper's own schemes:
-#     7  leave-one-study-out            (170-genus matrix)
-#     5  GroupKFold by physical vessel  (170-genus matrix)
-#    10  shuffled 10-fold               (170-genus matrix)
-#     1  Illumina-only global model     (65-genus matrix, reported separately)
+# 22 folds across three architectures on the full matrix, matching the paper's
+# own schemes, plus one cross-check (fold counts are printed from the run):
+#     7  leave-one-study-out            (full matrix; the headline model)
+#     5  GroupKFold by physical vessel  (full matrix)
+#    10  shuffled 10-fold               (full matrix)
+#     1  Illumina-only global model     (Illumina genus matrix, reported separately)
+# Every model uses the core predictor set and the shared settings
+# (pipeline_settings.py): pH, temperature, HRT, lactate, acetate, ethanol,
+# butyrate, propionate, the 2 categoricals and the genera; unmeasured cells
+# blank; no subsampling.
 #
 # For every genus it reports: median rank, how often it lands in the top 5 /
 # 10 / 25, the spread of its rank, whether it survives when the Nanopore cohort
@@ -30,7 +35,14 @@
 #             model's caproate prediction UP, holding the rest of the model
 #             fixed. This is the model-internal, conditional effect.
 #   raw_rho   Spearman correlation between the genus's abundance and measured
-#             caproate across all 184 samples. Marginal, unconditioned.
+#             caproate across all samples, on sampling-unit means (the three
+#             same-day replicate samples of Duber 2024 and the Nanopore study
+#             count once). Marginal, unconditioned.
+#
+# Within-study check of the guild claim (review item 7): the Spearman
+# correlation of Caproiciproducens abundance with measured caproate inside each
+# study separately, on sampling-unit means. A pooled correlation can come from
+# differences between studies alone; this shows whether it holds within them.
 # A genus with high |SHAP| but shap_dir near zero is being used for splitting
 # without a consistent directional effect -- that is NOT a helper claim.
 #
@@ -54,18 +66,30 @@ from scipy.stats import spearmanr, rankdata
 from sklearn.model_selection import LeaveOneGroupOut, GroupKFold, KFold
 from sklearn.preprocessing import StandardScaler
 import warnings
+
+from pipeline_settings import (CAT_COLS, CORE_CHEM, NANOPORE_ID, OPS, TARGET, XGB_PARAMS, load_matrix,
+                               present, sampling_units)
+
 warnings.filterwarnings('ignore')
 
 FILE_PATH = os.environ.get("BIOTWIN_MATRIX", "../../data/BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv")
 GENUS65_PATH = os.environ.get("BIOTWIN_GENUS", "../../data/historical/BIOTWIN_GENUS_ML_MATRIX.csv")
-NANOPORE_ID = 'Hanna_2025'
-TARGET = 'Caproate'
-CAT = ['Feed_Complexity', 'Primary_Carbon_Signature']
-CHEM_OPS = ['Lactate', 'Acetate', 'Butyrate', 'Ethanol', 'Propionate', 'PH', 'TEMP', 'HRT']
+RESULTS_DIR = os.environ.get("BIOTWIN_RESULTS_DIR", "../../results")
+CAT = CAT_COLS
+CHEM_OPS = CORE_CHEM + OPS
+PRODUCER = 'g__Caproiciproducens'
 
-XP = dict(n_estimators=150, learning_rate=0.05, max_depth=3, random_state=42,
-          n_jobs=-1, enable_categorical=True, tree_method='hist')
-XP_NOCAT = {k: v for k, v in XP.items() if k != 'enable_categorical'}
+XP = XGB_PARAMS
+
+
+def unit_spearman(x, y, units):
+    """Spearman rho and n on sampling-unit means."""
+    t = pd.DataFrame({'x': np.asarray(x, float), 'y': np.asarray(y, float),
+                      'u': np.asarray(units)}).groupby('u')[['x', 'y']].mean()
+    if len(t) < 3 or t['x'].std() == 0 or t['y'].std() == 0:
+        return np.nan, np.nan, len(t)
+    r = spearmanr(t['x'], t['y'])
+    return r.statistic, r.pvalue, len(t)
 
 
 def rank_fold(X_tr, y_tr, params, scale_cols):
@@ -102,26 +126,20 @@ def rank_fold(X_tr, y_tr, params, scale_cols):
 
 
 def main():
-    df = pd.read_csv(FILE_PATH)
-    df['Paper_ID'] = df['Paper_ID'].astype(str).str.strip()
-    genus_cols = sorted([c for c in df.columns if str(c).startswith('g__')])
-    df[genus_cols] = df[genus_cols].fillna(0)
-    df[genus_cols] = df[genus_cols].div(df[genus_cols].sum(axis=1).replace(0, 1), axis=0)
-    for c in CAT:
-        df[c] = df[c].astype('category')
-    vco = [c for c in CHEM_OPS if c in df.columns]
-    for c in vco + genus_cols + [TARGET]:
-        df[c] = pd.to_numeric(df[c], errors='coerce').fillna(0)
+    df, genus_cols = load_matrix(FILE_PATH)
+    vco = present(CHEM_OPS, df)
+    units = sampling_units(df)
 
     y = df[TARGET]
     papers = df['Paper_ID']
-    df['VID'] = papers + "_" + df['BIOREACTOR'].astype(str).str.strip()
+    df['VID'] = papers + "_" + df['BIOREACTOR']
 
     records = []   # one row per (fold, genus)
     fold_meta = []
 
     # ---- 1. LOSO by study (7 folds) ----
-    X = df[vco + CAT + genus_cols]
+    # Sorted, so the LOSO folds fit exactly the headline model of 02 and 03
+    X = df[sorted(set(vco + CAT + genus_cols))]
     for tr, te in LeaveOneGroupOut().split(X, y, groups=papers):
         held = papers.iloc[te].unique()[0]
         genera, direction = rank_fold(X.iloc[tr], y.iloc[tr], XP, vco + genus_cols)
@@ -131,9 +149,8 @@ def main():
                             'rank': r, 'shap': v, 'dir': direction.get(g, np.nan)})
 
     # ---- 2. GroupKFold by vessel (5 folds) ----
-    Xv = df[vco + genus_cols]
-    for i, (tr, te) in enumerate(GroupKFold(n_splits=5).split(Xv, y, groups=df['VID']), 1):
-        genera, direction = rank_fold(Xv.iloc[tr], y.iloc[tr], XP_NOCAT, vco + genus_cols)
+    for i, (tr, te) in enumerate(GroupKFold(n_splits=5).split(X, y, groups=df['VID']), 1):
+        genera, direction = rank_fold(X.iloc[tr], y.iloc[tr], XP, vco + genus_cols)
         fold_meta.append(('GroupKFold', f'fold {i}'))
         for g, (r, v) in genera.items():
             records.append({'arch': 'GroupKFold', 'fold': f'GKF:{i}', 'genus': g,
@@ -150,11 +167,10 @@ def main():
     rec = pd.DataFrame(records)
     n_folds = rec['fold'].nunique()
 
-    # marginal correlation with measured caproate, full 184 samples
+    # marginal correlation with measured caproate, all samples, on sampling-unit means
     raw_rho = {}
     for g in genus_cols:
-        raw_rho[g] = (np.nan if df[g].std() == 0
-                      else spearmanr(df[g], y).statistic)
+        raw_rho[g] = unit_spearman(df[g], y, units)[0]
 
     # ---- summary ----
     rows = []
@@ -180,7 +196,7 @@ def main():
     s = pd.DataFrame(rows).sort_values(['top10', 'median_rank'], ascending=[False, True])
 
     print("=" * 110)
-    print(f"GUILD MEMBERSHIP BY SHAP RANK  --  {n_folds} folds on the 184-sample, 170-genus matrix")
+    print(f"GUILD MEMBERSHIP BY SHAP RANK  --  {n_folds} folds on the {len(df)}-sample, {len(genus_cols)}-genus matrix")
     print("  LOSO = 7 folds | GroupKFold-by-vessel = 5 | Shuffled 10-fold = 10")
     print("=" * 110)
     print(f"{'genus':<34s}{'med':>5s}{'best':>5s}{'wrst':>5s}{'top5':>6s}{'top10':>7s}"
@@ -222,25 +238,50 @@ def main():
               f"median {r['median_rank']:.0f}, shap_dir {r['shap_dir']:+.3f}, "
               f"raw_rho {r['raw_rho']:+.3f}")
 
-    # ---- Illumina-only 65-genus universe, reported separately ----
+    # ---- within-study correlation of the producer with caproate ----
+    print("\n" + "=" * 110)
+    print(f"WITHIN-STUDY CHECK: Spearman rho of {PRODUCER} abundance with measured caproate,")
+    print("inside each study, on sampling-unit means (same-day replicates count once)")
+    print("=" * 110)
+    within = []
+    if PRODUCER in df.columns:
+        for study, d in df.groupby('Paper_ID'):
+            rho, p, n = unit_spearman(d[PRODUCER], d[TARGET], units[d.index])
+            within.append({'study': study, 'n_rows': len(d), 'n_sampling_units': n,
+                           'mean_rel_abundance_pct': 100 * d[PRODUCER].mean(), 'spearman_rho': rho, 'p_value': p})
+            rr = '   n/a' if np.isnan(rho) else f"{rho:+.3f}"
+            pp = '' if np.isnan(p) else f" (p = {p:.3f})"
+            print(f"  {study:<34s} n = {n:3d} units ({len(d):3d} rows) | mean abundance "
+                  f"{100 * d[PRODUCER].mean():5.1f}% | rho {rr}{pp}")
+        rho, p, n = unit_spearman(df[PRODUCER], df[TARGET], units)
+        print(f"  {'All studies pooled':<34s} n = {n:3d} units ({len(df):3d} rows) | rho {rho:+.3f} (p = {p:.3g})")
+        within.append({'study': 'All studies pooled', 'n_rows': len(df), 'n_sampling_units': n,
+                       'mean_rel_abundance_pct': 100 * df[PRODUCER].mean(), 'spearman_rho': rho, 'p_value': p})
+    else:
+        print(f"  {PRODUCER} is not in the matrix.")
+
+    # ---- Illumina-only genus universe, reported separately ----
     try:
-        gm = pd.read_csv(GENUS65_PATH)
-        g65 = sorted([c for c in gm.columns if str(c).startswith('g__')])
-        v65 = [c for c in CHEM_OPS if c in gm.columns]
-        Xg = gm[v65 + g65].apply(pd.to_numeric, errors='coerce').fillna(0)
-        yg = pd.to_numeric(gm[TARGET], errors='coerce').fillna(0)
-        genera65, _ = rank_fold(Xg, yg, XP_NOCAT, v65 + g65)
+        gm, g65 = load_matrix(GENUS65_PATH)
+        v65 = present(CHEM_OPS, gm)
+        genera65, _ = rank_fold(gm[v65 + CAT + g65], gm[TARGET], XP, v65 + g65)
         print("\n" + "=" * 110)
-        print("CROSS-CHECK: Illumina-only 65-genus universe (single global model)")
+        print(f"CROSS-CHECK: Illumina-only {len(g65)}-genus universe (single global model)")
         print("=" * 110)
         top65 = sorted(genera65.items(), key=lambda kv: kv[1][0])[:10]
         for g, (r, v) in top65:
             print(f"  {r:4.0f}. {g}")
     except FileNotFoundError:
-        print("\n  [65-genus matrix not found at data/historical/ -- cross-check skipped]")
+        print("\n  [Illumina genus matrix not found -- cross-check skipped]")
 
-    s.to_csv(os.path.join(os.environ.get("BIOTWIN_RESULTS_DIR", "../../results"), "guild_membership_shap_ranks.csv"), index=False)
-    print("\n  Full table written to " + os.path.join(os.environ.get("BIOTWIN_RESULTS_DIR", "../../results"), "guild_membership_shap_ranks.csv"))
+    os.makedirs(RESULTS_DIR, exist_ok=True)
+    for table, name in [(s, "guild_membership_shap_ranks.csv"),
+                        (pd.DataFrame(within), "guild_producer_within_study_correlation.csv")]:
+        path = os.path.join(RESULTS_DIR, name)
+        if os.path.exists(path):
+            raise SystemExit(f"{path} already exists.")
+        table.to_csv(path, index=False)
+        print("\n  Table written to " + path)
 
 
 if __name__ == "__main__":

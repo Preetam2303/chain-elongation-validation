@@ -5,13 +5,10 @@
 # applied at all here) and without an explicit, curated leakage exclusion list.
 #
 # IMPORTANT -- read before running or citing:
-#   1. This script loads BIOTWIN_GENUS_ML_MATRIX.csv, an EARLIER dataset
-#      snapshot, NOT the final BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv used
-#      by every other script in this pipeline. It is not reproducible from
-#      01_genus_aggregation.py's current output. If you have the original
-#      BIOTWIN_GENUS_ML_MATRIX.csv snapshot, place it in data/historical/ to
-#      run this script; otherwise treat the numbers below as a static,
-#      already-verified historical record rather than a re-runnable result.
+#   1. This script loads an Illumina genus matrix (BIOTWIN_GENUS_ML_MATRIX.csv),
+#      not the merged Illumina + Nanopore matrix the validation schemes use.
+#      run_stage6.py points it at the corrected run's matrix from 00; run on
+#      its own it reads the published-run snapshot in data/historical/.
 #   2. The manuscript describes this run as "XGBoost without downstream
 #      co-products." On inspection, that is not quite accurate: this script
 #      only drops a short list of sparse/junk columns (succinate, Lactose,
@@ -23,9 +20,12 @@
 #      unaffected and the overall three-step "tightening rigor" narrative
 #      still holds.
 #
-# Expected output (confirmed against the original run):
-#   Intra-Study R-squared (R2): -0.228
-#   Intra-Study RMSE: 63.736 mM C
+# Published output (-0.228, RMSE 63.736 mM C) came from a run with
+# subsample/colsample_bytree 0.8. Since 2026-10-10 every XGBoost model uses
+# the shared settings in pipeline_settings.py (no subsampling), so the number
+# reproduces exactly. The broad predictor list is kept on purpose: Figure 3
+# shows what this earlier, looser setup gives. It reads the Illumina genus
+# matrix from 00 (BIOTWIN_GENUS), so inoculum samples are not in it.
 
 import os
 import pandas as pd
@@ -34,12 +34,15 @@ import xgboost as xgb
 import shap
 from sklearn.metrics import root_mean_squared_error, r2_score
 import warnings
+
+from pipeline_settings import XGB_PARAMS, drop_unmodelled
+
 warnings.filterwarnings('ignore')
 
 # 1. Load the (historical) genus-level matrix
 file_path = os.environ.get("BIOTWIN_GENUS", "../../data/historical/BIOTWIN_GENUS_ML_MATRIX.csv")
 print("Loading Biological Matrix to Replicate Liu et al. Methodology on Duber 2024...")
-df = pd.read_csv(file_path)
+df = drop_unmodelled(pd.read_csv(file_path))
 
 # 2. Isolate Duber_2024 (Paper_ID label; reported in-text as Duber et al. 2025)
 study_id = 'Duber_2024'
@@ -65,12 +68,9 @@ y_train = pd.to_numeric(df_train[TARGET_METABOLITE], errors='coerce').fillna(0)
 X_test = df_test.drop(columns=[TARGET_METABOLITE, 'BIOREACTOR']).apply(pd.to_numeric, errors='coerce').dropna(axis=1, how='all')
 y_test = pd.to_numeric(df_test[TARGET_METABOLITE], errors='coerce').fillna(0)
 
-X_test = X_test[X_train.columns]  # align columns; no scaling applied at this stage
+X_test = X_test.reindex(columns=X_train.columns)  # align columns; no scaling applied at this stage
 
-xgb_params = {
-    'n_estimators': 150, 'learning_rate': 0.05, 'max_depth': 3,
-    'subsample': 0.8, 'colsample_bytree': 0.8, 'random_state': 42, 'n_jobs': -1,
-}
+xgb_params = {k: v for k, v in XGB_PARAMS.items() if k != 'enable_categorical'}  # all predictors numeric here
 
 print("\n--- TRAINING INTRA-STUDY MODEL (LIU ET AL. REPLICATION) ---")
 model = xgb.XGBRegressor(**xgb_params).fit(X_train, y_train)
