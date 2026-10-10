@@ -12,8 +12,8 @@ warnings.filterwarnings('ignore')
 # ==============================================================================
 # CONFIG
 # ==============================================================================
-MATRIX_PATH = "../../data/BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv"
-OUTPUT_DIR = "../../results"
+MATRIX_PATH = os.environ.get("BIOTWIN_MATRIX", "../../data/BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv")
+OUTPUT_DIR = os.environ.get("BIOTWIN_RESULTS_DIR", "../../results")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 df = pd.read_csv(MATRIX_PATH, low_memory=False)

@@ -27,6 +27,7 @@
 #   Intra-Study R-squared (R2): -0.228
 #   Intra-Study RMSE: 63.736 mM C
 
+import os
 import pandas as pd
 import numpy as np
 import xgboost as xgb
@@ -36,7 +37,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 # 1. Load the (historical) genus-level matrix
-file_path = "../../data/historical/BIOTWIN_GENUS_ML_MATRIX.csv"
+file_path = os.environ.get("BIOTWIN_GENUS", "../../data/historical/BIOTWIN_GENUS_ML_MATRIX.csv")
 print("Loading Biological Matrix to Replicate Liu et al. Methodology on Duber 2024...")
 df = pd.read_csv(file_path)
 

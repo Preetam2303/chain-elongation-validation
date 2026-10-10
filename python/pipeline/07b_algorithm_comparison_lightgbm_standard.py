@@ -12,6 +12,7 @@
 # Random-Forest-mode configuration (07a) under identical conditions and was
 # adopted throughout the rest of this pipeline.
 
+import os
 import pandas as pd
 import numpy as np
 from lightgbm import LGBMRegressor
@@ -21,7 +22,7 @@ from sklearn.metrics import root_mean_squared_error, r2_score
 # ==============================================================================
 # 1. LOAD THE PRUNED MATRIX & ENVIRONMENT SETUP
 # ==============================================================================
-file_path = "../../data/historical/BIOTWIN_PRUNED_ML_MATRIX.csv"
+file_path = os.environ.get("BIOTWIN_PRUNED", "../../data/historical/BIOTWIN_PRUNED_ML_MATRIX.csv")
 print("Loading Pruned ML Matrix...")
 df = pd.read_csv(file_path)
 

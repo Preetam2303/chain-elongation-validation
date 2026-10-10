@@ -22,6 +22,7 @@
 # it predates the genus aggregation step and is retained here exactly as run,
 # for methodological traceability rather than as a headline result.
 
+import os
 import pandas as pd
 import numpy as np
 from lightgbm import LGBMRegressor
@@ -33,7 +34,7 @@ import copy
 # ==============================================================================
 # 1. LOAD THE PRUNED MATRIX & IDENTIFY ASVs
 # ==============================================================================
-file_path = "../../data/historical/BIOTWIN_PRUNED_ML_MATRIX.csv"
+file_path = os.environ.get("BIOTWIN_PRUNED", "../../data/historical/BIOTWIN_PRUNED_ML_MATRIX.csv")
 print("Loading Pruned ML Matrix...")
 df = pd.read_csv(file_path)
 
