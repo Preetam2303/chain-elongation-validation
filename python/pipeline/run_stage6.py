@@ -12,8 +12,9 @@
 #
 # Output: a new folder stage6_corrected_<date> inside the corrected_<date>
 # folder, with one <script>.log per script (everything it printed), the tables
-# the scripts write, and versions.txt. It refuses to run if that folder already
-# exists.
+# the scripts write, and versions.txt. When only some scripts run, the folder
+# name ends with their numbers (e.g. stage6_corrected_<date>_03_07b). It
+# refuses to run if that folder already exists.
 #
 # Usage, from the repository root:
 #   python python/pipeline/run_stage6.py            all scripts, in order
@@ -77,7 +78,8 @@ for name, path in inputs.items():
     if not os.path.exists(path):
         raise SystemExit(f"Missing input {path} ({name}). Run 04_metadata_merge.R, 00 and 00b first.")
 
-OUT_DIR = os.path.join(CORRECTED_DIR, f"stage6_corrected_{datetime.date.today():%Y-%m-%d}")
+only = "".join("_" + s.split("_")[0] for s in scripts) if wanted else ""
+OUT_DIR = os.path.join(CORRECTED_DIR, f"stage6_corrected_{datetime.date.today():%Y-%m-%d}{only}")
 if os.path.exists(OUT_DIR):
     raise SystemExit(f"{OUT_DIR} already exists. Rename or move it before rerunning.")
 os.makedirs(OUT_DIR)
