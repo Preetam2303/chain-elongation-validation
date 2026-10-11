@@ -98,6 +98,8 @@ Since the corrected settings of 2026-10-10, every XGBoost model in `python/pipel
 
 The permutation tests' *p*-values are Monte-Carlo estimates over 999 shuffles each. Shuffle *i* uses `random_state=i` (across studies) or `np.random.RandomState(i)` (within each study), so both null distributions reproduce exactly.
 
+The vessel folds of 04 and 09 are scikit-learn's GroupKFold folds, with ties between vessels of the same size broken by name (`group_kfold_splits` in `pipeline_settings.py`). GroupKFold itself orders such ties with numpy's default sort, whose order differs between processors. Before 2026-10-11, the laptop and the cloud therefore put some of these vessels, such as the two Nanopore reactors (27 rows each), into different folds and got different vessel-grouped numbers.
+
 The published numbers were made with earlier settings, in which most models used `subsample=0.8, colsample_bytree=0.8` and were therefore machine-dependent, and with a different predictor set. They reproduce with the code at commit `844f478` (see `results_reference.json` for their tolerance classes).
 
 **Environment used for every reported number:**
