@@ -20,9 +20,14 @@
 #      Table 3a (10) are rerun on those matrices. The predictors, settings and
 #      seeds are those of 02 and 10, so the every-sample rows reproduce their
 #      numbers.
+#   3. The naive schemes with other seeds. Which rows land in the test set
+#      changes a naive score a lot, so one seed can make the two versions look
+#      closer or further apart than they are. The four naive schemes of 2 are
+#      also run with seeds 0-19, at both levels; LOSO has no random split.
 #
-# Output (in BIOTWIN_RESULTS_DIR): 11_replicate_bray_curtis.csv and
-# 11_one_row_per_day.csv.
+# Output (in BIOTWIN_RESULTS_DIR): 11_replicate_bray_curtis.csv,
+# 11_one_row_per_day.csv and 11_naive_splits_over_seeds.csv.
+# Runtime: section 3 fits 20 x 2 x 4 naive schemes and takes the longest.
 
 import os
 import warnings
@@ -180,10 +185,10 @@ def loso(data, features):
             for name, (r2s, rmses) in res.items()]
 
 
-def single_split(df, features):
+def single_split(df, features, seed=42):
     """10_table3a_naive_splits.py's single 80/20 split."""
     units = sampling_units(df)
-    idx_train, idx_test = train_test_split(np.arange(len(df)), test_size=0.2, random_state=42)
+    idx_train, idx_test = train_test_split(np.arange(len(df)), test_size=0.2, random_state=seed)
     X_tr, X_te = scale(df[features].iloc[idx_train], df[features].iloc[idx_test])
     model = xgb.XGBRegressor(**XGB_PARAMS).fit(X_tr, df[TARGET].iloc[idx_train])
     r2, rmse = r2_rmse(df[TARGET].iloc[idx_test], model.predict(X_te))
@@ -194,12 +199,12 @@ def single_split(df, features):
              'folds': ''}]
 
 
-def kfold(df, features, k, top25=False):
+def kfold(df, features, k, top25=False, seed=42):
     """10_table3a_naive_splits.py's shuffled k-fold CV, optionally with per-fold SHAP top-25 genera."""
     units = sampling_units(df)
     r2s, rmses = [], []
     fold_of_row = np.zeros(len(df), int)
-    for f, (tr, te) in enumerate(KFold(k, shuffle=True, random_state=42).split(df), 1):
+    for f, (tr, te) in enumerate(KFold(k, shuffle=True, random_state=seed).split(df), 1):
         fold_of_row[te] = f
         X_tr, X_te = scale(df[features].iloc[tr], df[features].iloc[te])
         cols = features
@@ -219,6 +224,17 @@ def kfold(df, features, k, top25=False):
              'folds': '; '.join(f"{r:.3f}" for r in r2s)}]
 
 
+def naive_schemes(asv_m, full_m, seed=42):
+    """The four naive schemes of Table 3a (10_table3a_naive_splits.py) on one pair of matrices."""
+    d24 = full_m[full_m['Paper_ID'] == 'Duber_2024'].reset_index(drop=True)
+    return [
+        ("Single random 80/20 split (ASV level)", single_split(asv_m, asv_features, seed)),
+        ("Random 5-fold CV (ASV level)", kfold(asv_m, asv_features, 5, seed=seed)),
+        ("Shuffled 10-fold CV, per-fold SHAP top-25 genera", kfold(full_m, full_features, 10, top25=True, seed=seed)),
+        ("Single-study internal 80/20 split (Duber 2024)", single_split(d24, full_features, seed)),
+    ]
+
+
 asv, asv_cols = load_asv_matrix(PRUNED_PATH)
 asv_features = sorted(set(present(CORE_NON_GENUS, asv))) + asv_cols
 full_features = sorted(set(present(CORE_NON_GENUS, full) + genus_cols))
@@ -228,14 +244,7 @@ matrices = {'every sample': (asv, full),
 table = []
 for level in LEVELS:
     asv_m, full_m = matrices[level]
-    d24 = full_m[full_m['Paper_ID'] == 'Duber_2024'].reset_index(drop=True)
-    runs = [
-        ("LOSO, core set (the headline)", loso(full_m, full_features)),
-        ("Single random 80/20 split (ASV level)", single_split(asv_m, asv_features)),
-        ("Random 5-fold CV (ASV level)", kfold(asv_m, asv_features, 5)),
-        ("Shuffled 10-fold CV, per-fold SHAP top-25 genera", kfold(full_m, full_features, 10, top25=True)),
-        ("Single-study internal 80/20 split (Duber 2024)", single_split(d24, full_features)),
-    ]
+    runs = [("LOSO, core set (the headline)", loso(full_m, full_features))] + naive_schemes(asv_m, full_m)
     for scheme, rows in runs:
         for r in rows:
             table.append({'scheme': scheme, 'rows': level, **r})
@@ -264,3 +273,28 @@ for _, r in headline.iterrows():
     print(f"\nHeadline LOSO, {r['rows']}, R2 per held-out study: {r['folds']}")
 print("-" * 110)
 save_table(table, "11_one_row_per_day.csv")
+
+
+# ==============================================================================
+# 3. THE NAIVE SCHEMES WITH SEEDS 0-19
+# ==============================================================================
+SEEDS = range(20)
+over_seeds = []
+for seed in SEEDS:
+    for level in LEVELS:
+        for scheme, rows in naive_schemes(*matrices[level], seed=seed):
+            over_seeds.append({'seed': seed, 'scheme': scheme, 'rows': level,
+                               'r2': rows[0]['r2_mean'], 'rmse': rows[0]['rmse_mean']})
+
+print(f"\n--- 3. THE NAIVE SCHEMES WITH SEEDS {min(SEEDS)}-{max(SEEDS)} (section 2 used seed 42): "
+      "R2 median [lowest, highest] ---")
+print("-" * 110)
+print(f"{'':52s}{'every sample':>20s}{'one row per sampling day':>28s}  lower with one row per day")
+seeds_df = pd.DataFrame(over_seeds)
+for scheme, g in seeds_df.groupby('scheme', sort=False):
+    w = g.pivot(index='seed', columns='rows', values='r2')
+    cells = [f"{w[level].median():6.3f} [{w[level].min():.2f}, {w[level].max():.2f}]" for level in LEVELS]
+    lower = int((w[LEVELS[1]] < w[LEVELS[0]]).sum())
+    print(f"  {scheme:50s}{cells[0]:>20s}{cells[1]:>28s}  in {lower} of {len(w)} seeds")
+print("-" * 110)
+save_table(over_seeds, "11_naive_splits_over_seeds.csv")

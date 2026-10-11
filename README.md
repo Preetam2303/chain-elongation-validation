@@ -45,7 +45,8 @@ python/pipeline/       The validation architectures, in Methods 2.6's order
                                                   the target-leakage demonstration
                                                   behind excluding downstream co-products
   07b_algorithm_comparison_lightgbm_standard.py  XGBoost vs LightGBM (Methods 2.7): 80/20
-                                                  split, shuffled 10-fold and LOSO
+                                                  split, shuffled 10-fold and LOSO; the two
+                                                  naive schemes also with seeds 0-19
   07c_figure3_intermediate_unscaled_xgboost.py   Figure 3, stage 2
   07d_figure3_stage1_random_forest.py            Figure 3, stage 1
   08_shared_genus_transfer_control.py  Shared-genus transfer control (Table S6)
@@ -55,6 +56,7 @@ python/pipeline/       The validation architectures, in Methods 2.6's order
   11_replicate_checks.py               Same-day replicates: how similar they are
                                         (Bray-Curtis), and the headline LOSO and
                                         Table 3a rerun with one row per sampling day
+                                        (the naive schemes also with seeds 0-19)
   run_stage6.py                        Runs 02-11 on a corrected run's matrices
 
 python/figures/        One script per figure, each independently runnable
@@ -189,6 +191,7 @@ Even at 8× the first three studies lose 26-32% of reads, so most of their loss 
 - **Same-day replicates.** The triplicates of Duber 2024 and the Nanopore study share one chemistry value per day. The permutation tests therefore shuffle caproate by sampling day, and correlations are computed on sampling-day means. Every sample stays a row in the main analysis; 11 shows how similar a day's three samples are, and reruns the headline LOSO and Table 3a's naive schemes with one row per sampling day for comparison (decided 2026-10-07).
 - **Permutation tests** (decided 2026-10-11). Caproate is shuffled in two ways, reported side by side. Shuffling across studies, as published, mixes values between studies and so erases the between-study differences that make the real task hard. Shuffling within each study keeps those differences, so it asks whether the predictors carry information that transfers beyond study-level patterns. Both report R² and RMSE.
 - **Algorithm comparison** (decided 2026-10-11). The ranking of XGBoost and LightGBM depends on the validation scheme, so 07b compares them on the single 80/20 split, shuffled 10-fold and LOSO.
+- **Seeds of the naive schemes.** A naive score depends on which rows land in the test set, so one seed can mislead. 07b and 11 also run their naive schemes with seeds 0-19 and report the median and range; the seed-42 numbers stay as they are, so Table 3a and 07b's first table do not change.
 - **Data corrections** (`data/corrections/metadata_corrections.csv`):
   - The Duber 2022 chemistry is reconverted from the author file with the formula used for every other study, and the compounds that file has are added.
   - On the Nanopore phase-boundary sampling days, pH, temperature and HRT are those of the phase that was ending.

@@ -19,7 +19,8 @@
 # Usage, from the repository root:
 #   python python/pipeline/run_stage6.py            all scripts, in order
 #   python python/pipeline/run_stage6.py 02 04 09   only the scripts named
-# 03 (two permutation tests of 999 shuffles each) takes the longest.
+# 03 (two permutation tests of 999 shuffles each) takes the longest, then 11
+# (its naive schemes with 20 seeds).
 #
 # The published numbers (and the 2026-10-10 published-settings check run,
 # with its --published environment check) come from the code at commit

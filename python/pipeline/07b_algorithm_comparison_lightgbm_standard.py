@@ -16,6 +16,9 @@
 #      BIOTWIN_MATRIX. Only the way rows are split differs between 2 and 3;
 #      XGBoost's LOSO is the headline itself. The training-mean benchmark is
 #      shown with both.
+#   4. The two naive schemes (1 and 2) again with seeds 0-19. Which rows land
+#      in the test set changes a naive score a lot, so one seed can rank the
+#      two algorithms either way; LOSO has no random split.
 #
 # Feature set: the core set (pH, temperature, HRT, lactate, acetate, ethanol,
 # butyrate, propionate, the 2 categoricals) + ASVs or genera, as everywhere
@@ -23,7 +26,8 @@
 # handle blanks.
 #
 # Output (in BIOTWIN_RESULTS_DIR): 07b_algorithm_comparison.csv, one row per
-# scheme and model, with each fold's R2.
+# scheme and model, with each fold's R2, and
+# 07b_algorithm_comparison_over_seeds.csv, one row per seed, scheme and model.
 #
 # Published before this change: XGBoost 0.915 (typed in, not computed),
 # LightGBM 0.861, from a feature set that included NaOH and DAY.
@@ -166,3 +170,30 @@ for scheme, splits in schemes:
 
 print("\nXGBoost's LOSO row is the headline (Table 3b = Table 4 full-matrix tier 3, 02_loso_by_study.py).")
 save_table(table, "07b_algorithm_comparison.csv")
+
+# ==============================================================================
+# 6. THE TWO NAIVE SCHEMES WITH SEEDS 0-19
+# ==============================================================================
+SEEDS = range(20)
+over_seeds = []
+for seed in SEEDS:
+    X_tr_s, X_te_s, y_tr_s, y_te_s = train_test_split(X, y, test_size=0.2, random_state=seed)
+    for model, pred in [('XGBoost', xgb.XGBRegressor(**XGB_PARAMS).fit(X_tr_s, y_tr_s).predict(X_te_s)),
+                        ('LightGBM', LGBMRegressor(**LGBM_PARAMS).fit(X_tr_s, y_tr_s).predict(X_te_s))]:
+        over_seeds.append({'seed': seed, 'scheme': split_label, 'model': model, 'r2': r2_score(y_te_s, pred)})
+    _, res = cross_validate([(f"fold {i}", tr, te) for i, (tr, te) in
+                             enumerate(KFold(10, shuffle=True, random_state=seed).split(X_full), 1)])
+    for model in ['XGBoost', 'LightGBM']:
+        over_seeds.append({'seed': seed, 'scheme': schemes[0][0], 'model': model, 'r2': np.mean(res[model]['r2'])})
+
+print(f"\n--- THE TWO NAIVE SCHEMES WITH SEEDS {min(SEEDS)}-{max(SEEDS)} (above: seed 42): "
+      "R2 median [lowest, highest] ---")
+seeds_df = pd.DataFrame(over_seeds)
+for scheme, g in seeds_df.groupby('scheme', sort=False):
+    w = g.pivot(index='seed', columns='model', values='r2')
+    print(f"  {scheme}")
+    for model in ['XGBoost', 'LightGBM']:
+        print(f"    {model:9s} {w[model].median():6.3f} [{w[model].min():.3f}, {w[model].max():.3f}]")
+    print(f"    LightGBM higher in {int((w['LightGBM'] > w['XGBoost']).sum())} of {len(w)} seeds; "
+          f"median difference (LightGBM - XGBoost) {(w['LightGBM'] - w['XGBoost']).median():+.3f}")
+save_table(over_seeds, "07b_algorithm_comparison_over_seeds.csv")
