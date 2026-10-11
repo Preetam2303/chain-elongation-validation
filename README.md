@@ -30,7 +30,7 @@ python/pipeline/       The validation architectures, in Methods 2.6's order
   00b_nanopore_merge.py              Rerun Stage 5: adds the Nanopore rows
   01_genus_aggregation.py            ASV -> genus collapse (Methods 2.4; published run)
   pipeline_settings.py               Shared predictor sets, model settings and helpers
-                                      for 02-10 (decision of 2026-10-10)
+                                      for 02-11 (decision of 2026-10-10)
   02_loso_by_study.py                Leave-one-study-out: Table 4 (both columns),
                                       Table 3b's two LOSO rows (the headline),
                                       chemistry-only LOSO, training-mean benchmark
@@ -52,7 +52,10 @@ python/pipeline/       The validation architectures, in Methods 2.6's order
   09_guild_membership_shap_ranks.py    SHAP rank stability across folds and the
                                         within-study Caproiciproducens check
   10_table3a_naive_splits.py           Naive, ungrouped schemes (Table 3a)
-  run_stage6.py                        Runs 02-10 on a corrected run's matrices
+  11_replicate_checks.py               Same-day replicates: how similar they are
+                                        (Bray-Curtis), and the headline LOSO and
+                                        Table 3a rerun with one row per sampling day
+  run_stage6.py                        Runs 02-11 on a corrected run's matrices
 
 python/figures/        One script per figure, each independently runnable
   figure1_r2_comparison.py           Master validation-collapse bar chart
@@ -84,7 +87,7 @@ Every figure in the manuscript, main and supplementary, has a corresponding scri
    For the primer-trimmed rerun, `R/04_metadata_merge.R` writes the merged matrix, with every file in `data/corrections/` applied, into a new dated `corrected_<date>` folder inside the `primer_trimmed_*` run folder. Nothing written earlier is changed.
    `python/pipeline/00_prevalence_filter_genus.py` then leaves the 17 inoculum rows (`data/corrections/descriptive_only_samples.csv`) out of the modelling matrices and writes their genus profiles to `inocula_genus_profiles.csv` for descriptive use. It removes the ZymoBIOMICS spike-in genera (Imtechella, Allobacillus) of the Brodowski 2022 batch runs, applies the 5% prevalence filter to the 112 modelled Illumina samples (each counted once, so an ASV must be present in at least 6), and sums the kept ASVs by genus. It writes `BIOTWIN_PRUNED_ML_MATRIX.csv`, `BIOTWIN_GENUS_ML_MATRIX.csv` and `stage4_genus_summary.csv` into the same `corrected_<date>` folder.
    `python/pipeline/00b_nanopore_merge.py` then adds the 54 Nanopore rows by an outer join on genus columns. They are taken unchanged from the published matrix apart from the Hanna_2025 corrections. It writes `BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv` and `stage5_genus_summary.csv` into the same folder.
-   `python/pipeline/run_stage6.py` runs scripts 02 to 10 on those matrices (Stage 6). It saves each script's printed output and the tables the scripts write to a new `stage6_corrected_<date>` folder inside `corrected_<date>` (with the script numbers added, e.g. `_03_07b`, when only some scripts run); `data/` and `results/` are not touched. The runner points each script at the corrected matrices through the environment variables `BIOTWIN_MATRIX`, `BIOTWIN_PRUNED`, `BIOTWIN_GENUS` and `BIOTWIN_RESULTS_DIR`. Run on its own, a script reads the published run's matrices in `data/` instead, with the inoculum and excluded samples left out. That gives neither the published nor the corrected numbers: the corrected numbers come from `run_stage6.py`, and the published ones from the code at commit `844f478`.
+   `python/pipeline/run_stage6.py` runs scripts 02 to 11 on those matrices (Stage 6). It saves each script's printed output and the tables the scripts write to a new `stage6_corrected_<date>` folder inside `corrected_<date>` (with the script numbers added, e.g. `_03_07b`, when only some scripts run); `data/` and `results/` are not touched. The runner points each script at the corrected matrices through the environment variables `BIOTWIN_MATRIX`, `BIOTWIN_PRUNED`, `BIOTWIN_GENUS` and `BIOTWIN_RESULTS_DIR`. Run on its own, a script reads the published run's matrices in `data/` instead, with the inoculum and excluded samples left out. That gives neither the published nor the corrected numbers: the corrected numbers come from `run_stage6.py`, and the published ones from the code at commit `844f478`.
 3. Run `python/pipeline/01_genus_aggregation.py` (using `data/historical/BIOTWIN_FINAL_ML_MATRIX.csv` and `ASV_Taxonomy_Master.csv`) to reproduce `data/BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv`, the published run's 184-sample x 170-genus matrix.
 4. For the published Tables 3a, 3b, 4 and 5, run the remaining `python/pipeline/` scripts at commit `844f478` in numeric order; scripts 07a-07d use the historical snapshots in `data/historical/` (see each script's header). For the corrected run, use `run_stage6.py` (step 2).
 5. Run any `python/figures/` script independently to regenerate that figure -- run from inside `python/figures/` or `python/pipeline/`, since paths are relative to each script's own location.
@@ -145,7 +148,9 @@ data/
                                               dataset for any main result.
     BIOTWIN_PRUNED_ML_MATRIX.csv             Used by 07a/07b (algorithm
                                               selection, ASV-level, predates
-                                              genus aggregation; 07b's 80/20 split).
+                                              genus aggregation; 07b's 80/20 split),
+                                              and by 10 and 11 (Table 3a's
+                                              ASV-level schemes).
     BIOTWIN_FINAL_ML_MATRIX.csv,
     ASV_Taxonomy_Master.csv                  Inputs to 01_genus_aggregation.py.
 ```
@@ -181,7 +186,7 @@ Even at 8× the first three studies lose 26-32% of reads, so most of their loss 
   - The first two stages of Figure 3 (07d, 07c) keep their broader predictor lists, DAY and the alcohols included, on purpose: they show what the earlier, looser setups give.
   - A compound that was not measured stays blank, never 0.
 - **Headline.** The headline is the full-matrix leave-one-study-out result with exactly the core set. Table 4's full-matrix tier 3 and Table 3b's LOSO row are the same number. Tables 3b and 4 (02, 04, 06) also report a training-mean benchmark (predict the training rows' mean caproate), with RMSE next to R².
-- **Same-day replicates.** The triplicates of Duber 2024 and the Nanopore study share one chemistry value per day. The permutation tests therefore shuffle caproate by sampling day, and correlations are computed on sampling-day means.
+- **Same-day replicates.** The triplicates of Duber 2024 and the Nanopore study share one chemistry value per day. The permutation tests therefore shuffle caproate by sampling day, and correlations are computed on sampling-day means. Every sample stays a row in the main analysis; 11 shows how similar a day's three samples are, and reruns the headline LOSO and Table 3a's naive schemes with one row per sampling day for comparison (decided 2026-10-07).
 - **Permutation tests** (decided 2026-10-11). Caproate is shuffled in two ways, reported side by side. Shuffling across studies, as published, mixes values between studies and so erases the between-study differences that make the real task hard. Shuffling within each study keeps those differences, so it asks whether the predictors carry information that transfers beyond study-level patterns. Both report R² and RMSE.
 - **Algorithm comparison** (decided 2026-10-11). The ranking of XGBoost and LightGBM depends on the validation scheme, so 07b compares them on the single 80/20 split, shuffled 10-fold and LOSO.
 - **Data corrections** (`data/corrections/metadata_corrections.csv`):

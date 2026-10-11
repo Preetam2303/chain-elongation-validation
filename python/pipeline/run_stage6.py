@@ -1,14 +1,14 @@
 # run_stage6.py
-# Stage 6 of the primer-trimmed rerun: run the downstream analyses (02 to 10)
+# Stage 6 of the primer-trimmed rerun: run the downstream analyses (02 to 11)
 # on the corrected run's matrices, without touching data/ or results/.
 #
 # Each script reads its matrix from an environment variable when it is set,
 # and from data/ otherwise. This runner sets them to the files in the run
 # folder's corrected_<date> folder (made by 04_metadata_merge.R, 00 and 00b):
-#   BIOTWIN_MATRIX       BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv  (00b; 02-06, 07b, 08-10)
-#   BIOTWIN_PRUNED       BIOTWIN_PRUNED_ML_MATRIX.csv              (00; 07a, 07b, 10)
+#   BIOTWIN_MATRIX       BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv  (00b; 02-06, 07b, 08-11)
+#   BIOTWIN_PRUNED       BIOTWIN_PRUNED_ML_MATRIX.csv              (00; 07a, 07b, 10, 11)
 #   BIOTWIN_GENUS        BIOTWIN_GENUS_ML_MATRIX.csv               (00; 07c, 07d, 09)
-#   BIOTWIN_RESULTS_DIR  the new dated output folder               (02-06, 07b, 09, 10 write tables)
+#   BIOTWIN_RESULTS_DIR  the new dated output folder               (02-06, 07b, 09-11 write tables)
 #
 # Output: a new folder stage6_corrected_<date> inside the corrected_<date>
 # folder, with one <script>.log per script (everything it printed), the tables
@@ -51,6 +51,7 @@ SCRIPTS = [
     "08_shared_genus_transfer_control.py",
     "09_guild_membership_shap_ranks.py",
     "10_table3a_naive_splits.py",
+    "11_replicate_checks.py",
 ]
 PIPELINE_DIR = os.path.dirname(os.path.abspath(__file__))
 
