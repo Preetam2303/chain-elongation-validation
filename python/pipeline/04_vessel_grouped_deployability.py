@@ -16,6 +16,8 @@
 # genera with the largest mean |SHAP|; the final model uses the core chemistry,
 # operational and categorical predictors plus those 25 genera. Settings as in
 # pipeline_settings.py (no subsampling), so every number reproduces exactly.
+# The folds are GroupKFold's, with ties between vessels of the same size broken
+# by name (group_kfold_splits), so they are the same on every machine.
 
 import os
 import warnings
@@ -24,10 +26,9 @@ import numpy as np
 import pandas as pd
 import shap
 import xgboost as xgb
-from sklearn.model_selection import GroupKFold
 
-from pipeline_settings import (CAT_COLS, CORE_CHEM, OPS, TARGET, XGB_PARAMS, load_matrix, present,
-                               r2_rmse, save_table, scale, training_mean_r2_rmse)
+from pipeline_settings import (CAT_COLS, CORE_CHEM, OPS, TARGET, XGB_PARAMS, group_kfold_splits, load_matrix,
+                               present, r2_rmse, save_table, scale, training_mean_r2_rmse)
 
 warnings.filterwarnings('ignore')
 
@@ -54,10 +55,10 @@ for mode_name, subset_df in test_modes.items():
     X = subset_df[features]
     y = subset_df[TARGET]
     groups = subset_df['Unique_Vessel_ID']
-    gkf = GroupKFold(n_splits=min(5, groups.nunique()))
+    folds = group_kfold_splits(groups, n_splits=min(5, groups.nunique()))
 
     r2_scores, rmse_scores, base_r2, base_rmse = [], [], [], []
-    for fold, (train_idx, test_idx) in enumerate(gkf.split(X, y, groups=groups), 1):
+    for fold, (train_idx, test_idx) in enumerate(folds, 1):
         X_train, X_test = scale(X.iloc[train_idx], X.iloc[test_idx])
         y_train, y_test = y.iloc[train_idx], y.iloc[test_idx]
         test_vessels = groups.iloc[test_idx].unique().tolist()

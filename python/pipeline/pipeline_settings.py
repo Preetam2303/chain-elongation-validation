@@ -18,6 +18,8 @@
 #     the exception: an absent genus really has 0 reads.
 #   - One set of XGBoost settings everywhere, with no subsampling, so every
 #     number reproduces exactly on any machine.
+#   - The vessel folds of 04 and 09 break ties between vessels with the same
+#     number of rows by name (group_kfold_splits), for the same reason.
 #   - Only predictors are scaled (train rows only); the target never is.
 #
 # Inoculum samples are never modelled (data/corrections/descriptive_only_samples.csv).
@@ -157,6 +159,29 @@ def spearman_by_unit(y_true, y_pred, units):
     if len(t) < 3 or t['p'].std() == 0 or t['y'].std() == 0:
         return np.nan, len(t)
     return spearmanr(t['y'], t['p']).statistic, len(t)
+
+
+def group_kfold_splits(groups, n_splits=5):
+    """The folds of scikit-learn's GroupKFold (largest group first, each into
+    the fold with the fewest rows so far), with ties between groups of the same
+    size broken by name, so the folds are the same on every machine.
+    GroupKFold orders tied groups with numpy's default sort, whose order for
+    ties depends on the processor; on 2026-10-11 the laptop and the cloud
+    swapped the two Nanopore reactors (27 rows each) between two folds.
+    Yields (train rows, test rows) as positions, like GroupKFold.split."""
+    groups = pd.Series(np.asarray(groups))
+    sizes = groups.value_counts()
+    if n_splits > len(sizes):
+        raise ValueError(f"n_splits={n_splits} is more than the {len(sizes)} groups.")
+    fold_rows = np.zeros(n_splits)
+    fold_of = {}
+    for g in sorted(sizes.index, key=lambda g: (-sizes[g], g)):
+        f = int(np.argmin(fold_rows))  # the first fold with the fewest rows
+        fold_rows[f] += sizes[g]
+        fold_of[g] = f
+    fold = groups.map(fold_of).to_numpy()
+    for f in range(n_splits):
+        yield np.flatnonzero(fold != f), np.flatnonzero(fold == f)
 
 
 def save_table(table, name):

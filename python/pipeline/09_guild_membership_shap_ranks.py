@@ -63,12 +63,12 @@ import numpy as np
 import xgboost as xgb
 import shap
 from scipy.stats import spearmanr, rankdata
-from sklearn.model_selection import LeaveOneGroupOut, GroupKFold, KFold
+from sklearn.model_selection import LeaveOneGroupOut, KFold
 from sklearn.preprocessing import StandardScaler
 import warnings
 
-from pipeline_settings import (CAT_COLS, CORE_CHEM, NANOPORE_ID, OPS, TARGET, XGB_PARAMS, load_matrix,
-                               present, sampling_units)
+from pipeline_settings import (CAT_COLS, CORE_CHEM, NANOPORE_ID, OPS, TARGET, XGB_PARAMS, group_kfold_splits,
+                               load_matrix, present, sampling_units)
 
 warnings.filterwarnings('ignore')
 
@@ -148,8 +148,8 @@ def main():
             records.append({'arch': 'LOSO', 'fold': f'LOSO:{held}', 'genus': g,
                             'rank': r, 'shap': v, 'dir': direction.get(g, np.nan)})
 
-    # ---- 2. GroupKFold by vessel (5 folds) ----
-    for i, (tr, te) in enumerate(GroupKFold(n_splits=5).split(X, y, groups=df['VID']), 1):
+    # ---- 2. GroupKFold by vessel (5 folds; ties between vessels of the same size broken by name) ----
+    for i, (tr, te) in enumerate(group_kfold_splits(df['VID'], n_splits=5), 1):
         genera, direction = rank_fold(X.iloc[tr], y.iloc[tr], XP, vco + genus_cols)
         fold_meta.append(('GroupKFold', f'fold {i}'))
         for g, (r, v) in genera.items():
@@ -216,7 +216,7 @@ def main():
     print("\n" + "=" * 110)
     print("RANK-2 OCCUPANCY  (which genus sits directly below the known producer)")
     print("=" * 110)
-    r2 = rec[rec['rank'] == 2].groupby('genus').size().sort_values(ascending=False)
+    r2 = rec[rec['rank'] == 2].groupby('genus').size().sort_values(ascending=False, kind='mergesort')
     for g, n in r2.items():
         print(f"  {g:<40s} rank 2 in {n}/{n_folds} folds")
 
