@@ -34,15 +34,18 @@ python/pipeline/       The validation architectures, in Methods 2.6's order
   02_loso_by_study.py                Leave-one-study-out: Table 4 (both columns),
                                       Table 3b's two LOSO rows (the headline),
                                       chemistry-only LOSO, training-mean benchmark
-  03_permutation_test_999.py         999-shuffle label-permutation control of the
-                                      headline (shuffled by sampling day)
+  03_permutation_test_999.py         Label-permutation controls of the headline,
+                                      999 shuffles each, by sampling day: across
+                                      studies and within each study
   04_vessel_grouped_deployability.py GroupKFold by physical reactor (Table 3b)
   05_intrastudy_transferability_table5.py   Reactor-pair transfer with named pairs
                                              (Table 5; Figure 3, stage 3)
   06_cross_platform_transfer.py      Illumina -> Nanopore transfer (Table 3b)
   07a_algorithm_comparison_lightgbm_rf.py        Algorithm selection (Methods 2.7);
-  07b_algorithm_comparison_lightgbm_standard.py  the target-leakage demonstration
+                                                  the target-leakage demonstration
                                                   behind excluding downstream co-products
+  07b_algorithm_comparison_lightgbm_standard.py  XGBoost vs LightGBM (Methods 2.7): 80/20
+                                                  split, shuffled 10-fold and LOSO
   07c_figure3_intermediate_unscaled_xgboost.py   Figure 3, stage 2
   07d_figure3_stage1_random_forest.py            Figure 3, stage 1
   08_shared_genus_transfer_control.py  Shared-genus transfer control (Table S6)
@@ -87,13 +90,13 @@ Every figure in the manuscript, main and supplementary, has a corresponding scri
 5. Run any `python/figures/` script independently to regenerate that figure -- run from inside `python/figures/` or `python/pipeline/`, since paths are relative to each script's own location.
 6. Check what you get against `results_reference.json`, which lists every reported value alongside the tolerance you should expect it to reproduce within.
 
-`python/pipeline/03_permutation_test_999.py` refits the 7-fold LOSO 999 times and saves every shuffle's result to `permutation_null_distribution_999.csv` in the results folder. `figure2_permutation_histogram.py` still draws the published histogram from `results/`; it and the other figure scripts in `python/figures/` keep the published settings until the figures are redone for the corrected run.
+`python/pipeline/03_permutation_test_999.py` refits the 7-fold LOSO 999 times for each of its two shuffles. It saves every shuffle's result to `permutation_null_distribution_999.csv` (across studies) and `permutation_null_within_study_999.csv` (within each study), and the *p*-values to `03_permutation_tests.csv` and, per held-out study, `03_permutation_tests_by_study.csv`, all in the results folder. `figure2_permutation_histogram.py` still draws the published histogram from `results/`; it and the other figure scripts in `python/figures/` keep the published settings until the figures are redone for the corrected run.
 
 ## A note on exact reproducibility
 
 Since the corrected settings of 2026-10-10, every XGBoost model in `python/pipeline/` uses the same settings (150 trees, learning rate 0.05, depth 3, `random_state=42`) with **no row or column subsampling** (`pipeline_settings.py`). With the pinned package versions, every number therefore reproduces exactly on any machine. Two models still sample rows, both seeded (`random_state=42`): 07a's LightGBM Random-Forest mode, which requires bagging, and 07d's scikit-learn random forest (Figure 3, stage 1), which draws bootstrap samples. The figure scripts in `python/figures/` have not been changed yet and still use the published settings.
 
-The permutation test's *p*-value is a Monte-Carlo estimate over 999 shuffles. Shuffle *i* uses `random_state=i`, so the null distribution reproduces exactly.
+The permutation tests' *p*-values are Monte-Carlo estimates over 999 shuffles each. Shuffle *i* uses `random_state=i` (across studies) or `np.random.RandomState(i)` (within each study), so both null distributions reproduce exactly.
 
 The published numbers were made with earlier settings, in which most models used `subsample=0.8, colsample_bytree=0.8` and were therefore machine-dependent, and with a different predictor set. They reproduce with the code at commit `844f478` (see `results_reference.json` for their tolerance classes).
 
@@ -115,7 +118,8 @@ Raw sequencing data for the six short-read studies are available under their ori
 data/
   BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv   The published run's 184-sample matrix.
                                               The default input of the scripts
-                                              except 07a/07b/07c/07d below.
+                                              except 07a/07c/07d below (07b reads
+                                              it and the pruned matrix).
   study_provenance.csv                       One row per short-read study: Paper_ID,
                                               R script, paper, sequence accession used
                                               and the one the paper states, sample counts.
@@ -139,7 +143,7 @@ data/
                                               dataset for any main result.
     BIOTWIN_PRUNED_ML_MATRIX.csv             Used by 07a/07b (algorithm
                                               selection, ASV-level, predates
-                                              genus aggregation).
+                                              genus aggregation; 07b's 80/20 split).
     BIOTWIN_FINAL_ML_MATRIX.csv,
     ASV_Taxonomy_Master.csv                  Inputs to 01_genus_aggregation.py.
 ```
@@ -175,7 +179,9 @@ Even at 8× the first three studies lose 26-32% of reads, so most of their loss 
   - The first two stages of Figure 3 (07d, 07c) keep their broader predictor lists, DAY and the alcohols included, on purpose: they show what the earlier, looser setups give.
   - A compound that was not measured stays blank, never 0.
 - **Headline.** The headline is the full-matrix leave-one-study-out result with exactly the core set. Table 4's full-matrix tier 3 and Table 3b's LOSO row are the same number. Tables 3b and 4 (02, 04, 06) also report a training-mean benchmark (predict the training rows' mean caproate), with RMSE next to R².
-- **Same-day replicates.** The triplicates of Duber 2024 and the Nanopore study share one chemistry value per day. The permutation test therefore shuffles caproate by sampling day, and correlations are computed on sampling-day means.
+- **Same-day replicates.** The triplicates of Duber 2024 and the Nanopore study share one chemistry value per day. The permutation tests therefore shuffle caproate by sampling day, and correlations are computed on sampling-day means.
+- **Permutation tests** (decided 2026-10-11). Caproate is shuffled in two ways, reported side by side. Shuffling across studies, as published, mixes values between studies and so erases the between-study differences that make the real task hard. Shuffling within each study keeps those differences, so it asks whether the predictors carry information that transfers beyond study-level patterns. Both report R² and RMSE.
+- **Algorithm comparison** (decided 2026-10-11). The ranking of XGBoost and LightGBM depends on the validation scheme, so 07b compares them on the single 80/20 split, shuffled 10-fold and LOSO.
 - **Data corrections** (`data/corrections/metadata_corrections.csv`):
   - The Duber 2022 chemistry is reconverted from the author file with the formula used for every other study, and the compounds that file has are added.
   - On the Nanopore phase-boundary sampling days, pH, temperature and HRT are those of the phase that was ending.

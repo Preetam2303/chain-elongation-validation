@@ -5,10 +5,10 @@
 # Each script reads its matrix from an environment variable when it is set,
 # and from data/ otherwise. This runner sets them to the files in the run
 # folder's corrected_<date> folder (made by 04_metadata_merge.R, 00 and 00b):
-#   BIOTWIN_MATRIX       BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv  (00b; 02-06, 08-10)
+#   BIOTWIN_MATRIX       BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv  (00b; 02-06, 07b, 08-10)
 #   BIOTWIN_PRUNED       BIOTWIN_PRUNED_ML_MATRIX.csv              (00; 07a, 07b, 10)
 #   BIOTWIN_GENUS        BIOTWIN_GENUS_ML_MATRIX.csv               (00; 07c, 07d, 09)
-#   BIOTWIN_RESULTS_DIR  the new dated output folder               (02-06, 09, 10 write tables)
+#   BIOTWIN_RESULTS_DIR  the new dated output folder               (02-06, 07b, 09, 10 write tables)
 #
 # Output: a new folder stage6_corrected_<date> inside the corrected_<date>
 # folder, with one <script>.log per script (everything it printed), the tables
@@ -18,7 +18,7 @@
 # Usage, from the repository root:
 #   python python/pipeline/run_stage6.py            all scripts, in order
 #   python python/pipeline/run_stage6.py 02 04 09   only the scripts named
-# 03 (the 999-shuffle permutation test) takes the longest.
+# 03 (two permutation tests of 999 shuffles each) takes the longest.
 #
 # The published numbers (and the 2026-10-10 published-settings check run,
 # with its --published environment check) come from the code at commit
