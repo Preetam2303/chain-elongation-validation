@@ -9,98 +9,89 @@
 # both cross-study and within-reactor temporal leakage.
 #
 # Produces both rows of Table 3b's vessel-grouped section: CSTR-only (Mode 1)
-# and all vessel types including batch reactors (Mode 2).
+# and all vessel types including batch reactors (Mode 2), each with the
+# training-mean benchmark next to it (review item 5).
+#
+# In each fold, an exploratory model on the training vessels picks the 25
+# genera with the largest mean |SHAP|; the final model uses the core chemistry,
+# operational and categorical predictors plus those 25 genera. Settings as in
+# pipeline_settings.py (no subsampling), so every number reproduces exactly.
 
 import os
-import pandas as pd
-import numpy as np
-import xgboost as xgb
-import shap
-from sklearn.model_selection import GroupKFold
-from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import r2_score, root_mean_squared_error
 import warnings
+
+import numpy as np
+import pandas as pd
+import shap
+import xgboost as xgb
+from sklearn.model_selection import GroupKFold
+
+from pipeline_settings import (CAT_COLS, CORE_CHEM, OPS, TARGET, XGB_PARAMS, load_matrix, present,
+                               r2_rmse, save_table, scale, training_mean_r2_rmse)
+
 warnings.filterwarnings('ignore')
 
 MATRIX_PATH = os.environ.get("BIOTWIN_MATRIX", "../../data/BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv")
-df = pd.read_csv(MATRIX_PATH)
 
-genus_cols = [c for c in df.columns if c.startswith('g__')]
-df[genus_cols] = df[genus_cols].fillna(0)
-row_sums = df[genus_cols].sum(axis=1).replace(0, 1)
-df[genus_cols] = df[genus_cols].div(row_sums, axis=0)
-
-df['Unique_Vessel_ID'] = df['Paper_ID'].astype(str).str.strip() + "_" + df['BIOREACTOR'].astype(str).str.strip()
-
-TARGET = 'Caproate'
-foundational_chems = ['Lactate', 'Acetate', 'Butyrate', 'Ethanol', 'Propionate']
-op_params = ['PH', 'TEMP', 'HRT']
-valid_chems_ops = [c for c in foundational_chems + op_params if c in df.columns]
-
-for c in valid_chems_ops + genus_cols + [TARGET]:
-    df[c] = pd.to_numeric(df[c], errors='coerce').fillna(0)
+df, genus_cols = load_matrix(MATRIX_PATH)
+df['Unique_Vessel_ID'] = df['Paper_ID'] + "_" + df['BIOREACTOR']
+core_non_genus = present(OPS + CORE_CHEM + CAT_COLS, df)
+features = sorted(set(core_non_genus + genus_cols))
 
 test_modes = {
-    "Mode 1: CSTR Only (B1, B2 Vessels)": df[df['BIOREACTOR'].astype(str).str.strip().str.startswith('B')].copy(),
-    "Mode 2: All Vessels (CSTR + Batch R1-R9)": df.copy(),
+    "Mode 1: CSTR Only (B1, B2 Vessels)": df[df['BIOREACTOR'].str.startswith('B')].reset_index(drop=True),
+    "Mode 2: All Vessels (CSTR + Batch R1-R9)": df,
 }
 
 print("--- EXECUTING VESSEL-GROUPED DEPLOYABILITY TEST (Table 3b) ---")
 print("-" * 85)
 
-xgb_params = {
-    'n_estimators': 150, 'learning_rate': 0.05, 'max_depth': 3,
-    'subsample': 0.8, 'colsample_bytree': 0.8, 'random_state': 42,
-    'n_jobs': -1, 'tree_method': 'hist',
-}
-
+table = []
 for mode_name, subset_df in test_modes.items():
     print(f"\n{mode_name}")
     print(f"Total Samples: {len(subset_df)} | Unique Physical Vessels: {subset_df['Unique_Vessel_ID'].nunique()}")
 
-    X = subset_df[valid_chems_ops + genus_cols].copy()
-    y = subset_df[TARGET].copy()
-    groups = subset_df['Unique_Vessel_ID'].copy()
+    X = subset_df[features]
+    y = subset_df[TARGET]
+    groups = subset_df['Unique_Vessel_ID']
+    gkf = GroupKFold(n_splits=min(5, groups.nunique()))
 
-    n_splits = min(5, subset_df['Unique_Vessel_ID'].nunique())
-    gkf = GroupKFold(n_splits=n_splits)
-
-    r2_scores, rmse_scores = [], []
-    fold = 1
-
-    for train_idx, test_idx in gkf.split(X, y, groups=groups):
-        X_train_full, X_test_full = X.iloc[train_idx].copy(), X.iloc[test_idx].copy()
+    r2_scores, rmse_scores, base_r2, base_rmse = [], [], [], []
+    for fold, (train_idx, test_idx) in enumerate(gkf.split(X, y, groups=groups), 1):
+        X_train, X_test = scale(X.iloc[train_idx], X.iloc[test_idx])
         y_train, y_test = y.iloc[train_idx], y.iloc[test_idx]
         test_vessels = groups.iloc[test_idx].unique().tolist()
 
-        # Train-only scaling
-        scaler = StandardScaler()
-        X_train_full[valid_chems_ops + genus_cols] = scaler.fit_transform(X_train_full[valid_chems_ops + genus_cols])
-        X_test_full[valid_chems_ops + genus_cols] = scaler.transform(X_test_full[valid_chems_ops + genus_cols])
-
         # Phase A: dynamic SHAP feature discovery on training vessels only
-        model_discovery = xgb.XGBRegressor(**xgb_params).fit(X_train_full, y_train)
-        explainer = shap.TreeExplainer(model_discovery)
-        shap_values = explainer.shap_values(X_train_full)
-
-        mean_shap = np.abs(shap_values).mean(axis=0)
-        shap_df = pd.DataFrame({'Feature': X_train_full.columns, 'SHAP': mean_shap})
-        top_25_genera = shap_df.sort_values(by='SHAP', ascending=False)[shap_df['Feature'].str.startswith('g__')].head(25)['Feature'].tolist()
+        discovery = xgb.XGBRegressor(**XGB_PARAMS).fit(X_train, y_train)
+        mean_shap = np.abs(shap.TreeExplainer(discovery).shap_values(X_train)).mean(axis=0)
+        ranked = pd.Series(mean_shap, index=features).sort_values(ascending=False, kind='mergesort')
+        top_25_genera = [c for c in ranked.index if c.startswith('g__')][:25]
 
         # Phase B: final prediction on held-out physical vessels
-        final_features = valid_chems_ops + top_25_genera
-        model_prediction = xgb.XGBRegressor(**xgb_params).fit(X_train_full[final_features], y_train)
-        y_pred = model_prediction.predict(X_test_full[final_features])
+        final_features = sorted(set(core_non_genus + top_25_genera))
+        model = xgb.XGBRegressor(**XGB_PARAMS).fit(X_train[final_features], y_train)
+        y_pred = model.predict(X_test[final_features])
 
         if len(y_test) > 1:
-            r2 = r2_score(y_test, y_pred)
-            rmse = root_mean_squared_error(y_test, y_pred)
-            r2_scores.append(r2)
-            rmse_scores.append(rmse)
+            r2, rmse = r2_rmse(y_test, y_pred)
+            b_r2, b_rmse = training_mean_r2_rmse(y_train, y_test)
+            r2_scores.append(r2); rmse_scores.append(rmse)
+            base_r2.append(b_r2); base_rmse.append(b_rmse)
             vessel_str = ", ".join(test_vessels[:3]) + ("..." if len(test_vessels) > 3 else "")
-            print(f"  Fold {fold} | Held-Out Vessels: {vessel_str:<30} | R2: {r2:6.3f} | RMSE: {rmse:5.1f} mM C")
-        fold += 1
+            print(f"  Fold {fold} | Held-Out Vessels: {vessel_str:<30} | R2: {r2:6.3f} | RMSE: {rmse:5.1f} mM C"
+                  f" | training-mean R2: {b_r2:7.3f}")
 
-    print(f"  --> RESULT: Average R2: {np.mean(r2_scores):.3f} (\u00b1 {np.std(r2_scores):.3f}) | "
-          f"Average RMSE: {np.mean(rmse_scores):.1f} mM C")
+    print(f"  --> RESULT: Average R2: {np.mean(r2_scores):.3f} (± {np.std(r2_scores):.3f}) | "
+          f"Average RMSE: {np.mean(rmse_scores):.1f} (± {np.std(rmse_scores):.1f}) mM C")
+    print(f"  --> TRAINING-MEAN BENCHMARK: Average R2: {np.mean(base_r2):.3f} (± {np.std(base_r2):.3f}) | "
+          f"Average RMSE: {np.mean(base_rmse):.1f} (± {np.std(base_rmse):.1f}) mM C")
     print("-" * 85)
+    for model_name, r2s, rmses in [("XGBoost, core set + per-fold SHAP top-25 genera", r2_scores, rmse_scores),
+                                   ("Training-mean benchmark", base_r2, base_rmse)]:
+        table.append({'table': 'Table 3b', 'scheme': mode_name, 'model': model_name,
+                      'n_rows': len(subset_df), 'n_vessels': groups.nunique(),
+                      'r2_mean': np.mean(r2s), 'r2_sd': np.std(r2s),
+                      'rmse_mean': np.mean(rmses), 'rmse_sd': np.std(rmses)})
+
+save_table(table, "04_groupkfold_by_vessel.csv")

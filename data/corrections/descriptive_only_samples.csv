@@ -1,0 +1,6 @@
+Paper_ID,Sample_ID,matrix_rows,reason,source
+Duber_2022,SRR18079370,9,"Inoculum (SRA inokulum_1_L001), shared by trials R1-R9 on day 0; caproate 0 and no chemistry measured on the inoculum itself. Kept for descriptive use only, never modelled.","SRA PRJNA808231; audit 2026-10-06; decision Preetam 2026-10-10"
+Brodowski_2022,SRR18962131,3,"Batch inoculum (SRA Inokulum1), shared by batch R2-R4 on day 0; caproate 0 and no chemistry measured on the inoculum itself. Kept for descriptive use only, never modelled.","SRA PRJNA833049; audit 2026-10-06; decision Preetam 2026-10-10"
+Brodowski_2022,SRR18962127,2,"CSTR inoculum (SRA Inokulum2), shared by B1 and B2 on day 0; caproate 0 and no chemistry measured on the inoculum itself. Kept for descriptive use only, never modelled.","SRA PRJNA833049; audit 2026-10-06; decision Preetam 2026-10-10"
+Brodowski_2022_EXTERNAL_ACETATE,SRR13989653,2,"Bioreactor inoculum (SRA), shared by B1 and B2 on day 0; caproate 0 and no chemistry measured on the inoculum itself. Kept for descriptive use only, never modelled.","SRA PRJNA715197 (SAMN18336566); audit 2026-10-06; decision Preetam 2026-10-10"
+Duber_2020,ERR3200162,1,"Seed sludge (SRA Inoculum_S43) taken before feeding began; caproate not recorded. Kept for descriptive use only, never modelled.","ENA PRJEB31575; decision Preetam 2026-10-10"
