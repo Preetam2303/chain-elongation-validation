@@ -1,14 +1,18 @@
-import os
-import matplotlib.pyplot as plt
-import pandas as pd
-import numpy as np
-import xgboost as xgb
-import shap
-from sklearn.preprocessing import StandardScaler
+# figure_s5_combined_shap.py
+# Figure S5: full SHAP ranking across chemistry, operational parameters,
+# the categorical descriptors AND genera together (unlike main-text Figure 5,
+# which is genus-only). It is the same fit as Figure 5 (all_samples_shap.py):
+# one XGBoost fit on every modelled sample with the headline's predictors and
+# settings. Colours show each predictor's measured value (shap's own
+# beeswarm); the categorical descriptors and unmeasured cells are grey. Run it
+# with run_figures.py, which points it at the matrix.
 
-MATRIX_PATH = "../../data/BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv"
-OUTPUT_DIR = "../../figures_output"
-os.makedirs(OUTPUT_DIR, exist_ok=True)
+import matplotlib.pyplot as plt
+import numpy as np
+import shap
+
+import all_samples_shap
+import figure_inputs as fi
 
 plt.rcParams.update({
     "font.family": "sans-serif",
@@ -23,58 +27,28 @@ plt.rcParams.update({
 
 
 def generate_figure_s5(max_display=15):
-    """Figure S5 -- full SHAP ranking across chemistry, operational parameters,
-    AND genera together (unlike main-text Figure 5, which is deliberately
-    genus-only to match Section 3.6's taxonomic focus). This is the
-    metabolite-inclusive view -- answers "how do chemistry and biology compare
-    directly" using shap.summary_plot on a real global model fit."""
-    df = pd.read_csv(MATRIX_PATH, low_memory=False)
+    """Figure S5 -- the metabolite-inclusive view: how chemistry and biology
+    compare directly in the same real global model fit as Figure 5."""
+    X, shap_values, ranking = all_samples_shap.fit()
+    top = ranking.head(max_display)
+    n_genera = int(top["feature"].str.startswith("g__").sum())
+    print(f"\n[Figure S5] Top {max_display} predictors by mean |SHAP| (mM C) "
+          f"({max_display - n_genera} chemistry, operational or categorical; {n_genera} genera):")
+    print(top.to_string(index=False, float_format=lambda x: f"{x:.3f}"))
 
-    genus_cols = sorted([c for c in df.columns if c.startswith("g__")])
-    df[genus_cols] = df[genus_cols].apply(pd.to_numeric, errors="coerce").fillna(0)
-    row_sums = df[genus_cols].sum(axis=1).replace(0, 1)
-    df[genus_cols] = df[genus_cols].div(row_sums, axis=0)
-
-    TARGET = "Caproate"
-    foundational_chems = ["Lactate", "Acetate", "Butyrate", "Ethanol", "Propionate"]
-    op_params = ["PH", "TEMP", "HRT"]
-    valid_features = [c for c in foundational_chems + op_params if c in df.columns] + genus_cols
-
-    X = df[valid_features].apply(pd.to_numeric, errors="coerce").fillna(0)
-    y = pd.to_numeric(df[TARGET], errors="coerce").fillna(0)
-
-    def clean_label(col_name):
-        return col_name.replace("g__", "").replace("_", " ") if col_name.startswith("g__") else col_name
-    X.columns = [clean_label(c) for c in X.columns]
-
-    scaler = StandardScaler()
-    X_scaled = pd.DataFrame(scaler.fit_transform(X), columns=X.columns, index=X.index)
-
-    xgb_params = {"n_estimators": 150, "learning_rate": 0.05, "max_depth": 3, "subsample": 0.8,
-                  "colsample_bytree": 0.8, "random_state": 42, "n_jobs": -1, "tree_method": "hist"}
-    model = xgb.XGBRegressor(**xgb_params).fit(X_scaled, y)
-    explainer = shap.TreeExplainer(model)
-    shap_values = explainer.shap_values(X_scaled)
-
-    mean_shap = np.abs(shap_values).mean(axis=0)
-    shap_df = pd.DataFrame({"Feature": X_scaled.columns, "SHAP": mean_shap}).sort_values("SHAP", ascending=False)
-    n_chem_ops = len([c for c in shap_df.head(max_display)["Feature"] if c in foundational_chems + op_params])
-    print(f"[Figure S5] Top {max_display} by real mean |SHAP| ({n_chem_ops} chemistry/ops, {max_display - n_chem_ops} genera):")
-    print(shap_df.head(max_display).to_string(index=False))
-
+    X_shown = X.rename(columns=all_samples_shap.display_name)
     plt.figure(figsize=(8, 6.5))
-    shap.summary_plot(shap_values, X_scaled, max_display=max_display, show=False)
-    ax = plt.gca()
+    shap.summary_plot(shap_values, X_shown, max_display=max_display, show=False,
+                      rng=np.random.default_rng(42))  # drawing order of the dots only
+    fig, ax = plt.gcf(), plt.gca()
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
-    ax.set_xlabel("SHAP value (impact on predicted caproate, standardized units)", fontsize=11, fontweight="bold")
-    plt.title("Figure S5. Combined Chemistry, Operational, and Genus-Level SHAP Attribution",
+    ax.set_xlabel("SHAP value (impact on predicted caproate, mM C)", fontsize=11, fontweight="bold")
+    plt.title("Figure S5. Combined Chemistry, Operational, and\nGenus-Level SHAP Attribution",
               loc="left", fontweight="bold", fontsize=11)
     plt.tight_layout()
-    plt.savefig(os.path.join(OUTPUT_DIR, "Figure_S5_Combined_SHAP.png"))
-    plt.savefig(os.path.join(OUTPUT_DIR, "Figure_S5_Combined_SHAP.pdf"))
+    fi.save(fig, "Figure_S5_Combined_SHAP")
     plt.close()
-    print(f"[OK] Figure S5 saved to {OUTPUT_DIR}")
 
 
 if __name__ == "__main__":

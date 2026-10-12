@@ -23,6 +23,9 @@
 #
 # (Paper_ID "Duber_2024" is the internal pipeline label for what is cited
 # throughout the manuscript as Duber et al., 2025 -- see Table 1.)
+#
+# Output (in BIOTWIN_RESULTS_DIR): 07d_figure3_stage1.csv, the table below at
+# full precision, which Figure 3 reads.
 
 import os
 import pandas as pd
@@ -31,7 +34,7 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import r2_score, mean_squared_error
 import warnings
 
-from pipeline_settings import REACTOR_PAIRS, drop_unmodelled
+from pipeline_settings import REACTOR_PAIRS, drop_unmodelled, save_table
 
 warnings.filterwarnings('ignore')
 
@@ -83,3 +86,4 @@ print("PAPER-BY-PAPER INTRA-STUDY GENERALIZATION RESULTS")
 print("=" * 80)
 print(res_df.to_string(index=False))
 print("=" * 80)
+save_table(res_df, "07d_figure3_stage1.csv")

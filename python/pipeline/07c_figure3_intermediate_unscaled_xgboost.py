@@ -26,6 +26,9 @@
 # reproduces exactly. The broad predictor list is kept on purpose: Figure 3
 # shows what this earlier, looser setup gives. It reads the Illumina genus
 # matrix from 00 (BIOTWIN_GENUS), so inoculum samples are not in it.
+#
+# Output (in BIOTWIN_RESULTS_DIR): 07c_figure3_stage2.csv, the R2 and RMSE at
+# full precision, which Figure 3 reads.
 
 import os
 import pandas as pd
@@ -35,7 +38,7 @@ import shap
 from sklearn.metrics import root_mean_squared_error, r2_score
 import warnings
 
-from pipeline_settings import XGB_PARAMS, drop_unmodelled
+from pipeline_settings import XGB_PARAMS, drop_unmodelled, save_table
 
 warnings.filterwarnings('ignore')
 
@@ -84,6 +87,8 @@ print("THE SINGLE-EXPERIMENT ILLUSION RESULTS (DUBER 2024)")
 print(f"Intra-Study R-squared (R2): {r2:.3f}")
 print(f"Intra-Study RMSE: {rmse:.3f} mM C")
 print("-" * 60)
+save_table([{'Paper': study_id, 'Train_Reactor': 'B1', 'Test_Reactor': 'B2', 'Train_Size': len(df_train),
+             'Test_Size': len(df_test), 'R2': r2, 'RMSE': rmse}], "07c_figure3_stage2.csv")
 
 explainer = shap.TreeExplainer(model)
 shap_values = explainer.shap_values(X_train)
