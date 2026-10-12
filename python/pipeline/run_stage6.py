@@ -1,14 +1,18 @@
 # run_stage6.py
 # Stage 6 of the primer-trimmed rerun: run the downstream analyses (02 to 11)
-# on the corrected run's matrices, without touching data/ or results/.
+# on the corrected run's matrices, without touching data/ or results/. It also
+# runs 12, Stage 7's ASV ranking for Table S2.
 #
 # Each script reads its matrix from an environment variable when it is set,
 # and from data/ otherwise. This runner sets them to the files in the run
-# folder's corrected_<date> folder (made by 04_metadata_merge.R, 00 and 00b):
+# folder's corrected_<date> folder (made by 04_metadata_merge.R, 00 and 00b),
+# and to the taxonomy table in the run folder itself:
 #   BIOTWIN_MATRIX       BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv  (00b; 02-06, 07b, 08-11)
-#   BIOTWIN_PRUNED       BIOTWIN_PRUNED_ML_MATRIX.csv              (00; 07a, 07b, 10, 11)
+#   BIOTWIN_PRUNED       BIOTWIN_PRUNED_ML_MATRIX.csv              (00; 07a, 07b, 10-12)
 #   BIOTWIN_GENUS        BIOTWIN_GENUS_ML_MATRIX.csv               (00; 07c, 07d, 09)
-#   BIOTWIN_RESULTS_DIR  the new dated output folder               (02-06, 07b, 09-11 write tables)
+#   BIOTWIN_ASV_ALL      BIOTWIN_FINAL_ML_MATRIX.csv               (04_metadata_merge.R; 12)
+#   BIOTWIN_TAXONOMY     ASV_Taxonomy_Master.csv, run folder       (03_taxonomic_assignment.R; 12)
+#   BIOTWIN_RESULTS_DIR  the new dated output folder               (02-06, 07b, 09-12 write tables)
 #
 # Output: a new folder stage6_corrected_<date> inside the corrected_<date>
 # folder, with one <script>.log per script (everything it printed), the tables
@@ -53,6 +57,7 @@ SCRIPTS = [
     "09_guild_membership_shap_ranks.py",
     "10_table3a_naive_splits.py",
     "11_replicate_checks.py",
+    "12_table_s2_shap_ranking.py",
 ]
 PIPELINE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -74,11 +79,14 @@ inputs = {
     "BIOTWIN_MATRIX": os.path.join(CORRECTED_DIR, "BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv"),
     "BIOTWIN_PRUNED": os.path.join(CORRECTED_DIR, "BIOTWIN_PRUNED_ML_MATRIX.csv"),
     "BIOTWIN_GENUS": os.path.join(CORRECTED_DIR, "BIOTWIN_GENUS_ML_MATRIX.csv"),
+    "BIOTWIN_ASV_ALL": os.path.join(CORRECTED_DIR, "BIOTWIN_FINAL_ML_MATRIX.csv"),
+    "BIOTWIN_TAXONOMY": os.path.join(RUN_DIR, "ASV_Taxonomy_Master.csv"),
 }
 inputs = {k: os.path.abspath(v) for k, v in inputs.items()}
 for name, path in inputs.items():
     if not os.path.exists(path):
-        raise SystemExit(f"Missing input {path} ({name}). Run 04_metadata_merge.R, 00 and 00b first.")
+        raise SystemExit(f"Missing input {path} ({name}). Run 03_taxonomic_assignment.R, 04_metadata_merge.R, "
+                         "00 and 00b first.")
 
 only = "".join("_" + s.split("_")[0] for s in scripts) if wanted else ""
 OUT_DIR = os.path.join(CORRECTED_DIR, f"stage6_corrected_{datetime.date.today():%Y-%m-%d}{only}")

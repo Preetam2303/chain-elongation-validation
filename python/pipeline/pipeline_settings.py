@@ -1,5 +1,5 @@
 # pipeline_settings.py
-# Settings shared by the modelling scripts (02 to 10), so they cannot drift
+# Settings shared by the modelling scripts (02 to 12), so they cannot drift
 # apart. Decided by Preetam on 2026-10-10 (project file
 # rerun/2026-10-10_pr2_plan/DECISION_headline_rows_features_2026-10-10.md):
 #
