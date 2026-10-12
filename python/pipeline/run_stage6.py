@@ -12,7 +12,7 @@
 #   BIOTWIN_GENUS        BIOTWIN_GENUS_ML_MATRIX.csv               (00; 07c, 07d, 09)
 #   BIOTWIN_ASV_ALL      BIOTWIN_FINAL_ML_MATRIX.csv               (04_metadata_merge.R; 12)
 #   BIOTWIN_TAXONOMY     ASV_Taxonomy_Master.csv, run folder       (03_taxonomic_assignment.R; 12)
-#   BIOTWIN_RESULTS_DIR  the new dated output folder               (02-06, 07b, 09-12 write tables)
+#   BIOTWIN_RESULTS_DIR  the new dated output folder               (02-06, 07b-07d, 09-12 write tables)
 #
 # Output: a new folder stage6_corrected_<date> inside the corrected_<date>
 # folder, with one <script>.log per script (everything it printed), the tables

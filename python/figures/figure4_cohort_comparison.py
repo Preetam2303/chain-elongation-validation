@@ -1,15 +1,17 @@
-import os
+# figure4_cohort_comparison.py
+# Figure 4: Illumina vs. Nanopore cohort comparison, built entirely from the
+# corrected run's genus matrix (BIOTWIN_MATRIX, from 00b): the modelled samples
+# only, so the Illumina cohort is the training cohort of the platform transfer
+# (06). Unmeasured values are blank and left out, never counted as 0. Run it
+# with run_figures.py, which points it at the matrix.
+
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
 
-# ==============================================================================
-# CONFIG -- adjust MATRIX_PATH / OUTPUT_DIR to your local paths
-# ==============================================================================
-MATRIX_PATH = "../../data/BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv"
-OUTPUT_DIR = "../../figures_output"
-os.makedirs(OUTPUT_DIR, exist_ok=True)
+import figure_inputs as fi
+from pipeline_settings import NANOPORE_ID, load_matrix
 
 # ==============================================================================
 # SAME JOURNAL STYLE AS FIGURES 1 & 3 -- kept identical for visual consistency
@@ -34,26 +36,22 @@ CLR_NANOPORE = "#00A087"
 
 def generate_figure_4():
     """Figure 4 -- Illumina vs. Nanopore cohort comparison, built entirely from
-    the real 184-sample matrix. No simulated values anywhere in this function."""
-    df = pd.read_csv(MATRIX_PATH, low_memory=False)
+    the corrected matrix. No simulated values anywhere in this function."""
+    df, genus_cols = load_matrix(fi.matrix_path())  # genera as relative abundance
 
-    # relative abundance, same TSS procedure used throughout the pipeline
-    genus_cols = sorted([c for c in df.columns if c.startswith("g__")])
-    df[genus_cols] = df[genus_cols].apply(pd.to_numeric, errors="coerce").fillna(0)
-    row_sums = df[genus_cols].sum(axis=1).replace(0, 1)
-    rel = df[genus_cols].div(row_sums, axis=0) * 100  # as percent
-
-    cohort = np.where(df["Paper_ID"] == "Hanna_2025", "Nanopore (n=54)", "Illumina (n=130)")
+    nanopore = df["Paper_ID"] == NANOPORE_ID
+    ill_label, nano_label = f"Illumina\n(n={int((~nanopore).sum())})", f"Nanopore\n(n={int(nanopore.sum())})"
+    cohort = np.where(nanopore, nano_label, ill_label)
 
     plot_df = pd.DataFrame({
         "Cohort": cohort,
-        "pH": pd.to_numeric(df["PH"], errors="coerce"),
-        "Lactate (mM C)": pd.to_numeric(df["Lactate"], errors="coerce"),
-        "Acetate (mM C)": pd.to_numeric(df["Acetate"], errors="coerce"),
-        "Caproate (mM C)": pd.to_numeric(df["Caproate"], errors="coerce"),
-        "Caproiciproducens (%)": rel["g__Caproiciproducens"],
-        "Lactobacillus (%)": rel["g__Lactobacillus"],
-        "Lacticaseibacillus (%)": rel["g__Lacticaseibacillus"],
+        "pH": df["PH"],
+        "Lactate (mM C)": df["Lactate"],
+        "Acetate (mM C)": df["Acetate"],
+        "Caproate (mM C)": df["Caproate"],
+        "Caproiciproducens (%)": 100 * df["g__Caproiciproducens"],
+        "Lactobacillus (%)": 100 * df["g__Lactobacillus"],
+        "Lacticaseibacillus (%)": 100 * df["g__Lacticaseibacillus"],
     })
 
     metrics = ["pH", "Lactate (mM C)", "Acetate (mM C)", "Caproate (mM C)",
@@ -61,9 +59,10 @@ def generate_figure_4():
 
     fig, axes = plt.subplots(2, 4, figsize=(11, 5.5))
     axes = axes.flatten()
-    palette = {"Illumina (n=130)": CLR_ILLUMINA, "Nanopore (n=54)": CLR_NANOPORE}
-    order = ["Illumina (n=130)", "Nanopore (n=54)"]
+    palette = {ill_label: CLR_ILLUMINA, nano_label: CLR_NANOPORE}
+    order = [ill_label, nano_label]
 
+    np.random.seed(42)  # the strip plots' jitter only, fixed so every run draws the same figure
     for i, metric in enumerate(metrics):
         ax = axes[i]
         # hue=Cohort + legend=False avoids the palette-without-hue deprecation
@@ -82,15 +81,14 @@ def generate_figure_4():
     plt.suptitle("Figure 4. Distributional & Compositional Shift Between Sequencing Platforms",
                  x=0.08, y=0.98, ha="left", fontweight="bold", fontsize=11)
     plt.tight_layout(rect=[0, 0, 1, 0.95])
-
-    plt.savefig(os.path.join(OUTPUT_DIR, "Figure_4_Cohort_Comparison.png"), dpi=300)
-    plt.savefig(os.path.join(OUTPUT_DIR, "Figure_4_Cohort_Comparison.pdf"))
+    fi.save(fig, "Figure_4_Cohort_Comparison")
     plt.close()
 
-    # sanity-check printout so the console confirms these are the real, reported numbers
-    print("[Figure 4] Real per-cohort means (should match manuscript Section 3.5):")
-    print(plot_df.groupby("Cohort")[metrics].mean().round(2).to_string())
-    print(f"[OK] Figure 4 saved to {OUTPUT_DIR}")
+    # Printout for the text: per cohort, the samples with a value, mean and median
+    summary = plot_df.groupby("Cohort")[metrics].agg(["count", "mean", "median"]).T.unstack()
+    summary = summary.rename(columns=lambda c: c.replace("\n", " "), level=0)
+    print("\n[Figure 4] Per cohort: samples with a value (count), mean and median:")
+    print(summary.to_string(float_format=lambda x: f"{x:.2f}"))
 
 
 if __name__ == "__main__":

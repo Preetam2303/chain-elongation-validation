@@ -1,13 +1,19 @@
-import os
+# figure5_shap_genus.py
+# Figure 5: SHAP summary for the genera the model relies on most, from one
+# XGBoost fit on every modelled sample of the corrected matrix with the
+# headline's predictors and settings (all_samples_shap.py; the same fit as
+# Figure S5). It shows the top 10 genera by mean |SHAP|, 10 as in 09's top-10
+# criterion. g__Unclassified is left out, as in Figure 6: it is a bin of
+# unassigned reads, not a taxon (its rank is printed). Run it with
+# run_figures.py, which points it at the matrix.
+
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import xgboost as xgb
-import shap
+from scipy.stats import rankdata
 
-MATRIX_PATH = "../../data/BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv"
-OUTPUT_DIR = "../../figures_output"
-os.makedirs(OUTPUT_DIR, exist_ok=True)
+import all_samples_shap
+import figure_inputs as fi
 
 plt.rcParams["font.sans-serif"] = ["Arial", "Helvetica", "DejaVu Sans"]
 plt.rcParams["font.family"] = "sans-serif"
@@ -23,71 +29,23 @@ plt.rcParams["pdf.fonttype"] = 42
 plt.rcParams["axes.edgecolor"] = "#333333"
 plt.rcParams["axes.linewidth"] = 0.8
 
-XGB_PARAMS = {
-    "n_estimators": 150, "learning_rate": 0.05, "max_depth": 3,
-    "subsample": 0.8, "colsample_bytree": 0.8, "random_state": 42,
-    "n_jobs": -1, "enable_categorical": True, "tree_method": "hist",
-}
+N_TOP_GENERA = 10
+NOT_A_TAXON = "g__Unclassified"
 
 
-def generate_figure_5(n_top_genera=6, must_include=("g__Clostridium_sensu_stricto_12",)):
-    """Figure 5 -- SHAP summary for the core driver genera, computed from a real
-    XGBoost fit + shap.TreeExplainer on the full 184-sample matrix (same feature
-    architecture and hyperparameters used throughout the manuscript: Section 2.7).
-    No simulated SHAP or feature values anywhere in this function.
+def generate_figure_5():
+    """Figure 5 -- SHAP summary for the top genera, computed from a real
+    XGBoost fit + shap.TreeExplainer on every modelled sample. No simulated
+    SHAP or feature values anywhere in this function."""
+    X, shap_values, ranking = all_samples_shap.fit()
 
-    `must_include` guarantees taxa the manuscript text names as core drivers are
-    shown even if a single global (non-fold-averaged) fit ranks them outside the
-    raw top-N -- Clostridium sensu stricto 12 is a real example of this: rank 16
-    overall in this fit, clearly above noise, just not top-6 by this one metric."""
-    df = pd.read_csv(MATRIX_PATH, low_memory=False)
-
-    genus_cols = sorted([c for c in df.columns if c.startswith("g__")])
-    df[genus_cols] = df[genus_cols].apply(pd.to_numeric, errors="coerce").fillna(0)
-    row_sums = df[genus_cols].sum(axis=1).replace(0, 1)
-    df[genus_cols] = df[genus_cols].div(row_sums, axis=0)
-
-    TARGET = "Caproate"
-    y = pd.to_numeric(df[TARGET], errors="coerce").fillna(0)
-
-    op_params = ["PH", "TEMP", "HRT"]
-    foundational_chems = ["Lactate", "Acetate", "Ethanol", "Butyrate", "Valerate", "Isovalerate", "Propionate"]
-    cat_cols = ["Feed_Complexity", "Primary_Carbon_Signature"]
-    for c in cat_cols:
-        if c in df.columns:
-            df[c] = df[c].astype("category")
-
-    valid_chems_ops = [c for c in op_params + foundational_chems if c in df.columns]
-    valid_cats = [c for c in cat_cols if c in df.columns]
-    valid_features = sorted(list(set(valid_chems_ops + valid_cats + genus_cols)))
-
-    X = df[valid_features].copy()
-    numeric_cols = [c for c in valid_features if c not in valid_cats]
-    for c in numeric_cols:
-        X[c] = pd.to_numeric(X[c], errors="coerce").fillna(0)
-
-    model = xgb.XGBRegressor(**XGB_PARAMS).fit(X, y)
-
-    explainer = shap.TreeExplainer(model)
-    shap_values = explainer.shap_values(X)
-
-    mean_abs_shap = np.abs(shap_values).mean(axis=0)
-    shap_summary = pd.DataFrame({"feature": X.columns, "mean_abs_shap": mean_abs_shap})
-    genus_ranked = (
-        shap_summary[shap_summary["feature"].str.startswith("g__")]
-        .sort_values("mean_abs_shap", ascending=False)
-        .reset_index(drop=True)
-    )
-    top_by_rank = genus_ranked.head(n_top_genera)["feature"].tolist()
-    forced = [f for f in must_include if f in genus_ranked["feature"].values and f not in top_by_rank]
-    top_genera = top_by_rank + forced
-    # keep final display order sorted by actual SHAP magnitude, not insertion order
-    top_genera = (
-        genus_ranked[genus_ranked["feature"].isin(top_genera)]
-        .sort_values("mean_abs_shap", ascending=False)["feature"].tolist()
-    )
-    print("[Figure 5] Top genera by real mean |SHAP| (should match Section 3.6/Table 2 core taxa):")
-    print(genus_ranked[genus_ranked["feature"].isin(top_genera)].to_string(index=False))
+    genus_ranked = ranking[ranking["feature"].str.startswith("g__")].reset_index(drop=True)
+    genus_ranked["rank_among_genera"] = rankdata(-genus_ranked["mean_abs_shap"], method="average")
+    genus_ranked = genus_ranked.rename(columns={"rank": "rank_among_all_predictors"})
+    print("\n[Figure 5] Top 15 genera by mean |SHAP| (mM C):")
+    print(genus_ranked.head(15).to_string(index=False, float_format=lambda x: f"{x:.3f}"))
+    top_genera = genus_ranked.loc[genus_ranked["feature"] != NOT_A_TAXON, "feature"].head(N_TOP_GENERA).tolist()
+    print(f"[Figure 5] Shown: the top {N_TOP_GENERA} genera, {NOT_A_TAXON} left out: {', '.join(top_genera)}")
 
     feature_index = {feat: i for i, feat in enumerate(X.columns)}
     plot_rows = []
@@ -97,13 +55,13 @@ def generate_figure_5(n_top_genera=6, must_include=("g__Clostridium_sensu_strict
         sv = shap_values[:, idx]
         rng = feat_vals.max() - feat_vals.min()
         fv_norm = (feat_vals - feat_vals.min()) / rng if rng > 0 else np.zeros_like(feat_vals)
-        clean_name = feat.replace("g__", "").replace("_", " ").strip()
+        clean_name = all_samples_shap.display_name(feat)
         for s, f in zip(sv, fv_norm):
             plot_rows.append({"Taxon": clean_name, "SHAP Value": s, "Feature Value": f})
     df_shap = pd.DataFrame(plot_rows)
 
-    taxa_order = [t.replace("g__", "").replace("_", " ") for t in top_genera]
-    fig, ax = plt.subplots(figsize=(7.2, 4.4))
+    taxa_order = [all_samples_shap.display_name(t) for t in top_genera]
+    fig, ax = plt.subplots(figsize=(7.2, 0.44 * len(taxa_order) + 1.8))
     y_positions = {t: i for i, t in enumerate(reversed(taxa_order))}
 
     rng = np.random.default_rng(42)  # jitter only, not data -- purely visual de-overlap
@@ -113,7 +71,7 @@ def generate_figure_5(n_top_genera=6, must_include=("g__Clostridium_sensu_strict
         y_base = y_positions[taxon]
         y_jitter = y_base + rng.normal(0, 0.08, len(sub))
         sc = ax.scatter(sub["SHAP Value"], y_jitter, c=sub["Feature Value"], cmap="coolwarm",
-                         s=16, alpha=0.8, edgecolors="none")
+                        s=16, alpha=0.8, edgecolors="none")
 
     ax.axvline(0, color="#666666", linestyle="--", linewidth=0.8)
     ax.set_yticks([y_positions[t] for t in taxa_order])
@@ -129,11 +87,8 @@ def generate_figure_5(n_top_genera=6, must_include=("g__Clostridium_sensu_strict
 
     plt.title("Figure 5. SHAP Attribution of Core Functional Drivers", loc="left", fontweight="bold", pad=12)
     plt.tight_layout()
-
-    plt.savefig(os.path.join(OUTPUT_DIR, "Figure_5_SHAP_Summary.png"), dpi=300, bbox_inches="tight")
-    plt.savefig(os.path.join(OUTPUT_DIR, "Figure_5_SHAP_Summary.pdf"), bbox_inches="tight")
+    fi.save(fig, "Figure_5_SHAP_Summary")
     plt.close()
-    print(f"[OK] Figure 5 saved to {OUTPUT_DIR}")
 
 
 if __name__ == "__main__":

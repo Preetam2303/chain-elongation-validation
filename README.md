@@ -64,19 +64,25 @@ python/pipeline/       The validation architectures, in Methods 2.6's order
                                         BLAST's text file
   run_stage6.py                        Runs 02-12 on a corrected run's matrices
 
-python/figures/        One script per figure, each independently runnable
-  figure1_r2_comparison.py           Master validation-collapse bar chart
-  figure2_permutation_histogram.py   Loads results/permutation_null_distribution_999.csv
-  figure3_duber_progression.py       The three-stage leakage-tightening figure
-  figure4_cohort_comparison.py       Illumina vs. Nanopore, real per-sample data
-  figure5_shap_genus.py              Real shap.TreeExplainer output, genus-only
-  figure_s1_substrate_ladder.py
-  figure_s3_intrastudy_transfer.py
-  figure_s4_duber_scatter.py          Real recomputation of Table 5's worst fold
-  figure_s5_combined_shap.py          Chemistry + genus combined SHAP
+python/figures/        One script per figure, drawn from a corrected run's results
+                       files (Stage 8 of the rerun)
+  run_figures.py                     Draws every figure into a new dated folder
+  figure_inputs.py                   Where the figures read their inputs and are saved
+  all_samples_shap.py                The one XGBoost fit and TreeSHAP behind Figures 5 and S5
+  figure1_r2_comparison.py           Master validation-collapse bar chart (Tables 3a, 3b)
+  figure2_permutation_histogram.py   Null distributions of the permutation tests (03)
+  figure3_duber_progression.py       The three-stage leakage-tightening figure (07d, 07c, 05)
+  figure4_cohort_comparison.py       Illumina vs. Nanopore, per-sample data
+  figure5_shap_genus.py              Top 10 genera by SHAP, one fit on all modelled samples
+  figure6_attribution_vs_spread.py   SHAP rank across folds vs. number of studies (09)
+  figure_s1_substrate_ladder.py      Table 4's tiers, both columns (02)
+  figure_s3_intrastudy_transfer.py   Table 5's reactor pairs: R2 and rank correlation (05)
+  figure_s4_duber_scatter.py         Table 5's Duber 2025 pair refit: measured vs. predicted
+  figure_s5_combined_shap.py         Top 15 predictors by SHAP, the same fit as Figure 5
 
 results/                Saved output from long-running scripts (see note below)
-figures_output/         Where the figure scripts write PNG/PDF output
+figures_output/         Where the published figure scripts (commit 844f478) wrote
+                        PNG/PDF output; run_figures.py writes to the run folder
 
 results_reference.json  Every reported value, the script that produces it, and
                         how exactly it should reproduce. Start here.
@@ -97,16 +103,16 @@ Every figure in the manuscript, main and supplementary, has a corresponding scri
    `python/pipeline/run_stage6.py` runs scripts 02 to 11 on those matrices (Stage 6), and 12 (below). It saves each script's printed output and the tables the scripts write to a new `stage6_corrected_<date>` folder inside `corrected_<date>` (with the script numbers added, e.g. `_03_07b`, when only some scripts run); `data/` and `results/` are not touched. The runner points each script at the corrected matrices through the environment variables `BIOTWIN_MATRIX`, `BIOTWIN_PRUNED`, `BIOTWIN_GENUS`, `BIOTWIN_ASV_ALL` (04's `BIOTWIN_FINAL_ML_MATRIX.csv`, every ASV), `BIOTWIN_TAXONOMY` (the run folder's `ASV_Taxonomy_Master.csv`) and `BIOTWIN_RESULTS_DIR`. Run on its own, a script reads the published run's matrices in `data/` instead, with the inoculum and excluded samples left out. That gives neither the published nor the corrected numbers: the corrected numbers come from `run_stage6.py`, and the published ones from the code at commit `844f478`.
 3. Run `python/pipeline/01_genus_aggregation.py` (using `data/historical/BIOTWIN_FINAL_ML_MATRIX.csv` and `ASV_Taxonomy_Master.csv`) to reproduce `data/BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv`, the published run's 184-sample x 170-genus matrix.
 4. For the published Tables 3a, 3b, 4 and 5, run the remaining `python/pipeline/` scripts at commit `844f478` in numeric order; scripts 07a-07d use the historical snapshots in `data/historical/` (see each script's header). For the corrected run, use `run_stage6.py` (step 2).
-5. Run any `python/figures/` script independently to regenerate that figure -- run from inside `python/figures/` or `python/pipeline/`, since paths are relative to each script's own location.
+5. `python/figures/run_figures.py` draws the figures (Stage 8) from the corrected run: the genus matrix from 00b and the tables that `run_stage6.py` wrote, never from numbers typed into a script. `RUN_OF_RECORD` at its top names the `stage6_corrected_*` folder that holds each Stage 6 script's run of record. Figure 3 reads the tables that 07c and 07d save (since 2026-10-12), so run `run_stage6.py 07c 07d` once first if your Stage 6 folders are older. `python python/figures/run_figures.py` draws every figure, and `python python/figures/run_figures.py 2 6 S4` only those named. Each figure goes as PNG and PDF into a new `figures_corrected_<date>` folder inside `corrected_<date>` (with the figure names added when only some are drawn), with one log per figure script and `versions.txt`. A log lists each input file with its SHA-256 (line endings read as LF, so Windows and Linux agree) and every value the figure plots. A figure script run on its own stops and asks for `run_figures.py`. The published figures come from the code at commit `844f478`.
 6. Check what you get against `results_reference.json`, which lists every reported value alongside the tolerance you should expect it to reproduce within.
 
-`python/pipeline/03_permutation_test_999.py` refits the 7-fold LOSO 999 times for each of its two shuffles. It saves every shuffle's result to `permutation_null_distribution_999.csv` (across studies) and `permutation_null_within_study_999.csv` (within each study), and the *p*-values to `03_permutation_tests.csv` and, per held-out study, `03_permutation_tests_by_study.csv`, all in the results folder. `figure2_permutation_histogram.py` still draws the published histogram from `results/`; it and the other figure scripts in `python/figures/` keep the published settings until the figures are redone for the corrected run.
+`python/pipeline/03_permutation_test_999.py` refits the 7-fold LOSO 999 times for each of its two shuffles. It saves every shuffle's result to `permutation_null_distribution_999.csv` (across studies) and `permutation_null_within_study_999.csv` (within each study), and the *p*-values to `03_permutation_tests.csv` and, per held-out study, `03_permutation_tests_by_study.csv`, all in the results folder. `figure2_permutation_histogram.py` draws both null distributions from those files. It recomputes each count and *p*-value from every shuffle and stops if one differs from `03_permutation_tests.csv`.
 
 **Table S2** (Stage 7 of the rerun) is rebuilt from scratch, because the published table's ASV list cannot be traced to a saved ranking. `run_stage6.py 12` ranks the ASVs by mean |SHAP| in one XGBoost fit on all 112 modelled Illumina samples (core set + ASVs as relative abundance, as Figure 5 does for genera), with each ASV's rank in the six leave-one-study-out fits as a stability check, and the number of studies each ASV is found in, as Figure 6 gives for genera. It writes `12_asv_shap_ranking.csv` (every kept ASV), `12_table_s2_asvs.csv` and `Table_S2_ASVs_<date>.fasta`. The FASTA holds the top 20 primer-free sequences and also the Caproiciproducens ASVs that together hold 90% of that genus's reads (counted over all of its ASVs in the modelled samples, before the prevalence filter), even outside the top 20, so the strain-level evidence rests on the whole genus. BLAST that FASTA by hand (Nucleotide BLAST, database "16S ribosomal RNA sequences (Bacteria and Archaea)", megablast) and save Download All -> Text. Then `python python/pipeline/12b_table_s2_from_blast.py <that folder> <BLAST text file>` writes `TableS2_<date>.csv` from the BLAST file directly: for each ASV the closest relative (every species tied with the top hit is listed), query cover, identity and accession, and for Caproiciproducens the share of the genus's reads by closest relative. A top hit of 99% or more is the closest known relative, not a species identification. The ranking, the FASTA, the BLAST file and the table from the run of record (2026-10-12, BLAST RID CTJH4F4E014) are in `data/table_s2/`, with a README listing each file and column.
 
 ## A note on exact reproducibility
 
-Since the corrected settings of 2026-10-10, every XGBoost model in `python/pipeline/` uses the same settings (150 trees, learning rate 0.05, depth 3, `random_state=42`) with **no row or column subsampling** (`pipeline_settings.py`). With the pinned package versions, every number therefore reproduces exactly on any machine. Two models still sample rows, both seeded (`random_state=42`): 07a's LightGBM Random-Forest mode, which requires bagging, and 07d's scikit-learn random forest (Figure 3, stage 1), which draws bootstrap samples. The figure scripts in `python/figures/` have not been changed yet and still use the published settings.
+Since the corrected settings of 2026-10-10, every XGBoost model in `python/pipeline/` uses the same settings (150 trees, learning rate 0.05, depth 3, `random_state=42`) with **no row or column subsampling** (`pipeline_settings.py`). With the pinned package versions, every number therefore reproduces exactly on any machine. Two models still sample rows, both seeded (`random_state=42`): 07a's LightGBM Random-Forest mode, which requires bagging, and 07d's scikit-learn random forest (Figure 3, stage 1), which draws bootstrap samples. The figure scripts in `python/figures/` use the same settings. Figures 5 and S5 come from one XGBoost fit on all 166 modelled samples with TreeSHAP on the same samples (no split, so no seed). Figure S4 refits Table 5's Duber 2025 pair exactly as 05 does and stops if its R², RMSE or rank correlation differs from 05's table. The only random parts of the figures are visual (the jitter of the points in Figures 4, 5 and 6, and the order in which Figure S5 draws its dots), and they are seeded.
 
 The permutation tests' *p*-values are Monte-Carlo estimates over 999 shuffles each. Shuffle *i* uses `random_state=i` (across studies) or `np.random.RandomState(i)` (within each study), so both null distributions reproduce exactly.
 
