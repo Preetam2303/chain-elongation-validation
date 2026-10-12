@@ -1,0 +1,30 @@
+Input: C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv
+       sha256 087c6f50e080eccbd106eac3f2321b8be3e7e6f6ffa5a5ee43538363f857bcf7
+Input: C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\stage6_corrected_2026-10-11\05_table5_reactor_pairs.csv
+       sha256 4eacb8e57c951c8312b9b8d3288574a7b0138fe817ab127f774d0a35cfce2360
+
+[Figure S4] Duber_2024 B1 (30 samples) -> B2 (21 samples, 7 sampling days): R2 = -5.296, RMSE = 144.3 mM C, Spearman rho (day means) = -0.607; equal to Table 5 (05_table5_reactor_pairs.csv)
+  Sample_ID DAY  measured  predicted
+SRR28047197   1       9.4        9.9
+SRR28047196   1       9.4        9.9
+SRR28047195   1       9.4        9.9
+SRR28047194  37     109.7      151.4
+SRR28047193  37     109.7      151.4
+SRR28047192  37     109.7      151.4
+SRR28047191  53     120.5      154.4
+SRR28047190  53     120.5      154.4
+SRR28047189  53     120.5      154.4
+SRR28047188  79     125.9      113.0
+SRR28047186  79     125.9      112.9
+SRR28047185  79     125.9      113.3
+SRR28047184 105       1.4      276.0
+SRR28047183 105       1.4      185.6
+SRR28047182 105       1.4      184.4
+SRR28047181 123       0.9      275.5
+SRR28047180 123       0.9      183.5
+SRR28047179 123       0.9      183.9
+SRR28047178 158       0.0      275.5
+SRR28047177 158       0.0      183.5
+SRR28047175 158       0.0      183.5
+Saved: C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\figures_corrected_2026-10-12\Figure_S4_Duber_Scatter.png
+Saved: C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\figures_corrected_2026-10-12\Figure_S4_Duber_Scatter.pdf

@@ -9,7 +9,7 @@ Code accompanying:
 
 Microbiome-to-function machine learning models are typically validated within a single experimental system. This project asks what happens when a caproate-prediction model built on six previously published short-read (Illumina) chain-elongation studies plus one newly contributed long-read (Nanopore) dataset is validated properly instead: by study, by individual physical reactor, and across sequencing platforms.
 
-The short version: naive validation reaches R² as high as 0.985; every properly grouped scheme collapses that to at or below zero. The taxa the model identifies as core drivers, however, stay stable across every validation architecture, every algorithm tested, and even across sequencing platforms. That contrast — quantitative fragility alongside ecological robustness — is the paper's central finding.
+The short version: naive validation reaches R² as high as 0.913 (Table 3a); every properly grouped scheme collapses that to at or below zero. The taxa the model identifies as core drivers, however, stay stable across every validation architecture, every algorithm tested, and even across sequencing platforms. That contrast — quantitative fragility alongside ecological robustness — is the paper's central finding.
 
 This repository contains the complete pipeline: raw sequence processing through final figures, with every reported number traceable to a script that produces it.
 
@@ -80,19 +80,32 @@ python/figures/        One script per figure, drawn from a corrected run's resul
   figure_s4_duber_scatter.py         Table 5's Duber 2025 pair refit: measured vs. predicted
   figure_s5_combined_shap.py         Top 15 predictors by SHAP, the same fit as Figure 5
 
-results/                Saved output from long-running scripts (see note below)
+python/build_results_reference.py
+                       Builds results_reference.json from the run of record,
+                       and checks your own run against it (Stage 9)
+
+results/
+  primer_trimmed_2026-10-06/   The run of record of the primer-trimmed rerun,
+                               unchanged from the laptop run: Stage 1 read
+                               tracking, the Stage 2 ASV tables, the corrected
+                               matrices, the Stage 6 tables and logs, and the
+                               figures (README inside)
+  chimera_check_2026-10-08/    The chimera checks (see "chimera removal" below)
+  permutation_null_distribution_999.csv
+                               The published run's 999 shuffles (across studies)
 figures_output/         Where the published figure scripts (commit 844f478) wrote
                         PNG/PDF output; run_figures.py writes to the run folder
 
-results_reference.json  Every reported value, the script that produces it, and
-                        how exactly it should reproduce. Start here.
+results_reference.json  The corrected run's values for the manuscript, read from
+                        the run of record's files, with the files each comes
+                        from and how exactly it reproduces. Start here.
 ```
 
 Every figure in the manuscript, main and supplementary, has a corresponding script in `python/figures/`.
 
 ## Reproducing this
 
-**Shortcut**: `data/BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv` is the published run's final matrix -- if you just want to regenerate the published figures or tables, check out commit `844f478` and skip to step 4.
+**Shortcut**: the corrected run of record is in `results/primer_trimmed_2026-10-06/`, with its matrices in `corrected_2026-10-11/`. To regenerate the corrected tables and figures without the sequence processing, copy that folder into a folder of your own, leaving out its `stage6_corrected_*` and `figures_corrected_*` folders. Set `GRAND_MERGE_DIR` in `run_stage6.py` and `run_figures.py` to your folder, run `run_stage6.py` (step 2) and `run_figures.py` (step 5, with `RUN_OF_RECORD` naming your new Stage 6 folder), then check your run (step 6). `data/BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv` is the published run's final matrix: to regenerate the published figures or tables, check out commit `844f478` and skip to step 4.
 
 **Full pipeline from raw sequences:**
 1. Install R packages (see `R_packages.txt`) and Python packages (`pip install -r requirements.txt`), using the **exact pinned versions**, not just compatible ones — see the reproducibility note below.
@@ -104,7 +117,7 @@ Every figure in the manuscript, main and supplementary, has a corresponding scri
 3. Run `python/pipeline/01_genus_aggregation.py` (using `data/historical/BIOTWIN_FINAL_ML_MATRIX.csv` and `ASV_Taxonomy_Master.csv`) to reproduce `data/BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv`, the published run's 184-sample x 170-genus matrix.
 4. For the published Tables 3a, 3b, 4 and 5, run the remaining `python/pipeline/` scripts at commit `844f478` in numeric order; scripts 07a-07d use the historical snapshots in `data/historical/` (see each script's header). For the corrected run, use `run_stage6.py` (step 2).
 5. `python/figures/run_figures.py` draws the figures (Stage 8) from the corrected run: the genus matrix from 00b and the tables that `run_stage6.py` wrote, never from numbers typed into a script. `RUN_OF_RECORD` at its top names the `stage6_corrected_*` folder that holds each Stage 6 script's run of record. Figure 3 reads the tables that 07c and 07d save (since 2026-10-12), so run `run_stage6.py 07c 07d` once first if your Stage 6 folders are older. `python python/figures/run_figures.py` draws every figure, and `python python/figures/run_figures.py 2 6 S4` only those named. Each figure goes as PNG and PDF into a new `figures_corrected_<date>` folder inside `corrected_<date>` (with the figure names added when only some are drawn), with one log per figure script and `versions.txt`. A log lists each input file with its SHA-256 (line endings read as LF, so Windows and Linux agree) and every value the figure plots. A figure script run on its own stops and asks for `run_figures.py`. The published figures come from the code at commit `844f478`.
-6. Check what you get against `results_reference.json`, which lists every reported value alongside the tolerance you should expect it to reproduce within.
+6. Check what you get against `results_reference.json`. `python python/build_results_reference.py --check <your corrected_<date> folder>` reads the same values from your run (its matrices, Stage 6 folders and figure folder, and the Stage 1 and 2 files in the folder above it) and lists every value that differs from the file by more than half a unit in its last decimal; it exits with an error if any does. A section whose files your run does not have is listed as not checked. Each script's log must be in only one `stage6_corrected_*` folder, and each figure's in only one `figures_corrected_*` folder, or the check stops and says which. `python python/build_results_reference.py` rebuilds `results_reference.json` itself from the run of record in `results/primer_trimmed_2026-10-06/`.
 
 `python/pipeline/03_permutation_test_999.py` refits the 7-fold LOSO 999 times for each of its two shuffles. It saves every shuffle's result to `permutation_null_distribution_999.csv` (across studies) and `permutation_null_within_study_999.csv` (within each study), and the *p*-values to `03_permutation_tests.csv` and, per held-out study, `03_permutation_tests_by_study.csv`, all in the results folder. `figure2_permutation_histogram.py` draws both null distributions from those files. It recomputes each count and *p*-value from every shuffle and stops if one differs from `03_permutation_tests.csv`.
 
@@ -112,25 +125,25 @@ Every figure in the manuscript, main and supplementary, has a corresponding scri
 
 ## A note on exact reproducibility
 
-Since the corrected settings of 2026-10-10, every XGBoost model in `python/pipeline/` uses the same settings (150 trees, learning rate 0.05, depth 3, `random_state=42`) with **no row or column subsampling** (`pipeline_settings.py`). With the pinned package versions, every number therefore reproduces exactly on any machine. Two models still sample rows, both seeded (`random_state=42`): 07a's LightGBM Random-Forest mode, which requires bagging, and 07d's scikit-learn random forest (Figure 3, stage 1), which draws bootstrap samples. The figure scripts in `python/figures/` use the same settings. Figures 5 and S5 come from one XGBoost fit on all 166 modelled samples with TreeSHAP on the same samples (no split, so no seed). Figure S4 refits Table 5's Duber 2025 pair exactly as 05 does and stops if its R², RMSE or rank correlation differs from 05's table. The only random parts of the figures are visual (the jitter of the points in Figures 4, 5 and 6, and the order in which Figure S5 draws its dots), and they are seeded.
+Since the corrected settings of 2026-10-10, every XGBoost model in `python/pipeline/` uses the same settings (150 trees, learning rate 0.05, depth 3, `random_state=42`) with **no row or column subsampling** (`pipeline_settings.py`). With the pinned package versions, every number therefore reproduces exactly on any machine. The cloud's own runs of the same scripts (Linux, Python 3.13.14, from its own copy of the matrices) agree with the laptop run of record (Windows 11, Python 3.13.9) on all 1,387 values of `results_reference.json` that both runs have, which is every value but those of Stage 1 (`--check`, step 6). Two models still sample rows, both seeded (`random_state=42`): 07a's LightGBM Random-Forest mode, which requires bagging, and 07d's scikit-learn random forest (Figure 3, stage 1), which draws bootstrap samples. The figure scripts in `python/figures/` use the same settings. Figures 5 and S5 come from one XGBoost fit on all 166 modelled samples with TreeSHAP on the same samples (no split, so no seed). Figure S4 refits Table 5's Duber 2025 pair exactly as 05 does and stops if its R², RMSE or rank correlation differs from 05's table. The only random parts of the figures are visual (the jitter of the points in Figures 4, 5 and 6, and the order in which Figure S5 draws its dots), and they are seeded.
 
 The permutation tests' *p*-values are Monte-Carlo estimates over 999 shuffles each. Shuffle *i* uses `random_state=i` (across studies) or `np.random.RandomState(i)` (within each study), so both null distributions reproduce exactly.
 
 The vessel folds of 04 and 09 are scikit-learn's GroupKFold folds, with ties between vessels of the same size broken by name (`group_kfold_splits` in `pipeline_settings.py`). GroupKFold itself orders such ties with numpy's default sort, whose order differs between processors. Before 2026-10-11, the laptop and the cloud therefore put some of these vessels, such as the two Nanopore reactors (27 rows each), into different folds and got different vessel-grouped numbers.
 
-The published numbers were made with earlier settings, in which most models used `subsample=0.8, colsample_bytree=0.8` and were therefore machine-dependent, and with a different predictor set. They reproduce with the code at commit `844f478` (see `results_reference.json` for their tolerance classes).
+The published numbers were made with earlier settings, in which most models used `subsample=0.8, colsample_bytree=0.8` and were therefore machine-dependent, and with a different predictor set. They reproduce with the code at commit `844f478`. Their values and tolerance classes are in `results_reference.json` as it stood at tag `draft-v1-2026-10-04` (commit `29635f7`).
 
-**Environment used for every reported number:**
+**Environment used for every reported number (the laptop run of record):**
 
 ```
 Python 3.13.9
-Windows
+Windows 11
 package versions exactly as pinned in requirements.txt and R_packages.txt
 ```
 
 ## Data availability
 
-Raw sequencing data for the six short-read studies are available under their original NCBI/ENA accessions (Table 1 of the manuscript). The Nanopore dataset (Prusak et al., 2026) is available from the corresponding collaborator upon reasonable request pending its own independent publication.
+Raw sequencing data for the six short-read studies are available under their original NCBI/ENA accessions (Table 1 of the manuscript). The Nanopore dataset (Prusak et al., 2026) is available under BioProject PRJNA1222907.
 
 ## Data
 
@@ -175,6 +188,32 @@ data/
 ```
 
 All four dataset snapshots are provided so the complete history behind Figure 3 -- not just its final, headline number -- stays runnable, in keeping with this repository's whole premise: every reported number traceable to a script that produces it.
+
+## Primer-trimmed rerun: primer removal
+
+The published run kept the 341F/805R primers in the reads. Left on the reads, each combination of the primers' wobble bases looked like a different sequence to DADA2. The rerun therefore removes both primers before DADA2: R/01a-01f cut them off every read pair with cutadapt 5.2.
+
+```
+cutadapt -g ^CCTACGGGNGGCWGCAG -G ^GACTACHVGGGTATCTAATCC -e 2 --discard-untrimmed --pair-filter=any
+```
+
+- `^` anchors each primer at the start of its read, and `-e 2` allows up to 2 mismatches or indels. A fixed `trimLeft` cut is not used, because some primer copies are 1-2 bases shorter than 17 or 21 bases; cutadapt finds where the primer ends in each read.
+- A read pair in which either primer is not found is discarded. The amplicon (about 464 bp) is longer than the reads, so the opposite primer never appears at the read ends.
+- `truncLen=c(233,229)` is the old 250 minus the primer lengths (17, 21), so the reads cover the same stretch of the 16S gene as before.
+- The reverse primer is the one some papers call 785R.
+
+Read pairs in which cutadapt found both primers (the only pairs DADA2 sees), from each script's read tracking in `results/primer_trimmed_2026-10-06/stage1/` (`results_reference.json`, `primer_trimming`):
+
+| Study | Samples | Read pairs in | With both primers | Lowest-highest sample |
+|---|---|---|---|---|
+| Duber 2020 | 9 | 938,025 | 95.9% | 94.6-96.4% |
+| Duber 2022 | 19 | 1,831,322 | 97.6% | 97.2-98.2% |
+| Brodowski 2022 | 10 | 1,281,663 | 98.4% | 98.0-98.9% |
+| Brodowski 2022 [Ext.] | 16 | 1,957,049 | 98.4% | 98.1-98.7% |
+| Brodowski 2025 | 15 | 2,297,696 | 97.5% | 97.3-97.6% |
+| Duber 2025 (`Duber_2024`) | 53 | 4,339,860 | 97.1% | 96.4-97.7% |
+
+Brodowski 2022 [Ext.]'s 16 samples include the mock community, which R/01d removes after DADA2. R/02 then merges the six studies and removes chimeras, and R/03 assigns taxonomy: 121 sequencing runs and 3,672 ASVs. No ASV of that table starts with 341F or ends with the reverse complement of 805R.
 
 ## Primer-trimmed rerun: chimera removal
 
@@ -221,12 +260,12 @@ The primer-trimmed rerun kept 107 genera on 129 Illumina rows (Stage 4 run of 20
 - Two old genera are gone. Orrella and Paralcaligenes were exact two-parent chimeras of new ASVs, so they were artefacts of the old run.
 - Shimwellia is a renaming: its sequence is now classified as Enterobacteriaceae without a genus.
 
-The corrected run's own counts are in its `stage4_genus_summary.csv`.
+The corrected run (2026-10-11), with the inoculum rows left out, keeps 403 ASVs carrying 90.3% of the reads of the 112 modelled Illumina samples, in 109 genera (`results/primer_trimmed_2026-10-06/corrected_2026-10-11/stage4_genus_summary.csv`; `results_reference.json`, `data_construction`).
 
 ## Resolved during development (kept here for the record)
 
-- Figure 3's full three-stage progression (published: R²=0.217 → −0.228 → −5.869) is backed end to end: `07d_figure3_stage1_random_forest.py`, `07c_figure3_intermediate_unscaled_xgboost.py`, and `05_intrastudy_transferability_table5.py` respectively.
-- The manuscript's description of the middle stage has been corrected. It previously read "XGBoost without downstream co-products", which the code contradicts: `07c` drops only sparse/junk columns and leaves Valerate, Isobutyrate and Heptanoate available as predictors — all three appear in that script's own SHAP output, alongside DAY as the single dominant feature. Section 3.5 now describes the stage accurately.
+- Figure 3's full three-stage progression (published: R²=0.217 → −0.228 → −5.869; corrected run: 0.155 → −0.709 → −5.296) is backed end to end: `07d_figure3_stage1_random_forest.py`, `07c_figure3_intermediate_unscaled_xgboost.py`, and `05_intrastudy_transferability_table5.py` respectively.
+- The manuscript's description of the middle stage has been corrected. It previously read "XGBoost without downstream co-products", which the code contradicts: `07c` drops only sparse/junk columns and leaves Valerate, Isobutyrate and Heptanoate available as predictors — in the published run all three appear in that script's own SHAP output, alongside DAY as the single dominant feature. Section 3.5 now describes the stage accurately. In the corrected run, DAY still dominates, followed by Clostridium sensu stricto 11, pH and isobutyrate; valerate and heptanoate are not in the top 10 (`results_reference.json`, `figure_3_leakage_tightening_progression`).
 - Table 3b previously reported the headline LOSO result as R² = −0.095 with no standard deviation, while Table 4 reported the same tier-4 value as −0.095 ± 0.387. Table 3b, Section 3.2 and Figure 1 now all carry the ± 0.387.
 - Feature lists are built with `sorted(list(set(...)))` throughout. The `sorted()` is load-bearing: without it, Python's set iteration order varies between interpreter sessions and silently changes XGBoost column order, which changes results. Do not "simplify" it away.
 

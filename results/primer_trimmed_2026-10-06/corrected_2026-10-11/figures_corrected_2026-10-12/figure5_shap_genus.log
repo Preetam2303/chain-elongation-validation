@@ -1,0 +1,24 @@
+Input: C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv
+       sha256 087c6f50e080eccbd106eac3f2321b8be3e7e6f6ffa5a5ee43538363f857bcf7
+One XGBoost fit on all 166 modelled samples (7 studies) with 215 predictors (205 genera); TreeSHAP on the same samples.
+
+[Figure 5] Top 15 genera by mean |SHAP| (mM C):
+                        feature  mean_abs_shap  rank_among_all_predictors  rank_among_genera
+           g__Caproiciproducens         29.413                      1.000              1.000
+            g__Rummeliibacillus         13.420                      3.000              2.000
+              g__Microbacterium          9.352                      4.000              3.000
+                  g__Gudongella          8.533                      5.000              4.000
+                  g__Anaerobium          7.150                      6.000              5.000
+                g__Ochrobactrum          6.476                      7.000              6.000
+                g__Unclassified          5.436                      9.000              7.000
+g__Clostridium_sensu_stricto_12          4.613                     11.000              8.000
+               g__Oscillibacter          4.584                     12.000              9.000
+          g__Sporolactobacillus          3.863                     13.000             10.000
+                  g__Monoglobus          3.522                     14.000             11.000
+                 g__Bacteroides          2.954                     15.000             12.000
+                    g__Bacillus          2.707                     16.000             13.000
+              g__Incertae_Sedis          2.210                     18.000             14.000
+              g__Marasmitruncus          2.078                     19.000             15.000
+[Figure 5] Shown: the top 10 genera, g__Unclassified left out: g__Caproiciproducens, g__Rummeliibacillus, g__Microbacterium, g__Gudongella, g__Anaerobium, g__Ochrobactrum, g__Clostridium_sensu_stricto_12, g__Oscillibacter, g__Sporolactobacillus, g__Monoglobus
+Saved: C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\figures_corrected_2026-10-12\Figure_5_SHAP_Summary.png
+Saved: C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\figures_corrected_2026-10-12\Figure_5_SHAP_Summary.pdf

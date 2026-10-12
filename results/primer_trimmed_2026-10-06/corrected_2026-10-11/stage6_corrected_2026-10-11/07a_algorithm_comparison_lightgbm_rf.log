@@ -1,0 +1,38 @@
+Loading Pruned ML Matrix...
+Loaded 112 samples and 403 core ASVs.
+
+=== LIGHTGBM RANDOM FOREST COMPARISON ===
+
+1. Base Model (Ops + categoricals + ASVs):
+  Features: 408
+  R-squared (R2): 0.311
+  RMSE: 93.213 mM C
+
+2. Ultimate Model (core set + ASVs):
+  Features: 413
+  R-squared (R2): 0.327
+  RMSE: 92.166 mM C
+
+3. Maximum Model (core set + Illumina-only compounds + ASVs):
+  Features: 418
+  R-squared (R2): 0.472
+  RMSE: 81.621 mM C
+
+==================================================
+WINNING RF MODEL: 3. Maximum Model (core set + Illumina-only compounds + ASVs)
+BEST R2 SCORE:    0.472
+==================================================
+
+Calculating SHAP values for the winning model...
+Top 10 features by mean |SHAP| (3. Maximum Model (core set + Illumina-only compounds + ASVs)):
+   1. Caprylate
+   2. Butyrate
+   3. ASV_15
+   4. Acetate
+   5. Heptanoate
+   6. ASV_257
+   7. ASV_64
+   8. ASV_59
+   9. ASV_133
+  10. ASV_27
+If the Maximum model wins and the Illumina-only compounds (caprylate, heptanoate, isovalerate) lead, that is the target-leakage demonstration cited in Methods 2.7.

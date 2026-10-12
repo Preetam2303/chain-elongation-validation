@@ -1,0 +1,563 @@
+
+===== 01b_download_dada2_duber2022.R started 2026-10-05 22:36:46 =====
+Working directory set to: C:/Users/IISiIS-ZWW-233/Documents/BIOTWIN_Duber_2022_Lactose_insight
+Initiating download sequence for Duber 2022 Lactose data...
+All 19 downloads complete.
+Removing primers with cutadapt...
+Filtering reads... (Go crush the workout)
+Building Error Models across 19 samples...
+111493762 total bases in 478514 reads from 8 samples will be used for learning the error rates.
+109579706 total bases in 478514 reads from 8 samples will be used for learning the error rates.
+Denoising and Merging... Heavy lifting in progress.
+Sample 1 - 58686 reads in 11405 unique sequences.
+Sample 2 - 62370 reads in 10832 unique sequences.
+Sample 3 - 45095 reads in 7795 unique sequences.
+Sample 4 - 55109 reads in 7993 unique sequences.
+Sample 5 - 63424 reads in 9597 unique sequences.
+Sample 6 - 62372 reads in 7260 unique sequences.
+Sample 7 - 67992 reads in 8488 unique sequences.
+Sample 8 - 63466 reads in 10097 unique sequences.
+Sample 9 - 36832 reads in 6292 unique sequences.
+Sample 10 - 47583 reads in 8187 unique sequences.
+Sample 11 - 46943 reads in 8555 unique sequences.
+Sample 12 - 49713 reads in 8796 unique sequences.
+Sample 13 - 45468 reads in 10768 unique sequences.
+Sample 14 - 49314 reads in 8621 unique sequences.
+Sample 15 - 59063 reads in 12495 unique sequences.
+Sample 16 - 67077 reads in 10931 unique sequences.
+Sample 17 - 37356 reads in 8122 unique sequences.
+Sample 18 - 66882 reads in 15624 unique sequences.
+Sample 19 - 60080 reads in 9767 unique sequences.
+Sample 1 - 58686 reads in 33109 unique sequences.
+Sample 2 - 62370 reads in 28920 unique sequences.
+Sample 3 - 45095 reads in 21711 unique sequences.
+Sample 4 - 55109 reads in 24456 unique sequences.
+Sample 5 - 63424 reads in 19527 unique sequences.
+Sample 6 - 62372 reads in 24688 unique sequences.
+Sample 7 - 67992 reads in 15567 unique sequences.
+Sample 8 - 63466 reads in 27966 unique sequences.
+Sample 9 - 36832 reads in 19935 unique sequences.
+Sample 10 - 47583 reads in 25049 unique sequences.
+Sample 11 - 46943 reads in 23252 unique sequences.
+Sample 12 - 49713 reads in 24737 unique sequences.
+Sample 13 - 45468 reads in 23896 unique sequences.
+Sample 14 - 49314 reads in 24504 unique sequences.
+Sample 15 - 59063 reads in 30064 unique sequences.
+Sample 16 - 67077 reads in 29746 unique sequences.
+Sample 17 - 37356 reads in 20255 unique sequences.
+Sample 18 - 66882 reads in 21249 unique sequences.
+Sample 19 - 60080 reads in 18731 unique sequences.
+Saving Duber 2022 Master Sequence Table...
+==========================================================
+PIPELINE COMPLETE. 19-Sample Master table safely saved.
+[1]   19 6978
+==========================================================
+ASVs starting with 341F (CCTACGGG): 0  (should be 0)
+ASVs ending with 805R reverse complement: 0  (should be 0)
+                            sample    raw primers_removed filtered denoisedF denoisedR merged
+SRR18079352_1.fastq.gz SRR18079352 117896          114902    58686     57675     57422  52128
+SRR18079353_1.fastq.gz SRR18079353 107685          105016    62370     61927     61959  58645
+SRR18079354_1.fastq.gz SRR18079354  81661           79461    45095     44700     44789  42050
+SRR18079355_1.fastq.gz SRR18079355  89758           87503    55109     54727     54816  52235
+SRR18079356_1.fastq.gz SRR18079356  94935           93171    63424     63033     63171  61208
+SRR18079357_1.fastq.gz SRR18079357 110189          107455    62372     62074     62063  60109
+SRR18079358_1.fastq.gz SRR18079358 106117          103997    67992     67840     67725  66938
+SRR18079359_1.fastq.gz SRR18079359 103534          101550    63466     63181     63014  62197
+SRR18079360_1.fastq.gz SRR18079360  77623           75492    36832     36302     35986  33876
+SRR18079361_1.fastq.gz SRR18079361  94207           91773    47583     46802     46436  43944
+SRR18079362_1.fastq.gz SRR18079362  88299           86089    46943     46389     46080  43921
+SRR18079363_1.fastq.gz SRR18079363  94565           92069    49713     48997     48708  45830
+SRR18079364_1.fastq.gz SRR18079364  84703           82459    45468     44691     44429  41246
+SRR18079365_1.fastq.gz SRR18079365  86716           84576    49314     48700     48444  45572
+SRR18079366_1.fastq.gz SRR18079366  98572           96478    59063     58470     58443  52340
+SRR18079367_1.fastq.gz SRR18079367 110236          107250    67077     66599     66583  62790
+SRR18079368_1.fastq.gz SRR18079368  79078           76900    37356     36651     36452  33534
+SRR18079369_1.fastq.gz SRR18079369  97563           95677    66882     66640     66695  66139
+SRR18079370_1.fastq.gz SRR18079370 107985          106038    60080     59757     59719  58272
+                       pct_with_primers pct_merged_of_filtered merged_old_run
+SRR18079352_1.fastq.gz             97.5                   88.8          48838
+SRR18079353_1.fastq.gz             97.5                   94.0          57011
+SRR18079354_1.fastq.gz             97.3                   93.2          40016
+SRR18079355_1.fastq.gz             97.5                   94.8          50381
+SRR18079356_1.fastq.gz             98.1                   96.5          60016
+SRR18079357_1.fastq.gz             97.5                   96.4          58962
+SRR18079358_1.fastq.gz             98.0                   98.4          66618
+SRR18079359_1.fastq.gz             98.1                   98.0          60276
+SRR18079360_1.fastq.gz             97.3                   92.0          32168
+SRR18079361_1.fastq.gz             97.4                   92.4          42121
+SRR18079362_1.fastq.gz             97.5                   93.6          41790
+SRR18079363_1.fastq.gz             97.4                   92.2          43937
+SRR18079364_1.fastq.gz             97.4                   90.7          39117
+SRR18079365_1.fastq.gz             97.5                   92.4          43463
+SRR18079366_1.fastq.gz             97.9                   88.6          48932
+SRR18079367_1.fastq.gz             97.3                   93.6          60258
+SRR18079368_1.fastq.gz             97.2                   89.8          31573
+SRR18079369_1.fastq.gz             98.1                   98.9          64917
+SRR18079370_1.fastq.gz             98.2                   97.0          57033
+===== 01b_download_dada2_duber2022.R FINISHED 2026-10-05 22:47:30 =====
+
+===== 01c_download_dada2_brodowski2022.R started 2026-10-05 22:47:30 =====
+Working directory set to: C:/Users/IISiIS-ZWW-233/Documents/BIOTWIN_Brodowski_2022_open_culture
+Initiating download sequence for Brodowski 2022 samples...
+Downloads complete.
+Removing primers with cutadapt...
+Filtering reads...
+Building Error Models across 10 samples...
+100434417 total bases in 431049 reads from 4 samples will be used for learning the error rates.
+126078240 total bases in 550560 reads from 5 samples will be used for learning the error rates.
+Denoising and Merging...
+Sample 1 - 107522 reads in 25865 unique sequences.
+Sample 2 - 113910 reads in 21331 unique sequences.
+Sample 3 - 108340 reads in 23563 unique sequences.
+Sample 4 - 101277 reads in 19575 unique sequences.
+Sample 5 - 119511 reads in 15884 unique sequences.
+Sample 6 - 109720 reads in 25724 unique sequences.
+Sample 7 - 99303 reads in 23777 unique sequences.
+Sample 8 - 112975 reads in 31806 unique sequences.
+Sample 9 - 108085 reads in 25448 unique sequences.
+Sample 10 - 115828 reads in 23577 unique sequences.
+Sample 1 - 107522 reads in 27092 unique sequences.
+Sample 2 - 113910 reads in 23437 unique sequences.
+Sample 3 - 108340 reads in 22361 unique sequences.
+Sample 4 - 101277 reads in 20019 unique sequences.
+Sample 5 - 119511 reads in 17880 unique sequences.
+Sample 6 - 109720 reads in 24123 unique sequences.
+Sample 7 - 99303 reads in 23309 unique sequences.
+Sample 8 - 112975 reads in 27684 unique sequences.
+Sample 9 - 108085 reads in 22244 unique sequences.
+Sample 10 - 115828 reads in 24534 unique sequences.
+Saving Brodowski 2022 Master Sequence Table...
+==========================================================
+PIPELINE COMPLETE. Master table safely saved.
+[1]    10 40775
+==========================================================
+ASVs starting with 341F (CCTACGGG): 0  (should be 0)
+ASVs ending with 805R reverse complement: 0  (should be 0)
+                            sample    raw primers_removed filtered denoisedF denoisedR merged
+SRR18962127_1.fastq.gz SRR18962127 130193          128273   107522    105674    106025  94357
+SRR18962128_1.fastq.gz SRR18962128 134242          131579   113910    112597    112563 104791
+SRR18962129_1.fastq.gz SRR18962129 125571          123401   108340    106696    106880  97812
+SRR18962130_1.fastq.gz SRR18962130 116742          114822   101277     99592    100034  91870
+SRR18962131_1.fastq.gz SRR18962131 137448          135918   119511    118654    118711 115393
+SRR18962132_1.fastq.gz SRR18962132 128807          126700   109720    107776    108084  97089
+SRR18962133_1.fastq.gz SRR18962133 118178          116090    99303     97158     97785  87541
+SRR18962134_1.fastq.gz SRR18962134 130598          128890   112975    110130    110501  96524
+SRR18962135_1.fastq.gz SRR18962135 125830          123754   108085    105686    106479  96328
+SRR18962136_1.fastq.gz SRR18962136 134054          132107   115828    113834    114161 103512
+                       pct_with_primers pct_merged_of_filtered merged_old_run
+SRR18962127_1.fastq.gz             98.5                   87.8          89765
+SRR18962128_1.fastq.gz             98.0                   92.0         101332
+SRR18962129_1.fastq.gz             98.3                   90.3          94397
+SRR18962130_1.fastq.gz             98.4                   90.7          88497
+SRR18962131_1.fastq.gz             98.9                   96.6         113033
+SRR18962132_1.fastq.gz             98.4                   88.5          93422
+SRR18962133_1.fastq.gz             98.2                   88.2          83664
+SRR18962134_1.fastq.gz             98.7                   85.4          91716
+SRR18962135_1.fastq.gz             98.4                   89.1          92494
+SRR18962136_1.fastq.gz             98.5                   89.4          99375
+===== 01c_download_dada2_brodowski2022.R FINISHED 2026-10-05 23:10:47 =====
+
+===== 01d_download_dada2_brodowski2022ext.R started 2026-10-05 23:10:47 =====
+Working directory set to: C:/Users/IISiIS-ZWW-233/Documents/BIOTWIN_Brodowski_Full
+Initiating download sequence for 16 samples...
+All 16 downloads complete.
+Removing primers with cutadapt...
+Filtering reads... (This will take a moment)
+Building Error Models across 16 samples. Go hit the gym...
+122837600 total bases in 527200 reads from 5 samples will be used for learning the error rates.
+120728800 total bases in 527200 reads from 5 samples will be used for learning the error rates.
+Denoising and Merging... almost done.
+Sample 1 - 113119 reads in 11477 unique sequences.
+Sample 2 - 91995 reads in 20745 unique sequences.
+Sample 3 - 108575 reads in 24873 unique sequences.
+Sample 4 - 92418 reads in 24426 unique sequences.
+Sample 5 - 121093 reads in 18562 unique sequences.
+Sample 6 - 132580 reads in 26096 unique sequences.
+Sample 7 - 99429 reads in 21783 unique sequences.
+Sample 8 - 108921 reads in 12967 unique sequences.
+Sample 9 - 102029 reads in 12197 unique sequences.
+Sample 10 - 98283 reads in 16547 unique sequences.
+Sample 11 - 108792 reads in 18929 unique sequences.
+Sample 12 - 106405 reads in 15749 unique sequences.
+Sample 13 - 93200 reads in 21239 unique sequences.
+Sample 14 - 92965 reads in 14143 unique sequences.
+Sample 15 - 95640 reads in 20681 unique sequences.
+Sample 16 - 115941 reads in 16454 unique sequences.
+Sample 1 - 113119 reads in 13739 unique sequences.
+Sample 2 - 91995 reads in 18838 unique sequences.
+Sample 3 - 108575 reads in 23898 unique sequences.
+Sample 4 - 92418 reads in 21359 unique sequences.
+Sample 5 - 121093 reads in 18491 unique sequences.
+Sample 6 - 132580 reads in 24702 unique sequences.
+Sample 7 - 99429 reads in 21883 unique sequences.
+Sample 8 - 108921 reads in 17446 unique sequences.
+Sample 9 - 102029 reads in 13334 unique sequences.
+Sample 10 - 98283 reads in 17360 unique sequences.
+Sample 11 - 108792 reads in 17818 unique sequences.
+Sample 12 - 106405 reads in 16524 unique sequences.
+Sample 13 - 93200 reads in 21719 unique sequences.
+Sample 14 - 92965 reads in 17014 unique sequences.
+Sample 15 - 95640 reads in 21778 unique sequences.
+Sample 16 - 115941 reads in 27638 unique sequences.
+Saving Master Sequence Table...
+==========================================================
+PIPELINE COMPLETE. Master table safely saved as .rds file.
+Dimensions of final matrix:
+[1]    16 42713
+==========================================================
+ASVs starting with 341F (CCTACGGG): 0  (should be 0)
+ASVs ending with 805R reverse complement: 0  (should be 0)
+                            sample    raw primers_removed filtered denoisedF denoisedR merged
+SRR13989639_1.fastq.gz SRR13989639 129346          127432   113119    112471    112713 109888
+SRR13989640_1.fastq.gz SRR13989640 106450          105039    91995     90113     90566  80484
+SRR13989641_1.fastq.gz SRR13989641 125609          123884   108575    106492    106978  95477
+SRR13989642_1.fastq.gz SRR13989642 106611          105207    92418     90117     90753  79105
+SRR13989643_1.fastq.gz SRR13989643 138219          136328   121093    119677    120152 113823
+SRR13989644_1.fastq.gz SRR13989644 151736          149589   132580    130539    131124 120945
+SRR13989645_1.fastq.gz SRR13989645 115734          113992    99429     97772     98128  89093
+SRR13989646_1.fastq.gz SRR13989646 125663          123740   108921    107772    108156 103829
+SRR13989647_1.fastq.gz SRR13989647 117760          115741   102029    101293    101442  98143
+SRR13989648_1.fastq.gz SRR13989648 114681          112590    98283     96746     97287  90302
+SRR13989649_1.fastq.gz SRR13989649 125762          123969   108792    107402    107653  99882
+SRR13989650_1.fastq.gz SRR13989650 122745          120832   106405    104995    105530  99359
+SRR13989651_1.fastq.gz SRR13989651 110164          108362    93200     91227     91784  83670
+SRR13989652_1.fastq.gz SRR13989652 108565          106516    92965     91757     92035  87160
+SRR13989653_1.fastq.gz SRR13989653 120015          117867    95640     94144     94383  85793
+SRR13989654_1.fastq.gz SRR13989654 137989          135481   115941    115344    115074 105725
+                       pct_with_primers pct_merged_of_filtered merged_old_run
+SRR13989639_1.fastq.gz             98.5                   97.1         108310
+SRR13989640_1.fastq.gz             98.7                   87.5          76262
+SRR13989641_1.fastq.gz             98.6                   87.9          90090
+SRR13989642_1.fastq.gz             98.7                   85.6          74298
+SRR13989643_1.fastq.gz             98.6                   94.0         111179
+SRR13989644_1.fastq.gz             98.6                   91.2         117208
+SRR13989645_1.fastq.gz             98.5                   89.6          85712
+SRR13989646_1.fastq.gz             98.5                   95.3         101756
+SRR13989647_1.fastq.gz             98.3                   96.2          95970
+SRR13989648_1.fastq.gz             98.2                   91.9          87303
+SRR13989649_1.fastq.gz             98.6                   91.8          96673
+SRR13989650_1.fastq.gz             98.4                   93.4          97058
+SRR13989651_1.fastq.gz             98.4                   89.8          80811
+SRR13989652_1.fastq.gz             98.1                   93.8          85152
+SRR13989653_1.fastq.gz             98.2                   89.7          81603
+SRR13989654_1.fastq.gz             98.2                   91.2          99962
+Original matrix dimensions:
+[1]    16 42713
+New matrix dimensions after removing Mock:
+[1]    15 42713
+Operation successful! Cleaned matrix saved as seqtab_Brodowski_PRJNA715197_Cleaned.rds
+===== 01d_download_dada2_brodowski2022ext.R FINISHED 2026-10-06 00:00:10 =====
+
+===== 01e_download_dada2_brodowski2025.R started 2026-10-06 00:00:10 =====
+Working directory set to: C:/Users/IISiIS-ZWW-233/Documents/BIOTWIN_Brodowski_2025
+Initiating download sequence for Brodowski 2025 samples...
+Downloads complete.
+Removing primers with cutadapt...
+Filtering reads... (This will take a moment)
+Building Error Models across 15 samples... Time to go lift.
+110297074 total bases in 473378 reads from 4 samples will be used for learning the error rates.
+108403562 total bases in 473378 reads from 4 samples will be used for learning the error rates.
+Denoising and Merging...
+Sample 1 - 129054 reads in 11998 unique sequences.
+Sample 2 - 121206 reads in 9820 unique sequences.
+Sample 3 - 107885 reads in 9646 unique sequences.
+Sample 4 - 115233 reads in 10796 unique sequences.
+Sample 5 - 107761 reads in 15545 unique sequences.
+Sample 6 - 113291 reads in 14499 unique sequences.
+Sample 7 - 95766 reads in 12768 unique sequences.
+Sample 8 - 97929 reads in 14847 unique sequences.
+Sample 9 - 89908 reads in 8860 unique sequences.
+Sample 10 - 100515 reads in 13785 unique sequences.
+Sample 11 - 107214 reads in 12116 unique sequences.
+Sample 12 - 95628 reads in 11120 unique sequences.
+Sample 13 - 117577 reads in 13170 unique sequences.
+Sample 14 - 119247 reads in 12902 unique sequences.
+Sample 15 - 114415 reads in 11190 unique sequences.
+Sample 1 - 129054 reads in 19268 unique sequences.
+Sample 2 - 121206 reads in 16387 unique sequences.
+Sample 3 - 107885 reads in 17344 unique sequences.
+Sample 4 - 115233 reads in 16581 unique sequences.
+Sample 5 - 107761 reads in 19009 unique sequences.
+Sample 6 - 113291 reads in 20651 unique sequences.
+Sample 7 - 95766 reads in 18149 unique sequences.
+Sample 8 - 97929 reads in 19480 unique sequences.
+Sample 9 - 89908 reads in 16401 unique sequences.
+Sample 10 - 100515 reads in 15259 unique sequences.
+Sample 11 - 107214 reads in 15495 unique sequences.
+Sample 12 - 95628 reads in 15834 unique sequences.
+Sample 13 - 117577 reads in 19661 unique sequences.
+Sample 14 - 119247 reads in 18880 unique sequences.
+Sample 15 - 114415 reads in 17067 unique sequences.
+Saving Brodowski 2025 Master Sequence Table...
+==========================================================
+PIPELINE COMPLETE. Master table safely saved.
+[1]    15 14420
+==========================================================
+ASVs starting with 341F (CCTACGGG): 0  (should be 0)
+ASVs ending with 805R reverse complement: 0  (should be 0)
+                            sample    raw primers_removed filtered denoisedF denoisedR merged
+SRR28044222_1.fastq.gz SRR28044222 177809          173600   129054    128552    128566 125874
+SRR28044223_1.fastq.gz SRR28044223 167700          163645   121206    120794    120795 118748
+SRR28044224_1.fastq.gz SRR28044224 160532          156529   107885    107547    107503 105694
+SRR28044225_1.fastq.gz SRR28044225 160438          156548   115233    114761    114815 112533
+SRR28044226_1.fastq.gz SRR28044226 150726          146736   107761    106881    106926 102636
+SRR28044227_1.fastq.gz SRR28044227 165792          161668   113291    112464    112498 108499
+SRR28044228_1.fastq.gz SRR28044228 136688          133310    95766     94780     95002  91246
+SRR28044229_1.fastq.gz SRR28044229 137933          134379    97929     96788     97020  92455
+SRR28044230_1.fastq.gz SRR28044230 141983          138229    89908     89327     89269  87115
+SRR28044231_1.fastq.gz SRR28044231 135545          131909   100515    100032    100015  97843
+SRR28044232_1.fastq.gz SRR28044232 147413          143684   107214    106583    106616 103632
+SRR28044233_1.fastq.gz SRR28044233 133925          130552    95628     94964     94985  91632
+SRR28044234_1.fastq.gz SRR28044234 161123          157042   117577    116780    116697 112979
+SRR28044235_1.fastq.gz SRR28044235 164837          160772   119247    118495    118565 115101
+SRR28044236_1.fastq.gz SRR28044236 155252          151506   114415    113895    113923 111326
+                       pct_with_primers pct_merged_of_filtered merged_old_run
+SRR28044222_1.fastq.gz             97.6                   97.5         124261
+SRR28044223_1.fastq.gz             97.6                   98.0         117474
+SRR28044224_1.fastq.gz             97.5                   98.0         104140
+SRR28044225_1.fastq.gz             97.6                   97.7         111336
+SRR28044226_1.fastq.gz             97.4                   95.2          99982
+SRR28044227_1.fastq.gz             97.5                   95.8         105726
+SRR28044228_1.fastq.gz             97.5                   95.3          88802
+SRR28044229_1.fastq.gz             97.4                   94.4          89755
+SRR28044230_1.fastq.gz             97.4                   96.9          85364
+SRR28044231_1.fastq.gz             97.3                   97.3          96381
+SRR28044232_1.fastq.gz             97.5                   96.7         102231
+SRR28044233_1.fastq.gz             97.5                   95.8          90090
+SRR28044234_1.fastq.gz             97.5                   96.1         111040
+SRR28044235_1.fastq.gz             97.5                   96.5         112865
+SRR28044236_1.fastq.gz             97.6                   97.3         109267
+===== 01e_download_dada2_brodowski2025.R FINISHED 2026-10-06 00:27:21 =====
+
+===== 01f_download_dada2_duber2024.R started 2026-10-06 00:27:21 =====
+Working directory set to: C:/Users/IISiIS-ZWW-233/Documents/BIOTWIN_Duber_2025_16S_Only
+Initiating targeted download sequence for Duber 2025 (16S only)...
+All 53 downloads complete.
+Removing primers with cutadapt...
+Filtering reads... (Overnight compute engaged)
+Building Error Models across 53 samples...
+101728033 total bases in 436601 reads from 9 samples will be used for learning the error rates.
+110113276 total bases in 480844 reads from 10 samples will be used for learning the error rates.
+Denoising and Merging... see you in the morning.
+Sample 1 - 26168 reads in 5744 unique sequences.
+Sample 2 - 58661 reads in 11369 unique sequences.
+Sample 3 - 58627 reads in 10318 unique sequences.
+Sample 4 - 54325 reads in 9482 unique sequences.
+Sample 5 - 65145 reads in 6438 unique sequences.
+Sample 6 - 32632 reads in 3798 unique sequences.
+Sample 7 - 50795 reads in 5345 unique sequences.
+Sample 8 - 49085 reads in 11277 unique sequences.
+Sample 9 - 41163 reads in 5099 unique sequences.
+Sample 10 - 44243 reads in 4774 unique sequences.
+Sample 11 - 45298 reads in 5897 unique sequences.
+Sample 12 - 45053 reads in 6678 unique sequences.
+Sample 13 - 51994 reads in 6096 unique sequences.
+Sample 14 - 50659 reads in 6661 unique sequences.
+Sample 15 - 28500 reads in 4195 unique sequences.
+Sample 16 - 38228 reads in 5003 unique sequences.
+Sample 17 - 51856 reads in 9761 unique sequences.
+Sample 18 - 39230 reads in 7759 unique sequences.
+Sample 19 - 62798 reads in 11422 unique sequences.
+Sample 20 - 53826 reads in 9879 unique sequences.
+Sample 21 - 51617 reads in 9849 unique sequences.
+Sample 22 - 58157 reads in 10205 unique sequences.
+Sample 23 - 58168 reads in 9877 unique sequences.
+Sample 24 - 53473 reads in 8985 unique sequences.
+Sample 25 - 55701 reads in 10135 unique sequences.
+Sample 26 - 48209 reads in 8369 unique sequences.
+Sample 27 - 61609 reads in 10816 unique sequences.
+Sample 28 - 46653 reads in 9459 unique sequences.
+Sample 29 - 50702 reads in 8969 unique sequences.
+Sample 30 - 20121 reads in 4454 unique sequences.
+Sample 31 - 30485 reads in 7078 unique sequences.
+Sample 32 - 24346 reads in 6184 unique sequences.
+Sample 33 - 22977 reads in 4237 unique sequences.
+Sample 34 - 52618 reads in 10308 unique sequences.
+Sample 35 - 37438 reads in 8337 unique sequences.
+Sample 36 - 40789 reads in 8386 unique sequences.
+Sample 37 - 51075 reads in 12970 unique sequences.
+Sample 38 - 43881 reads in 11047 unique sequences.
+Sample 39 - 43572 reads in 8892 unique sequences.
+Sample 40 - 50410 reads in 14080 unique sequences.
+Sample 41 - 49021 reads in 9012 unique sequences.
+Sample 42 - 32079 reads in 9436 unique sequences.
+Sample 43 - 28998 reads in 7368 unique sequences.
+Sample 44 - 58934 reads in 11695 unique sequences.
+Sample 45 - 71807 reads in 13580 unique sequences.
+Sample 46 - 53012 reads in 11041 unique sequences.
+Sample 47 - 40342 reads in 8226 unique sequences.
+Sample 48 - 42974 reads in 9263 unique sequences.
+Sample 49 - 40490 reads in 9061 unique sequences.
+Sample 50 - 23745 reads in 5902 unique sequences.
+Sample 51 - 32461 reads in 7429 unique sequences.
+Sample 52 - 71971 reads in 12038 unique sequences.
+Sample 53 - 49230 reads in 9011 unique sequences.
+Sample 1 - 26168 reads in 11305 unique sequences.
+Sample 2 - 58661 reads in 21566 unique sequences.
+Sample 3 - 58627 reads in 18490 unique sequences.
+Sample 4 - 54325 reads in 17764 unique sequences.
+Sample 5 - 65145 reads in 17155 unique sequences.
+Sample 6 - 32632 reads in 10863 unique sequences.
+Sample 7 - 50795 reads in 12248 unique sequences.
+Sample 8 - 49085 reads in 18469 unique sequences.
+Sample 9 - 41163 reads in 10997 unique sequences.
+Sample 10 - 44243 reads in 11593 unique sequences.
+Sample 11 - 45298 reads in 11787 unique sequences.
+Sample 12 - 45053 reads in 12376 unique sequences.
+Sample 13 - 51994 reads in 13796 unique sequences.
+Sample 14 - 50659 reads in 14591 unique sequences.
+Sample 15 - 28500 reads in 10771 unique sequences.
+Sample 16 - 38228 reads in 11461 unique sequences.
+Sample 17 - 51856 reads in 17873 unique sequences.
+Sample 18 - 39230 reads in 14071 unique sequences.
+Sample 19 - 62798 reads in 19456 unique sequences.
+Sample 20 - 53826 reads in 18774 unique sequences.
+Sample 21 - 51617 reads in 18267 unique sequences.
+Sample 22 - 58157 reads in 19185 unique sequences.
+Sample 23 - 58168 reads in 17943 unique sequences.
+Sample 24 - 53473 reads in 18233 unique sequences.
+Sample 25 - 55701 reads in 18190 unique sequences.
+Sample 26 - 48209 reads in 15835 unique sequences.
+Sample 27 - 61609 reads in 20899 unique sequences.
+Sample 28 - 46653 reads in 17865 unique sequences.
+Sample 29 - 50702 reads in 19789 unique sequences.
+Sample 30 - 20121 reads in 10257 unique sequences.
+Sample 31 - 30485 reads in 13280 unique sequences.
+Sample 32 - 24346 reads in 11920 unique sequences.
+Sample 33 - 22977 reads in 9000 unique sequences.
+Sample 34 - 52618 reads in 19815 unique sequences.
+Sample 35 - 37438 reads in 16343 unique sequences.
+Sample 36 - 40789 reads in 16943 unique sequences.
+Sample 37 - 51075 reads in 21931 unique sequences.
+Sample 38 - 43881 reads in 18662 unique sequences.
+Sample 39 - 43572 reads in 16698 unique sequences.
+Sample 40 - 50410 reads in 22737 unique sequences.
+Sample 41 - 49021 reads in 17381 unique sequences.
+Sample 42 - 32079 reads in 15371 unique sequences.
+Sample 43 - 28998 reads in 13673 unique sequences.
+Sample 44 - 58934 reads in 22456 unique sequences.
+Sample 45 - 71807 reads in 24698 unique sequences.
+Sample 46 - 53012 reads in 20937 unique sequences.
+Sample 47 - 40342 reads in 16382 unique sequences.
+Sample 48 - 42974 reads in 18182 unique sequences.
+Sample 49 - 40490 reads in 17546 unique sequences.
+Sample 50 - 23745 reads in 11234 unique sequences.
+Sample 51 - 32461 reads in 13504 unique sequences.
+Sample 52 - 71971 reads in 24552 unique sequences.
+Sample 53 - 49230 reads in 18440 unique sequences.
+Saving Duber 2025 Master Sequence Table...
+==========================================================
+PIPELINE COMPLETE. 53-Sample Master table safely saved.
+[1]    53 37707
+==========================================================
+ASVs starting with 341F (CCTACGGG): 0  (should be 0)
+ASVs ending with 805R reverse complement: 0  (should be 0)
+                            sample    raw primers_removed filtered denoisedF denoisedR merged
+SRR28047169_1.fastq.gz SRR28047169  67643           65469    26168     25687     25725  22808
+SRR28047170_1.fastq.gz SRR28047170  95815           93188    58661     58002     58117  52705
+SRR28047171_1.fastq.gz SRR28047171  87894           85527    58627     57930     58167  53581
+SRR28047172_1.fastq.gz SRR28047172  84976           82194    54325     53682     53944  50042
+SRR28047173_1.fastq.gz SRR28047173 110616          107827    65145     64800     64804  62079
+SRR28047174_1.fastq.gz SRR28047174  66034           64310    32632     32446     32488  30652
+SRR28047175_1.fastq.gz SRR28047175  85146           83089    50795     50645     50639  48162
+SRR28047176_1.fastq.gz SRR28047176  74207           72137    49085     48238     48649  43347
+SRR28047177_1.fastq.gz SRR28047177  68333           66639    41163     40886     40889  38781
+SRR28047178_1.fastq.gz SRR28047178  76230           73825    44243     44074     43958  41919
+SRR28047179_1.fastq.gz SRR28047179  75495           73262    45298     45040     45114  43037
+SRR28047180_1.fastq.gz SRR28047180  73491           71734    45053     44715     44887  42676
+SRR28047181_1.fastq.gz SRR28047181  86051           83911    51994     51700     51860  49219
+SRR28047182_1.fastq.gz SRR28047182  87244           84366    50659     50194     50299  47041
+SRR28047183_1.fastq.gz SRR28047183  63308           61729    28500     28240     28321  26352
+SRR28047184_1.fastq.gz SRR28047184  66134           64581    38228     37871     38085  35730
+SRR28047185_1.fastq.gz SRR28047185  80634           78079    51856     51240     51441  47174
+SRR28047186_1.fastq.gz SRR28047186  63659           61575    39230     38641     38989  35866
+SRR28047187_1.fastq.gz SRR28047187  90178           88097    62798     62132     62365  57741
+SRR28047188_1.fastq.gz SRR28047188  85343           82712    53826     53178     53365  48907
+SRR28047189_1.fastq.gz SRR28047189  82521           80599    51617     50832     51209  46760
+SRR28047190_1.fastq.gz SRR28047190  89911           87606    58157     57558     57714  53312
+SRR28047191_1.fastq.gz SRR28047191  87038           84732    58168     57654     57639  53839
+SRR28047192_1.fastq.gz SRR28047192  91351           88085    53473     52819     53056  48687
+SRR28047193_1.fastq.gz SRR28047193  86708           84307    55701     55092     55300  50855
+SRR28047194_1.fastq.gz SRR28047194  77962           75838    48209     47683     47854  44066
+SRR28047195_1.fastq.gz SRR28047195  97097           94623    61609     60615     60937  56609
+SRR28047196_1.fastq.gz SRR28047196  77344           75413    46653     45767     46030  42117
+SRR28047197_1.fastq.gz SRR28047197  98274           94904    50702     49900     50147  46454
+SRR28047198_1.fastq.gz SRR28047198  51900           50296    20121     19830     19875  17705
+SRR28047199_1.fastq.gz SRR28047199  70296           67917    30485     29725     29962  25978
+SRR28047200_1.fastq.gz SRR28047200  66244           64502    24346     23750     24001  20522
+SRR28047201_1.fastq.gz SRR28047201  62089           60366    22977     22624     22739  20819
+SRR28047202_1.fastq.gz SRR28047202 113334          110041    52618     51760     51950  46632
+SRR28047203_1.fastq.gz SRR28047203  94968           92137    37438     36665     36847  32520
+SRR28047204_1.fastq.gz SRR28047204  99349           96393    40789     40093     40208  35817
+SRR28047205_1.fastq.gz SRR28047205  89877           87197    51075     49904     50214  43593
+SRR28047206_1.fastq.gz SRR28047206  77868           75695    43881     42832     43081  37390
+SRR28047207_1.fastq.gz SRR28047207  84323           81985    43572     42840     43017  38861
+SRR28047208_1.fastq.gz SRR28047208  95433           92914    50410     49236     49628  42995
+SRR28047209_1.fastq.gz SRR28047209  78633           76155    49021     48165     48372  44715
+SRR28047210_1.fastq.gz SRR28047210  67794           65832    32079     31167     31523  26533
+SRR28047211_1.fastq.gz SRR28047211  69156           66684    28998     28316     28490  24487
+SRR28047212_1.fastq.gz SRR28047212  96130           93630    58934     57964     58349  52129
+SRR28047213_1.fastq.gz SRR28047213 107533          104818    71807     70874     71269  64756
+SRR28047214_1.fastq.gz SRR28047214  92159           89095    53012     52233     52557  46940
+SRR28047215_1.fastq.gz SRR28047215  67168           64834    40342     39928     39937  36522
+SRR28047216_1.fastq.gz SRR28047216  70018           68257    42974     42398     42474  38159
+SRR28047217_1.fastq.gz SRR28047217  70981           68690    40490     39964     40056  36303
+SRR28047218_1.fastq.gz SRR28047218  62046           60247    23745     23086     23350  20340
+SRR28047219_1.fastq.gz SRR28047219  76854           74220    32461     31784     31994  27772
+SRR28047220_1.fastq.gz SRR28047220 116033          112998    71971     70926     71308  66595
+SRR28047221_1.fastq.gz SRR28047221  83037           80805    49230     48367     48588  44728
+                       pct_with_primers pct_merged_of_filtered merged_old_run
+SRR28047169_1.fastq.gz             96.8                   87.2          21959
+SRR28047170_1.fastq.gz             97.3                   89.8          50561
+SRR28047171_1.fastq.gz             97.3                   91.4          52143
+SRR28047172_1.fastq.gz             96.7                   92.1          47561
+SRR28047173_1.fastq.gz             97.5                   95.3          59873
+SRR28047174_1.fastq.gz             97.4                   93.9          29497
+SRR28047175_1.fastq.gz             97.6                   94.8          46867
+SRR28047176_1.fastq.gz             97.2                   88.3          40988
+SRR28047177_1.fastq.gz             97.5                   94.2          37569
+SRR28047178_1.fastq.gz             96.8                   94.7          40779
+SRR28047179_1.fastq.gz             97.0                   95.0          42344
+SRR28047180_1.fastq.gz             97.6                   94.7          41716
+SRR28047181_1.fastq.gz             97.5                   94.7          47642
+SRR28047182_1.fastq.gz             96.7                   92.9          45368
+SRR28047183_1.fastq.gz             97.5                   92.5          25274
+SRR28047184_1.fastq.gz             97.7                   93.5          34217
+SRR28047185_1.fastq.gz             96.8                   91.0          45304
+SRR28047186_1.fastq.gz             96.7                   91.4          34436
+SRR28047187_1.fastq.gz             97.7                   91.9          55023
+SRR28047188_1.fastq.gz             96.9                   90.9          47178
+SRR28047189_1.fastq.gz             97.7                   90.6          45502
+SRR28047190_1.fastq.gz             97.4                   91.7          51527
+SRR28047191_1.fastq.gz             97.4                   92.6          52192
+SRR28047192_1.fastq.gz             96.4                   91.0          46547
+SRR28047193_1.fastq.gz             97.2                   91.3          48773
+SRR28047194_1.fastq.gz             97.3                   91.4          42332
+SRR28047195_1.fastq.gz             97.5                   91.9          54595
+SRR28047196_1.fastq.gz             97.5                   90.3          40613
+SRR28047197_1.fastq.gz             96.6                   91.6          44640
+SRR28047198_1.fastq.gz             96.9                   88.0          16814
+SRR28047199_1.fastq.gz             96.6                   85.2          24671
+SRR28047200_1.fastq.gz             97.4                   84.3          19372
+SRR28047201_1.fastq.gz             97.2                   90.6          19808
+SRR28047202_1.fastq.gz             97.1                   88.6          44547
+SRR28047203_1.fastq.gz             97.0                   86.9          31000
+SRR28047204_1.fastq.gz             97.0                   87.8          33922
+SRR28047205_1.fastq.gz             97.0                   85.4          40906
+SRR28047206_1.fastq.gz             97.2                   85.2          35729
+SRR28047207_1.fastq.gz             97.2                   89.2          37193
+SRR28047208_1.fastq.gz             97.4                   85.3          39120
+SRR28047209_1.fastq.gz             96.8                   91.2          43063
+SRR28047210_1.fastq.gz             97.1                   82.7          24874
+SRR28047211_1.fastq.gz             96.4                   84.4          23078
+SRR28047212_1.fastq.gz             97.4                   88.5          49737
+SRR28047213_1.fastq.gz             97.5                   90.2          61977
+SRR28047214_1.fastq.gz             96.7                   88.5          45028
+SRR28047215_1.fastq.gz             96.5                   90.5          35282
+SRR28047216_1.fastq.gz             97.5                   88.8          36492
+SRR28047217_1.fastq.gz             96.8                   89.7          35138
+SRR28047218_1.fastq.gz             97.1                   85.7          19309
+SRR28047219_1.fastq.gz             96.6                   85.6          26832
+SRR28047220_1.fastq.gz             97.4                   92.5          64026
+SRR28047221_1.fastq.gz             97.3                   90.9          42919
+===== 01f_download_dada2_duber2024.R FINISHED 2026-10-06 01:34:38 =====

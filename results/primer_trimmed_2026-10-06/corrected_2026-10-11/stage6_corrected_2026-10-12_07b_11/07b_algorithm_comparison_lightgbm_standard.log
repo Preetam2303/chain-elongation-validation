@@ -1,0 +1,49 @@
+Loading Pruned ML Matrix...
+Training Matrix built with 413 features.
+Training on 89 samples, testing on 23 samples.
+
+Training Standard LightGBM (GBDT) on the core set + ASVs...
+
+==================================================
+XGBOOST VS STANDARD LIGHTGBM, SAME FEATURES AND SPLIT
+==================================================
+Target Variable:     Caproate
+XGBoost R-squared:   0.542
+XGBoost RMSE:        76.040 mM C
+LightGBM R-squared:  0.749
+LightGBM RMSE:       56.239 mM C
+==================================================
+
+--- SAME ROWS AND PREDICTORS AS THE HEADLINE: 166 rows, 7 studies, 215 predictors ---
+
+Shuffled 10-fold CV (headline predictors)
+  XGBoost                  R2   0.835 (± 0.085)  RMSE   45.9 (± 20.1) mM C
+  LightGBM                 R2   0.848 (± 0.090)  RMSE   41.8 (± 13.8) mM C
+  Training-mean benchmark  R2  -0.082 (± 0.100)  RMSE  115.9 (± 23.9) mM C
+
+LOSO (headline)
+  XGBoost                  R2  -0.627 (± 0.817)  RMSE   99.6 (± 37.9) mM C
+  LightGBM                 R2  -0.938 (± 1.328)  RMSE  103.1 (± 35.8) mM C
+  Training-mean benchmark  R2  -4.243 (± 9.367)  RMSE  112.6 (± 34.1) mM C
+  R2 per held-out study:
+    Brodowski_2022                     XGBoost  -0.458  LightGBM  -0.629  Training-mean  -0.388
+    Brodowski_2022_EXTERNAL_ACETATE    XGBoost  -1.383  LightGBM  -1.544  Training-mean  -2.029
+    Brodowski_2025                     XGBoost  -0.006  LightGBM  -0.192  Training-mean  -0.026
+    Duber_2020                         XGBoost  -0.124  LightGBM   0.003  Training-mean  -0.030
+    Duber_2022                         XGBoost  -2.297  LightGBM  -3.957  Training-mean -27.128
+    Duber_2024                         XGBoost  -0.076  LightGBM  -0.190  Training-mean  -0.066
+    Hanna_2025                         XGBoost  -0.044  LightGBM  -0.059  Training-mean  -0.038
+
+XGBoost's LOSO row is the headline (Table 3b = Table 4 full-matrix tier 3, 02_loso_by_study.py).
+  Saved: C:/Users/IISiIS-ZWW-233/Documents/BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\stage6_corrected_2026-10-12_07b_11\07b_algorithm_comparison.csv
+
+--- THE TWO NAIVE SCHEMES WITH SEEDS 0-19 (above: seed 42): R2 median [lowest, highest] ---
+  Single 80/20 split (ASV level)
+    XGBoost    0.803 [0.481, 0.929]
+    LightGBM   0.800 [0.522, 0.877]
+    LightGBM higher in 9 of 20 seeds; median difference (LightGBM - XGBoost) -0.003
+  Shuffled 10-fold CV (headline predictors)
+    XGBoost    0.803 [0.716, 0.842]
+    LightGBM   0.832 [0.761, 0.855]
+    LightGBM higher in 15 of 20 seeds; median difference (LightGBM - XGBoost) +0.026
+  Saved: C:/Users/IISiIS-ZWW-233/Documents/BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\stage6_corrected_2026-10-12_07b_11\07b_algorithm_comparison_over_seeds.csv

@@ -1,0 +1,24 @@
+Loading Biological Matrix to Replicate Liu et al. Methodology on Duber 2024...
+Isolated Duber_2024. Total samples: 51
+Training on Bioreactor B1 (Samples: 30) | Testing on Bioreactor B2 (Samples: 21)
+
+--- TRAINING INTRA-STUDY MODEL (LIU ET AL. REPLICATION) ---
+------------------------------------------------------------
+THE SINGLE-EXPERIMENT ILLUSION RESULTS (DUBER 2024)
+Intra-Study R-squared (R2): -0.709
+Intra-Study RMSE: 75.191 mM C
+------------------------------------------------------------
+  Saved: C:/Users/IISiIS-ZWW-233/Documents/BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\stage6_corrected_2026-10-12_07c_07d\07c_figure3_stage2.csv
+
+--- TOP 10 LOCAL FEATURES ---
+                        Feature  SHAP_Importance
+                            DAY        95.248291
+g__Clostridium_sensu_stricto_11        24.366699
+                             PH         1.451943
+                    Isobutyrate         0.972846
+                        Ethanol         0.473182
+                 g__Actinomyces         0.193842
+                        Lactate         0.141293
+                        Acetate         0.130516
+           g__Caproiciproducens         0.040445
+ g__Clostridium_sensu_stricto_1         0.008979

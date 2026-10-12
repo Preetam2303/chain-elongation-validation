@@ -1,0 +1,5 @@
+table,scheme,model,n_rows,n_vessels,r2_mean,r2_sd,rmse_mean,rmse_sd
+Table 3b,"Mode 1: CSTR Only (B1, B2 Vessels)","XGBoost, core set + per-fold SHAP top-25 genera",145,11,-0.36022921120245577,0.5064126018622501,124.78166233396193,32.67161377610747
+Table 3b,"Mode 1: CSTR Only (B1, B2 Vessels)",Training-mean benchmark,145,11,-0.27701115715071617,0.2671095911756897,120.35446719921056,18.575949123785332
+Table 3b,Mode 2: All Vessels (CSTR + Batch R1-R9),"XGBoost, core set + per-fold SHAP top-25 genera",166,23,-0.17065518614074135,0.31032703592630584,118.04975856517542,29.577311276324263
+Table 3b,Mode 2: All Vessels (CSTR + Batch R1-R9),Training-mean benchmark,166,23,-0.2374387587020864,0.2181548846541647,119.79576348046962,20.092474800021968

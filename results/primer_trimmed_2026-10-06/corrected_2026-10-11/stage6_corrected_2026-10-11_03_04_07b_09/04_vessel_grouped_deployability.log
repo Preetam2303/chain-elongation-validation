@@ -1,0 +1,25 @@
+--- EXECUTING VESSEL-GROUPED DEPLOYABILITY TEST (Table 3b) ---
+-------------------------------------------------------------------------------------
+
+Mode 1: CSTR Only (B1, B2 Vessels)
+Total Samples: 145 | Unique Physical Vessels: 11
+  Fold 1 | Held-Out Vessels: Duber_2024_B1                  | R2: -0.412 | RMSE: 134.4 mM C | training-mean R2:  -0.001
+  Fold 2 | Held-Out Vessels: Brodowski_2022_B2, Hanna_2025_B1 | R2: -0.211 | RMSE: 163.4 mM C | training-mean R2:  -0.070
+  Fold 3 | Held-Out Vessels: Brodowski_2022_B1, Hanna_2025_B2 | R2: -1.199 | RMSE: 137.9 mM C | training-mean R2:  -0.163
+  Fold 4 | Held-Out Vessels: Duber_2024_B2, Duber_2020_B1   | R2:  0.384 | RMSE:  64.9 mM C | training-mean R2:  -0.728
+  Fold 5 | Held-Out Vessels: Brodowski_2025_B1, Brodowski_2025_B2, Brodowski_2022_EXTERNAL_ACETATE_B1... | R2: -0.364 | RMSE: 123.3 mM C | training-mean R2:  -0.423
+  --> RESULT: Average R2: -0.360 (± 0.506) | Average RMSE: 124.8 (± 32.7) mM C
+  --> TRAINING-MEAN BENCHMARK: Average R2: -0.277 (± 0.267) | Average RMSE: 120.4 (± 18.6) mM C
+-------------------------------------------------------------------------------------
+
+Mode 2: All Vessels (CSTR + Batch R1-R9)
+Total Samples: 166 | Unique Physical Vessels: 23
+  Fold 1 | Held-Out Vessels: Duber_2024_B1, Brodowski_2022_R4, Brodowski_2022_B1... | R2: -0.207 | RMSE: 123.1 mM C | training-mean R2:  -0.000
+  Fold 2 | Held-Out Vessels: Brodowski_2022_B2, Duber_2022_R8, Hanna_2025_B1 | R2: -0.048 | RMSE: 151.6 mM C | training-mean R2:  -0.098
+  Fold 3 | Held-Out Vessels: Duber_2022_R1, Duber_2022_R4, Duber_2022_R9... | R2: -0.554 | RMSE: 116.6 mM C | training-mean R2:  -0.202
+  Fold 4 | Held-Out Vessels: Duber_2024_B2, Brodowski_2022_R2, Duber_2022_R2... | R2:  0.348 | RMSE:  63.9 mM C | training-mean R2:  -0.639
+  Fold 5 | Held-Out Vessels: Brodowski_2025_B1, Brodowski_2025_B2, Brodowski_2022_R3... | R2: -0.393 | RMSE: 135.1 mM C | training-mean R2:  -0.249
+  --> RESULT: Average R2: -0.171 (± 0.310) | Average RMSE: 118.0 (± 29.6) mM C
+  --> TRAINING-MEAN BENCHMARK: Average R2: -0.237 (± 0.218) | Average RMSE: 119.8 (± 20.1) mM C
+-------------------------------------------------------------------------------------
+  Saved: C:/Users/IISiIS-ZWW-233/Documents/BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\stage6_corrected_2026-10-11_03_04_07b_09\04_groupkfold_by_vessel.csv
