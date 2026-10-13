@@ -16,6 +16,8 @@ import figure_inputs as fi
 
 plt.rcParams["font.sans-serif"] = ["Arial", "Helvetica", "DejaVu Sans"]
 plt.rcParams["font.family"] = "sans-serif"
+plt.rcParams["mathtext.fontset"] = "custom"  # R2 and rho in the text font (Arial), not DejaVu Sans
+plt.rcParams["mathtext.cal"] = "sans"  # unused; avoids a warning where no cursive font is installed
 plt.rcParams["font.size"] = 9
 plt.rcParams["axes.labelsize"] = 10
 plt.rcParams["axes.titlesize"] = 10

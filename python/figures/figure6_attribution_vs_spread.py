@@ -180,7 +180,7 @@ def main():
 
     print(f"\n[Figure 6] {len(d)} genera plotted ({n_folds:.0f} folds, {n_groups} study groups). Named genera:")
     print(lab[["genus", "groups", "samples", "median_rank", "shap_dir", "zero_when_no_nano"]]
-          .sort_values("median_rank").to_string(index=False, float_format=lambda x: f"{x:.3f}"))
+          .sort_values(["median_rank", "genus"]).to_string(index=False, float_format=lambda x: f"{x:.3f}"))
     hi = d[d["median_rank"] <= 10]
     lo = d[d["median_rank"] > 25]
     print(f"     genera with median rank <=10: mean groups present = {hi['groups'].mean():.2f} (n={len(hi)})")

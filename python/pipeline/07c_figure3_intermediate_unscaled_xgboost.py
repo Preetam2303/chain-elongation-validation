@@ -1,6 +1,7 @@
 # 07c_figure3_intermediate_unscaled_xgboost.py
-# The middle number in Figure 3's three-step progression (R2 = 0.217 -> -0.228
-# -> -5.869): the same Duber 2025 B1(n=30) -> B2(n=21) split, evaluated with
+# The middle number in Figure 3's three-step progression (published R2 =
+# 0.217 -> -0.228 -> -5.869; corrected run 0.155 -> -0.709 -> -5.296): the
+# same Duber 2025 B1(n=30) -> B2(n=21) split, evaluated with
 # XGBoost but WITHOUT training-only scaling confirmed (no StandardScaler
 # applied at all here) and without an explicit, curated leakage exclusion list.
 #
@@ -9,16 +10,14 @@
 #      not the merged Illumina + Nanopore matrix the validation schemes use.
 #      run_stage6.py points it at the corrected run's matrix from 00; run on
 #      its own it reads the published-run snapshot in data/historical/.
-#   2. The manuscript describes this run as "XGBoost without downstream
-#      co-products." On inspection, that is not quite accurate: this script
-#      only drops a short list of sparse/junk columns (succinate, Lactose,
-#      i-propanol, izo-butanol, NAOH) and does NOT explicitly exclude
-#      Valerate, Isovalerate, Heptanoate, or Caprylate -- the SHAP output
-#      below shows Valerate and Heptanoate both used as real predictors.
-#      The manuscript text should be corrected (see note at bottom of file)
-#      before this is treated as fully precise; the numbers themselves are
-#      unaffected and the overall three-step "tightening rigor" narrative
-#      still holds.
+#   2. The published manuscript described this run as "XGBoost without
+#      downstream co-products." That is not accurate: this script only drops
+#      a short list of sparse/junk columns (succinate, Lactose, i-propanol,
+#      izo-butanol, NAOH) and does NOT exclude Valerate, Isovalerate,
+#      Heptanoate or Caprylate. In the published run, the SHAP output below
+#      showed Valerate and Heptanoate used as real predictors. In the
+#      corrected run (2026-10-12) neither is in its top 10: DAY dominates,
+#      followed by Clostridium sensu stricto 11, pH and Isobutyrate.
 #
 # Published output (-0.228, RMSE 63.736 mM C) came from a run with
 # subsample/colsample_bytree 0.8. Since 2026-10-10 every XGBoost model uses
@@ -99,9 +98,8 @@ shap_df = pd.DataFrame({'Feature': X_train.columns, 'SHAP_Importance': mean_shap
 print("\n--- TOP 10 LOCAL FEATURES ---")
 print(shap_df.head(10).to_string(index=False))
 
-# NOTE ON MANUSCRIPT TEXT: the current draft describes this run as excluding
-# downstream co-products. The SHAP ranking above will show Valerate and
-# Heptanoate among the top features, confirming they were not excluded here.
-# Suggested correction: "R2 = -0.228 under an earlier XGBoost configuration
-# lacking both explicit downstream-co-product exclusion and confirmed
-# training-only scaling" in place of "XGBoost without downstream co-products."
+# NOTE ON MANUSCRIPT TEXT: the published draft described this run as
+# excluding downstream co-products, which it does not (item 2 at the top),
+# and it applies no scaling at all. In the corrected run DAY dominates the
+# SHAP ranking above; Valerate and Heptanoate are available but not in its
+# top 10.

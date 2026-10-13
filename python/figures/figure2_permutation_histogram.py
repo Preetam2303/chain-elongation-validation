@@ -27,6 +27,8 @@ import figure_inputs as fi
 
 plt.rcParams["font.sans-serif"] = ["Arial", "Helvetica", "DejaVu Sans"]
 plt.rcParams["font.family"] = "sans-serif"
+plt.rcParams["mathtext.fontset"] = "custom"  # R2 and rho in the text font (Arial), not DejaVu Sans
+plt.rcParams["mathtext.cal"] = "sans"  # unused; avoids a warning where no cursive font is installed
 plt.rcParams["font.size"] = 9
 plt.rcParams["axes.labelsize"] = 10
 plt.rcParams["axes.titlesize"] = 10
@@ -80,8 +82,8 @@ def panel(ax, null, observed, k, p, metric, benchmark=None):
     hi = max(shown.max(), observed) if benchmark is None else max(shown.max(), observed, benchmark)
     pad = 0.05 * (hi - lo)
     ax.set_xlim(lo - pad, hi + pad)
-    # the box goes on the side away from most of the shuffles
-    left = np.median(null) > (lo + hi) / 2
+    # the box goes on the side away from the observed line
+    left = observed > (lo + hi) / 2
     ax.text(0.03 if left else 0.97, 0.95, "\n".join(lines),
             transform=ax.transAxes, fontsize=7.5, va="top", ha="left" if left else "right",
             bbox=dict(boxstyle="round,pad=0.4", facecolor="#F8F9FA", edgecolor="#CCCCCC", alpha=0.9))
