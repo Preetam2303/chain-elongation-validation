@@ -50,14 +50,13 @@ def generate_figure_4():
         "Acetate (mM C)": df["Acetate"],
         "Caproate (mM C)": df["Caproate"],
         "Caproiciproducens (%)": 100 * df["g__Caproiciproducens"],
-        "Lactobacillus (%)": 100 * df["g__Lactobacillus"],
         "Lacticaseibacillus (%)": 100 * df["g__Lacticaseibacillus"],
     })
 
     metrics = ["pH", "Lactate (mM C)", "Acetate (mM C)", "Caproate (mM C)",
-               "Caproiciproducens (%)", "Lactobacillus (%)", "Lacticaseibacillus (%)"]
+               "Caproiciproducens (%)", "Lacticaseibacillus (%)"]
 
-    fig, axes = plt.subplots(2, 4, figsize=(11, 5.5))
+    fig, axes = plt.subplots(2, 3, figsize=(8.5, 5.5))
     axes = axes.flatten()
     palette = {ill_label: CLR_ILLUMINA, nano_label: CLR_NANOPORE}
     order = [ill_label, nano_label]
@@ -77,7 +76,6 @@ def generate_figure_4():
         ax.spines["top"].set_visible(False)
         ax.spines["right"].set_visible(False)
 
-    fig.delaxes(axes[7])
     plt.suptitle("Figure 4. Distributional & Compositional Shift Between Sequencing Platforms",
                  x=0.08, y=0.98, ha="left", fontweight="bold", fontsize=11)
     plt.tight_layout(rect=[0, 0, 1, 0.95])

@@ -16,6 +16,8 @@ import figure_inputs as fi
 
 plt.rcParams["font.sans-serif"] = ["Arial", "Helvetica", "DejaVu Sans"]
 plt.rcParams["font.family"] = "sans-serif"
+plt.rcParams["mathtext.fontset"] = "custom"  # R2 and rho in the text font (Arial), not DejaVu Sans
+plt.rcParams["mathtext.cal"] = "sans"  # unused; avoids a warning where no cursive font is installed
 plt.rcParams["font.size"] = 9
 plt.rcParams["axes.labelsize"] = 10
 plt.rcParams["axes.titlesize"] = 10
@@ -40,7 +42,7 @@ def generate_figure_3():
 
     stages = [
         "1. Unscaled Random Forest\n(+ Downstream Proxies)",
-        "2. XGBoost\n(No Downstream Exclusion,\nUnconfirmed Scaling)",
+        "2. XGBoost\n(No Downstream Exclusion,\nNo Scaling)",
         "3. Fully Leakage-Controlled\nXGBoost (Train-Only Scaling)",
     ]
     r2_values = [float(stage1["R2"]), float(stage2["R2"]), float(stage3["R2"])]

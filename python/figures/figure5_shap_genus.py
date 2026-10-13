@@ -85,7 +85,7 @@ def generate_figure_5():
     cbar.set_ticks([0, 1])
     cbar.set_ticklabels(["Low", "High"])
 
-    plt.title("Figure 5. SHAP Attribution of Core Functional Drivers", loc="left", fontweight="bold", pad=12)
+    plt.title("Figure 5. SHAP Attribution of the Genera the Model Relies on Most", loc="left", fontweight="bold", pad=12)
     plt.tight_layout()
     fi.save(fig, "Figure_5_SHAP_Summary")
     plt.close()
