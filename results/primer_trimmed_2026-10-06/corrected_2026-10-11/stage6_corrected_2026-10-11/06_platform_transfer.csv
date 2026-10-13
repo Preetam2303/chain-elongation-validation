@@ -1,0 +1,4 @@
+table,scheme,model,train_n,test_n,r2,rmse,spearman_rho_day_means
+Table 3b,"Platform transfer, raw counts","XGBoost, core set",112,54,-0.05596198968480026,138.347826374474,0.28998968008255926
+Table 3b,"Platform transfer, relative abundance","XGBoost, core set",112,54,-0.0437362086807187,137.5446087775928,0.38906088751289986
+Table 3b,Platform transfer,Training-mean benchmark,112,54,-0.03802928994612742,137.16806160362412,

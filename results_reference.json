@@ -1,561 +1,2377 @@
 {
-  "_about": {
-    "purpose": "Every quantitative value reported in the manuscript, paired with the script that produces it and how exactly it should be expected to reproduce. Intended both as a human-readable audit trail and as a machine-checkable target for anyone re-running this pipeline.",
-    "manuscript": "Quantitative Fragility and Ecological Robustness in Machine-Learning-Predicted Chain Elongation: A Multi-Study, Multi-Platform Validation Framework",
-    "reference_environment": {
-      "python": "3.13.9",
-      "os": "Windows",
-      "packages": "exactly as pinned in requirements.txt",
-      "note": "All values below were generated in this environment."
+ "_about": {
+  "purpose": "The corrected, primer-trimmed run's values for the manuscript, with the results files each comes from and how exactly it reproduces. Built by python/build_results_reference.py from the run of record; no value is typed in by hand.",
+  "manuscript": "Quantitative Fragility and Ecological Robustness in Machine-Learning-Predicted Chain Elongation: A Multi-Study, Multi-Platform Validation Framework",
+  "run_of_record": {
+   "folder": "results/primer_trimmed_2026-10-06 (copied unchanged from the laptop run; see its README)",
+   "matrices": "corrected_2026-10-11 (R/04_metadata_merge.R, 00 and 00b, 2026-10-11)",
+   "matrix_sha256_lf": {
+    "BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv": "087c6f50e080eccbd106eac3f2321b8be3e7e6f6ffa5a5ee43538363f857bcf7",
+    "BIOTWIN_FINAL_ML_MATRIX.csv": "4b36240960935c8d896629ac6912de00b9e067021b682366d73cea23dbee9e5b",
+    "BIOTWIN_GENUS_ML_MATRIX.csv": "dcb1af0ad1204de8d58d2dc96c93776ece70b441d8a6d9e07c047f9a07e72cb7",
+    "BIOTWIN_PRUNED_ML_MATRIX.csv": "81f4face6a05b90aa53fa63b27d06da85491d0406dd25420d062cae99ad4a277",
+    "inocula_genus_profiles.csv": "38b0752129f205d7995624c2e8a4196b38826df489ea19ecce40cebb9d5daf9e",
+    "stage4_genus_summary.csv": "b7527312b15463be0c4f3fd76ae61d467b84832ee2f3cc4c8e829e0dd308193c",
+    "stage5_genus_summary.csv": "1a2e4738566adf798f1d73b202dea59094629a63cab15a8e15bf5f8de39c3bb0"
+   },
+   "stage6_folder_of_each_script": {
+    "02": "corrected_2026-10-11/stage6_corrected_2026-10-11",
+    "03": "corrected_2026-10-11/stage6_corrected_2026-10-11_03_04_07b_09",
+    "04": "corrected_2026-10-11/stage6_corrected_2026-10-11_03_04_07b_09",
+    "05": "corrected_2026-10-11/stage6_corrected_2026-10-11",
+    "06": "corrected_2026-10-11/stage6_corrected_2026-10-11",
+    "07a": "corrected_2026-10-11/stage6_corrected_2026-10-11",
+    "07b": "corrected_2026-10-11/stage6_corrected_2026-10-12_07b_11",
+    "07c": "corrected_2026-10-11/stage6_corrected_2026-10-12_07c_07d",
+    "07d": "corrected_2026-10-11/stage6_corrected_2026-10-12_07c_07d",
+    "08": "corrected_2026-10-11/stage6_corrected_2026-10-11",
+    "09": "corrected_2026-10-11/stage6_corrected_2026-10-11_03_04_07b_09",
+    "10": "corrected_2026-10-11/stage6_corrected_2026-10-11",
+    "11": "corrected_2026-10-11/stage6_corrected_2026-10-12_07b_11"
+   },
+   "figures": "corrected_2026-10-11/figures_corrected_2026-10-12",
+   "table_s2": "data/table_s2 (12 and 12b, 2026-10-12)"
+  },
+  "reference_environment": {
+   "python": "3.13.9",
+   "os": "Windows-11-10.0.26300-SP0",
+   "packages": "exactly as pinned in requirements.txt"
+  },
+  "study_names": {
+   "Brodowski_2022": "Brodowski 2022",
+   "Brodowski_2022_EXTERNAL_ACETATE": "Brodowski 2022 [Ext.]",
+   "Brodowski_2025": "Brodowski 2025",
+   "Duber_2020": "Duber 2020",
+   "Duber_2022": "Duber 2022",
+   "Duber_2024": "Duber 2025",
+   "Hanna_2025": "Prusak 2026"
+  },
+  "precision": "Each value is rounded as the manuscript reports it: R2, Spearman rho, p-values, mean |SHAP| and Bray-Curtis to 3 decimals; RMSE, MAE, concentrations (mM C) and percentages to 1; counts exactly. Values read from a log keep the decimals the log prints.",
+  "tolerance": {
+   "exact": "Every model of the corrected pipeline is deterministic. XGBoost runs without row or column subsampling; the few random parts are seeded (07a's LightGBM random-forest mode, 07d's random forest, the 999 shuffles of 03, the seeds 0-19 of 07b and 11), and the vessel folds of 04 and 09 break ties by name. With the pinned versions every value reproduces to every decimal given, on any machine: --check on the cloud's own runs of the same scripts (Linux, from its own copy of the matrices) finds no value that differs from the laptop run of record (Windows 11).",
+   "monte_carlo": "The p-values of 03 reproduce exactly, because every shuffle is seeded, but they are estimates over 999 shuffles; their Monte Carlo standard error is given with them.",
+   "check": "python python/build_results_reference.py --check <your corrected_<date> folder> lists every value of your run that differs from this file by more than half a unit in its last decimal."
+  },
+  "earlier_values": "The published run's values (before primer trimming, with the earlier settings and predictors) are in this file as it stood at tag draft-v1-2026-10-04 (commit 29635f7). They reproduce with the code at commit 844f478.",
+  "sources_note": "Paths in each section's _source are relative to results/primer_trimmed_2026-10-06 unless marked as repository paths."
+ },
+ "primer_trimming": {
+  "_source": [
+   "ASV_Taxonomy_Master.csv",
+   "stage1/dada2_overnight_log_2026-10-05.txt",
+   "stage1/read_tracking_Duber_2020_Master.csv"
+  ],
+  "_note": "Both primers are cut off every read pair with cutadapt before DADA2, anchored at the start of the read; pairs in which either primer is not found are discarded. The published run kept the primers in the reads. The six scripts R/01a-01f use the same settings (read from them here). The reverse primer is the one some papers call 785R.",
+  "_read_pairs_note": "From each script's read tracking: pairs in, and pairs in which cutadapt found both primers at the start of the reads (the only pairs DADA2 sees). Brodowski 2022 [Ext.]'s 16 samples include the mock community, removed after DADA2.",
+  "_asv_check_note": "The same check as R/01a-01f, on the merged and chimera-free ASV table (ASV_Taxonomy_Master.csv): no ASV still carries a primer.",
+  "primers": {
+   "341F": "CCTACGGGNGGCWGCAG",
+   "805R": "GACTACHVGGGTATCTAATCC"
+  },
+  "cutadapt": {
+   "version": "5.2",
+   "options": "-g ^341F -G ^805R -e 2 --discard-untrimmed --pair-filter=any",
+   "max_errors": 2
+  },
+  "dada2_truncLen_after_trimming": [
+   233,
+   229
+  ],
+  "read_pairs_by_study": {
+   "Brodowski_2022": {
+    "samples": 10,
+    "read_pairs_in": 1281663,
+    "read_pairs_with_both_primers": 1261534,
+    "percent_with_both_primers": 98.4,
+    "percent_per_sample_lowest": 98.0,
+    "percent_per_sample_median": 98.4,
+    "percent_per_sample_highest": 98.9
+   },
+   "Brodowski_2022_EXTERNAL_ACETATE": {
+    "samples": 16,
+    "read_pairs_in": 1957049,
+    "read_pairs_with_both_primers": 1926569,
+    "percent_with_both_primers": 98.4,
+    "percent_per_sample_lowest": 98.1,
+    "percent_per_sample_median": 98.5,
+    "percent_per_sample_highest": 98.7
+   },
+   "Brodowski_2025": {
+    "samples": 15,
+    "read_pairs_in": 2297696,
+    "read_pairs_with_both_primers": 2240109,
+    "percent_with_both_primers": 97.5,
+    "percent_per_sample_lowest": 97.3,
+    "percent_per_sample_median": 97.5,
+    "percent_per_sample_highest": 97.6
+   },
+   "Duber_2020": {
+    "samples": 9,
+    "read_pairs_in": 938025,
+    "read_pairs_with_both_primers": 899458,
+    "percent_with_both_primers": 95.9,
+    "percent_per_sample_lowest": 94.6,
+    "percent_per_sample_median": 96.0,
+    "percent_per_sample_highest": 96.4
+   },
+   "Duber_2022": {
+    "samples": 19,
+    "read_pairs_in": 1831322,
+    "read_pairs_with_both_primers": 1787856,
+    "percent_with_both_primers": 97.6,
+    "percent_per_sample_lowest": 97.2,
+    "percent_per_sample_median": 97.5,
+    "percent_per_sample_highest": 98.2
+   },
+   "Duber_2024": {
+    "samples": 53,
+    "read_pairs_in": 4339860,
+    "read_pairs_with_both_primers": 4216066,
+    "percent_with_both_primers": 97.1,
+    "percent_per_sample_lowest": 96.4,
+    "percent_per_sample_median": 97.2,
+    "percent_per_sample_highest": 97.7
+   }
+  },
+  "asvs_in_merged_table": 3672,
+  "asvs_starting_with_341F": 0,
+  "asvs_ending_with_805R_reverse_complement": 0
+ },
+ "data_construction": {
+  "_source": [
+   "ASV_Count_Matrix_Clean.csv",
+   "corrected_2026-10-11/BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv",
+   "corrected_2026-10-11/BIOTWIN_FINAL_ML_MATRIX.csv",
+   "corrected_2026-10-11/BIOTWIN_GENUS_ML_MATRIX.csv",
+   "corrected_2026-10-11/BIOTWIN_PRUNED_ML_MATRIX.csv",
+   "corrected_2026-10-11/inocula_genus_profiles.csv",
+   "corrected_2026-10-11/stage4_genus_summary.csv",
+   "corrected_2026-10-11/stage5_genus_summary.csv"
+  ],
+  "stage2_asv_table": {
+   "_note": "R/02 (merge, chimera removal) and R/03 (SILVA v138.1 taxonomy).",
+   "sequencing_runs": 121,
+   "asvs": 3672
+  },
+  "r04_matrix": {
+   "_note": "R/04 joins the ASV table to the metadata (an inner join), applies data/corrections/ and gives each shared inoculum run one row per reactor it seeded. The runs without a metadata row were not in the published matrix either.",
+   "rows": 129,
+   "sequencing_runs": 117,
+   "asv_columns": 3672,
+   "runs_excluded": [
+    "ERR3200169"
+   ],
+   "runs_without_metadata": [
+    "SRR28044230",
+    "SRR28047173",
+    "SRR28047174"
+   ]
+  },
+  "inoculum_rows": {
+   "_note": "Left out of every model (data/corrections/descriptive_only_samples.csv); their genus profiles are in inocula_genus_profiles.csv.",
+   "rows": 17,
+   "sequencing_runs": 5
+  },
+  "prevalence_filter": {
+   "_note": "00: the inoculum rows are left out, the spike-in genera removed, and an ASV is kept if it is present in at least 5% of the modelled Illumina samples, each counted once. Percent of reads: the kept ASVs' share of all reads in those samples (spike-ins removed), from stage4_genus_summary.csv.",
+   "fraction": 0.05,
+   "of_modelled_illumina_samples": 112,
+   "min_samples": 6,
+   "fewest_samples_of_a_kept_asv": 6,
+   "spike_in_genera_removed_first": [
+    "Imtechella",
+    "Allobacillus"
+   ],
+   "asvs_kept": 403,
+   "percent_of_reads_kept": 90.3
+  },
+  "illumina_genera": 109,
+  "nanopore_rows": 54,
+  "nanopore_genera": 124,
+  "genera_shared_across_platforms": 28,
+  "named_genera_shared_across_platforms": 27,
+  "final_matrix": {
+   "_note": "00b: the 54 Nanopore rows joined to the 112 modelled Illumina rows on genus columns (an outer join; a genus absent from a platform is 0).",
+   "rows": 166,
+   "genera": 205,
+   "columns": 234
+  }
+ },
+ "table_1_sample_counts": {
+  "_source": [
+   "corrected_2026-10-11/BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv",
+   "corrected_2026-10-11/inocula_genus_profiles.csv"
+  ],
+  "_note": "A row is one sample on one reactor and day. An inoculum run that seeded several reactors gives one inoculum row per reactor.",
+  "Brodowski_2022": {
+   "modelled_rows": 8,
+   "modelled_sequencing_runs": 8,
+   "inoculum_rows": 5
+  },
+  "Brodowski_2022_EXTERNAL_ACETATE": {
+   "modelled_rows": 14,
+   "modelled_sequencing_runs": 14,
+   "inoculum_rows": 2
+  },
+  "Brodowski_2025": {
+   "modelled_rows": 14,
+   "modelled_sequencing_runs": 14,
+   "inoculum_rows": 0
+  },
+  "Duber_2020": {
+   "modelled_rows": 7,
+   "modelled_sequencing_runs": 7,
+   "inoculum_rows": 1
+  },
+  "Duber_2022": {
+   "modelled_rows": 18,
+   "modelled_sequencing_runs": 18,
+   "inoculum_rows": 9
+  },
+  "Duber_2024": {
+   "modelled_rows": 51,
+   "modelled_sequencing_runs": 51,
+   "inoculum_rows": 0
+  },
+  "Hanna_2025": {
+   "modelled_rows": 54,
+   "modelled_sequencing_runs": 54,
+   "inoculum_rows": 0
+  },
+  "total": {
+   "modelled_rows": 166,
+   "modelled_sequencing_runs": 166,
+   "inoculum_rows": 17
+  }
+ },
+ "table_2_prevalence": {
+  "_source": [
+   "corrected_2026-10-11/BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv"
+  ],
+  "_definition": "Detected = more than zero reads in a sample of the final 166-row matrix; groups = study groups (of 7) with at least one detection. Mean relative abundance per platform, over all of that platform's samples (Figure 4's definition).",
+  "Caproiciproducens": {
+   "samples": 161,
+   "of": 166,
+   "percent": 97.0,
+   "groups": 7,
+   "illumina": {
+    "samples": 110,
+    "of": 112,
+    "mean_relative_abundance_percent": 25.46
+   },
+   "nanopore": {
+    "samples": 51,
+    "of": 54,
+    "mean_relative_abundance_percent": 9.79
+   }
+  },
+  "Clostridium_sensu_stricto_12": {
+   "samples": 158,
+   "of": 166,
+   "percent": 95.2,
+   "groups": 7,
+   "illumina": {
+    "samples": 105,
+    "of": 112,
+    "mean_relative_abundance_percent": 4.68
+   },
+   "nanopore": {
+    "samples": 53,
+    "of": 54,
+    "mean_relative_abundance_percent": 14.1
+   },
+   "caveat": "Not cross-platform comparable: the synonym dictionary (Methods 2.2) maps every Nanopore 'Clostridium' call onto this one clade, while the Illumina data resolve several Clostridium sensu stricto clades."
+  },
+  "Lacticaseibacillus": {
+   "samples": 118,
+   "of": 166,
+   "percent": 71.1,
+   "groups": 5,
+   "illumina": {
+    "samples": 65,
+    "of": 112,
+    "mean_relative_abundance_percent": 8.23
+   },
+   "nanopore": {
+    "samples": 53,
+    "of": 54,
+    "mean_relative_abundance_percent": 6.1
+   }
+  },
+  "Stenotrophomonas": {
+   "samples": 51,
+   "of": 166,
+   "percent": 30.7,
+   "groups": 6,
+   "illumina": {
+    "samples": 51,
+    "of": 112,
+    "mean_relative_abundance_percent": 1.29
+   },
+   "nanopore": {
+    "samples": 0,
+    "of": 54,
+    "mean_relative_abundance_percent": 0.0
+   }
+  },
+  "Lactobacillus": {
+   "samples": 24,
+   "of": 166,
+   "percent": 14.5,
+   "groups": 4,
+   "illumina": {
+    "samples": 17,
+    "of": 112,
+    "mean_relative_abundance_percent": 0.05
+   },
+   "nanopore": {
+    "samples": 7,
+    "of": 54,
+    "mean_relative_abundance_percent": 0.01
+   }
+  },
+  "Gudongella": {
+   "samples": 27,
+   "of": 166,
+   "percent": 16.3,
+   "groups": 1,
+   "illumina": {
+    "samples": 0,
+    "of": 112,
+    "mean_relative_abundance_percent": 0.0
+   },
+   "nanopore": {
+    "samples": 27,
+    "of": 54,
+    "mean_relative_abundance_percent": 0.09
+   }
+  },
+  "Acinetobacter": {
+   "samples": 27,
+   "of": 166,
+   "percent": 16.3,
+   "groups": 4,
+   "illumina": {
+    "samples": 27,
+    "of": 112,
+    "mean_relative_abundance_percent": 5.19
+   },
+   "nanopore": {
+    "samples": 0,
+    "of": 54,
+    "mean_relative_abundance_percent": 0.0
+   }
+  }
+ },
+ "replicate_structure": {
+  "_source": [
+   "corrected_2026-10-11/BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv"
+  ],
+  "_note": "Same-day replicates (decision 2026-10-07): in Duber 2025 (Duber_2024) and Prusak 2026 (Hanna_2025) a reactor's samples of one day share that day's chemistry, so they form one sampling unit; every other row is its own unit (pipeline_settings.sampling_units).",
+  "_other_note": "Duber 2022's bottles: two bottles per trial on day 22 share a trial label but are separate vessels with their own chemistry, so each is its own sampling unit.",
+  "sampling_units": 96,
+  "of_rows": 166,
+  "Duber_2024": {
+   "replicate_sets": 17,
+   "rows": 51,
+   "samples_per_set": [
+    3
+   ]
+  },
+  "Hanna_2025": {
+   "replicate_sets": 18,
+   "rows": 54,
+   "samples_per_set": [
+    3
+   ]
+  },
+  "other_rows_sharing_reactor_label_and_day": {
+   "Duber_2022": 18
+  },
+  "rows_sharing_study_reactor_label_and_day": {
+   "_note": "The count Methods 2.6 gave for the published matrix (124 of 184 rows; 44 of 104 reactor-days).",
+   "rows": 123,
+   "groups": 44,
+   "of_groups": 87,
+   "largest_group": 3
+  }
+ },
+ "table_3a_naive_schemes": {
+  "_source": [
+   "corrected_2026-10-11/stage6_corrected_2026-10-11/10_table3a_naive_splits.csv",
+   "corrected_2026-10-11/stage6_corrected_2026-10-12_07b_11/11_naive_splits_over_seeds.csv"
+  ],
+  "_note": "10, seed 42 as in the published Table 3a. replicate_sets_split: the same-day replicate sets that the split puts on both sides.",
+  "_seeds_note": "11: each naive scheme with seeds 0-19, on every sample and with one row per sampling day; median and range of R2.",
+  "single_random_80_20": {
+   "r2": 0.542,
+   "rmse": 76.0,
+   "n": 112,
+   "features": 413,
+   "replicate_sets_split": 9,
+   "replicate_sets": 17,
+   "n_test": 23
+  },
+  "random_5_fold_cv": {
+   "r2": 0.682,
+   "rmse": 54.9,
+   "n": 112,
+   "features": 413,
+   "replicate_sets_split": 17,
+   "replicate_sets": 17,
+   "r2_sd": 0.285,
+   "rmse_sd": 31.0,
+   "folds": [
+    0.542,
+    0.96,
+    0.898,
+    0.189,
+    0.823
+   ]
+  },
+  "shuffled_10_fold_cv": {
+   "r2": 0.828,
+   "rmse": 47.0,
+   "n": 166,
+   "features": 215,
+   "replicate_sets_split": 35,
+   "replicate_sets": 35,
+   "r2_sd": 0.091,
+   "rmse_sd": 21.1,
+   "folds": [
+    0.764,
+    0.795,
+    0.703,
+    0.685,
+    0.779,
+    0.876,
+    0.924,
+    0.926,
+    0.95,
+    0.878
+   ]
+  },
+  "single_study_internal_80_20": {
+   "r2": 0.913,
+   "rmse": 26.5,
+   "n": 51,
+   "features": 215,
+   "replicate_sets_split": 7,
+   "replicate_sets": 17,
+   "n_test": 11
+  },
+  "seeds_0_19": {
+   "single_random_80_20": {
+    "every_sample": {
+     "median": 0.803,
+     "lowest": 0.481,
+     "highest": 0.929
     },
-    "tolerance_classes": {
-      "exact": {
-        "abs_tol": 0.001,
-        "meaning": "No stochastic subsampling in the fitted model, or no model at all. Reproduces to at least three decimals on any platform with the pinned package versions.",
-        "verified_by": "Independent re-execution on Linux / Python 3.12.3 with the pinned package versions reproduced every value in this class to three or more decimals."
-      },
-      "environment_sensitive": {
-        "abs_tol": 0.25,
-        "meaning": "Model fitted with subsample=0.8 and colsample_bytree=0.8. XGBoost's subsampling RNG consumption pattern is not stable across library builds or platforms, so random_state=42 fixes results within an environment but not across environments. Sign and qualitative conclusion are stable; exact decimals are not.",
-        "verified_by": "Same Linux re-execution reproduced the sign and conclusion of every value in this class but not the exact decimals. Verified NOT to be thread nondeterminism: identical across n_jobs in {1, 2, 4, -1} and across repeated runs within one environment.",
-        "tolerance_caveat": "abs_tol is a rough guide for R2-scale quantities only. It does not apply to Table 5's Duber_2025 row, where the ratio of test variance to error makes R2 unbounded below; judge that row by sign and by the Spearman rho instead."
-      },
-      "monte_carlo": {
-        "meaning": "Estimated from a finite number of random draws. Reproduces exactly only under identical seeding; otherwise varies within its own sampling error.",
-        "verified_by": "An independent RNG over the same 999-shuffle design returned p = 0.055 (k = 54), within one standard error of the reported 0.062."
-      }
+    "one_row_per_sampling_day": {
+     "median": 0.592,
+     "lowest": 0.251,
+     "highest": 0.922
+    },
+    "lower_with_one_row_per_day_in_seeds": 16
+   },
+   "random_5_fold_cv": {
+    "every_sample": {
+     "median": 0.71,
+     "lowest": 0.636,
+     "highest": 0.786
+    },
+    "one_row_per_sampling_day": {
+     "median": 0.576,
+     "lowest": 0.419,
+     "highest": 0.691
+    },
+    "lower_with_one_row_per_day_in_seeds": 18
+   },
+   "shuffled_10_fold_cv": {
+    "every_sample": {
+     "median": 0.804,
+     "lowest": 0.721,
+     "highest": 0.852
+    },
+    "one_row_per_sampling_day": {
+     "median": 0.483,
+     "lowest": 0.034,
+     "highest": 0.632
+    },
+    "lower_with_one_row_per_day_in_seeds": 20
+   },
+   "single_study_internal_80_20": {
+    "every_sample": {
+     "median": 0.925,
+     "lowest": -0.326,
+     "highest": 0.997
+    },
+    "one_row_per_sampling_day": {
+     "median": -0.742,
+     "lowest": -122.696,
+     "highest": 0.879
+    },
+    "lower_with_one_row_per_day_in_seeds": 20
+   }
+  }
+ },
+ "table_3b_grouped_schemes": {
+  "_source": [
+   "corrected_2026-10-11/stage6_corrected_2026-10-11/02_loso_tables_3b_4.csv",
+   "corrected_2026-10-11/stage6_corrected_2026-10-11/06_platform_transfer.csv",
+   "corrected_2026-10-11/stage6_corrected_2026-10-11_03_04_07b_09/04_groupkfold_by_vessel.csv"
+  ],
+  "_vessel_note": "04: GroupKFold by physical reactor (5 folds); ties between vessels with the same number of rows are broken by name, so the folds are the same on every machine.",
+  "loso_headline": {
+   "_note": "The headline: leave-one-study-out on the full matrix with the core set (Table 4's full-matrix tier 3 is the same number).",
+   "r2_mean": -0.627,
+   "r2_sd": 0.817,
+   "rmse": 99.6,
+   "rmse_sd": 37.9,
+   "n": 166,
+   "features": 215,
+   "r2_by_held_out_study": {
+    "Brodowski_2022": -0.458,
+    "Brodowski_2022_EXTERNAL_ACETATE": -1.383,
+    "Brodowski_2025": -0.006,
+    "Duber_2020": -0.124,
+    "Duber_2022": -2.297,
+    "Duber_2024": -0.076,
+    "Hanna_2025": -0.044
+   }
+  },
+  "loso_training_mean_benchmark": {
+   "r2_mean": -4.243,
+   "r2_sd": 9.367,
+   "rmse": 112.6,
+   "rmse_sd": 34.1,
+   "n": 166,
+   "features": 0,
+   "r2_by_held_out_study": {
+    "Brodowski_2022": -0.388,
+    "Brodowski_2022_EXTERNAL_ACETATE": -2.029,
+    "Brodowski_2025": -0.026,
+    "Duber_2020": -0.03,
+    "Duber_2022": -27.128,
+    "Duber_2024": -0.066,
+    "Hanna_2025": -0.038
+   }
+  },
+  "loso_shap_top25_per_fold": {
+   "r2_mean": -0.639,
+   "r2_sd": 0.952,
+   "rmse": 98.2,
+   "rmse_sd": 38.1,
+   "n": 166,
+   "features": 215,
+   "r2_by_held_out_study": {
+    "Brodowski_2022": -0.546,
+    "Brodowski_2022_EXTERNAL_ACETATE": -1.409,
+    "Brodowski_2025": 0.256,
+    "Duber_2020": -0.098,
+    "Duber_2022": -2.615,
+    "Duber_2024": -0.064,
+    "Hanna_2025": 0.004
+   }
+  },
+  "vessel_grouped_cstr_only": {
+   "r2_mean": -0.36,
+   "r2_sd": 0.506,
+   "rmse": 124.8,
+   "rmse_sd": 32.7,
+   "n": 145,
+   "vessels": 11
+  },
+  "vessel_grouped_cstr_only_training_mean_benchmark": {
+   "r2_mean": -0.277,
+   "r2_sd": 0.267,
+   "rmse": 120.4,
+   "rmse_sd": 18.6,
+   "n": 145,
+   "vessels": 11
+  },
+  "vessel_grouped_all_vessels": {
+   "r2_mean": -0.171,
+   "r2_sd": 0.31,
+   "rmse": 118.0,
+   "rmse_sd": 29.6,
+   "n": 166,
+   "vessels": 23
+  },
+  "vessel_grouped_all_vessels_training_mean_benchmark": {
+   "r2_mean": -0.237,
+   "r2_sd": 0.218,
+   "rmse": 119.8,
+   "rmse_sd": 20.1,
+   "n": 166,
+   "vessels": 23
+  },
+  "platform_transfer_raw_counts": {
+   "r2": -0.056,
+   "rmse": 138.3,
+   "train_n": 112,
+   "test_n": 54,
+   "spearman_rho_sampling_day_means": 0.29
+  },
+  "platform_transfer_relative_abundance": {
+   "r2": -0.044,
+   "rmse": 137.5,
+   "train_n": 112,
+   "test_n": 54,
+   "spearman_rho_sampling_day_means": 0.389
+  },
+  "platform_transfer_training_mean_benchmark": {
+   "r2": -0.038,
+   "rmse": 137.2,
+   "train_n": 112,
+   "test_n": 54
+  }
+ },
+ "table_4_substrate_ladder": {
+  "_source": [
+   "corrected_2026-10-11/stage6_corrected_2026-10-11/02_loso_tables_3b_4.csv"
+  ],
+  "_note": "02: leave-one-study-out, adding predictor tiers, on the full matrix (every study) and on the Illumina studies alone. Only the Illumina-only column adds the compounds measured in the Illumina studies alone (its tiers 3 and 4).",
+  "full_matrix": {
+   "training_mean_benchmark": {
+    "description": "Training-mean benchmark",
+    "r2_mean": -4.243,
+    "r2_sd": 9.367,
+    "rmse": 112.6,
+    "rmse_sd": 34.1,
+    "n": 166,
+    "features": 0,
+    "r2_by_held_out_study": {
+     "Brodowski_2022": -0.388,
+     "Brodowski_2022_EXTERNAL_ACETATE": -2.029,
+     "Brodowski_2025": -0.026,
+     "Duber_2020": -0.03,
+     "Duber_2022": -27.128,
+     "Duber_2024": -0.066,
+     "Hanna_2025": -0.038
     }
-  },
-  "data_construction": {
-    "_tolerance": "exact",
-    "_script": "R/01a-01f, R/02-04, python/pipeline/01_genus_aggregation.py",
-    "_note": "Deterministic set operations and arithmetic. No model is fitted. These must match byte-for-byte; a mismatch here means the input data differ, not the environment.",
-    "raw_asv_columns": 18870,
-    "prevalence_threshold_fraction": 0.05,
-    "prevalence_threshold_min_samples": 7,
-    "core_asvs_retained": 4027,
-    "asvs_pruned": 14843,
-    "illumina_samples": 130,
-    "illumina_genera_after_collapse": 65,
-    "nanopore_samples": 54,
-    "nanopore_genera_after_collapse": 124,
-    "genera_shared_across_platforms": 19,
-    "final_matrix_samples": 184,
-    "final_matrix_genera": 170,
-    "final_matrix_total_features": 199,
-    "algorithm_selection_feature_count": 4037
-  },
-  "table_1_sample_counts": {
-    "_tolerance": "exact",
-    "_script": "R/04_metadata_merge.R",
-    "Duber_2022": 27,
-    "Brodowski_2022": 13,
-    "Brodowski_2022_EXTERNAL_ACETATE": 16,
-    "Duber_2024": 51,
-    "Brodowski_2025": 14,
-    "Duber_2020": 9,
-    "Hanna_2025": 54,
-    "total": 184,
-    "_note": "Paper_ID 'Duber_2024' corresponds to Duber et al. (2025) in the reference list; 'Hanna_2025' corresponds to Prusak et al. (2026). Internal keys were fixed before final publication years were known."
-  },
-  "table_2_prevalence": {
-    "_tolerance": "exact",
-    "_script": "python/pipeline/01_genus_aggregation.py",
-    "_definition": "Detected = relative abundance strictly greater than zero in the final 184-sample matrix.",
-    "Caproiciproducens": {
-      "samples": 172,
-      "of": 184,
-      "percent": 93.5,
-      "groups": 7
-    },
-    "Clostridium_sensu_stricto_12": {
-      "samples": 167,
-      "of": 184,
-      "percent": 90.8,
-      "groups": 7,
-      "caveat": "Not cross-platform comparable. The synonym dictionary (Methods 2.2) maps every Nanopore NCBI 'Clostridium' assignment onto this single clade, while the Illumina data resolve seven separate Clostridium sensu stricto clades. Illumina detection 114/130 (87.7%, mean rel. abundance 4.66%); Nanopore detection 53/54 (98.1%, mean rel. abundance 14.10%)."
-    },
-    "Lacticaseibacillus": {
-      "samples": 116,
-      "of": 184,
-      "percent": 63.0,
-      "groups": 5
-    },
-    "Stenotrophomonas": {
-      "samples": 51,
-      "of": 184,
-      "percent": 27.7,
-      "groups": 6
-    },
-    "Lactobacillus": {
-      "samples": 34,
-      "of": 184,
-      "percent": 18.5,
-      "groups": 5
-    },
-    "Gudongella": {
-      "samples": 27,
-      "of": 184,
-      "percent": 14.7,
-      "groups": 1
-    },
-    "Acinetobacter": {
-      "samples": 24,
-      "of": 184,
-      "percent": 13.0,
-      "groups": 2
+   },
+   "tier_1": {
+    "description": "Tier 1: pH, temperature, HRT, categoricals + genera",
+    "r2_mean": -1.126,
+    "r2_sd": 1.554,
+    "rmse": 108.5,
+    "rmse_sd": 46.8,
+    "n": 166,
+    "features": 210,
+    "r2_by_held_out_study": {
+     "Brodowski_2022": 0.232,
+     "Brodowski_2022_EXTERNAL_ACETATE": -2.481,
+     "Brodowski_2025": -0.854,
+     "Duber_2020": -0.432,
+     "Duber_2022": -4.312,
+     "Duber_2024": 0.162,
+     "Hanna_2025": -0.197
     }
-  },
-  "replicate_structure": {
-    "_tolerance": "exact",
-    "_reported_in": "Methods 2.6",
-    "unique_reactor_days": 104,
-    "reactor_days_with_replicates": 44,
-    "rows_in_replicated_reactor_days": 124,
-    "max_replicates_at_one_timepoint": 5
-  },
-  "table_3a_naive_schemes": {
-    "_tolerance": "environment_sensitive",
-    "_note": "All fitted with subsample=0.8, colsample_bytree=0.8.",
-    "single_random_80_20": {
-      "r2": 0.915,
-      "rmse": 27.265,
-      "n": 130,
-      "features": 4037,
-      "feature_set": "5 operational + 5 foundational substrates + 4027 ASVs",
-      "script": "python/pipeline/07b_algorithm_comparison_lightgbm_standard.py (XGBoost baseline)"
-    },
-    "random_5_fold_cv": {
-      "r2_mean": 0.602,
-      "r2_sd": 0.273,
-      "folds": [
-        0.873,
-        0.167,
-        0.7,
-        0.411,
-        0.857
-      ],
-      "n": 130,
-      "features": 4027,
-      "feature_set": "ASV-only. Deliberately NOT the same predictor set as the 80/20 row above.",
-      "script": "python/pipeline/07b_algorithm_comparison_lightgbm_standard.py"
-    },
-    "shuffled_10_fold_cv": {
-      "r2_mean": 0.835,
-      "r2_sd": 0.08,
-      "rmse": 44.4,
-      "n": 184,
-      "features": 170,
-      "uses_per_fold_shap_top25": true,
-      "script": "python/pipeline/02_loso_by_study.py"
-    },
-    "single_study_internal_80_20": {
-      "r2": 0.985,
-      "rmse": 10.9,
-      "n": 51,
-      "study": "Duber_2024",
-      "script": "python/pipeline/05_intrastudy_transferability_table5.py"
+   },
+   "tier_2": {
+    "description": "Tier 2: + lactate, acetate, ethanol",
+    "r2_mean": -0.956,
+    "r2_sd": 1.158,
+    "rmse": 107.3,
+    "rmse_sd": 43.3,
+    "n": 166,
+    "features": 213,
+    "r2_by_held_out_study": {
+     "Brodowski_2022": -0.46,
+     "Brodowski_2022_EXTERNAL_ACETATE": -2.034,
+     "Brodowski_2025": -0.325,
+     "Duber_2020": -0.434,
+     "Duber_2022": -3.325,
+     "Duber_2024": 0.146,
+     "Hanna_2025": -0.26
     }
-  },
-  "table_3b_grouped_schemes": {
-    "loso_full_genus_set_tier4": {
-      "_tolerance": "exact",
-      "r2_mean": -0.095,
-      "r2_sd": 0.387,
-      "rmse": 93.1,
-      "rmse_sd": 47.0,
-      "n": 184,
-      "grouping": "study (7 groups)",
-      "uses_per_fold_shap_top25": false,
-      "uses_subsampling": false,
-      "script": "python/pipeline/02_loso_by_study.py",
-      "_note": "The headline result. Reproduces exactly across platforms because no subsampling is applied."
-    },
-    "loso_shap_top25_dynamic": {
-      "_tolerance": "environment_sensitive",
-      "r2_mean": -0.493,
-      "r2_sd": 0.375,
-      "rmse": 105.2,
-      "n": 184,
-      "uses_per_fold_shap_top25": true,
-      "script": "python/pipeline/02_loso_by_study.py"
-    },
-    "groupkfold_vessel_cstr_only": {
-      "_tolerance": "environment_sensitive",
-      "r2_mean": 0.036,
-      "r2_sd": 0.197,
-      "rmse": 105.5,
-      "n": 151,
-      "grouping": "physical reactor",
-      "uses_per_fold_shap_top25": true,
-      "script": "python/pipeline/04_vessel_grouped_deployability.py"
-    },
-    "groupkfold_vessel_all_reactors": {
-      "_tolerance": "environment_sensitive",
-      "r2_mean": 0.046,
-      "r2_sd": 0.158,
-      "rmse": 106.9,
-      "n": 184,
-      "grouping": "physical reactor",
-      "uses_per_fold_shap_top25": true,
-      "script": "python/pipeline/04_vessel_grouped_deployability.py"
-    },
-    "platform_transfer_raw_counts": {
-      "_tolerance": "exact",
-      "r2": -0.207,
-      "rmse": 147.9,
-      "train_n": 130,
-      "test_n": 54,
-      "uses_subsampling": false,
-      "script": "python/pipeline/06_cross_platform_transfer.py"
-    },
-    "platform_transfer_relative_abundance": {
-      "_tolerance": "exact",
-      "r2": -0.17,
-      "rmse": 145.6,
-      "train_n": 130,
-      "test_n": 54,
-      "uses_subsampling": false,
-      "feature_note": "This configuration includes Ethanol; the raw-counts configuration does not. The difference is intentional and preserved as originally run.",
-      "script": "python/pipeline/06_cross_platform_transfer.py"
+   },
+   "tier_3": {
+    "description": "Tier 3: + butyrate, propionate (core set; HEADLINE)",
+    "r2_mean": -0.627,
+    "r2_sd": 0.817,
+    "rmse": 99.6,
+    "rmse_sd": 37.9,
+    "n": 166,
+    "features": 215,
+    "r2_by_held_out_study": {
+     "Brodowski_2022": -0.458,
+     "Brodowski_2022_EXTERNAL_ACETATE": -1.383,
+     "Brodowski_2025": -0.006,
+     "Duber_2020": -0.124,
+     "Duber_2022": -2.297,
+     "Duber_2024": -0.076,
+     "Hanna_2025": -0.044
     }
+   }
   },
-  "table_4_substrate_ladder": {
-    "_tolerance": "exact",
-    "_script": "python/pipeline/02_loso_by_study.py",
-    "_note": "No subsampling. All eight values reproduce to three decimals across platforms.",
-    "cstr_only": {
-      "tier_1_operational_plus_genera": {
-        "r2": -0.163,
-        "sd": 0.413,
-        "rmse": 104.2,
-        "rmse_sd": 40.4
-      },
-      "tier_2_plus_foundational_feeds": {
-        "r2": -0.198,
-        "sd": 0.41,
-        "rmse": 105.8,
-        "rmse_sd": 41.2
-      },
-      "tier_3_plus_intermediates": {
-        "r2": -0.376,
-        "sd": 0.573,
-        "rmse": 110.5,
-        "rmse_sd": 38.5
-      },
-      "tier_4_plus_downstream_proxies": {
-        "r2": -0.425,
-        "sd": 0.297,
-        "rmse": 112.3,
-        "rmse_sd": 30.6
-      }
-    },
-    "full_matrix": {
-      "tier_1_operational_plus_genera": {
-        "r2": -0.775,
-        "sd": 0.723,
-        "rmse": 111.9,
-        "rmse_sd": 44.5
-      },
-      "tier_2_plus_foundational_feeds": {
-        "r2": -0.923,
-        "sd": 0.644,
-        "rmse": 117.9,
-        "rmse_sd": 46.0
-      },
-      "tier_3_plus_intermediates": {
-        "r2": -0.32,
-        "sd": 0.309,
-        "rmse": 101.9,
-        "rmse_sd": 45.1
-      },
-      "tier_4_plus_downstream_proxies": {
-        "r2": -0.095,
-        "sd": 0.387,
-        "rmse": 93.1,
-        "rmse_sd": 47.0
-      }
-    },
-    "chemistry_only_no_genera": {
-      "r2": -0.516,
-      "sd": 0.84,
-      "rmse": 104.0,
-      "rmse_sd": 44.1
+  "illumina_only": {
+   "training_mean_benchmark": {
+    "description": "Training-mean benchmark",
+    "r2_mean": -4.787,
+    "r2_sd": 9.43,
+    "rmse": 110.0,
+    "rmse_sd": 40.0,
+    "n": 112,
+    "features": 0,
+    "r2_by_held_out_study": {
+     "Brodowski_2022": -0.229,
+     "Brodowski_2022_EXTERNAL_ACETATE": -2.522,
+     "Brodowski_2025": -0.093,
+     "Duber_2020": -0.066,
+     "Duber_2022": -25.78,
+     "Duber_2024": -0.03
     }
+   },
+   "tier_1": {
+    "description": "Tier 1: pH, temperature, HRT, categoricals + genera",
+    "r2_mean": -1.38,
+    "r2_sd": 1.596,
+    "rmse": 105.2,
+    "rmse_sd": 46.1,
+    "n": 112,
+    "features": 210,
+    "r2_by_held_out_study": {
+     "Brodowski_2022": 0.289,
+     "Brodowski_2022_EXTERNAL_ACETATE": -2.227,
+     "Brodowski_2025": -1.372,
+     "Duber_2020": -0.518,
+     "Duber_2022": -4.419,
+     "Duber_2024": -0.034
+    }
+   },
+   "tier_2": {
+    "description": "Tier 2: + lactate, acetate, ethanol",
+    "r2_mean": -0.762,
+    "r2_sd": 0.922,
+    "rmse": 94.8,
+    "rmse_sd": 43.2,
+    "n": 112,
+    "features": 213,
+    "r2_by_held_out_study": {
+     "Brodowski_2022": 0.443,
+     "Brodowski_2022_EXTERNAL_ACETATE": -1.508,
+     "Brodowski_2025": -1.19,
+     "Duber_2020": -0.351,
+     "Duber_2022": -2.132,
+     "Duber_2024": 0.167
+    }
+   },
+   "tier_3": {
+    "description": "Tier 3: + butyrate, propionate, valerate, isovalerate",
+    "r2_mean": -0.482,
+    "r2_sd": 0.641,
+    "rmse": 90.8,
+    "rmse_sd": 43.0,
+    "n": 112,
+    "features": 217,
+    "r2_by_held_out_study": {
+     "Brodowski_2022": 0.315,
+     "Brodowski_2022_EXTERNAL_ACETATE": -1.301,
+     "Brodowski_2025": -1.07,
+     "Duber_2020": -0.357,
+     "Duber_2022": -0.822,
+     "Duber_2024": 0.344
+    }
+   },
+   "tier_4": {
+    "description": "Tier 4: + caprylate, heptanoate, isocaproate",
+    "r2_mean": -0.552,
+    "r2_sd": 0.701,
+    "rmse": 93.1,
+    "rmse_sd": 43.3,
+    "n": 112,
+    "features": 220,
+    "r2_by_held_out_study": {
+     "Brodowski_2022": -0.238,
+     "Brodowski_2022_EXTERNAL_ACETATE": -1.91,
+     "Brodowski_2025": -0.834,
+     "Duber_2020": 0.244,
+     "Duber_2022": -0.562,
+     "Duber_2024": -0.011
+    }
+   }
   },
-  "table_5_intrastudy_reactor_transfer": {
-    "_tolerance": "environment_sensitive",
-    "_script": "python/pipeline/05_intrastudy_transferability_table5.py",
-    "_note": "Small training partitions (n = 3 to 30) with subsampling active make these the most environment-sensitive values in the project. Judge by sign and Spearman rho rather than by R2 magnitude.",
+  "chemistry_only_no_genera": {
+   "r2_mean": -2.74,
+   "r2_sd": 5.263,
+   "rmse": 113.5,
+   "rmse_sd": 36.0,
+   "n": 166,
+   "features": 10,
+   "r2_by_held_out_study": {
+    "Brodowski_2022": -1.314,
+    "Brodowski_2022_EXTERNAL_ACETATE": -1.584,
+    "Brodowski_2025": 0.479,
+    "Duber_2020": -0.107,
+    "Duber_2022": -15.523,
+    "Duber_2024": -1.012,
+    "Hanna_2025": -0.12
+   }
+  }
+ },
+ "table_5_intrastudy_reactor_transfer": {
+  "_source": [
+   "corrected_2026-10-11/BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv",
+   "corrected_2026-10-11/stage6_corrected_2026-10-11/05_intrastudy_transferability_table5.log",
+   "corrected_2026-10-11/stage6_corrected_2026-10-11/05_table5_reactor_pairs.csv"
+  ],
+  "_note": "Train on one reactor, test on the other reactor of the same study (pairs named in pipeline_settings.REACTOR_PAIRS). The two reactors of every pair ran under different conditions by design (conditions below), so these are not matched-condition transfers. Spearman rho on sampling-unit means.",
+  "Brodowski_2025": {
+   "train_reactor": "B1",
+   "test_reactor": "B2",
+   "train_n": 7,
+   "test_n": 7,
+   "test_sampling_units": 7,
+   "r2": 0.54,
+   "rmse": 51.1,
+   "spearman_rho": 0.617,
+   "conditions_B1": {
+    "samples": 7,
+    "feed": [
+     "Defined Synthetic Media / Lactate + Acetate"
+    ],
+    "PH": {
+     "5.5": 2,
+     "6": 1,
+     "6.5": 2,
+     "7": 2
+    },
+    "TEMP": {
+     "30": 7
+    },
+    "HRT": {
+     "4": 7
+    }
+   },
+   "conditions_B2": {
+    "samples": 7,
+    "feed": [
+     "Defined Synthetic Media / Lactate + Ethanol + Acetate"
+    ],
+    "PH": {
+     "5.5": 2,
+     "6": 2,
+     "6.5": 1,
+     "7": 2
+    },
+    "TEMP": {
+     "30": 7
+    },
+    "HRT": {
+     "4": 7
+    }
+   }
+  },
+  "Duber_2024": {
+   "train_reactor": "B1",
+   "test_reactor": "B2",
+   "train_n": 30,
+   "test_n": 21,
+   "test_sampling_units": 7,
+   "r2": -5.296,
+   "rmse": 144.3,
+   "spearman_rho": -0.607,
+   "conditions_B1": {
+    "samples": 30,
+    "feed": [
+     "Complex Organic Waste / OFMSW"
+    ],
+    "PH": {
+     "5.5": 12,
+     "6.5": 18
+    },
+    "TEMP": {
+     "30": 12,
+     "37": 15,
+     "50": 3
+    },
+    "HRT": {
+     "5": 30
+    }
+   },
+   "conditions_B2": {
+    "samples": 21,
+    "feed": [
+     "Complex Organic Waste / OFMSW"
+    ],
+    "PH": {
+     "5.5": 21
+    },
+    "TEMP": {
+     "30": 9,
+     "37": 3,
+     "50": 9
+    },
+    "HRT": {
+     "5": 21
+    }
+   }
+  },
+  "Brodowski_2022_EXTERNAL_ACETATE": {
+   "train_reactor": "B1",
+   "test_reactor": "B2",
+   "train_n": 8,
+   "test_n": 6,
+   "test_sampling_units": 6,
+   "r2": -0.359,
+   "rmse": 113.9,
+   "spearman_rho": -0.03,
+   "conditions_B1": {
+    "samples": 8,
+    "feed": [
+     "Defined Synthetic Media / Lactate + Acetate",
+     "Defined Synthetic Media / Lactate Only"
+    ],
+    "PH": {
+     "5.5": 8
+    },
+    "TEMP": {
+     "30": 8
+    },
+    "HRT": {
+     "5": 8
+    }
+   },
+   "conditions_B2": {
+    "samples": 6,
+    "feed": [
+     "Defined Synthetic Media / Lactate + Acetate"
+    ],
+    "PH": {
+     "5.5": 6
+    },
+    "TEMP": {
+     "30": 6
+    },
+    "HRT": {
+     "5": 6
+    }
+   }
+  },
+  "Hanna_2025": {
+   "train_reactor": "B1",
+   "test_reactor": "B2",
+   "train_n": 27,
+   "test_n": 27,
+   "test_sampling_units": 9,
+   "r2": -2.016,
+   "rmse": 164.4,
+   "spearman_rho": 0.787,
+   "conditions_B1": {
+    "samples": 27,
+    "feed": [
+     "Complex Organic Waste / OFMSW"
+    ],
+    "PH": {
+     "5.5": 6,
+     "6.5": 12,
+     "7": 9
+    },
+    "TEMP": {
+     "37": 24,
+     "50": 3
+    },
+    "HRT": {
+     "1.25": 3,
+     "2.5": 3,
+     "5": 21
+    }
+   },
+   "conditions_B2": {
+    "samples": 27,
+    "feed": [
+     "Complex Organic Waste / OFMSW"
+    ],
+    "PH": {
+     "6": 6,
+     "6.5": 12,
+     "7": 9
+    },
+    "TEMP": {
+     "37": 24,
+     "50": 3
+    },
+    "HRT": {
+     "1.25": 3,
+     "2.5": 3,
+     "5": 21
+    }
+   }
+  },
+  "not_in_table_5": {
+   "Duber_2020": "one reactor",
+   "Duber_2022": "batch bottles, 2 per condition; no reactor with 3 or more samples",
+   "Brodowski_2022": "CSTR B1 has 1 sample (B2 has 4); the batch bottles are 1 per condition"
+  }
+ },
+ "figure_3_leakage_tightening_progression": {
+  "_source": [
+   "corrected_2026-10-11/stage6_corrected_2026-10-11/05_table5_reactor_pairs.csv",
+   "corrected_2026-10-11/stage6_corrected_2026-10-12_07c_07d/07c_figure3_intermediate_unscaled_xgboost.log",
+   "corrected_2026-10-11/stage6_corrected_2026-10-12_07c_07d/07c_figure3_stage2.csv",
+   "corrected_2026-10-11/stage6_corrected_2026-10-12_07c_07d/07d_figure3_stage1.csv"
+  ],
+  "_note": "The same Duber 2025 (Duber_2024) split, B1 (30 samples) -> B2 (21), evaluated three times as leakage controls are tightened. No sample changes between stages.",
+  "stage_1_unscaled_random_forest": {
+   "_note": "07d, scikit-learn random forest (seeded). Its R2 rounds to 0.155 at three decimals but sits next to the rounding boundary, so it is given to eight.",
+   "r2": 0.15549998,
+   "rmsd": 52.86,
+   "train_n": 30,
+   "test_n": 21
+  },
+  "stage_2_intermediate_unscaled_xgboost": {
+   "_note": "07c: no scaling at all, and its broader predictor list keeps DAY and the alcohols.",
+   "r2": -0.709,
+   "rmse": 75.2,
+   "train_n": 30,
+   "test_n": 21,
+   "top_10_mean_abs_shap": {
+    "DAY": 95.248291,
+    "g__Clostridium_sensu_stricto_11": 24.366699,
+    "PH": 1.451943,
+    "Isobutyrate": 0.972846,
+    "Ethanol": 0.473182,
+    "g__Actinomyces": 0.193842,
+    "Lactate": 0.141293,
+    "Acetate": 0.130516,
+    "g__Caproiciproducens": 0.040445,
+    "g__Clostridium_sensu_stricto_1": 0.008979
+   }
+  },
+  "stage_3_fully_leakage_controlled": {
+   "_note": "05: the core set, predictors scaled on the training rows only (Table 5's Duber 2025 row).",
+   "r2": -5.296,
+   "rmse": 144.3,
+   "train_n": 30,
+   "test_n": 21
+  }
+ },
+ "permutation_control": {
+  "_source": [
+   "corrected_2026-10-11/stage6_corrected_2026-10-11_03_04_07b_09/03_permutation_tests.csv",
+   "corrected_2026-10-11/stage6_corrected_2026-10-11_03_04_07b_09/03_permutation_tests_by_study.csv"
+  ],
+  "_note": "03: the headline LOSO refitted 999 times for each shuffle of caproate by sampling day. k = shuffles that do at least as well as the true labels (R2 as high, or RMSE as low); p = (k + 1) / 1000, so 0.001 is the smallest possible. Shuffle i is seeded with i, so both null distributions reproduce exactly; the Monte Carlo standard error is sqrt(p (1 - p) / 999).",
+  "across_studies": {
+   "_note": "Caproate shuffled by sampling day across all studies, as in the published test.",
+   "shuffles": 999,
+   "observed_r2": -0.627,
+   "observed_rmse": 99.6,
+   "training_mean_benchmark_rmse": 112.6,
+   "null_r2_mean": -0.584,
+   "null_r2_sd": 0.925,
+   "null_r2_median": -0.439,
+   "k_r2": 714,
+   "p_r2": 0.715,
+   "p_r2_monte_carlo_se": 0.014,
+   "null_rmse_mean": 127.7,
+   "null_rmse_sd": 8.5,
+   "k_rmse": 0,
+   "p_rmse": 0.001,
+   "p_rmse_monte_carlo_se": 0.001,
+   "by_held_out_study": {
     "Brodowski_2022": {
-      "split": "B1->B2",
-      "train_n": 9,
-      "test_n": 7,
-      "r2": 0.442,
-      "rmse": 97.7,
-      "mae": 90.1,
-      "spearman_rho": 0.324
+     "observed_r2": -0.458,
+     "observed_rmse": 69.4,
+     "k_r2": 559,
+     "p_r2": 0.56,
+     "k_rmse": 26,
+     "p_rmse": 0.027
+    },
+    "Brodowski_2022_EXTERNAL_ACETATE": {
+     "observed_r2": -1.383,
+     "observed_rmse": 154.5,
+     "k_r2": 948,
+     "p_r2": 0.949,
+     "k_rmse": 850,
+     "p_rmse": 0.851
     },
     "Brodowski_2025": {
-      "split": "B1->B2",
-      "train_n": 7,
-      "test_n": 7,
-      "r2": 0.4,
-      "rmse": 58.3,
-      "mae": 41.3,
-      "spearman_rho": 0.964
+     "observed_r2": -0.006,
+     "observed_rmse": 71.3,
+     "k_r2": 135,
+     "p_r2": 0.136,
+     "k_rmse": 6,
+     "p_rmse": 0.007
+    },
+    "Duber_2020": {
+     "observed_r2": -0.124,
+     "observed_rmse": 119.0,
+     "k_r2": 305,
+     "p_r2": 0.306,
+     "k_rmse": 472,
+     "p_rmse": 0.473
     },
     "Duber_2022": {
-      "split": "R1->R2",
-      "train_n": 3,
-      "test_n": 3,
-      "r2": 0.008,
-      "rmse": 43.6,
-      "mae": 26.8,
-      "spearman_rho": 1.0
-    },
-    "Hanna_2025": {
-      "split": "B1->B2",
-      "train_n": 25,
-      "test_n": 29,
-      "r2": -0.14,
-      "rmse": 99.0,
-      "mae": 76.5,
-      "spearman_rho": 0.792
+     "observed_r2": -2.297,
+     "observed_rmse": 40.6,
+     "k_r2": 983,
+     "p_r2": 0.984,
+     "k_rmse": 0,
+     "p_rmse": 0.001
     },
     "Duber_2024": {
-      "split": "B1->B2",
-      "train_n": 30,
-      "test_n": 21,
-      "r2": -5.869,
-      "rmse": 150.8,
-      "mae": 114.9,
-      "spearman_rho": -0.569
+     "observed_r2": -0.076,
+     "observed_rmse": 105.0,
+     "k_r2": 212,
+     "p_r2": 0.213,
+     "k_rmse": 168,
+     "p_rmse": 0.169
+    },
+    "Hanna_2025": {
+     "observed_r2": -0.044,
+     "observed_rmse": 137.5,
+     "k_r2": 167,
+     "p_r2": 0.168,
+     "k_rmse": 672,
+     "p_rmse": 0.673
     }
+   }
   },
-  "figure_3_leakage_tightening_progression": {
-    "_note": "The identical Duber_2024 B1(n=30) -> B2(n=21) split evaluated three times as leakage controls were tightened. No sample changed between stages.",
-    "stage_1_unscaled_random_forest": {
-      "_tolerance": "exact",
-      "r2": 0.217206,
-      "rmsd": 50.892162,
-      "model": "sklearn RandomForestRegressor, deterministic under random_state",
-      "leakage_controls": "none; downstream co-products retained, no scaling",
-      "script": "python/pipeline/07d_figure3_stage1_random_forest.py"
+  "within_each_study": {
+   "_note": "Caproate shuffled by sampling day within each study, so each study keeps its own values (added 2026-10-11).",
+   "shuffles": 999,
+   "observed_r2": -0.627,
+   "observed_rmse": 99.6,
+   "training_mean_benchmark_rmse": 112.6,
+   "null_r2_mean": -5.763,
+   "null_r2_sd": 2.11,
+   "null_r2_median": -5.449,
+   "k_r2": 0,
+   "p_r2": 0.001,
+   "p_r2_monte_carlo_se": 0.001,
+   "null_rmse_mean": 131.8,
+   "null_rmse_sd": 8.3,
+   "k_rmse": 0,
+   "p_rmse": 0.001,
+   "p_rmse_monte_carlo_se": 0.001,
+   "by_held_out_study": {
+    "Brodowski_2022": {
+     "observed_r2": -0.458,
+     "observed_rmse": 69.4,
+     "k_r2": 10,
+     "p_r2": 0.011,
+     "k_rmse": 10,
+     "p_rmse": 0.011
     },
-    "stage_2_intermediate_unscaled_xgboost": {
-      "_tolerance": "environment_sensitive",
-      "r2": -0.228,
-      "rmse": 63.736,
-      "leakage_controls": "partial only. Drops sparse/junk columns but NOT valerate, isobutyrate, heptanoate or caprylate; no training-only scaling.",
-      "top_shap_features": [
-        "DAY",
-        "Valerate",
-        "g__Clostridium_sensu_stricto_11",
-        "Isobutyrate",
-        "Acetate"
-      ],
-      "script": "python/pipeline/07c_figure3_intermediate_unscaled_xgboost.py",
-      "_caveat": "DAY dominates this model's attribution at roughly five times the next feature. The manuscript (Section 3.5) describes this stage accurately as retaining downstream co-products; do not describe it as leakage-controlled."
+    "Brodowski_2022_EXTERNAL_ACETATE": {
+     "observed_r2": -1.383,
+     "observed_rmse": 154.5,
+     "k_r2": 39,
+     "p_r2": 0.04,
+     "k_rmse": 39,
+     "p_rmse": 0.04
     },
-    "stage_3_fully_leakage_controlled": {
-      "_tolerance": "environment_sensitive",
-      "r2": -5.869,
-      "rmse": 150.8,
-      "leakage_controls": "full; downstream co-products excluded, training-only scaling, sorted feature order",
-      "script": "python/pipeline/05_intrastudy_transferability_table5.py"
+    "Brodowski_2025": {
+     "observed_r2": -0.006,
+     "observed_rmse": 71.3,
+     "k_r2": 81,
+     "p_r2": 0.082,
+     "k_rmse": 81,
+     "p_rmse": 0.082
+    },
+    "Duber_2020": {
+     "observed_r2": -0.124,
+     "observed_rmse": 119.0,
+     "k_r2": 312,
+     "p_r2": 0.313,
+     "k_rmse": 312,
+     "p_rmse": 0.313
+    },
+    "Duber_2022": {
+     "observed_r2": -2.297,
+     "observed_rmse": 40.6,
+     "k_r2": 0,
+     "p_r2": 0.001,
+     "k_rmse": 0,
+     "p_rmse": 0.001
+    },
+    "Duber_2024": {
+     "observed_r2": -0.076,
+     "observed_rmse": 105.0,
+     "k_r2": 256,
+     "p_r2": 0.257,
+     "k_rmse": 256,
+     "p_rmse": 0.257
+    },
+    "Hanna_2025": {
+     "observed_r2": -0.044,
+     "observed_rmse": 137.5,
+     "k_r2": 196,
+     "p_r2": 0.197,
+     "k_rmse": 195,
+     "p_rmse": 0.196
     }
-  },
-  "permutation_control": {
-    "_script": "python/pipeline/03_permutation_test_999.py",
-    "observed_r2": {
-      "_tolerance": "exact",
-      "value": -0.095,
-      "_note": "No subsampling; reproduces exactly."
-    },
-    "null_distribution": {
-      "_tolerance": "monte_carlo",
-      "iterations": 999,
-      "mean": -0.451,
-      "sd": 1.639,
-      "seeding": "random_state = iteration index, per shuffle",
-      "k_shuffles_at_or_above_observed": 61,
-      "shuffles_beaten_by_true_labels": 938,
-      "p_value_one_sided": 0.062,
-      "p_value_formula": "(k + 1) / (n_iterations + 1)",
-      "monte_carlo_standard_error": 0.008,
-      "_note": "Reported as suggestive rather than significant; only seven independent groups are available to permute across."
-    }
-  },
-  "algorithm_selection": {
-    "_tolerance": "environment_sensitive",
-    "_reported_in": "Methods 2.7",
-    "_note": "All on the same 4,037-predictor ASV-level feature set and identical 80/20 split (random_state=42), except the LightGBM-RF 'maximum' scope which admits the full chemistry panel.",
-    "xgboost": {
-      "r2": 0.915,
-      "rmse": 27.265
-    },
-    "lightgbm_gbdt": {
-      "r2": 0.861,
-      "rmse": 34.898,
-      "script": "python/pipeline/07b_algorithm_comparison_lightgbm_standard.py"
-    },
-    "lightgbm_rf": {
-      "script": "python/pipeline/07a_algorithm_comparison_lightgbm_rf.py",
-      "base_ops_plus_asvs": {
-        "features": 4032,
-        "r2": 0.354,
-        "rmse": 75.267
-      },
-      "ultimate_ops_subs_asvs": {
-        "features": 4037,
-        "r2": 0.359,
-        "rmse": 74.967
-      },
-      "maximum_ops_all_chems_asvs": {
-        "features": 4049,
-        "r2": 0.657,
-        "rmse": 54.861
-      },
-      "_leakage_demonstration": "Admitting the downstream co-products caprylate, heptanoate and isovalerate raises R2 from 0.359 to 0.657 on an otherwise identical feature scope, nearly doubling apparent accuracy. This is the concrete target-leakage demonstration cited in Methods 2.7 and motivating their exclusion throughout."
-    }
-  },
-  "ecological_robustness_claim": {
-    "_tolerance": "exact",
-    "_reported_in": "Sections 3.7 and 4.3, Figure 5",
-    "_definition": "SHAP rank of each taxon by mean absolute attribution, computed per fold across 23 folds spanning LOSO, GroupKFold-by-vessel, shuffled 10-fold, and the Illumina-only 65-genus universe.",
-    "Caproiciproducens": {
-      "rank_1_in_folds": 23,
-      "of_folds": 23,
-      "median_rank": 1,
-      "worst_rank": 1,
-      "claim": "Leading SHAP contributor in every fold of every architecture tested. This is the paper's stability result."
-    },
-    "Clostridium_sensu_stricto_12": {
-      "median_rank": 23,
-      "worst_rank": 40,
-      "in_top_10_folds": 2,
-      "in_top_25_folds": 15,
-      "of_folds": 23,
-      "claim": "Satisfies the prevalence criterion but NOT the attribution criterion. Classified as a prevalent community member with regime-dependent contribution, not a co-dominant driver. Do not describe it as a leading SHAP contributor."
-    }
-  },
-  "known_nonreproducible": {
-    "_note": "Recorded deliberately. These are not defects to be fixed.",
-    "items": [
-      {
-        "what": "Historical 122-row Illumina matrix",
-        "detail": "Naive baselines reported in earlier drafts (R2 = 0.809, 0.668) were computed on a 122-row version of BIOTWIN_FINAL_ML_MATRIX.csv that no longer exists. The current matrix has 130 rows and yields 0.915 and 0.602. Only the current values are reported in the manuscript.",
-        "action": "None. The superseded values appear nowhere in the submitted manuscript."
-      },
-      {
-        "what": "07c and 07d depend on a historical snapshot",
-        "detail": "Both read data/historical/BIOTWIN_GENUS_ML_MATRIX.csv and are not reproducible from the current output of 01_genus_aggregation.py. They are retained so Figure 3's full three-stage progression stays runnable.",
-        "action": "Place the snapshot in data/historical/ before running."
-      },
-      {
-        "what": "sorted(list(set(...))) idiom",
-        "detail": "Feature lists are built with sorted(list(set(...))) throughout. The sorted() is load-bearing: without it, Python's set iteration order varies between interpreter sessions and silently changes XGBoost column order, which changes results.",
-        "action": "Do not remove the sorted() call."
-      }
-    ]
-  },
-  "shared_subspace_transfer_control": {
-    "_tolerance": "exact",
-    "_script": "python/pipeline/08_shared_genus_transfer_control.py",
-    "_reported_in": "Section 3.6, Supplementary Table S6",
-    "_note": "No subsampling; verified to reproduce identically on an independent OS.",
-    "shared_feature_space": {
-      "genera_total": 170,
-      "detected_illumina": 65,
-      "detected_nanopore": 124,
-      "shared_both_platforms": 19,
-      "illumina_only": 46,
-      "nanopore_only": 105,
-      "shared_mass_illumina_percent": 67.8,
-      "shared_mass_nanopore_percent": 40.8
-    },
-    "illumina_to_nanopore": {
-      "chemistry_ops_only": {
-        "n_feat": 6,
-        "r2": -0.668,
-        "rmse": 173.9,
-        "mae": 135.6,
-        "rho": 0.34
-      },
-      "shared_19_genera_only": {
-        "n_feat": 19,
-        "r2": 0.109,
-        "rmse": 127.1,
-        "mae": 95.9,
-        "rho": 0.493,
-        "_note": "Only positive transfer R2 obtained anywhere in this study. Drops to 0.055 under within-subset renormalization."
-      },
-      "all_170_genera_only": {
-        "n_feat": 170,
-        "r2": -0.214,
-        "rmse": 148.4,
-        "mae": 99.0,
-        "rho": 0.422
-      },
-      "shared_19_plus_chem_ops": {
-        "n_feat": 25,
-        "r2": -0.229,
-        "rmse": 149.3,
-        "mae": 103.4,
-        "rho": 0.122,
-        "_note": "THE KEY TEST. Restricting to shared features does not rescue transfer."
-      },
-      "shared_18_no_unclassified": {
-        "n_feat": 24,
-        "r2": -0.24,
-        "rmse": 149.9,
-        "mae": 106.3,
-        "rho": 0.046
-      },
-      "all_170_plus_chem_ops_baseline": {
-        "n_feat": 176,
-        "r2": -0.171,
-        "rmse": 145.7,
-        "mae": 97.8,
-        "rho": 0.116,
-        "_note": "Reproduces Table 3b (-0.170/145.6); 0.001 offset is sorted vs unsorted feature order."
-      }
-    },
-    "nanopore_to_illumina_reverse": {
-      "shared_19_plus_chem_ops": {
-        "n_feat": 25,
-        "r2": -0.16,
-        "rmse": 116.3,
-        "mae": 86.6,
-        "rho": 0.56
-      },
-      "all_170_plus_chem_ops": {
-        "n_feat": 176,
-        "r2": -0.083,
-        "rmse": 112.3,
-        "mae": 72.6,
-        "rho": 0.544
-      }
-    },
-    "within_illumina_loso_guard": {
-      "_note": "Matched comparison only; not comparable to Table 4's absolute values (different feature tiers, 6-group universe).",
-      "shared_19_plus_chem_ops": {
-        "r2_mean": -5.573,
-        "sd": 8.474
-      },
-      "illumina_65_plus_chem_ops": {
-        "r2_mean": -1.328,
-        "sd": 0.832
-      },
-      "shared_19_only": {
-        "r2_mean": -12.888,
-        "sd": 27.095
-      },
-      "illumina_65_only": {
-        "r2_mean": -1.317,
-        "sd": 1.664
-      }
-    }
+   }
   }
+ },
+ "algorithm_selection": {
+  "_source": [
+   "corrected_2026-10-11/stage6_corrected_2026-10-11/07a_algorithm_comparison_lightgbm_rf.log",
+   "corrected_2026-10-11/stage6_corrected_2026-10-12_07b_11/07b_algorithm_comparison.csv",
+   "corrected_2026-10-11/stage6_corrected_2026-10-12_07b_11/07b_algorithm_comparison_over_seeds.csv"
+  ],
+  "_note": "07b: XGBoost and LightGBM with the same predictors on three schemes (seed 42), and the two naive schemes with seeds 0-19.",
+  "Single 80/20 split (ASV level)": {
+   "XGBoost": {
+    "r2": 0.542,
+    "rmse": 76.0,
+    "n": 112,
+    "features": 413
+   },
+   "LightGBM": {
+    "r2": 0.749,
+    "rmse": 56.2,
+    "n": 112,
+    "features": 413
+   }
+  },
+  "Shuffled 10-fold CV (headline predictors)": {
+   "XGBoost": {
+    "r2": 0.835,
+    "rmse": 45.9,
+    "n": 166,
+    "features": 215,
+    "r2_sd": 0.085,
+    "rmse_sd": 20.1
+   },
+   "LightGBM": {
+    "r2": 0.848,
+    "rmse": 41.8,
+    "n": 166,
+    "features": 215,
+    "r2_sd": 0.09,
+    "rmse_sd": 13.8
+   },
+   "Training-mean benchmark": {
+    "r2": -0.082,
+    "rmse": 115.9,
+    "n": 166,
+    "features": 0,
+    "r2_sd": 0.1,
+    "rmse_sd": 23.9
+   }
+  },
+  "LOSO (headline)": {
+   "XGBoost": {
+    "r2": -0.627,
+    "rmse": 99.6,
+    "n": 166,
+    "features": 215,
+    "r2_sd": 0.817,
+    "rmse_sd": 37.9,
+    "r2_by_held_out_study": {
+     "Brodowski_2022": -0.458,
+     "Brodowski_2022_EXTERNAL_ACETATE": -1.383,
+     "Brodowski_2025": -0.006,
+     "Duber_2020": -0.124,
+     "Duber_2022": -2.297,
+     "Duber_2024": -0.076,
+     "Hanna_2025": -0.044
+    }
+   },
+   "LightGBM": {
+    "r2": -0.938,
+    "rmse": 103.1,
+    "n": 166,
+    "features": 215,
+    "r2_sd": 1.328,
+    "rmse_sd": 35.8,
+    "r2_by_held_out_study": {
+     "Brodowski_2022": -0.629,
+     "Brodowski_2022_EXTERNAL_ACETATE": -1.544,
+     "Brodowski_2025": -0.192,
+     "Duber_2020": 0.003,
+     "Duber_2022": -3.957,
+     "Duber_2024": -0.19,
+     "Hanna_2025": -0.059
+    }
+   },
+   "Training-mean benchmark": {
+    "r2": -4.243,
+    "rmse": 112.6,
+    "n": 166,
+    "features": 0,
+    "r2_sd": 9.367,
+    "rmse_sd": 34.1,
+    "r2_by_held_out_study": {
+     "Brodowski_2022": -0.388,
+     "Brodowski_2022_EXTERNAL_ACETATE": -2.029,
+     "Brodowski_2025": -0.026,
+     "Duber_2020": -0.03,
+     "Duber_2022": -27.128,
+     "Duber_2024": -0.066,
+     "Hanna_2025": -0.038
+    }
+   }
+  },
+  "seeds_0_19": {
+   "Single 80/20 split (ASV level)": {
+    "XGBoost": {
+     "median": 0.803,
+     "lowest": 0.481,
+     "highest": 0.929
+    },
+    "LightGBM": {
+     "median": 0.8,
+     "lowest": 0.522,
+     "highest": 0.877
+    },
+    "lightgbm_higher_in_seeds": 9,
+    "median_difference_lightgbm_minus_xgboost": -0.003
+   },
+   "Shuffled 10-fold CV (headline predictors)": {
+    "XGBoost": {
+     "median": 0.803,
+     "lowest": 0.716,
+     "highest": 0.842
+    },
+    "LightGBM": {
+     "median": 0.832,
+     "lowest": 0.761,
+     "highest": 0.855
+    },
+    "lightgbm_higher_in_seeds": 15,
+    "median_difference_lightgbm_minus_xgboost": 0.026
+   }
+  },
+  "lightgbm_random_forest_07a": {
+   "_note": "07a, LightGBM in random-forest mode (bagging, seeded) on the single 80/20 split at ASV level, with three predictor scopes. The Maximum scope adds the five compounds measured only in the Illumina studies; its attribution is led by caprylate (the target-leakage demonstration of Methods 2.7).",
+   "Base Model (Ops + categoricals + ASVs)": {
+    "features": 408,
+    "r2": 0.311,
+    "rmse": 93.213
+   },
+   "Ultimate Model (core set + ASVs)": {
+    "features": 413,
+    "r2": 0.327,
+    "rmse": 92.166
+   },
+   "Maximum Model (core set + Illumina-only compounds + ASVs)": {
+    "features": 418,
+    "r2": 0.472,
+    "rmse": 81.621
+   },
+   "top_10_features_of_the_best_model": [
+    "Caprylate",
+    "Butyrate",
+    "ASV_15",
+    "Acetate",
+    "Heptanoate",
+    "ASV_257",
+    "ASV_64",
+    "ASV_59",
+    "ASV_133",
+    "ASV_27"
+   ]
+  }
+ },
+ "ecological_robustness_claim": {
+  "_source": [
+   "corrected_2026-10-11/stage6_corrected_2026-10-11_03_04_07b_09/09_guild_membership_shap_ranks.log",
+   "corrected_2026-10-11/stage6_corrected_2026-10-11_03_04_07b_09/guild_membership_shap_ranks.csv",
+   "corrected_2026-10-11/stage6_corrected_2026-10-11_03_04_07b_09/guild_producer_within_study_correlation.csv"
+  ],
+  "_definition": "09: each genus's rank by mean |SHAP| in each of 22 folds (7 LOSO, 5 GroupKFold-by-vessel, 10 shuffled 10-fold) on the 166-sample, 205-genus matrix.",
+  "_within_note": "Spearman rho of Caproiciproducens relative abundance with measured caproate inside each study, on sampling-unit means.",
+  "folds": {
+   "total": 22,
+   "loso": 7,
+   "vessel": 5,
+   "shuffled_10_fold": 10
+  },
+  "Caproiciproducens": {
+   "median_rank": 1,
+   "best_rank": 1,
+   "worst_rank": 2,
+   "top_5_folds": 22,
+   "top_10_folds": 22,
+   "top_25_folds": 22,
+   "top_10_in_loso_folds": 7,
+   "top_10_in_vessel_folds": 5,
+   "top_10_in_shuffled_10_fold": 10,
+   "of_folds": 22,
+   "zero_attribution_without_nanopore": false,
+   "shap_direction": 0.798,
+   "raw_spearman_rho": 0.634
+  },
+  "Clostridium_sensu_stricto_12": {
+   "median_rank": 9,
+   "best_rank": 5,
+   "worst_rank": 35,
+   "top_5_folds": 1,
+   "top_10_folds": 13,
+   "top_25_folds": 20,
+   "top_10_in_loso_folds": 4,
+   "top_10_in_vessel_folds": 3,
+   "top_10_in_shuffled_10_fold": 6,
+   "of_folds": 22,
+   "zero_attribution_without_nanopore": false,
+   "shap_direction": 0.541,
+   "raw_spearman_rho": 0.314
+  },
+  "top_10_in_every_fold": [
+   "g__Caproiciproducens"
+  ],
+  "top_10_in_at_least_80_percent_of_folds": [
+   "g__Anaerobium",
+   "g__Caproiciproducens",
+   "g__Gudongella",
+   "g__Microbacterium",
+   "g__Ochrobactrum",
+   "g__Rummeliibacillus"
+  ],
+  "rank_2_folds": {
+   "g__Rummeliibacillus": 12,
+   "g__Gudongella": 4,
+   "g__Sporolactobacillus": 2,
+   "g__Unclassified": 2,
+   "g__Caproiciproducens": 1,
+   "g__Microbacterium": 1
+  },
+  "illumina_only_109_genus_model_top_10": [
+   "g__Caproiciproducens",
+   "g__Microbacterium",
+   "g__Unclassified",
+   "g__Ochrobactrum",
+   "g__Monoglobus",
+   "g__Clostridium_sensu_stricto_12",
+   "g__Actinomyces",
+   "g__Oscillibacter",
+   "g__Rhodococcus",
+   "g__Acetobacter"
+  ],
+  "caproiciproducens_vs_caproate_within_study": {
+   "Brodowski_2022": {
+    "rows": 8,
+    "sampling_units": 8,
+    "mean_relative_abundance_percent": 28.6,
+    "spearman_rho": 0.595,
+    "p": 0.12
+   },
+   "Brodowski_2022_EXTERNAL_ACETATE": {
+    "rows": 14,
+    "sampling_units": 14,
+    "mean_relative_abundance_percent": 32.3,
+    "spearman_rho": 0.319,
+    "p": 0.266
+   },
+   "Brodowski_2025": {
+    "rows": 14,
+    "sampling_units": 14,
+    "mean_relative_abundance_percent": 43.8,
+    "spearman_rho": 0.547,
+    "p": 0.043
+   },
+   "Duber_2020": {
+    "rows": 7,
+    "sampling_units": 7,
+    "mean_relative_abundance_percent": 4.4,
+    "spearman_rho": 0.821,
+    "p": 0.023
+   },
+   "Duber_2022": {
+    "rows": 18,
+    "sampling_units": 18,
+    "mean_relative_abundance_percent": 1.6,
+    "spearman_rho": -0.428,
+    "p": 0.076
+   },
+   "Duber_2024": {
+    "rows": 51,
+    "sampling_units": 17,
+    "mean_relative_abundance_percent": 29.4,
+    "spearman_rho": 0.331,
+    "p": 0.194
+   },
+   "Hanna_2025": {
+    "rows": 54,
+    "sampling_units": 18,
+    "mean_relative_abundance_percent": 9.8,
+    "spearman_rho": 0.523,
+    "p": 0.026
+   },
+   "All studies pooled": {
+    "rows": 166,
+    "sampling_units": 96,
+    "mean_relative_abundance_percent": 20.4,
+    "spearman_rho": 0.634,
+    "p": 3.96e-12
+   }
+  }
+ },
+ "shared_subspace_transfer_control": {
+  "_source": [
+   "corrected_2026-10-11/stage6_corrected_2026-10-11/08_shared_genus_transfer_control.log"
+  ],
+  "_note": "08 (Table S6): Illumina -> Nanopore transfer restricted to feature scopes, with two guards. Genera as relative abundance over all 205 genera, then subset (or renormalized within the subset).",
+  "shared_feature_space": {
+   "genera_total": 205,
+   "detected_illumina": 109,
+   "detected_nanopore": 124,
+   "shared": 28,
+   "illumina_only": 81,
+   "nanopore_only": 96,
+   "shared_mass_illumina_percent": 69.9,
+   "shared_mass_nanopore_percent": 59.9,
+   "unclassified_mass_percent": {
+    "illumina": 5.5,
+    "nanopore": 0.0
+   },
+   "shared_genera": [
+    "g__Acetobacter",
+    "g__Actinomyces",
+    "g__Anaerocolumna",
+    "g__Anaerostignum",
+    "g__Anaerotruncus",
+    "g__Bacillus",
+    "g__Bacteroides",
+    "g__Blautia",
+    "g__Caproiciproducens",
+    "g__Clostridium_sensu_stricto_12",
+    "g__Escherichia-Shigella",
+    "g__Fonticella",
+    "g__Gluconobacter",
+    "g__Herbinix",
+    "g__Intestinimonas",
+    "g__Lachnoclostridium",
+    "g__Lacticaseibacillus",
+    "g__Lactobacillus",
+    "g__Monoglobus",
+    "g__Oscillibacter",
+    "g__Propionibacterium",
+    "g__Pseudoclostridium",
+    "g__Rummeliibacillus",
+    "g__Solobacterium",
+    "g__Sporolactobacillus",
+    "g__Thermoanaerobacterium",
+    "g__Tissierella",
+    "g__Unclassified"
+   ]
+  },
+  "illumina_to_nanopore": {
+   "S0: core chemistry + ops + categoricals only": {
+    "features": 10,
+    "r2": -0.12,
+    "rmse": 142.5,
+    "mae": 100.3,
+    "spearman_rho": 0.333
+   },
+   "S1: 28 shared genera ONLY (no chemistry)": {
+    "features": 28,
+    "r2": -0.194,
+    "rmse": 147.1,
+    "mae": 102.7,
+    "spearman_rho": 0.232
+   },
+   "S2: all 205 genera ONLY (no chemistry)": {
+    "features": 205,
+    "r2": -0.25,
+    "rmse": 150.5,
+    "mae": 102.0,
+    "spearman_rho": 0.375
+   },
+   "S3: 28 shared genera + chemistry + ops": {
+    "features": 38,
+    "r2": 0.125,
+    "rmse": 125.9,
+    "mae": 91.5,
+    "spearman_rho": 0.531
+   },
+   "S4: 27 shared genera (no Unclassified) + chem + ops": {
+    "features": 37,
+    "r2": -0.154,
+    "rmse": 144.6,
+    "mae": 95.7,
+    "spearman_rho": 0.437
+   },
+   "S5: all 205 genera + chemistry + ops": {
+    "features": 215,
+    "r2": -0.044,
+    "rmse": 137.5,
+    "mae": 94.2,
+    "spearman_rho": 0.389
+   }
+  },
+  "illumina_to_nanopore_renormalized": {
+   "S1: 28 shared genera ONLY (no chemistry)": {
+    "features": 28,
+    "r2": -0.131,
+    "rmse": 143.2,
+    "mae": 92.0,
+    "spearman_rho": 0.395
+   },
+   "S2: all 205 genera ONLY (no chemistry)": {
+    "features": 205,
+    "r2": -0.25,
+    "rmse": 150.5,
+    "mae": 102.0,
+    "spearman_rho": 0.375
+   },
+   "S3: 28 shared genera + chemistry + ops": {
+    "features": 38,
+    "r2": -0.044,
+    "rmse": 137.6,
+    "mae": 90.1,
+    "spearman_rho": 0.457
+   },
+   "S4: 27 shared genera (no Unclassified) + chem + ops": {
+    "features": 37,
+    "r2": -0.073,
+    "rmse": 139.5,
+    "mae": 90.7,
+    "spearman_rho": 0.282
+   },
+   "S5: all 205 genera + chemistry + ops": {
+    "features": 215,
+    "r2": -0.044,
+    "rmse": 137.5,
+    "mae": 94.2,
+    "spearman_rho": 0.389
+   }
+  },
+  "guard_within_illumina_loso": {
+   "28 shared genera + chemistry + ops": {
+    "features": 38,
+    "r2_mean": -0.887,
+    "r2_sd": 1.499
+   },
+   "109 Illumina-detected genera + chem + ops": {
+    "features": 119,
+    "r2_mean": -0.362,
+    "r2_sd": 0.642
+   },
+   "28 shared genera ONLY": {
+    "features": 28,
+    "r2_mean": -1.262,
+    "r2_sd": 1.347
+   },
+   "109 Illumina-detected genera ONLY": {
+    "features": 109,
+    "r2_mean": -1.297,
+    "r2_sd": 1.53
+   }
+  },
+  "guard_reverse_nanopore_to_illumina": {
+   "28 shared genera + chemistry + ops": {
+    "features": 38,
+    "r2": -0.135,
+    "rmse": 115.2,
+    "mae": 86.4,
+    "spearman_rho": 0.321
+   },
+   "all 205 genera + chemistry + ops": {
+    "features": 215,
+    "r2": -0.343,
+    "rmse": 125.4,
+    "mae": 84.0,
+    "spearman_rho": 0.526
+   }
+  },
+  "consistency_with_06": "PASS"
+ },
+ "replicate_checks": {
+  "_source": [
+   "corrected_2026-10-11/stage6_corrected_2026-10-12_07b_11/11_one_row_per_day.csv",
+   "corrected_2026-10-11/stage6_corrected_2026-10-12_07b_11/11_replicate_bray_curtis.csv"
+  ],
+  "_note": "11: how similar same-day replicates are, and the headline and Table 3a with one row per sampling day (each day's replicates averaged) instead of every sample.",
+  "bray_curtis": {
+   "Duber_2024": {
+    "same day": {
+     "pairs": 51,
+     "median": 0.09,
+     "q25": 0.049,
+     "q75": 0.136,
+     "lowest": 0.021,
+     "highest": 0.46
+    },
+    "next sampling day": {
+     "pairs": 135,
+     "median": 0.343,
+     "q25": 0.22,
+     "q75": 0.596,
+     "lowest": 0.1,
+     "highest": 0.963
+    },
+    "any two different days": {
+     "pairs": 594,
+     "median": 0.561,
+     "q25": 0.382,
+     "q75": 0.828,
+     "lowest": 0.054,
+     "highest": 0.965
+    },
+    "samples_whose_most_similar_sample_is_a_same_day_replicate": 41,
+    "samples": 51
+   },
+   "Hanna_2025": {
+    "same day": {
+     "pairs": 54,
+     "median": 0.049,
+     "q25": 0.034,
+     "q75": 0.075,
+     "lowest": 0.004,
+     "highest": 0.185
+    },
+    "next sampling day": {
+     "pairs": 144,
+     "median": 0.48,
+     "q25": 0.329,
+     "q75": 0.732,
+     "lowest": 0.136,
+     "highest": 0.903
+    },
+    "any two different days": {
+     "pairs": 648,
+     "median": 0.646,
+     "q25": 0.488,
+     "q75": 0.834,
+     "lowest": 0.136,
+     "highest": 0.973
+    },
+    "samples_whose_most_similar_sample_is_a_same_day_replicate": 53,
+    "samples": 54
+   }
+  },
+  "one_row_per_sampling_day": {
+   "LOSO, core set (the headline)": {
+    "every sample": {
+     "r2": -0.627,
+     "rmse": 99.6,
+     "n": 166,
+     "r2_sd": 0.817
+    },
+    "one row per sampling day": {
+     "r2": -0.587,
+     "rmse": 99.0,
+     "n": 96,
+     "r2_sd": 0.715
+    }
+   },
+   "LOSO, core set (the headline): Training-mean benchmark": {
+    "every sample": {
+     "r2": -4.243,
+     "rmse": 112.6,
+     "n": 166,
+     "r2_sd": 9.367
+    },
+    "one row per sampling day": {
+     "r2": -5.056,
+     "rmse": 115.3,
+     "n": 96,
+     "r2_sd": 11.233
+    }
+   },
+   "Single random 80/20 split (ASV level)": {
+    "every sample": {
+     "r2": 0.542,
+     "rmse": 76.0,
+     "n": 112
+    },
+    "one row per sampling day": {
+     "r2": 0.8,
+     "rmse": 51.9,
+     "n": 78
+    }
+   },
+   "Random 5-fold CV (ASV level)": {
+    "every sample": {
+     "r2": 0.682,
+     "rmse": 54.9,
+     "n": 112,
+     "r2_sd": 0.285
+    },
+    "one row per sampling day": {
+     "r2": 0.661,
+     "rmse": 59.6,
+     "n": 78,
+     "r2_sd": 0.242
+    }
+   },
+   "Shuffled 10-fold CV, per-fold SHAP top-25 genera": {
+    "every sample": {
+     "r2": 0.828,
+     "rmse": 47.0,
+     "n": 166,
+     "r2_sd": 0.091
+    },
+    "one row per sampling day": {
+     "r2": 0.59,
+     "rmse": 67.7,
+     "n": 96,
+     "r2_sd": 0.226
+    }
+   },
+   "Single-study internal 80/20 split (Duber 2024)": {
+    "every sample": {
+     "r2": 0.913,
+     "rmse": 26.5,
+     "n": 51
+    },
+    "one row per sampling day": {
+     "r2": -0.919,
+     "rmse": 63.3,
+     "n": 17
+    }
+   }
+  }
+ },
+ "figures": {
+  "_source": [
+   "corrected_2026-10-11/figures_corrected_2026-10-12/figure4_cohort_comparison.log",
+   "corrected_2026-10-11/figures_corrected_2026-10-12/figure5_shap_genus.log",
+   "corrected_2026-10-11/figures_corrected_2026-10-12/figure6_attribution_vs_spread.log",
+   "corrected_2026-10-11/figures_corrected_2026-10-12/figure_s5_combined_shap.log"
+  ],
+  "_note": "Values as the figure logs print them (Stage 8, run_figures.py); every input of each figure, with its SHA-256, is listed in its log.",
+  "figure_4_cohorts": {
+   "samples": {
+    "illumina": 112,
+    "nanopore": 54
+   },
+   "pH": {
+    "illumina": {
+     "n": 112,
+     "mean": 5.7,
+     "median": 5.5
+    },
+    "nanopore": {
+     "n": 54,
+     "mean": 6.5,
+     "median": 6.5
+    }
+   },
+   "Lactate (mM C)": {
+    "illumina": {
+     "n": 112,
+     "mean": 54.57,
+     "median": 0.45
+    },
+    "nanopore": {
+     "n": 54,
+     "mean": 29.36,
+     "median": 0.12
+    }
+   },
+   "Acetate (mM C)": {
+    "illumina": {
+     "n": 112,
+     "mean": 87.03,
+     "median": 78.44
+    },
+    "nanopore": {
+     "n": 54,
+     "mean": 173.44,
+     "median": 175.94
+    }
+   },
+   "Caproate (mM C)": {
+    "illumina": {
+     "n": 112,
+     "mean": 106.04,
+     "median": 98.12
+    },
+    "nanopore": {
+     "n": 54,
+     "mean": 132.29,
+     "median": 88.2
+    }
+   },
+   "Caproiciproducens (%)": {
+    "illumina": {
+     "n": 112,
+     "mean": 25.46,
+     "median": 23.23
+    },
+    "nanopore": {
+     "n": 54,
+     "mean": 9.79,
+     "median": 5.83
+    }
+   },
+   "Lactobacillus (%)": {
+    "illumina": {
+     "n": 112,
+     "mean": 0.05,
+     "median": 0.0
+    },
+    "nanopore": {
+     "n": 54,
+     "mean": 0.01,
+     "median": 0.0
+    }
+   },
+   "Lacticaseibacillus (%)": {
+    "illumina": {
+     "n": 112,
+     "mean": 8.23,
+     "median": 0.12
+    },
+    "nanopore": {
+     "n": 54,
+     "mean": 6.1,
+     "median": 2.4
+    }
+   }
+  },
+  "figure_5_top_10_genera": {
+   "_note": "One XGBoost fit on all 166 modelled samples, TreeSHAP on the same samples; the top 10 genera by mean |SHAP| (mM C), the Unclassified bin left out.",
+   "shown": [
+    "g__Caproiciproducens",
+    "g__Rummeliibacillus",
+    "g__Microbacterium",
+    "g__Gudongella",
+    "g__Anaerobium",
+    "g__Ochrobactrum",
+    "g__Clostridium_sensu_stricto_12",
+    "g__Oscillibacter",
+    "g__Sporolactobacillus",
+    "g__Monoglobus"
+   ],
+   "top_15_genera_mean_abs_shap": {
+    "g__Caproiciproducens": {
+     "mean_abs_shap": 29.413,
+     "rank_among_all_predictors": 1,
+     "rank_among_genera": 1
+    },
+    "g__Rummeliibacillus": {
+     "mean_abs_shap": 13.42,
+     "rank_among_all_predictors": 3,
+     "rank_among_genera": 2
+    },
+    "g__Microbacterium": {
+     "mean_abs_shap": 9.352,
+     "rank_among_all_predictors": 4,
+     "rank_among_genera": 3
+    },
+    "g__Gudongella": {
+     "mean_abs_shap": 8.533,
+     "rank_among_all_predictors": 5,
+     "rank_among_genera": 4
+    },
+    "g__Anaerobium": {
+     "mean_abs_shap": 7.15,
+     "rank_among_all_predictors": 6,
+     "rank_among_genera": 5
+    },
+    "g__Ochrobactrum": {
+     "mean_abs_shap": 6.476,
+     "rank_among_all_predictors": 7,
+     "rank_among_genera": 6
+    },
+    "g__Unclassified": {
+     "mean_abs_shap": 5.436,
+     "rank_among_all_predictors": 9,
+     "rank_among_genera": 7
+    },
+    "g__Clostridium_sensu_stricto_12": {
+     "mean_abs_shap": 4.613,
+     "rank_among_all_predictors": 11,
+     "rank_among_genera": 8
+    },
+    "g__Oscillibacter": {
+     "mean_abs_shap": 4.584,
+     "rank_among_all_predictors": 12,
+     "rank_among_genera": 9
+    },
+    "g__Sporolactobacillus": {
+     "mean_abs_shap": 3.863,
+     "rank_among_all_predictors": 13,
+     "rank_among_genera": 10
+    },
+    "g__Monoglobus": {
+     "mean_abs_shap": 3.522,
+     "rank_among_all_predictors": 14,
+     "rank_among_genera": 11
+    },
+    "g__Bacteroides": {
+     "mean_abs_shap": 2.954,
+     "rank_among_all_predictors": 15,
+     "rank_among_genera": 12
+    },
+    "g__Bacillus": {
+     "mean_abs_shap": 2.707,
+     "rank_among_all_predictors": 16,
+     "rank_among_genera": 13
+    },
+    "g__Incertae_Sedis": {
+     "mean_abs_shap": 2.21,
+     "rank_among_all_predictors": 18,
+     "rank_among_genera": 14
+    },
+    "g__Marasmitruncus": {
+     "mean_abs_shap": 2.078,
+     "rank_among_all_predictors": 19,
+     "rank_among_genera": 15
+    }
+   }
+  },
+  "figure_6_attribution_vs_spread": {
+   "genera_plotted": 204,
+   "folds": 22,
+   "study_groups": 7,
+   "named_genera": {
+    "g__Caproiciproducens": {
+     "groups": 7,
+     "samples": 161,
+     "median_rank": 1.0,
+     "shap_direction": 0.798,
+     "zero_attribution_without_nanopore": false
+    },
+    "g__Rummeliibacillus": {
+     "groups": 5,
+     "samples": 85,
+     "median_rank": 2.0,
+     "shap_direction": 0.607,
+     "zero_attribution_without_nanopore": true
+    },
+    "g__Gudongella": {
+     "groups": 1,
+     "samples": 27,
+     "median_rank": 3.5,
+     "shap_direction": 0.636,
+     "zero_attribution_without_nanopore": true
+    },
+    "g__Microbacterium": {
+     "groups": 3,
+     "samples": 30,
+     "median_rank": 4.5,
+     "shap_direction": 0.589,
+     "zero_attribution_without_nanopore": false
+    },
+    "g__Anaerobium": {
+     "groups": 1,
+     "samples": 30,
+     "median_rank": 6.0,
+     "shap_direction": 0.346,
+     "zero_attribution_without_nanopore": true
+    },
+    "g__Ochrobactrum": {
+     "groups": 1,
+     "samples": 10,
+     "median_rank": 6.0,
+     "shap_direction": 0.368,
+     "zero_attribution_without_nanopore": false
+    },
+    "g__Clostridium_sensu_stricto_12": {
+     "groups": 7,
+     "samples": 158,
+     "median_rank": 9.0,
+     "shap_direction": 0.541,
+     "zero_attribution_without_nanopore": false
+    },
+    "g__Sporolactobacillus": {
+     "groups": 2,
+     "samples": 75,
+     "median_rank": 9.0,
+     "shap_direction": -0.288,
+     "zero_attribution_without_nanopore": true
+    },
+    "g__Monoglobus": {
+     "groups": 2,
+     "samples": 16,
+     "median_rank": 10.0,
+     "shap_direction": 0.451,
+     "zero_attribution_without_nanopore": false
+    },
+    "g__Oscillibacter": {
+     "groups": 7,
+     "samples": 135,
+     "median_rank": 10.0,
+     "shap_direction": 0.099,
+     "zero_attribution_without_nanopore": false
+    },
+    "g__Lacticaseibacillus": {
+     "groups": 5,
+     "samples": 118,
+     "median_rank": 20.0,
+     "shap_direction": 0.381,
+     "zero_attribution_without_nanopore": false
+    }
+   },
+   "mean_groups_of_genera_with_median_rank_at_most_10": {
+    "mean": 3.6,
+    "genera": 10
+   },
+   "mean_groups_of_genera_with_median_rank_above_25": {
+    "mean": 1.94,
+    "genera": 181
+   }
+  },
+  "figure_s5_top_15_predictors": {
+   "g__Caproiciproducens": {
+    "mean_abs_shap": 29.413,
+    "rank": 1
+   },
+   "Butyrate": {
+    "mean_abs_shap": 27.365,
+    "rank": 2
+   },
+   "g__Rummeliibacillus": {
+    "mean_abs_shap": 13.42,
+    "rank": 3
+   },
+   "g__Microbacterium": {
+    "mean_abs_shap": 9.352,
+    "rank": 4
+   },
+   "g__Gudongella": {
+    "mean_abs_shap": 8.533,
+    "rank": 5
+   },
+   "g__Anaerobium": {
+    "mean_abs_shap": 7.15,
+    "rank": 6
+   },
+   "g__Ochrobactrum": {
+    "mean_abs_shap": 6.476,
+    "rank": 7
+   },
+   "Lactate": {
+    "mean_abs_shap": 5.447,
+    "rank": 8
+   },
+   "g__Unclassified": {
+    "mean_abs_shap": 5.436,
+    "rank": 9
+   },
+   "Propionate": {
+    "mean_abs_shap": 5.422,
+    "rank": 10
+   },
+   "g__Clostridium_sensu_stricto_12": {
+    "mean_abs_shap": 4.613,
+    "rank": 11
+   },
+   "g__Oscillibacter": {
+    "mean_abs_shap": 4.584,
+    "rank": 12
+   },
+   "g__Sporolactobacillus": {
+    "mean_abs_shap": 3.863,
+    "rank": 13
+   },
+   "g__Monoglobus": {
+    "mean_abs_shap": 3.522,
+    "rank": 14
+   },
+   "g__Bacteroides": {
+    "mean_abs_shap": 2.954,
+    "rank": 15
+   }
+  }
+ },
+ "table_s2": {
+  "_source": [
+   "repository: data/table_s2/12_asv_shap_ranking.csv",
+   "repository: data/table_s2/TableS2_2026-10-12.csv"
+  ],
+  "_note": "12 ranks every kept ASV by mean |SHAP| in one XGBoost fit on all 112 modelled Illumina samples; 12b builds the table from the BLAST of its FASTA (RID below). A top hit of 99% or more is the closest known relative, not a species identification.",
+  "asvs_ranked": 403,
+  "blast_rid": "CTJH4F4E014",
+  "top_20": {
+   "ASV_372": {
+    "rank": 1,
+    "silva_taxon": "family Lachnospiraceae",
+    "mean_abs_shap": 13.927,
+    "studies": 1,
+    "closest_relatives": "Robinsoniella peoriensis",
+    "identity_pct": 97.26,
+    "query_cover_pct": 100
+   },
+   "ASV_15": {
+    "rank": 2,
+    "silva_taxon": "order Clostridia UCG-014",
+    "mean_abs_shap": 10.9,
+    "studies": 4,
+    "closest_relatives": "Natranaerovirga pectinivora",
+    "identity_pct": 87.62,
+    "query_cover_pct": 100
+   },
+   "ASV_2": {
+    "rank": 3,
+    "silva_taxon": "Acinetobacter",
+    "mean_abs_shap": 9.627,
+    "studies": 3,
+    "closest_relatives": "Acinetobacter guillouiae",
+    "identity_pct": 100.0,
+    "query_cover_pct": 100
+   },
+   "ASV_143": {
+    "rank": 4,
+    "silva_taxon": "Caproiciproducens",
+    "mean_abs_shap": 8.558,
+    "studies": 5,
+    "closest_relatives": "Caproicibacter fermentans",
+    "identity_pct": 98.26,
+    "query_cover_pct": 100
+   },
+   "ASV_447": {
+    "rank": 5,
+    "silva_taxon": "Ochrobactrum",
+    "mean_abs_shap": 8.258,
+    "studies": 1,
+    "closest_relatives": "Ochrobactrum quorumnocens",
+    "identity_pct": 100.0,
+    "query_cover_pct": 100
+   },
+   "ASV_257": {
+    "rank": 6,
+    "silva_taxon": "Microbacterium",
+    "mean_abs_shap": 7.14,
+    "studies": 3,
+    "closest_relatives": "Microbacterium maritypicum",
+    "identity_pct": 100.0,
+    "query_cover_pct": 100
+   },
+   "ASV_247": {
+    "rank": 7,
+    "silva_taxon": "Caproiciproducens",
+    "mean_abs_shap": 5.195,
+    "studies": 4,
+    "closest_relatives": "Caproicibacter fermentans",
+    "identity_pct": 97.26,
+    "query_cover_pct": 100
+   },
+   "ASV_65": {
+    "rank": 8,
+    "silva_taxon": "Thermoanaerobacterium",
+    "mean_abs_shap": 5.046,
+    "studies": 1,
+    "closest_relatives": "Thermoanaerobacterium thermosaccharolyticum",
+    "identity_pct": 100.0,
+    "query_cover_pct": 100
+   },
+   "ASV_80": {
+    "rank": 9,
+    "silva_taxon": "Caproiciproducens",
+    "mean_abs_shap": 4.764,
+    "studies": 3,
+    "closest_relatives": "Caproiciproducens lactatisolvens / Caproiciproducens puteiluti",
+    "identity_pct": 98.52,
+    "query_cover_pct": 100
+   },
+   "ASV_92": {
+    "rank": 10,
+    "silva_taxon": "Caproiciproducens",
+    "mean_abs_shap": 3.998,
+    "studies": 5,
+    "closest_relatives": "Thermocaproicibacter melissae",
+    "identity_pct": 94.78,
+    "query_cover_pct": 100
+   },
+   "ASV_821": {
+    "rank": 11,
+    "silva_taxon": "Caproiciproducens",
+    "mean_abs_shap": 3.337,
+    "studies": 2,
+    "closest_relatives": "Caproicibacter fermentans",
+    "identity_pct": 98.01,
+    "query_cover_pct": 100
+   },
+   "ASV_254": {
+    "rank": 12,
+    "silva_taxon": "Caproiciproducens",
+    "mean_abs_shap": 3.203,
+    "studies": 4,
+    "closest_relatives": "Caproicibacter fermentans",
+    "identity_pct": 94.78,
+    "query_cover_pct": 100
+   },
+   "ASV_133": {
+    "rank": 13,
+    "silva_taxon": "Caproiciproducens",
+    "mean_abs_shap": 2.96,
+    "studies": 5,
+    "closest_relatives": "Caproicibacter fermentans",
+    "identity_pct": 94.53,
+    "query_cover_pct": 100
+   },
+   "ASV_139": {
+    "rank": 14,
+    "silva_taxon": "Clostridium sensu stricto 3",
+    "mean_abs_shap": 2.618,
+    "studies": 4,
+    "closest_relatives": "Clostridium amylolyticum",
+    "identity_pct": 100.0,
+    "query_cover_pct": 100
+   },
+   "ASV_337": {
+    "rank": 15,
+    "silva_taxon": "Tuzzerella",
+    "mean_abs_shap": 2.6,
+    "studies": 6,
+    "closest_relatives": "Anaerotignum aminivorans",
+    "identity_pct": 96.31,
+    "query_cover_pct": 100
+   },
+   "ASV_47": {
+    "rank": 16,
+    "silva_taxon": "Lacticaseibacillus",
+    "mean_abs_shap": 2.13,
+    "studies": 1,
+    "closest_relatives": "Lacticaseibacillus styriensis / Lacticaseibacillus chiayiensis / Lacticaseibacillus paracasei / Lacticaseibacillus casei / Lacticaseibacillus paracasei subsp. tolerans / Lacticaseibacillus zeae",
+    "identity_pct": 99.77,
+    "query_cover_pct": 100
+   },
+   "ASV_25": {
+    "rank": 17,
+    "silva_taxon": "Clostridium sensu stricto 1",
+    "mean_abs_shap": 2.077,
+    "studies": 4,
+    "closest_relatives": "Clostridium chromiireducens",
+    "identity_pct": 98.76,
+    "query_cover_pct": 100
+   },
+   "ASV_1": {
+    "rank": 18,
+    "silva_taxon": "Caproiciproducens",
+    "mean_abs_shap": 1.957,
+    "studies": 6,
+    "closest_relatives": "Caproicibacterium lactatifermentans",
+    "identity_pct": 100.0,
+    "query_cover_pct": 100
+   },
+   "ASV_53": {
+    "rank": 19,
+    "silva_taxon": "Clostridium sensu stricto 12",
+    "mean_abs_shap": 1.665,
+    "studies": 5,
+    "closest_relatives": "Clostridium prolinivorans",
+    "identity_pct": 95.52,
+    "query_cover_pct": 100
+   },
+   "ASV_286": {
+    "rank": 20,
+    "silva_taxon": "Actinomyces",
+    "mean_abs_shap": 1.552,
+    "studies": 2,
+    "closest_relatives": "Actinomyces provencensis / Actinomyces polynesiensis",
+    "identity_pct": 98.33,
+    "query_cover_pct": 100
+   }
+  },
+  "caproiciproducens_asvs_with_90_percent_of_reads": {
+   "asvs": 19,
+   "percent_of_genus_reads": 90.3,
+   "at_least_99_to_C_lactatifermentans": {
+    "asvs": [
+     "ASV_1",
+     "ASV_4"
+    ],
+    "percent_of_genus_reads": 60.7
+   },
+   "at_least_99_to_another_species": {
+    "asvs": 3,
+    "percent_of_genus_reads": 3.2
+   },
+   "below_99_to_any_type_strain": {
+    "asvs": 14,
+    "percent_of_genus_reads": 26.3
+   }
+  }
+ }
 }

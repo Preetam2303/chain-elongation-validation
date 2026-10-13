@@ -1,0 +1,13 @@
+Input: C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\stage6_corrected_2026-10-12_07c_07d\07d_figure3_stage1.csv
+       sha256 e5598e9d0861305dab87695ae9fe7f0d140016680f7f3cbd2ebf025f97a8b0ad
+Input: C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\stage6_corrected_2026-10-12_07c_07d\07c_figure3_stage2.csv
+       sha256 cf1c82d4c73bb075628570213cccaa47600c1a0a51aa41fb2d808e0224b9ad59
+Input: C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\stage6_corrected_2026-10-11\05_table5_reactor_pairs.csv
+       sha256 4eacb8e57c951c8312b9b8d3288574a7b0138fe817ab127f774d0a35cfce2360
+
+[Figure 3] Duber_2024 B1 (30 samples) -> B2 (21 samples):
+  Stage 1 (07d): R2 = 0.155 (0.1554999793901927)
+  Stage 2 (07c): R2 = -0.709 (-0.7087474890150975)
+  Stage 3 (05, Table 5): R2 = -5.296 (-5.296103431631715)
+Saved: C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\figures_corrected_2026-10-12\Figure_3_Duber_Progression.png
+Saved: C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\figures_corrected_2026-10-12\Figure_3_Duber_Progression.pdf

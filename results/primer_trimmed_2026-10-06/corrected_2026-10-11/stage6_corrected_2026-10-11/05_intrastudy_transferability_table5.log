@@ -1,0 +1,61 @@
+Loading Grand Merge Matrix for Clean Intra-Study Evaluation...
+
+--- REACTOR CONDITIONS PER PAIR (the two reactors ran differently by design) ---
+
+Brodowski_2025
+  B1 (7 samples) | feed: Defined Synthetic Media / Lactate + Acetate
+      PH    5.5 (x2), 6 (x1), 6.5 (x2), 7 (x2)
+      TEMP  30 (x7)
+      HRT   4 (x7)
+  B2 (7 samples) | feed: Defined Synthetic Media / Lactate + Ethanol + Acetate
+      PH    5.5 (x2), 6 (x2), 6.5 (x1), 7 (x2)
+      TEMP  30 (x7)
+      HRT   4 (x7)
+
+Duber_2024
+  B1 (30 samples) | feed: Complex Organic Waste / OFMSW
+      PH    5.5 (x12), 6.5 (x18)
+      TEMP  30 (x12), 37 (x15), 50 (x3)
+      HRT   5 (x30)
+  B2 (21 samples) | feed: Complex Organic Waste / OFMSW
+      PH    5.5 (x21)
+      TEMP  30 (x9), 37 (x3), 50 (x9)
+      HRT   5 (x21)
+
+Brodowski_2022_EXTERNAL_ACETATE
+  B1 (8 samples) | feed: Defined Synthetic Media / Lactate + Acetate, Defined Synthetic Media / Lactate Only
+      PH    5.5 (x8)
+      TEMP  30 (x8)
+      HRT   5 (x8)
+  B2 (6 samples) | feed: Defined Synthetic Media / Lactate + Acetate
+      PH    5.5 (x6)
+      TEMP  30 (x6)
+      HRT   5 (x6)
+
+Hanna_2025
+  B1 (27 samples) | feed: Complex Organic Waste / OFMSW
+      PH    5.5 (x6), 6.5 (x12), 7 (x9)
+      TEMP  37 (x24), 50 (x3)
+      HRT   1.25 (x3), 2.5 (x3), 5 (x21)
+  B2 (27 samples) | feed: Complex Organic Waste / OFMSW
+      PH    6 (x6), 6.5 (x12), 7 (x9)
+      TEMP  37 (x24), 50 (x3)
+      HRT   1.25 (x3), 2.5 (x3), 5 (x21)
+
+--- EXECUTING LEAK-PROOF INTRA-STUDY GENERALIZATION (XGBOOST) ---
+----------------------------------------------------------------------------------------
+
+========================================================================================
+CLEAN INTRA-STUDY GENERALIZATION RESULTS (NO TARGET LEAKAGE)
+========================================================================================
+                          Paper Train_Reactor Test_Reactor  Train_n  Test_n  Test_sampling_units     R2  RMSE (mM C)  Spearman_rho_unit_means
+                 Brodowski_2025            B1           B2        7       7                    7  0.540       51.060                    0.617
+                     Duber_2024            B1           B2       30      21                    7 -5.296      144.332                   -0.607
+Brodowski_2022_EXTERNAL_ACETATE            B1           B2        8       6                    6 -0.359      113.865                   -0.030
+                     Hanna_2025            B1           B2       27      27                    9 -2.016      164.370                    0.787
+========================================================================================
+Not in Table 5:
+  Duber_2020: one reactor
+  Duber_2022: batch bottles, 2 per condition; no reactor with 3 or more samples
+  Brodowski_2022: CSTR B1 has 1 sample (B2 has 4); the batch bottles are 1 per condition
+  Saved: C:/Users/IISiIS-ZWW-233/Documents/BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\stage6_corrected_2026-10-11\05_table5_reactor_pairs.csv

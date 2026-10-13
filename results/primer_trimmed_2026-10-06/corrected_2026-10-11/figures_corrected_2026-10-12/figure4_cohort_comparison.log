@@ -1,0 +1,15 @@
+Input: C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv
+       sha256 087c6f50e080eccbd106eac3f2321b8be3e7e6f6ffa5a5ee43538363f857bcf7
+Saved: C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\figures_corrected_2026-10-12\Figure_4_Cohort_Comparison.png
+Saved: C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\figures_corrected_2026-10-12\Figure_4_Cohort_Comparison.pdf
+
+[Figure 4] Per cohort: samples with a value (count), mean and median:
+Cohort                 Illumina (n=112)               Nanopore (n=54)              
+                                  count   mean median           count   mean median
+pH                               112.00   5.70   5.50           54.00   6.50   6.50
+Lactate (mM C)                   112.00  54.57   0.45           54.00  29.36   0.12
+Acetate (mM C)                   112.00  87.03  78.44           54.00 173.44 175.94
+Caproate (mM C)                  112.00 106.04  98.12           54.00 132.29  88.20
+Caproiciproducens (%)            112.00  25.46  23.23           54.00   9.79   5.83
+Lactobacillus (%)                112.00   0.05   0.00           54.00   0.01   0.00
+Lacticaseibacillus (%)           112.00   8.23   0.12           54.00   6.10   2.40

@@ -1,0 +1,90 @@
+================================================================================================
+SHARED FEATURE SPACE DIAGNOSTIC
+================================================================================================
+  Total genus columns in matrix        : 205
+  Detected on Illumina                 : 109
+  Detected on Nanopore                 : 124
+  SHARED (detected on both)            : 28
+  Illumina-only (forced to 0 at test)  : 81
+  Nanopore-only (no training signal)   : 96
+
+  Compositional mass carried by the shared set:
+    Illumina samples :  69.9%
+    Nanopore samples :  59.9%
+  Of which g__Unclassified alone:
+    Illumina :   5.5%    Nanopore :   0.0%
+
+  The 28 shared genera:
+    g__Acetobacter
+    g__Actinomyces
+    g__Anaerocolumna
+    g__Anaerostignum
+    g__Anaerotruncus
+    g__Bacillus
+    g__Bacteroides
+    g__Blautia
+    g__Caproiciproducens
+    g__Clostridium_sensu_stricto_12
+    g__Escherichia-Shigella
+    g__Fonticella
+    g__Gluconobacter
+    g__Herbinix
+    g__Intestinimonas
+    g__Lachnoclostridium
+    g__Lacticaseibacillus
+    g__Lactobacillus
+    g__Monoglobus
+    g__Oscillibacter
+    g__Propionibacterium
+    g__Pseudoclostridium
+    g__Rummeliibacillus
+    g__Solobacterium
+    g__Sporolactobacillus
+    g__Thermoanaerobacterium
+    g__Tissierella
+    g__Unclassified
+
+================================================================================================
+ILLUMINA -> NANOPORE TRANSFER   [global rel. abundance over all 205, then subset]
+================================================================================================
+  Feature scope                                  nFeat        R2     RMSE      MAE     rho
+  S0  core chemistry + ops + categoricals only     10    -0.120    142.5    100.3   0.333
+  S1  28 shared genera ONLY (no chemistry)         28    -0.194    147.1    102.7   0.232
+  S2  all 205 genera ONLY (no chemistry)          205    -0.250    150.5    102.0   0.375
+  S3  28 shared genera + chemistry + ops   <-- KEY   38     0.125    125.9     91.5   0.531
+  S4  27 shared genera (no Unclassified) + chem + ops   37    -0.154    144.6     95.7   0.437
+  S5  all 205 genera + chemistry + ops  [BASELINE]  215    -0.044    137.5     94.2   0.389
+
+================================================================================================
+ILLUMINA -> NANOPORE TRANSFER   [rel. abundance RENORMALIZED within retained subset]
+================================================================================================
+  Feature scope                                  nFeat        R2     RMSE      MAE     rho
+  S1  28 shared genera ONLY (no chemistry)         28    -0.131    143.2     92.0   0.395
+  S2  all 205 genera ONLY (no chemistry)          205    -0.250    150.5    102.0   0.375
+  S3  28 shared genera + chemistry + ops   <-- KEY   38    -0.044    137.6     90.1   0.457
+  S4  27 shared genera (no Unclassified) + chem + ops   37    -0.073    139.5     90.7   0.282
+  S5  all 205 genera + chemistry + ops  [BASELINE]  215    -0.044    137.5     94.2   0.389
+
+================================================================================================
+GUARD (a): WITHIN-ILLUMINA LOSO -- can this feature scope predict at all?
+================================================================================================
+  Feature scope                                  nFeat   R2 mean       SD   folds
+  28 shared genera + chemistry + ops               38    -0.887    1.499   [-0.122, -1.085, -0.254, 0.275, -4.107, -0.029]
+  109 Illumina-detected genera + chem + ops       119    -0.362    0.642   [0.365, -0.843, -0.635, -0.047, -1.37, 0.359]
+  28 shared genera ONLY                            28    -1.262    1.347   [0.233, -1.506, -1.135, -0.499, -4.021, -0.647]
+  109 Illumina-detected genera ONLY               109    -1.297    1.530   [0.135, -1.692, -1.402, -0.611, -4.348, 0.136]
+
+================================================================================================
+GUARD (b): REVERSE TRANSFER, NANOPORE -> ILLUMINA
+================================================================================================
+  Feature scope                                  nFeat        R2     RMSE      MAE     rho
+  28 shared genera + chemistry + ops               38    -0.135    115.2     86.4   0.321
+  all 205 genera + chemistry + ops                215    -0.343    125.4     84.0   0.526
+
+================================================================================================
+CONSISTENCY CHECK
+================================================================================================
+  S5 (all genera + core set, relative abundance) = -0.044 / 137.5 mM C.
+  This must equal 06_cross_platform_transfer.py's relative-abundance transfer;
+  if it does not, the two scripts are not using the same data or settings.
+  06 gave -0.044  ->  PASS

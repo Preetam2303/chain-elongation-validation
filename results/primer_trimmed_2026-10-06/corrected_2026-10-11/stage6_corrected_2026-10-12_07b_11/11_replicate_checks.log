@@ -1,0 +1,49 @@
+--- 1. REPLICATE SIMILARITY: Bray-Curtis dissimilarity of genus profiles (0 = identical, 1 = nothing shared) ---
+Pairs of samples from the same reactor
+--------------------------------------------------------------------------------------------------------------
+Duber_2024 (645 pairs in 2 reactors)
+  same day                   51 pairs | median 0.090 (middle half 0.049-0.136) | range 0.021-0.460
+  next sampling day         135 pairs | median 0.343 (middle half 0.220-0.596) | range 0.100-0.963
+  any two different days    594 pairs | median 0.561 (middle half 0.382-0.828) | range 0.054-0.965
+  For 41 of 51 samples, the most similar other sample of the study is a same-day replicate.
+Hanna_2025 (702 pairs in 2 reactors)
+  same day                   54 pairs | median 0.049 (middle half 0.034-0.075) | range 0.004-0.185
+  next sampling day         144 pairs | median 0.480 (middle half 0.329-0.732) | range 0.136-0.903
+  any two different days    648 pairs | median 0.646 (middle half 0.488-0.834) | range 0.136-0.973
+  For 53 of 54 samples, the most similar other sample of the study is a same-day replicate.
+--------------------------------------------------------------------------------------------------------------
+  Saved: C:/Users/IISiIS-ZWW-233/Documents/BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\stage6_corrected_2026-10-12_07b_11\11_replicate_bray_curtis.csv
+
+--- 2. ONE ROW PER SAMPLING DAY: each day's replicate samples averaged into one row ---
+Full matrix: 166 samples -> 96 rows; ASV-level matrix: 112 samples -> 78 rows
+--------------------------------------------------------------------------------------------------------------
+                                                                         every sample     one row per sampling day
+  LOSO, core set (the headline)                              R2 -0.627 ± 0.817  n 166     R2 -0.587 ± 0.715  n  96
+  LOSO, core set (the headline): Training-mean benchmark     R2 -4.243 ± 9.367  n 166     R2 -5.056 ± 11.233 n  96
+  Single random 80/20 split (ASV level)                      R2  0.542          n 112     R2  0.800          n  78
+  Random 5-fold CV (ASV level)                               R2  0.682 ± 0.285  n 112     R2  0.661 ± 0.242  n  78
+  Shuffled 10-fold CV, per-fold SHAP top-25 genera           R2  0.828 ± 0.091  n 166     R2  0.590 ± 0.226  n  96
+  Single-study internal 80/20 split (Duber 2024)             R2  0.913          n  51     R2 -0.919          n  17
+RMSE, mM C:
+  LOSO, core set (the headline)                                                  99.6                         99.0
+  LOSO, core set (the headline): Training-mean benchmark                        112.6                        115.3
+  Single random 80/20 split (ASV level)                                          76.0                         51.9
+  Random 5-fold CV (ASV level)                                                   54.9                         59.6
+  Shuffled 10-fold CV, per-fold SHAP top-25 genera                               47.0                         67.7
+  Single-study internal 80/20 split (Duber 2024)                                 26.5                         63.3
+
+Headline LOSO, every sample, R2 per held-out study: Brodowski_2022 -0.458; Brodowski_2022_EXTERNAL_ACETATE -1.383; Brodowski_2025 -0.006; Duber_2020 -0.124; Duber_2022 -2.297; Duber_2024 -0.076; Hanna_2025 -0.044
+
+Headline LOSO, one row per sampling day, R2 per held-out study: Brodowski_2022 -0.724; Brodowski_2022_EXTERNAL_ACETATE -1.182; Brodowski_2025 -0.051; Duber_2020 -0.155; Duber_2022 -2.001; Duber_2024 0.140; Hanna_2025 -0.136
+--------------------------------------------------------------------------------------------------------------
+  Saved: C:/Users/IISiIS-ZWW-233/Documents/BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\stage6_corrected_2026-10-12_07b_11\11_one_row_per_day.csv
+
+--- 3. THE NAIVE SCHEMES WITH SEEDS 0-19 (section 2 used seed 42): R2 median [lowest, highest] ---
+--------------------------------------------------------------------------------------------------------------
+                                                            every sample    one row per sampling day  lower with one row per day
+  Single random 80/20 split (ASV level)               0.803 [0.48, 0.93]          0.592 [0.25, 0.92]  in 16 of 20 seeds
+  Random 5-fold CV (ASV level)                        0.710 [0.64, 0.79]          0.576 [0.42, 0.69]  in 18 of 20 seeds
+  Shuffled 10-fold CV, per-fold SHAP top-25 genera    0.804 [0.72, 0.85]          0.483 [0.03, 0.63]  in 20 of 20 seeds
+  Single-study internal 80/20 split (Duber 2024)     0.925 [-0.33, 1.00]      -0.742 [-122.70, 0.88]  in 20 of 20 seeds
+--------------------------------------------------------------------------------------------------------------
+  Saved: C:/Users/IISiIS-ZWW-233/Documents/BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\stage6_corrected_2026-10-12_07b_11\11_naive_splits_over_seeds.csv

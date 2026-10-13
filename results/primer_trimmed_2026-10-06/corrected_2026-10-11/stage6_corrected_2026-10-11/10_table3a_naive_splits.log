@@ -1,0 +1,11 @@
+--- TABLE 3a: NAIVE, UNGROUPED VALIDATION SCHEMES (core set, no subsampling) ---
+Replicate sets = same-day replicate samples of Duber_2024, Hanna_2025
+--------------------------------------------------------------------------------------------------------------
+  Single random 80/20 split (ASV level)                n 112 |   413 features | R2  0.542 | RMSE   76.0 mM C | replicate sets split: 9 of 17
+  Random 5-fold CV (ASV level)                         n 112 |   413 features | R2  0.682 (± 0.285) | RMSE   54.9 (± 31.0) mM C | replicate sets split: 17 of 17
+      folds: 0.542; 0.960; 0.898; 0.189; 0.823
+  Shuffled 10-fold CV, per-fold SHAP top-25 genera     n 166 |   215 features | R2  0.828 (± 0.091) | RMSE   47.0 (± 21.1) mM C | replicate sets split: 35 of 35
+      folds: 0.764; 0.795; 0.703; 0.685; 0.779; 0.876; 0.924; 0.926; 0.950; 0.878
+  Single-study internal 80/20 split (Duber 2024)       n  51 |   215 features | R2  0.913 | RMSE   26.5 mM C | replicate sets split: 7 of 17
+--------------------------------------------------------------------------------------------------------------
+  Saved: C:/Users/IISiIS-ZWW-233/Documents/BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\stage6_corrected_2026-10-11\10_table3a_naive_splits.csv

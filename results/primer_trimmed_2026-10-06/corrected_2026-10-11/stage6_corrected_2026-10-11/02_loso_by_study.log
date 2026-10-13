@@ -1,0 +1,25 @@
+--- LEAVE-ONE-STUDY-OUT (Table 4, Table 3b LOSO rows) ---
+Full matrix: 166 rows, 7 studies, 205 genera
+Illumina-only: 112 rows, 6 studies
+--------------------------------------------------------------------------------------------------------------
+
+full matrix (166 rows, 7 held-out studies)
+  Training-mean benchmark (predict the training studies' mean)   R2  -4.243 (± 9.367)  RMSE  112.6 (± 34.1) mM C
+  Tier 1: pH, temperature, HRT, categoricals + genera            R2  -1.126 (± 1.554)  RMSE  108.5 (± 46.8) mM C
+  Tier 2: + lactate, acetate, ethanol                            R2  -0.956 (± 1.158)  RMSE  107.3 (± 43.3) mM C
+  Tier 3: + butyrate, propionate (core set; HEADLINE)            R2  -0.627 (± 0.817)  RMSE   99.6 (± 37.9) mM C
+
+Illumina-only (112 rows, 6 held-out studies)
+  Training-mean benchmark (predict the training studies' mean)   R2  -4.787 (± 9.430)  RMSE  110.0 (± 40.0) mM C
+  Tier 1: pH, temperature, HRT, categoricals + genera            R2  -1.380 (± 1.596)  RMSE  105.2 (± 46.1) mM C
+  Tier 2: + lactate, acetate, ethanol                            R2  -0.762 (± 0.922)  RMSE   94.8 (± 43.2) mM C
+  Tier 3: + butyrate, propionate, valerate, isovalerate          R2  -0.482 (± 0.641)  RMSE   90.8 (± 43.0) mM C
+  Tier 4: + caprylate, heptanoate, isocaproate                   R2  -0.552 (± 0.701)  RMSE   93.1 (± 43.3) mM C
+
+full matrix (166 rows, 7 held-out studies)
+  Chemistry only: core set without genera                        R2  -2.740 (± 5.263)  RMSE  113.5 (± 36.0) mM C
+  LOSO, core set, per-fold SHAP top-25 genera                    R2  -0.639 (± 0.952)  RMSE   98.2 (± 38.1) mM C
+--------------------------------------------------------------------------------------------------------------
+HEADLINE (full-matrix LOSO, core set; Table 3b = Table 4 full-matrix tier 3): R2 = -0.627 ± 0.817, RMSE = 99.6 ± 37.9 mM C
+  per held-out study: Brodowski_2022 -0.458; Brodowski_2022_EXTERNAL_ACETATE -1.383; Brodowski_2025 -0.006; Duber_2020 -0.124; Duber_2022 -2.297; Duber_2024 -0.076; Hanna_2025 -0.044
+  Saved: C:/Users/IISiIS-ZWW-233/Documents/BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\stage6_corrected_2026-10-11\02_loso_tables_3b_4.csv
