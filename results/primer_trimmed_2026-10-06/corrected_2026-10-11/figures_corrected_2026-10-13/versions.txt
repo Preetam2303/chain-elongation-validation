@@ -1,0 +1,21 @@
+Date: 2026-10-13 15:34
+Python 3.13.9 on Windows-11-10.0.26300-SP0
+pandas==2.3.3
+numpy==2.3.5
+scipy==1.16.3
+scikit-learn==1.7.2
+xgboost==3.3.0
+shap==0.52.0
+matplotlib==3.10.6
+seaborn==0.13.2
+BIOTWIN_MATRIX=C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv
+BIOTWIN_STAGE6_02=C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\stage6_corrected_2026-10-11
+BIOTWIN_STAGE6_03=C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\stage6_corrected_2026-10-11_03_04_07b_09
+BIOTWIN_STAGE6_04=C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\stage6_corrected_2026-10-11_03_04_07b_09
+BIOTWIN_STAGE6_05=C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\stage6_corrected_2026-10-11
+BIOTWIN_STAGE6_06=C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\stage6_corrected_2026-10-11
+BIOTWIN_STAGE6_07c=C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\stage6_corrected_2026-10-12_07c_07d
+BIOTWIN_STAGE6_07d=C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\stage6_corrected_2026-10-12_07c_07d
+BIOTWIN_STAGE6_09=C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\stage6_corrected_2026-10-11_03_04_07b_09
+BIOTWIN_STAGE6_10=C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\stage6_corrected_2026-10-11
+Figures: 1, 2, 3, 4, 5, 6, S1, S3, S4, S5

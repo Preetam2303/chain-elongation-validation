@@ -29,7 +29,7 @@
     "10": "corrected_2026-10-11/stage6_corrected_2026-10-11",
     "11": "corrected_2026-10-11/stage6_corrected_2026-10-12_07b_11"
    },
-   "figures": "corrected_2026-10-11/figures_corrected_2026-10-12",
+   "figures": "corrected_2026-10-11/figures_corrected_2026-10-13",
    "table_s2": "data/table_s2 (12 and 12b, 2026-10-12)"
   },
   "reference_environment": {
@@ -1821,10 +1821,10 @@
  },
  "figures": {
   "_source": [
-   "corrected_2026-10-11/figures_corrected_2026-10-12/figure4_cohort_comparison.log",
-   "corrected_2026-10-11/figures_corrected_2026-10-12/figure5_shap_genus.log",
-   "corrected_2026-10-11/figures_corrected_2026-10-12/figure6_attribution_vs_spread.log",
-   "corrected_2026-10-11/figures_corrected_2026-10-12/figure_s5_combined_shap.log"
+   "corrected_2026-10-11/figures_corrected_2026-10-13/figure4_cohort_comparison.log",
+   "corrected_2026-10-11/figures_corrected_2026-10-13/figure5_shap_genus.log",
+   "corrected_2026-10-11/figures_corrected_2026-10-13/figure6_attribution_vs_spread.log",
+   "corrected_2026-10-11/figures_corrected_2026-10-13/figure_s5_combined_shap.log"
   ],
   "_note": "Values as the figure logs print them (Stage 8, run_figures.py); every input of each figure, with its SHA-256, is listed in its log.",
   "figure_4_cohorts": {
@@ -1890,18 +1890,6 @@
      "n": 54,
      "mean": 9.79,
      "median": 5.83
-    }
-   },
-   "Lactobacillus (%)": {
-    "illumina": {
-     "n": 112,
-     "mean": 0.05,
-     "median": 0.0
-    },
-    "nanopore": {
-     "n": 54,
-     "mean": 0.01,
-     "median": 0.0
     }
    },
    "Lacticaseibacillus (%)": {
