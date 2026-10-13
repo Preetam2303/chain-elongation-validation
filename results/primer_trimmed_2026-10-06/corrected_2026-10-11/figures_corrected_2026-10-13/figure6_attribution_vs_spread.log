@@ -1,0 +1,24 @@
+Input: C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\stage6_corrected_2026-10-11_03_04_07b_09\guild_membership_shap_ranks.csv
+       sha256 2fd7b5eb01cfaf643d61bcf6b9396074dd8d5973ed596c5b0151ed318cd59d9a
+Input: C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\stage6_corrected_2026-10-11_03_04_07b_09\09_guild_membership_shap_ranks.log
+       sha256 98f40df2b2738c8b60a73a1a801998ca0b2ba1934b9beb16ce60860154345ba5
+Input: C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv
+       sha256 087c6f50e080eccbd106eac3f2321b8be3e7e6f6ffa5a5ee43538363f857bcf7
+Saved: C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\figures_corrected_2026-10-13\Figure_6_Attribution_vs_Spread.png
+Saved: C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\figures_corrected_2026-10-13\Figure_6_Attribution_vs_Spread.pdf
+
+[Figure 6] 204 genera plotted (22 folds, 7 study groups). Named genera:
+                          genus  groups  samples  median_rank  shap_dir  zero_when_no_nano
+           g__Caproiciproducens       7      161        1.000     0.798              False
+            g__Rummeliibacillus       5       85        2.000     0.607               True
+                  g__Gudongella       1       27        3.500     0.636               True
+              g__Microbacterium       3       30        4.500     0.589              False
+                  g__Anaerobium       1       30        6.000     0.346               True
+                g__Ochrobactrum       1       10        6.000     0.368              False
+g__Clostridium_sensu_stricto_12       7      158        9.000     0.541              False
+          g__Sporolactobacillus       2       75        9.000    -0.288               True
+                  g__Monoglobus       2       16       10.000     0.451              False
+               g__Oscillibacter       7      135       10.000     0.099              False
+          g__Lacticaseibacillus       5      118       20.000     0.381              False
+     genera with median rank <=10: mean groups present = 3.60 (n=10)
+     genera with median rank  >25: mean groups present = 1.94 (n=181)
