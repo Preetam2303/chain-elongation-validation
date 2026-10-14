@@ -1,6 +1,7 @@
 # figure1_r2_comparison.py
-# The master validation-collapse figure: every naive/ungrouped scheme and
-# every properly grouped/zero-leakage scheme, one bar chart. Every value is
+# The master validation-collapse figure: every naive (ungrouped) scheme and
+# every grouped scheme (whole studies, vessels or a platform held out), one bar
+# chart. Every value is
 # read from the corrected run's results tables (Tables 3a and 3b), so the
 # figure cannot drift from them:
 #   10_table3a_naive_splits.csv   Table 3a: the four naive schemes (seed 42)
@@ -37,7 +38,7 @@ plt.rcParams["axes.linewidth"] = 0.8
 
 CLR_NAIVE = "#E64B35"
 CLR_GROUPED = "#3C5488"
-NAIVE, GROUPED = "Naive / Ungrouped", "Grouped / Zero-Leakage"
+NAIVE, GROUPED = "Naive / Ungrouped", "Grouped"
 
 
 def scheme(label, kind, row, r2="r2_mean", sd="r2_sd"):
@@ -117,15 +118,15 @@ def generate_figure_1():
 
     legend_elements = [
         Patch(facecolor=CLR_NAIVE, label="Naive / Ungrouped Schemes"),
-        Patch(facecolor=CLR_GROUPED, label="Grouped / Zero-Leakage Schemes"),
-        Line2D([0], [0], color="#333333", linestyle="--", linewidth=0.9, label="Zero-Variance ($R^2 = 0$)")
+        Patch(facecolor=CLR_GROUPED, label="Grouped Schemes"),
+        Line2D([0], [0], color="#333333", linestyle="--", linewidth=0.9, label="$R^2 = 0$ (Predicting the\nTest-Set Mean)")
     ]
 
     # Pull the legend completely outside the right edge of the plot
     ax.legend(handles=legend_elements, loc="center left", bbox_to_anchor=(1.02, 0.5),
               frameon=True, edgecolor="#cccccc")
 
-    plt.title("Figure 1. Predictive Performance Collapse Under Zero-Leakage Validation",
+    plt.title("Figure 1. Predictive Performance Collapses Under Grouped Validation",
               loc="left", fontweight="bold", pad=12)
 
     # bbox_inches="tight" ensures the saved image expands to include the outside legend

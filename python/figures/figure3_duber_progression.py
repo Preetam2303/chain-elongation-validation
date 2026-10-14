@@ -1,11 +1,16 @@
 # figure3_duber_progression.py
-# The three-step leakage-tightening illustration: the identical Duber et al.
-# (2025) B1 -> B2 split (Paper_ID Duber_2024) evaluated three times as leakage
-# controls were progressively tightened, with no change to the underlying
-# samples. Each value is read from the corrected run's run of record:
-#   stage 1  07d_figure3_stage1.csv (unscaled random forest, broad predictor list)
-#   stage 2  07c_figure3_stage2.csv (XGBoost, broad predictor list, no scaling)
-#   stage 3  05_table5_reactor_pairs.csv (Table 5)
+# The identical Duber et al. (2025) B1 -> B2 split (Paper_ID Duber_2024),
+# evaluated with three setups and no change to the underlying samples. From
+# stage 1 to 2 the algorithm changes; from stage 2 to 3 the predictor set does.
+# Each value is read from the corrected run's run of record:
+#   stage 1  07d_figure3_stage1.csv (random forest, broad predictor list)
+#   stage 2  07c_figure3_stage2.csv (XGBoost, broad predictor list)
+#   stage 3  05_table5_reactor_pairs.csv (Table 5: XGBoost, core set)
+# The broad list is every measured column of the Illumina genus matrix except a
+# few sparse ones (07c, 07d), so it keeps sampling day, the downstream products
+# and the alcohols. Scaling is not one of the differences that matter: a tree
+# model's splits do not change when a predictor is scaled, and 05 run without
+# scaling gives the identical predictions (cloud check, 2026-10-14).
 # The script stops if the three stages do not use the same train and test
 # samples. Run it with run_figures.py, which points it at those files.
 
@@ -41,9 +46,9 @@ def generate_figure_3():
     n_train, n_test = sizes.pop()
 
     stages = [
-        "1. Unscaled Random Forest\n(+ Downstream Proxies)",
-        "2. XGBoost\n(No Downstream Exclusion,\nNo Scaling)",
-        "3. Fully Leakage-Controlled\nXGBoost (Train-Only Scaling)",
+        "1. Random Forest,\nBroad Predictor Set",
+        "2. XGBoost,\nBroad Predictor Set",
+        "3. XGBoost,\nCore Predictor Set",
     ]
     r2_values = [float(stage1["R2"]), float(stage2["R2"]), float(stage3["R2"])]
     colors = ["#4DBBD5", "#E64B35", "#7E6148"]
@@ -66,7 +71,7 @@ def generate_figure_3():
         ax.text(bar.get_x() + bar.get_width() / 2, yval + offset, f"$R^2 = {yval:.3f}$",
                 ha="center", va="bottom" if yval >= 0 else "top", fontweight="bold", fontsize=8.5)
 
-    plt.title("Figure 3. Duber et al. (2025) Intra-Study Transfer Progression",
+    plt.title("Figure 3. Duber et al. (2025) Reactor-to-Reactor Transfer Under Three Setups",
               loc="left", fontweight="bold", pad=12)
     plt.tight_layout()
     fi.save(fig, "Figure_3_Duber_Progression")

@@ -248,7 +248,7 @@
   "_source": [
    "corrected_2026-10-11/BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv"
   ],
-  "_definition": "Detected = more than zero reads in a sample of the final 166-row matrix; groups = study groups (of 7) with at least one detection. Mean relative abundance per platform, over all of that platform's samples (Figure 4's definition).",
+  "_definition": "Detected = more than zero reads in a sample of the final 166-row matrix; groups = study groups (of 7) with at least one detection. Mean relative abundance per platform, over all of that platform's samples (Figure 4's definition), and per study group, over all of that group's samples.",
   "Caproiciproducens": {
    "samples": 161,
    "of": 166,
@@ -257,12 +257,23 @@
    "illumina": {
     "samples": 110,
     "of": 112,
+    "percent": 98.2,
     "mean_relative_abundance_percent": 25.46
    },
    "nanopore": {
     "samples": 51,
     "of": 54,
+    "percent": 94.4,
     "mean_relative_abundance_percent": 9.79
+   },
+   "mean_relative_abundance_percent_by_study": {
+    "Brodowski_2022": 28.65,
+    "Brodowski_2022_EXTERNAL_ACETATE": 32.28,
+    "Brodowski_2025": 43.81,
+    "Duber_2020": 4.4,
+    "Duber_2022": 1.57,
+    "Duber_2024": 29.36,
+    "Hanna_2025": 9.79
    }
   },
   "Clostridium_sensu_stricto_12": {
@@ -273,12 +284,23 @@
    "illumina": {
     "samples": 105,
     "of": 112,
+    "percent": 93.8,
     "mean_relative_abundance_percent": 4.68
    },
    "nanopore": {
     "samples": 53,
     "of": 54,
+    "percent": 98.1,
     "mean_relative_abundance_percent": 14.1
+   },
+   "mean_relative_abundance_percent_by_study": {
+    "Brodowski_2022": 2.4,
+    "Brodowski_2022_EXTERNAL_ACETATE": 1.73,
+    "Brodowski_2025": 6.32,
+    "Duber_2020": 0.71,
+    "Duber_2022": 5.03,
+    "Duber_2024": 5.82,
+    "Hanna_2025": 14.1
    },
    "caveat": "Not cross-platform comparable: the synonym dictionary (Methods 2.2) maps every Nanopore 'Clostridium' call onto this one clade, while the Illumina data resolve several Clostridium sensu stricto clades."
   },
@@ -290,12 +312,23 @@
    "illumina": {
     "samples": 65,
     "of": 112,
+    "percent": 58.0,
     "mean_relative_abundance_percent": 8.23
    },
    "nanopore": {
     "samples": 53,
     "of": 54,
+    "percent": 98.1,
     "mean_relative_abundance_percent": 6.1
+   },
+   "mean_relative_abundance_percent_by_study": {
+    "Brodowski_2022": 0.05,
+    "Brodowski_2022_EXTERNAL_ACETATE": 0.0,
+    "Brodowski_2025": 0.0,
+    "Duber_2020": 0.25,
+    "Duber_2022": 0.66,
+    "Duber_2024": 17.79,
+    "Hanna_2025": 6.1
    }
   },
   "Stenotrophomonas": {
@@ -306,12 +339,23 @@
    "illumina": {
     "samples": 51,
     "of": 112,
+    "percent": 45.5,
     "mean_relative_abundance_percent": 1.29
    },
    "nanopore": {
     "samples": 0,
     "of": 54,
+    "percent": 0.0,
     "mean_relative_abundance_percent": 0.0
+   },
+   "mean_relative_abundance_percent_by_study": {
+    "Brodowski_2022": 0.14,
+    "Brodowski_2022_EXTERNAL_ACETATE": 0.14,
+    "Brodowski_2025": 1.36,
+    "Duber_2020": 0.06,
+    "Duber_2022": 6.77,
+    "Duber_2024": 0.0,
+    "Hanna_2025": 0.0
    }
   },
   "Lactobacillus": {
@@ -322,12 +366,23 @@
    "illumina": {
     "samples": 17,
     "of": 112,
+    "percent": 15.2,
     "mean_relative_abundance_percent": 0.05
    },
    "nanopore": {
     "samples": 7,
     "of": 54,
+    "percent": 13.0,
     "mean_relative_abundance_percent": 0.01
+   },
+   "mean_relative_abundance_percent_by_study": {
+    "Brodowski_2022": 0.02,
+    "Brodowski_2022_EXTERNAL_ACETATE": 0.0,
+    "Brodowski_2025": 0.0,
+    "Duber_2020": 0.72,
+    "Duber_2022": 0.02,
+    "Duber_2024": 0.0,
+    "Hanna_2025": 0.01
    }
   },
   "Gudongella": {
@@ -338,12 +393,23 @@
    "illumina": {
     "samples": 0,
     "of": 112,
+    "percent": 0.0,
     "mean_relative_abundance_percent": 0.0
    },
    "nanopore": {
     "samples": 27,
     "of": 54,
+    "percent": 50.0,
     "mean_relative_abundance_percent": 0.09
+   },
+   "mean_relative_abundance_percent_by_study": {
+    "Brodowski_2022": 0.0,
+    "Brodowski_2022_EXTERNAL_ACETATE": 0.0,
+    "Brodowski_2025": 0.0,
+    "Duber_2020": 0.0,
+    "Duber_2022": 0.0,
+    "Duber_2024": 0.0,
+    "Hanna_2025": 0.09
    }
   },
   "Acinetobacter": {
@@ -354,12 +420,23 @@
    "illumina": {
     "samples": 27,
     "of": 112,
+    "percent": 24.1,
     "mean_relative_abundance_percent": 5.19
    },
    "nanopore": {
     "samples": 0,
     "of": 54,
+    "percent": 0.0,
     "mean_relative_abundance_percent": 0.0
+   },
+   "mean_relative_abundance_percent_by_study": {
+    "Brodowski_2022": 5.13,
+    "Brodowski_2022_EXTERNAL_ACETATE": 38.57,
+    "Brodowski_2025": 0.0,
+    "Duber_2020": 0.0,
+    "Duber_2022": 0.0,
+    "Duber_2024": 0.01,
+    "Hanna_2025": 0.0
    }
   }
  },
@@ -1013,7 +1090,7 @@
    "corrected_2026-10-11/stage6_corrected_2026-10-12_07c_07d/07c_figure3_stage2.csv",
    "corrected_2026-10-11/stage6_corrected_2026-10-12_07c_07d/07d_figure3_stage1.csv"
   ],
-  "_note": "The same Duber 2025 (Duber_2024) split, B1 (30 samples) -> B2 (21), evaluated three times as leakage controls are tightened. No sample changes between stages.",
+  "_note": "The same Duber 2025 (Duber_2024) split, B1 (30 samples) -> B2 (21), evaluated with three setups that differ in algorithm and predictor set. No sample changes between stages. Scaling plays no part: 05 run without scaling gives the identical predictions (cloud check, 2026-10-14), since scaling a predictor does not change a tree model's splits. The keys keep their earlier names.",
   "stage_1_unscaled_random_forest": {
    "_note": "07d, scikit-learn random forest (seeded). Its R2 rounds to 0.155 at three decimals but sits next to the rounding boundary, so it is given to eight.",
    "r2": 0.15549998,
@@ -1041,7 +1118,7 @@
    }
   },
   "stage_3_fully_leakage_controlled": {
-   "_note": "05: the core set, predictors scaled on the training rows only (Table 5's Duber 2025 row).",
+   "_note": "05: XGBoost with the core set (Table 5's Duber 2025 row). Its predictors are scaled on the training rows only, which does not change the result.",
    "r2": -5.296,
    "rmse": 144.3,
    "train_n": 30,
@@ -1050,6 +1127,7 @@
  },
  "permutation_control": {
   "_source": [
+   "corrected_2026-10-11/BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv",
    "corrected_2026-10-11/stage6_corrected_2026-10-11_03_04_07b_09/03_permutation_tests.csv",
    "corrected_2026-10-11/stage6_corrected_2026-10-11_03_04_07b_09/03_permutation_tests_by_study.csv"
   ],
@@ -1128,6 +1206,46 @@
      "k_rmse": 672,
      "p_rmse": 0.673
     }
+   },
+   "held_out_caproate_spread": {
+    "_note": "SD (population) of each study's caproate values (mM C): its own, and the mean over 03's 999 across-study shuffles (the same seeds and sampling units as 03; no model is fitted). A ratio above 1 means the shuffle widens the spread the held-out study is scored against.",
+    "Brodowski_2022": {
+     "own_sd": 57.5,
+     "mean_sd_under_shuffle": 104.4,
+     "sd_ratio": 1.82
+    },
+    "Brodowski_2022_EXTERNAL_ACETATE": {
+     "own_sd": 100.1,
+     "mean_sd_under_shuffle": 111.5,
+     "sd_ratio": 1.11
+    },
+    "Brodowski_2025": {
+     "own_sd": 71.1,
+     "mean_sd_under_shuffle": 110.8,
+     "sd_ratio": 1.56
+    },
+    "Duber_2020": {
+     "own_sd": 112.3,
+     "mean_sd_under_shuffle": 101.8,
+     "sd_ratio": 0.91
+    },
+    "Duber_2022": {
+     "own_sd": 22.3,
+     "mean_sd_under_shuffle": 111.1,
+     "sd_ratio": 4.97
+    },
+    "Duber_2024": {
+     "own_sd": 101.2,
+     "mean_sd_under_shuffle": 112.1,
+     "sd_ratio": 1.11
+    },
+    "Hanna_2025": {
+     "own_sd": 134.6,
+     "mean_sd_under_shuffle": 112.1,
+     "sd_ratio": 0.83
+    },
+    "studies_widened": 5,
+    "studies": 7
    }
   },
   "within_each_study": {
@@ -1504,6 +1622,7 @@
  },
  "shared_subspace_transfer_control": {
   "_source": [
+   "corrected_2026-10-11/BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv",
    "corrected_2026-10-11/stage6_corrected_2026-10-11/08_shared_genus_transfer_control.log"
   ],
   "_note": "08 (Table S6): Illumina -> Nanopore transfer restricted to feature scopes, with two guards. Genera as relative abundance over all 205 genera, then subset (or renormalized within the subset).",
@@ -1670,7 +1789,122 @@
     "spearman_rho": 0.526
    }
   },
-  "consistency_with_06": "PASS"
+  "consistency_with_06": "PASS",
+  "shared_genera_mean_relative_abundance_percent": {
+   "_note": "Each genus shared by the two platforms: mean relative abundance (% of each sample's reads over all 205 genera) over all of each platform's samples, as in Table 2.",
+   "g__Acetobacter": {
+    "illumina": 3.72,
+    "nanopore": 0.03
+   },
+   "g__Actinomyces": {
+    "illumina": 4.24,
+    "nanopore": 5.18
+   },
+   "g__Anaerocolumna": {
+    "illumina": 0.13,
+    "nanopore": 0.01
+   },
+   "g__Anaerostignum": {
+    "illumina": 1.16,
+    "nanopore": 0.13
+   },
+   "g__Anaerotruncus": {
+    "illumina": 0.01,
+    "nanopore": 0.0
+   },
+   "g__Bacillus": {
+    "illumina": 5.64,
+    "nanopore": 0.16
+   },
+   "g__Bacteroides": {
+    "illumina": 0.67,
+    "nanopore": 0.06
+   },
+   "g__Blautia": {
+    "illumina": 0.36,
+    "nanopore": 0.03
+   },
+   "g__Caproiciproducens": {
+    "illumina": 25.46,
+    "nanopore": 9.79
+   },
+   "g__Clostridium_sensu_stricto_12": {
+    "illumina": 4.68,
+    "nanopore": 14.1
+   },
+   "g__Escherichia-Shigella": {
+    "illumina": 0.21,
+    "nanopore": 0.01
+   },
+   "g__Fonticella": {
+    "illumina": 0.34,
+    "nanopore": 0.01
+   },
+   "g__Gluconobacter": {
+    "illumina": 0.01,
+    "nanopore": 0.0
+   },
+   "g__Herbinix": {
+    "illumina": 0.09,
+    "nanopore": 0.02
+   },
+   "g__Intestinimonas": {
+    "illumina": 0.33,
+    "nanopore": 0.1
+   },
+   "g__Lachnoclostridium": {
+    "illumina": 0.07,
+    "nanopore": 13.8
+   },
+   "g__Lacticaseibacillus": {
+    "illumina": 8.23,
+    "nanopore": 6.1
+   },
+   "g__Lactobacillus": {
+    "illumina": 0.05,
+    "nanopore": 0.01
+   },
+   "g__Monoglobus": {
+    "illumina": 0.02,
+    "nanopore": 0.0
+   },
+   "g__Oscillibacter": {
+    "illumina": 2.43,
+    "nanopore": 0.36
+   },
+   "g__Propionibacterium": {
+    "illumina": 0.15,
+    "nanopore": 0.05
+   },
+   "g__Pseudoclostridium": {
+    "illumina": 1.8,
+    "nanopore": 0.13
+   },
+   "g__Rummeliibacillus": {
+    "illumina": 0.4,
+    "nanopore": 0.25
+   },
+   "g__Solobacterium": {
+    "illumina": 0.02,
+    "nanopore": 0.0
+   },
+   "g__Sporolactobacillus": {
+    "illumina": 0.24,
+    "nanopore": 5.07
+   },
+   "g__Thermoanaerobacterium": {
+    "illumina": 2.42,
+    "nanopore": 4.3
+   },
+   "g__Tissierella": {
+    "illumina": 1.5,
+    "nanopore": 0.15
+   },
+   "g__Unclassified": {
+    "illumina": 5.51,
+    "nanopore": 0.0
+   }
+  }
  },
  "replicate_checks": {
   "_source": [

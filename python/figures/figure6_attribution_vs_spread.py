@@ -171,8 +171,8 @@ def main():
     ax.legend(handles=legend, loc="upper left", bbox_to_anchor=(1.02, 1.0),
               fontsize=7.2, frameon=True, edgecolor="#cccccc", framealpha=0.95)
 
-    plt.title("Figure 6. Model importance tracks study identity for every genus\n"
-              "except the known chain elongator",
+    plt.title("Figure 6. Caproiciproducens is the only genus both ranked in the top five\n"
+              "and found in every study group",
               loc="left", fontweight="bold", fontsize=10, pad=10)
     plt.tight_layout()
     fi.save(fig, "Figure_6_Attribution_vs_Spread")
