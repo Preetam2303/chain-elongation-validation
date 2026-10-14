@@ -1,0 +1,11 @@
+Input: C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\stage6_corrected_2026-10-11\05_table5_reactor_pairs.csv
+       sha256 4eacb8e57c951c8312b9b8d3288574a7b0138fe817ab127f774d0a35cfce2360
+
+[Figure S3] Values plotted (Table 5, ordered by R2):
+                          Paper Train_Reactor Test_Reactor  Train_n  Test_n  Test_sampling_units     R2  RMSE (mM C)  Spearman_rho_unit_means
+                 Brodowski_2025            B1           B2        7       7                    7  0.540       51.060                    0.617
+Brodowski_2022_EXTERNAL_ACETATE            B1           B2        8       6                    6 -0.359      113.865                   -0.030
+                     Hanna_2025            B1           B2       27      27                    9 -2.016      164.370                    0.787
+                     Duber_2024            B1           B2       30      21                    7 -5.296      144.332                   -0.607
+Saved: C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\figures_corrected_2026-10-14\Figure_S3_Intrastudy_Transfer.png
+Saved: C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\figures_corrected_2026-10-14\Figure_S3_Intrastudy_Transfer.pdf
