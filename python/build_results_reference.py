@@ -310,7 +310,8 @@ def table_2_prevalence(run):
     n_groups = gm["Paper_ID"].nunique()
     out = {"_definition": f"Detected = more than zero reads in a sample of the final {len(gm)}-row matrix; "
                           f"groups = study groups (of {n_groups}) with at least one detection. Mean relative "
-                          "abundance per platform, over all of that platform's samples (Figure 4's definition)."}
+                          "abundance per platform, over all of that platform's samples (Figure 4's definition), "
+                          "and per study group, over all of that group's samples."}
     for name in TABLE_2_GENERA:
         g = gm[f"g__{name}"]
         present = g > 0
@@ -318,7 +319,10 @@ def table_2_prevalence(run):
                  "groups": int(gm.loc[present, "Paper_ID"].nunique())}
         for platform, rows in (("illumina", illumina), ("nanopore", ~illumina)):
             entry[platform] = {"samples": int(present[rows].sum()), "of": int(rows.sum()),
+                               "percent": r1(100 * present[rows].mean()),
                                "mean_relative_abundance_percent": V(100 * g[rows].mean(), 2)}
+        entry["mean_relative_abundance_percent_by_study"] = {
+            study: V(100 * v, 2) for study, v in g.groupby(gm["Paper_ID"]).mean().items()}
         out[name] = entry
     out["Clostridium_sensu_stricto_12"]["caveat"] = (
         "Not cross-platform comparable: the synonym dictionary (Methods 2.2) maps every Nanopore 'Clostridium' "
@@ -479,8 +483,10 @@ def figure_3_leakage_tightening_progression(run):
     if len(shap) != 10:
         raise SystemExit("Could not read 07c's top 10 SHAP features.")
     return {
-        "_note": "The same Duber 2025 (Duber_2024) split, B1 (30 samples) -> B2 (21), evaluated three times as "
-                 "leakage controls are tightened. No sample changes between stages.",
+        "_note": "The same Duber 2025 (Duber_2024) split, B1 (30 samples) -> B2 (21), evaluated with three setups "
+                 "that differ in algorithm and predictor set. No sample changes between stages. Scaling plays no "
+                 "part: 05 run without scaling gives the identical predictions (cloud check, 2026-10-14), since "
+                 "scaling a predictor does not change a tree model's splits. The keys keep their earlier names.",
         "stage_1_unscaled_random_forest": {
             "r2": V(d["R2"], 8), "rmsd": V(d["RMSD"], 3), "train_n": int(d["Train_Size"]),
             "test_n": int(d["Test_Size"]),
@@ -493,7 +499,8 @@ def figure_3_leakage_tightening_progression(run):
         "stage_3_fully_leakage_controlled": {
             "r2": r3(s3["R2"]), "rmse": r1(s3["RMSE (mM C)"]), "train_n": int(s3["Train_n"]),
             "test_n": int(s3["Test_n"]),
-            "_note": "05: the core set, predictors scaled on the training rows only (Table 5's Duber 2025 row)."},
+            "_note": "05: XGBoost with the core set (Table 5's Duber 2025 row). Its predictors are scaled on the "
+                     "training rows only, which does not change the result."},
     }
 
 
@@ -521,9 +528,34 @@ def permutation_control(run):
                                   "k_rmse": int(s["k_rmse"]), "p_rmse": r3(s["p_rmse"])}
             for _, s in by[by["shuffle"] == shuffle].iterrows()}
         out[key] = e
+    out["across_studies"]["held_out_caproate_spread"] = _spread_under_across_shuffle(run, out["across_studies"]["shuffles"])
     out["across_studies"]["_note"] = "Caproate shuffled by sampling day across all studies, as in the published test."
     out["within_each_study"]["_note"] = ("Caproate shuffled by sampling day within each study, so each study keeps "
                                          "its own values (added 2026-10-11).")
+    return out
+
+
+def _spread_under_across_shuffle(run, n):
+    """How the across-study shuffle changes the spread of each held-out study's caproate values: 03's
+    shuffles (seeds 1 to n, by sampling unit) redone on the matrix, without fitting any model."""
+    gm, _ = run.matrix()
+    y, papers = gm[ps.TARGET], gm["Paper_ID"]
+    units = ps.sampling_units(gm)
+    unit_values = y.groupby(units).first()
+    sds = {s: [] for s in sorted(papers.unique())}
+    for seed in range(1, n + 1):
+        shuffled = pd.Series(unit_values.sample(frac=1.0, random_state=seed).values, index=unit_values.index)
+        rows = pd.Series(units.map(shuffled).values, index=gm.index)
+        for s in sds:
+            sds[s].append(rows[papers == s].std(ddof=0))
+    out = {"_note": "SD (population) of each study's caproate values (mM C): its own, and the mean over 03's "
+                    f"{n} across-study shuffles (the same seeds and sampling units as 03; no model is fitted). "
+                    "A ratio above 1 means the shuffle widens the spread the held-out study is scored against."}
+    for s, v in sds.items():
+        own = y[papers == s].std(ddof=0)
+        out[s] = {"own_sd": r1(own), "mean_sd_under_shuffle": r1(np.mean(v)), "sd_ratio": V(np.mean(v) / own, 2)}
+    out["studies_widened"] = sum(1 for s, v in sds.items() if np.mean(v) > y[papers == s].std(ddof=0))
+    out["studies"] = len(sds)
     return out
 
 
@@ -655,7 +687,19 @@ def shared_subspace_transfer_control(run):
         "guard_within_illumina_loso": table("GUARD (a): WITHIN-ILLUMINA LOSO", guard, ("features", "r2_mean", "r2_sd")),
         "guard_reverse_nanopore_to_illumina": table("GUARD (b): REVERSE TRANSFER", transfer, cols),
         "consistency_with_06": found(r"^\s+06 gave \S+\s+->\s+(\w+)$", log, "08's log"),
+        "shared_genera_mean_relative_abundance_percent": _shared_genera_platform_means(run, space["shared_genera"]),
     }
+
+
+def _shared_genera_platform_means(run, shared):
+    """Mean relative abundance of each shared genus on each platform, from the matrix (Table 2's definition)."""
+    gm, _ = run.matrix(relative=True)
+    illumina = gm["Paper_ID"] != ps.NANOPORE_ID
+    out = {"_note": "Each genus shared by the two platforms: mean relative abundance (% of each sample's reads over "
+                    "all 205 genera) over all of each platform's samples, as in Table 2."}
+    for g in shared:
+        out[g] = {"illumina": V(100 * gm.loc[illumina, g].mean(), 2), "nanopore": V(100 * gm.loc[~illumina, g].mean(), 2)}
+    return out
 
 
 def replicate_checks(run):
