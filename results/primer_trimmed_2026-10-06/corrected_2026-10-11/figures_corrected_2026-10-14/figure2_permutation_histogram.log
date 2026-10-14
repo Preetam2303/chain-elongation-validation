@@ -1,0 +1,16 @@
+Input: C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\stage6_corrected_2026-10-11_03_04_07b_09\03_permutation_tests.csv
+       sha256 c371702fdac64dd42c682fc1fd5ada4b0a1a32af623bae868939b4a190bd5154
+
+[Figure 2] Values plotted (recomputed from every shuffle; checked against 03_permutation_tests.csv):
+Input: C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\stage6_corrected_2026-10-11_03_04_07b_09\permutation_null_distribution_999.csv
+       sha256 0793a765dece7d4faf6d60c1b5ca40a7b3d5b7b2a1b071d45f2b024778b65acd
+  across studies: 999 shuffles
+    R2:   observed -0.627 | null mean -0.584 (SD 0.925), median -0.439 | k = 714, p = 0.715 | display clipped at -2.5 (10 below, min -23.77)
+    RMSE: observed 99.6 mM C | null mean 127.7 (SD 8.5) | k = 0, p = 0.001 | training-mean benchmark 112.6
+Input: C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\stage6_corrected_2026-10-11_03_04_07b_09\permutation_null_within_study_999.csv
+       sha256 3a0a3bdb408b473ce273a5491750e45b48119b1e2fa17760dcb7b1f447e9b382
+  within each study: 999 shuffles
+    R2:   observed -0.627 | null mean -5.763 (SD 2.110), median -5.449 | k = 0, p = 0.001 | display clipped at -11.5 (10 below, min -13.85)
+    RMSE: observed 99.6 mM C | null mean 131.8 (SD 8.3) | k = 0, p = 0.001 | training-mean benchmark 112.6
+Saved: C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\figures_corrected_2026-10-14\Figure_2_Permutation_Control.png
+Saved: C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-10-11\figures_corrected_2026-10-14\Figure_2_Permutation_Control.pdf

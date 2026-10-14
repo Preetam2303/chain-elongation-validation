@@ -1,4 +1,4 @@
-# Primer-trimmed rerun: the run of record (2026-10-05 to 2026-10-13)
+# Primer-trimmed rerun: the run of record (2026-10-05 to 2026-10-14)
 
 These files come from the laptop run of the primer-trimmed rerun (the run of record), unchanged, in the laptop's layout: the run folder `BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06`, with the corrected run `corrected_2026-10-11` inside it. Every value in `results_reference.json` is read from them (or from `data/table_s2/`) by `python/build_results_reference.py`.
 
@@ -24,7 +24,7 @@ These files come from the laptop run of the primer-trimmed rerun (the run of rec
 | 6 | `corrected_2026-10-11/stage6_corrected_2026-10-12_07b_11/` | `run_stage6.py 07b 11` | Run of record for 07b and 11. |
 | 6 | `corrected_2026-10-11/stage6_corrected_2026-10-12_07c_07d/` | `run_stage6.py 07c 07d` | Run of record for 07c and 07d. |
 | 7 | `data/table_s2/` (in the repository) | 12, 12b | Table S2, with its own README. |
-| 8 | `corrected_2026-10-11/figures_corrected_2026-10-13/` | `run_figures.py` | Every figure as PNG and PDF. |
+| 8 | `corrected_2026-10-11/figures_corrected_2026-10-14/` | `run_figures.py` | Every figure as PNG and PDF. |
 
 Each Stage 6 folder holds each script's log (everything it printed), the tables it wrote and `versions.txt` (the date, the Python and package versions, the input files and the scripts run). The figure folder holds one log per figure script, listing each input file with its SHA-256 and every value the figure plots, and its own `versions.txt`.
 
