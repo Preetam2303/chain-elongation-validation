@@ -141,8 +141,8 @@ class Run:
     def stage6(self, script):
         return self._folder("stage6_corrected_*", f"{script}_*.log")
 
-    def csv(self, script, name):
-        return pd.read_csv(self.file(name, base=self.stage6(script)))
+    def csv(self, script, name):  # round_trip: each saved value reads back exactly
+        return pd.read_csv(self.file(name, base=self.stage6(script)), float_precision="round_trip")
 
     def log(self, script):
         folder = self.stage6(script)
@@ -506,80 +506,128 @@ def figure_3_leakage_tightening_progression(run):
 
 NULL_FILES_03 = {"across studies": "permutation_null_distribution_999.csv",
                  "within each study": "permutation_null_within_study_999.csv"}
+LEFT_OUT_STUDY = "Duber_2022"
 
 
 def permutation_control(run):
     t = run.csv("03", "03_permutation_tests.csv")
     by = run.csv("03", "03_permutation_tests_by_study.csv")
-    observed_r2 = _observed_r2_full_precision(run, by)
+    # 03 wrote R2 rounded to 3 decimals until 2026-10-19 and at full precision since then.
+    full = any(round(v, 3) != v for v in list(t["observed_r2"]) + list(by["observed_r2"]))
+    observed_r2 = _observed_r2_full_precision(run, by[by["shuffle"] == "within each study"], full)
+    uneven = _studies_with_uneven_units(run)
     out = {"_note": "03: the headline LOSO refitted 999 times for each shuffle of caproate by sampling day. "
-                    "k = shuffles that do at least as well as the true labels (R2 as high, or RMSE as low); "
-                    "p = (k + 1) / 1000, so 0.001 is the smallest possible. Shuffle i is seeded with i, so both "
-                    "null distributions reproduce exactly; the Monte Carlo standard error is sqrt(p (1 - p) / 999). "
-                    "k and p are recomputed here from every saved shuffle, with the observed R2 at full precision "
-                    "(each held-out study's R2 from its RMSE in 03's table and its measured caproate; the overall "
-                    "R2 is their mean). Until 2026-10-19, 03 compared R2 with the observed value rounded to 3 "
-                    "decimals; the k by R2 of 03's table that differ from these are listed in _differs_from_03_table."}
+                    "k = shuffles that do at least as well as the true labels (R2 as high or higher, or RMSE as "
+                    "low or lower); p = (k + 1) / 1000, so 0.001 is the smallest possible. Shuffle i is seeded "
+                    "with i, so both null distributions reproduce exactly; the Monte Carlo standard error is "
+                    "sqrt(p (1 - p) / 999). k and p are recomputed here from every saved shuffle, with the "
+                    "observed R2 at full precision (each held-out study's R2 from its RMSE in 03's table and its "
+                    "measured caproate; the overall R2 is their mean). Until 2026-10-19, 03 compared R2 with the "
+                    "observed value rounded to 3 decimals; the k and p by R2 of 03's table that differ from "
+                    "these are listed in _differs_from_03_table. The 'without' values repeat the test on the "
+                    f"mean over the held-out folds other than {LEFT_OUT_STUDY}'s, from the same shuffles; "
+                    f"{LEFT_OUT_STUDY}'s samples stay in the training sets of those folds."}
     differs = []
     for shuffle, key in (("across studies", "across_studies"), ("within each study", "within_each_study")):
         r = one(t, shuffle=shuffle)
+        rows = by[by["shuffle"] == shuffle].set_index("held_out_study")
+        observed = {h: (observed_r2[h], rows.loc[h, "observed_rmse"]) for h in rows.index}
         null = run.csv("03", NULL_FILES_03[shuffle])
-        n = len(null)
-        if n != int(r["n_shuffles"]):
-            raise SystemExit(f"{NULL_FILES_03[shuffle]} has {n} shuffles; 03's table says {r['n_shuffles']}.")
-        k_r2 = _count_reaching(null["permuted_r2"], np.mean(list(observed_r2.values())), higher=True)
-        if k_r2 != int(r["k_r2"]):
-            differs.append(f"{shuffle}, all studies: k by R2 {k_r2} here, {int(r['k_r2'])} in 03's table")
-        k_rmse = _count_reaching(null["permuted_rmse"], r["observed_rmse"], higher=False)
-        if k_rmse != int(r["k_rmse"]) or abs(null["permuted_r2"].mean() - r["null_r2_mean"]) > 1e-9:
+        if len(null) != int(r["n_shuffles"]) or abs(null["permuted_r2"].mean() - r["null_r2_mean"]) > 1e-9:
             raise SystemExit(f"{NULL_FILES_03[shuffle]} does not reproduce 03's table ({shuffle}).")
-        p_r2, p_rmse = (k_r2 + 1) / (n + 1), (k_rmse + 1) / (n + 1)
-        e = {"shuffles": n, "observed_r2": r3(r["observed_r2"]), "observed_rmse": r1(r["observed_rmse"]),
-             "training_mean_benchmark_rmse": r1(r["training_mean_benchmark_rmse"]),
-             "null_r2_mean": r3(r["null_r2_mean"]), "null_r2_sd": r3(r["null_r2_sd"]),
-             "null_r2_median": r3(r["null_r2_median"]), "k_r2": k_r2, "p_r2": r3(p_r2),
-             "p_r2_monte_carlo_se": r3(math.sqrt(p_r2 * (1 - p_r2) / n)),
-             "null_rmse_mean": r1(r["null_rmse_mean"]), "null_rmse_sd": r1(r["null_rmse_sd"]),
-             "k_rmse": k_rmse, "p_rmse": r3(p_rmse),
-             "p_rmse_monte_carlo_se": r3(math.sqrt(p_rmse * (1 - p_rmse) / n))}
-        e["by_held_out_study"] = {}
-        for _, s in by[by["shuffle"] == shuffle].iterrows():
-            h = s["held_out_study"]
-            k_r2_h = _count_reaching(null[f"r2_{h}"], observed_r2[h], higher=True)
-            k_rmse_h = _count_reaching(null[f"rmse_{h}"], s["observed_rmse"], higher=False)
-            if k_rmse_h != int(s["k_rmse"]):
-                raise SystemExit(f"{NULL_FILES_03[shuffle]} does not reproduce 03's k by RMSE for {h}.")
-            if k_r2_h != int(s["k_r2"]):
-                differs.append(f"{shuffle}, {h}: k by R2 {k_r2_h} here, {int(s['k_r2'])} in 03's table")
-            e["by_held_out_study"][h] = {"observed_r2": r3(observed_r2[h]), "observed_rmse": r1(s["observed_rmse"]),
-                                         "k_r2": k_r2_h, "p_r2": r3((k_r2_h + 1) / (n + 1)),
-                                         "k_rmse": k_rmse_h, "p_rmse": r3((k_rmse_h + 1) / (n + 1))}
+        e = _recounted_entry(r, null, observed, NULL_FILES_03[shuffle])
+        n = e["shuffles"]
+        for where, table in [("all studies", r)] + list(rows.iterrows()):
+            mine = e if where == "all studies" else e["by_held_out_study"][where]
+            if mine["k_rmse"] != int(table["k_rmse"]):
+                raise SystemExit(f"{NULL_FILES_03[shuffle]} does not reproduce 03's k by RMSE ({shuffle}, {where}).")
+            if mine["k_r2"] != int(table["k_r2"]):
+                if full:
+                    raise SystemExit(f"{NULL_FILES_03[shuffle]} does not reproduce 03's k by R2 ({shuffle}, {where}).")
+                differs.append(f"{shuffle}, {where}: k by R2 {mine['k_r2']} (p {(mine['k_r2'] + 1) / (n + 1):.3f}) "
+                               f"here, {int(table['k_r2'])} (p {(int(table['k_r2']) + 1) / (n + 1):.3f}) in "
+                               "03's table")
         out[key] = e
     out["across_studies"]["held_out_caproate_spread"] = _spread_under_across_shuffle(run, out["across_studies"]["shuffles"])
     out["across_studies"]["_note"] = "Caproate shuffled by sampling day across all studies, as in the published test."
     out["within_each_study"]["_note"] = ("Caproate shuffled by sampling day within each study, so each study keeps "
-                                         "its own values (added 2026-10-11). Each study's sampling units have the "
-                                         "same number of rows, so each held-out study keeps its set of values and "
-                                         "its k by R2 equals its k by RMSE.")
+                                         "its own values (added 2026-10-11). " + _r2_equals_rmse(
+                                             out["within_each_study"], uneven, "within each study"))
     out["_differs_from_03_table"] = differs or "none"
-    mismatch = [h for h, v in out["within_each_study"]["by_held_out_study"].items() if v["k_r2"] != v["k_rmse"]]
-    if mismatch:
-        raise SystemExit(f"Within each study, k by R2 differs from k by RMSE for {mismatch}.")
     return out
 
 
-def _observed_r2_full_precision(run, by):
-    """Each held-out study's observed R2 at full precision, from its observed RMSE (03's table, full precision)
-    and its measured caproate: R2 = 1 - n RMSE^2 / sum((y - mean y)^2)."""
+def _recounted_entry(r, null, observed, name):
+    """One shuffle scheme's k and p, recomputed from its saved shuffles (null) against the observed R2 and RMSE
+    of each held-out study (observed: {study: (r2, rmse)}, at full precision); r is the scheme's row of the
+    script's own table, for the values that are not recomputed."""
+    n = len(null)
+    obs_r2, obs_rmse = np.mean([v[0] for v in observed.values()]), np.mean([v[1] for v in observed.values()])
+    if abs(obs_rmse - r["observed_rmse"]) > 1e-9:
+        raise SystemExit(f"The held-out studies' RMSE in {name}'s tables do not average to its observed RMSE.")
+    k_r2 = _count_reaching(null["permuted_r2"], obs_r2, higher=True)
+    k_rmse = _count_reaching(null["permuted_rmse"], obs_rmse, higher=False)
+    p_r2, p_rmse = (k_r2 + 1) / (n + 1), (k_rmse + 1) / (n + 1)
+    e = {"shuffles": n, "observed_r2": r3(obs_r2), "observed_rmse": r1(obs_rmse),
+         "training_mean_benchmark_rmse": r1(r["training_mean_benchmark_rmse"]),
+         "null_r2_mean": r3(r["null_r2_mean"]), "null_r2_sd": r3(r["null_r2_sd"]),
+         "null_r2_median": r3(r["null_r2_median"]), "k_r2": k_r2, "p_r2": r3(p_r2),
+         "p_r2_monte_carlo_se": r3(math.sqrt(p_r2 * (1 - p_r2) / n)),
+         "null_rmse_mean": r1(r["null_rmse_mean"]), "null_rmse_sd": r1(r["null_rmse_sd"]),
+         "k_rmse": k_rmse, "p_rmse": r3(p_rmse),
+         "p_rmse_monte_carlo_se": r3(math.sqrt(p_rmse * (1 - p_rmse) / n)), "by_held_out_study": {}}
+    for h, (o_r2, o_rmse) in observed.items():
+        k_r2_h = _count_reaching(null[f"r2_{h}"], o_r2, higher=True)
+        k_rmse_h = _count_reaching(null[f"rmse_{h}"], o_rmse, higher=False)
+        e["by_held_out_study"][h] = {"observed_r2": r3(o_r2), "observed_rmse": r1(o_rmse),
+                                     "k_r2": k_r2_h, "p_r2": r3((k_r2_h + 1) / (n + 1)),
+                                     "k_rmse": k_rmse_h, "p_rmse": r3((k_rmse_h + 1) / (n + 1))}
+    if LEFT_OUT_STUDY not in observed:
+        raise SystemExit(f"{LEFT_OUT_STUDY} is not one of the held-out studies in {name}.")
+    kept = [h for h in observed if h != LEFT_OUT_STUDY]
+    w_r2, w_rmse = np.mean([observed[h][0] for h in kept]), np.mean([observed[h][1] for h in kept])
+    k_r2_w = _count_reaching(null[[f"r2_{h}" for h in kept]].mean(axis=1), w_r2, higher=True)
+    k_rmse_w = _count_reaching(null[[f"rmse_{h}" for h in kept]].mean(axis=1), w_rmse, higher=False)
+    e["without_" + LEFT_OUT_STUDY] = {"observed_r2": r3(w_r2), "observed_rmse": r1(w_rmse),
+                                      "k_r2": k_r2_w, "p_r2": r3((k_r2_w + 1) / (n + 1)),
+                                      "k_rmse": k_rmse_w, "p_rmse": r3((k_rmse_w + 1) / (n + 1))}
+    return e
+
+
+def _r2_equals_rmse(e, uneven, shuffle):
+    """Under a shuffle that keeps each study's values, a held-out study whose sampling units all have the same
+    number of rows keeps its set of caproate values, so its k by R2 must equal its k by RMSE. Stops if not."""
+    mismatch = [h for h, v in e["by_held_out_study"].items() if h not in uneven and v["k_r2"] != v["k_rmse"]]
+    if mismatch:
+        raise SystemExit(f"{shuffle}: k by R2 differs from k by RMSE for {mismatch}.")
+    if not uneven:
+        return ("Each study's sampling units have the same number of rows, so each held-out study keeps its set "
+                "of values and its k by R2 equals its k by RMSE (checked).")
+    return (f"In the studies whose sampling units all have the same number of rows, k by R2 equals k by RMSE "
+            f"(checked); not checked in {', '.join(uneven)}, whose units differ in rows.")
+
+
+def _studies_with_uneven_units(run):
+    gm, _ = run.matrix()
+    units = ps.sampling_units(gm)
+    rows_per_unit = units.value_counts().groupby(gm["Paper_ID"].groupby(units).first()).nunique()
+    return sorted(rows_per_unit.index[rows_per_unit > 1])
+
+
+def _observed_r2_full_precision(run, rows, full):
+    """Each held-out study's observed R2 at full precision, from its observed RMSE (full precision in the
+    script's table) and its measured caproate: R2 = 1 - n RMSE^2 / sum((y - mean y)^2). It must match the
+    table's R2 to 1e-9 when the table is at full precision, and to its 3 decimals when the table was rounded."""
     gm, _ = run.matrix()
     y, papers = gm[ps.TARGET], gm["Paper_ID"]
-    rows = by[by["shuffle"] == "within each study"].set_index("held_out_study")
     out = {}
-    for h, s in rows.iterrows():
+    for _, s in rows.iterrows():
+        h = s["held_out_study"]
         yt = y[papers == h].to_numpy(dtype=float)
         out[h] = 1 - len(yt) * s["observed_rmse"] ** 2 / ((yt - yt.mean()) ** 2).sum()
-        if abs(round(out[h], 3) - s["observed_r2"]) > 0.0005 + 1e-12:
-            raise SystemExit(f"The R2 computed from 03's RMSE for {h} does not match 03's table.")
+        gap = abs(out[h] - s["observed_r2"]) if full else abs(round(out[h], 3) - s["observed_r2"])
+        if gap > (1e-9 if full else 0.0005 + 1e-12):
+            raise SystemExit(f"The R2 computed from the table's RMSE for {h} does not match the table's R2.")
     return out
 
 
@@ -1019,6 +1067,9 @@ def main():
         print(f"{name}: {report['values']} values compared, {state}")
         for line in report["differ"] + [f"not checked: {x}" for x in report["not_checked"]]:
             print(f"  {line}")
+        listed = new.get(name, {}).get("_differs_from_03_table", "none")
+        for line in ([] if listed == "none" else listed):
+            print(f"  note (your run's 03 table, compared at 3 decimals): {line}")
         for k in total:
             total[k] += report[k]
     print(f"\n{total['values']} values compared; {len(total['differ'])} differ; "

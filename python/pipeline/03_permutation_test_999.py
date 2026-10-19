@@ -1,5 +1,5 @@
 # 03_permutation_test_999.py
-# Target-permutation controls for the headline (Section 3.2, Figure 2): the
+# Target-permutation controls for the headline (Section 3.4, Figure 2): the
 # full-matrix LOSO with exactly the core predictor set, the same model as
 # Table 3b's LOSO row and Table 4's full-matrix tier 3 (02_loso_by_study.py).
 #
@@ -11,7 +11,8 @@
 #      same study only, so every study keeps its own values and the
 #      between-study differences stay. This asks whether the predictors (the
 #      genera and the chemistry together) carry information that transfers
-#      beyond study-level patterns.
+#      beyond study-level patterns. It does not keep the reactor a value came
+#      from or the order of sampling days.
 #
 # Both shuffle by sampling unit, not by row (decision 2026-10-08): the three
 # same-day replicate samples of Duber 2024 and of the Nanopore study share one
@@ -23,8 +24,8 @@
 #
 # Each shuffle records the mean LOSO R2 (the headline statistic) and the mean
 # LOSO RMSE, and both per held-out study. p = (k + 1) / (N + 1), where k is
-# the number of shuffles whose R2 is as high as the observed one, or, for RMSE,
-# whose RMSE is as low as the observed one or lower. Every comparison and every
+# the number of shuffles whose R2 is as high as the observed one or higher, or,
+# for RMSE, whose RMSE is as low as the observed one or lower. Every comparison and every
 # saved statistic is at full precision; values are rounded only when printed
 # (since 2026-10-19: before, R2 was compared with the observed value rounded
 # to 3 decimals, which moved two per-study k by R2 in the run of record of
