@@ -39,9 +39,9 @@
 # with any leading "d" removed (only the Nanopore study writes one). Only
 # Duber 2022 has two units of one reactor on the same day; they keep the order
 # of their sampling-unit id, which for two units does not change the null.
-# p = (k + 1) / (N + 1), as in 03: k counts the shuffles whose R2 is as high as
-# the observed one or higher, or whose RMSE is as low as the observed one or
-# lower. Every comparison and every saved statistic is at full precision;
+# p = (k + 1) / (N + 1), as in 03: k by R2 counts the shuffles whose R2 is as
+# high as the observed one or higher; k by RMSE, those whose RMSE is as low as
+# the observed one or lower. Every comparison and every saved statistic is at full precision;
 # values are rounded only when printed. The test is repeated without the Duber
 # 2022 held-out fold: the mean over the other six held-out studies, from the
 # same shuffles. Duber 2022's samples stay in the training sets of those six
@@ -239,7 +239,8 @@ for s in summary:
           f"RMSE {s['null_rmse_mean']:6.1f} (± {s['null_rmse_sd']:.1f}) | k = {s['k_rmse']:3d}, p = {s['p_rmse']:.4f}")
     print(f"    without the {LEFT_OUT_STUDY} held-out fold: k(R2) = {s['k_r2_without']}, p(R2) "
           f"{s['p_r2_without']:.4f} | k(RMSE) = {s['k_rmse_without']}, p(RMSE) {s['p_rmse_without']:.4f}")
-print("  k = shuffles that do at least as well as the true labels (R2 as high or higher, or RMSE as low or lower)")
+print("  k by R2 = shuffles whose R2 is as high as the true labels' or higher; k by RMSE = those whose RMSE is as "
+      "low or lower")
 print("Per held-out study (observed R2 and RMSE; p of each shuffle scheme):")
 for h in held_out:
     rows = [b for b in by_study if b['held_out_study'] == h]

@@ -565,8 +565,8 @@ LEFT_OUT_STUDY = "Duber_2022"
 
 
 def permutation_control(run):
-    t = run.csv("03", "03_permutation_tests.csv")
-    by = run.csv("03", "03_permutation_tests_by_study.csv")
+    t = _complete(run.csv("03", "03_permutation_tests.csv"), "03_permutation_tests.csv")
+    by = _complete(run.csv("03", "03_permutation_tests_by_study.csv"), "03_permutation_tests_by_study.csv")
     # 03 wrote R2 rounded to 3 decimals until 2026-10-19 and at full precision since then.
     full = any(round(v, 3) != v for v in list(t["observed_r2"]) + list(by["observed_r2"]))
     observed_r2 = _observed_r2_full_precision(run, by[by["shuffle"] == "within each study"], full)
@@ -587,8 +587,8 @@ def permutation_control(run):
         r = one(t, shuffle=shuffle)
         rows = by[by["shuffle"] == shuffle].set_index("held_out_study")
         observed = {h: (observed_r2[h], rows.loc[h, "observed_rmse"]) for h in rows.index}
-        null = run.csv("03", NULL_FILES_03[shuffle])
-        if len(null) != int(r["n_shuffles"]) or abs(null["permuted_r2"].mean() - r["null_r2_mean"]) > 1e-9:
+        null = _complete(run.csv("03", NULL_FILES_03[shuffle]), NULL_FILES_03[shuffle])
+        if len(null) != int(r["n_shuffles"]) or not abs(null["permuted_r2"].mean() - r["null_r2_mean"]) <= 1e-9:
             raise SystemExit(f"{NULL_FILES_03[shuffle]} does not reproduce 03's table ({shuffle}).")
         e = _recounted_entry(r, null, observed, NULL_FILES_03[shuffle])
         n = e["shuffles"]
@@ -596,18 +596,23 @@ def permutation_control(run):
             mine = e if where == "all studies" else e["by_held_out_study"][where]
             if mine["k_rmse"] != int(table["k_rmse"]):
                 raise SystemExit(f"{NULL_FILES_03[shuffle]} does not reproduce 03's k by RMSE ({shuffle}, {where}).")
+            if not full:  # the old rule, R2 against the rounded observed value, must reproduce the table
+                column = null["permuted_r2" if where == "all studies" else f"r2_{where}"]
+                if int((column >= table["observed_r2"]).sum()) != int(table["k_r2"]):
+                    raise SystemExit(f"{NULL_FILES_03[shuffle]} does not reproduce 03's k by R2 ({shuffle}, {where}).")
             if mine["k_r2"] != int(table["k_r2"]):
                 if full:
                     raise SystemExit(f"{NULL_FILES_03[shuffle]} does not reproduce 03's k by R2 ({shuffle}, {where}).")
                 differs.append(f"{shuffle}, {where}: k by R2 {mine['k_r2']} (p {(mine['k_r2'] + 1) / (n + 1):.3f}) "
                                f"here, {int(table['k_r2'])} (p {(int(table['k_r2']) + 1) / (n + 1):.3f}) in "
                                "03's table")
+        if key == "within_each_study":
+            note = _r2_equals_rmse(e, uneven, shuffle, null, observed)
         out[key] = e
     out["across_studies"]["held_out_caproate_spread"] = _spread_under_across_shuffle(run, out["across_studies"]["shuffles"])
     out["across_studies"]["_note"] = "Caproate shuffled by sampling day across all studies, as in the published test."
     out["within_each_study"]["_note"] = ("Caproate shuffled by sampling day within each study, so each study keeps "
-                                         "its own values (added 2026-10-11). " + _r2_equals_rmse(
-                                             out["within_each_study"], uneven, "within each study"))
+                                         "its own values (added 2026-10-11). " + note)
     out["_differs_from_03_table"] = differs or "none"
     return out
 
@@ -617,8 +622,9 @@ NULL_FILES_03B = {"within reactor": "03b_permutation_null_within_reactor_999.csv
 
 
 def reactor_aware_permutation_control(run):
-    t = run.csv("03b", "03b_reactor_aware_permutation_tests.csv")
-    by = run.csv("03b", "03b_reactor_aware_permutation_tests_by_study.csv")
+    t = _complete(run.csv("03b", "03b_reactor_aware_permutation_tests.csv"), "03b_reactor_aware_permutation_tests.csv")
+    by = _complete(run.csv("03b", "03b_reactor_aware_permutation_tests_by_study.csv"),
+                   "03b_reactor_aware_permutation_tests_by_study.csv")
     uneven = _studies_with_uneven_units(run)
     out = {"_note": "03b (exploratory sensitivity analyses, added 2026-10-19): the headline LOSO refitted 999 "
                     "times for each of two shuffles that keep caproate inside its reactor, with the same folds, "
@@ -640,11 +646,11 @@ def reactor_aware_permutation_control(run):
             raise SystemExit(f"03b's table leaves out {r['left_out_study']}, not {LEFT_OUT_STUDY}.")
         observed_r2 = _observed_r2_full_precision(run, by[by["shuffle"] == shuffle], full=True)
         rows = by[by["shuffle"] == shuffle].set_index("held_out_study")
-        if abs(np.mean(list(observed_r2.values())) - r["observed_r2"]) > 1e-9:
+        if not abs(np.mean(list(observed_r2.values())) - r["observed_r2"]) <= 1e-9:
             raise SystemExit(f"The held-out studies' R2 in 03b's tables do not average to its observed R2 ({shuffle}).")
         observed = {h: (observed_r2[h], rows.loc[h, "observed_rmse"]) for h in rows.index}
-        null = run.csv("03b", name)
-        if len(null) != int(r["n_shuffles"]) or abs(null["permuted_r2"].mean() - r["null_r2_mean"]) > 1e-9:
+        null = _complete(run.csv("03b", name), name)
+        if len(null) != int(r["n_shuffles"]) or not abs(null["permuted_r2"].mean() - r["null_r2_mean"]) <= 1e-9:
             raise SystemExit(f"{name} does not reproduce 03b's table ({shuffle}).")
         e = _recounted_entry(r, null, observed, name)
         tables = [("all studies", e, r["k_r2"], r["k_rmse"]),
@@ -654,7 +660,7 @@ def reactor_aware_permutation_control(run):
         for where, mine, k_r2, k_rmse in tables:
             if (mine["k_r2"], mine["k_rmse"]) != (int(k_r2), int(k_rmse)):
                 raise SystemExit(f"{name} does not reproduce 03b's k ({shuffle}, {where}).")
-        out["_note_r2_and_rmse"] = _r2_equals_rmse(e, uneven, shuffle)
+        out["_note_r2_and_rmse"] = _r2_equals_rmse(e, uneven, shuffle, null, observed)
         out[key] = e
     return out
 
@@ -665,7 +671,7 @@ def _recounted_entry(r, null, observed, name):
     script's own table, for the values that are not recomputed."""
     n = len(null)
     obs_r2, obs_rmse = np.mean([v[0] for v in observed.values()]), np.mean([v[1] for v in observed.values()])
-    if abs(obs_rmse - r["observed_rmse"]) > 1e-9:
+    if not abs(obs_rmse - r["observed_rmse"]) <= 1e-9:
         raise SystemExit(f"The held-out studies' RMSE in {name}'s tables do not average to its observed RMSE.")
     k_r2 = _count_reaching(null["permuted_r2"], obs_r2, higher=True)
     k_rmse = _count_reaching(null["permuted_rmse"], obs_rmse, higher=False)
@@ -696,10 +702,12 @@ def _recounted_entry(r, null, observed, name):
     return e
 
 
-def _r2_equals_rmse(e, uneven, shuffle):
+def _r2_equals_rmse(e, uneven, shuffle, null, observed):
     """Under a shuffle that keeps each study's values, a held-out study whose sampling units all have the same
-    number of rows keeps its set of caproate values, so its k by R2 must equal its k by RMSE. Stops if not."""
-    mismatch = [h for h, v in e["by_held_out_study"].items() if h not in uneven and v["k_r2"] != v["k_rmse"]]
+    number of rows keeps its set of caproate values, so every shuffle that reaches its observed R2 also reaches
+    its observed RMSE, and the reverse. Stops if not."""
+    mismatch = [h for h, (o_r2, o_rmse) in observed.items() if h not in uneven and
+                ((null[f"r2_{h}"] >= o_r2) != (null[f"rmse_{h}"] <= o_rmse)).any()]
     if mismatch:
         raise SystemExit(f"{shuffle}: k by R2 differs from k by RMSE for {mismatch}.")
     if not uneven:
@@ -728,9 +736,16 @@ def _observed_r2_full_precision(run, rows, full):
         yt = y[papers == h].to_numpy(dtype=float)
         out[h] = 1 - len(yt) * s["observed_rmse"] ** 2 / ((yt - yt.mean()) ** 2).sum()
         gap = abs(out[h] - s["observed_r2"]) if full else abs(round(out[h], 3) - s["observed_r2"])
-        if gap > (1e-9 if full else 0.0005 + 1e-12):
+        if not gap <= (1e-9 if full else 0.0005 + 1e-12):
             raise SystemExit(f"The R2 computed from the table's RMSE for {h} does not match the table's R2.")
     return out
+
+
+def _complete(table, name):
+    """Stops if a results table has an empty cell, which no comparison below would catch."""
+    if table.isna().any().any():
+        raise SystemExit(f"{name} has empty cells.")
+    return table
 
 
 def _count_reaching(null, observed, higher):
@@ -1030,9 +1045,10 @@ SECTIONS = [primer_trimming, data_construction, table_1_sample_counts, table_2_p
             table_5_intrastudy_reactor_transfer, figure_3_leakage_tightening_progression, permutation_control,
             reactor_aware_permutation_control, algorithm_selection, ecological_robustness_claim, shared_subspace_transfer_control, replicate_checks,
             figures, table_s2]
-# Sections whose script has not yet been run for the run of record: until it has, results_reference.json
-# marks them as pending instead of stopping, and --check does not compare them.
-PENDING = {reactor_aware_permutation_control}
+# Sections whose script has not yet been run for the run of record, with that script: until the run of record
+# has a folder with its log, results_reference.json marks them as pending instead of stopping, and --check does
+# not compare them. Once the folder is there, a missing file stops the build as for any other section.
+PENDING = {reactor_aware_permutation_control: "03b"}
 
 
 def about(run):
@@ -1070,12 +1086,12 @@ def about(run):
         "tolerance": {
             "exact": "Every model of the corrected pipeline is deterministic. XGBoost runs without row or column "
                      "subsampling; the few random parts are seeded (07a's LightGBM random-forest mode, 07d's "
-                     "random forest, the 999 shuffles of 03, the seeds 0-19 of 07b and 11), and the vessel folds "
+                     "random forest, the 999 shuffles of 03 and of each 03b shuffle, the seeds 0-19 of 07b and 11), and the vessel folds "
                      "of 04 and 09 break ties by name. With the pinned versions every value reproduces to every "
                      "decimal given, on any machine: --check on the cloud's own runs of the same scripts (Linux, "
                      "from its own copy of the matrices) finds no value that differs from the laptop run of "
                      "record (Windows 11).",
-            "monte_carlo": "The p-values of 03 reproduce exactly, because every shuffle is seeded, but they are "
+            "monte_carlo": "The p-values of 03 and 03b reproduce exactly, because every shuffle is seeded, but they are "
                            "estimates over 999 shuffles; their Monte Carlo standard error is given with them.",
             "check": "python python/build_results_reference.py --check <your corrected_<date> folder> lists every "
                      "value of your run that differs from this file by more than half a unit in its last decimal.",
@@ -1096,8 +1112,11 @@ def build(run, strict):
             values = fn(run)
         except Missing as e:
             if strict and fn in PENDING:
-                out[fn.__name__] = {"_pending": f"not yet run for the run of record ({e})"}
-                continue
+                try:
+                    run.stage6(PENDING[fn])
+                except Missing:
+                    out[fn.__name__] = {"_pending": f"not yet run for the run of record ({e})"}
+                    continue
             if strict:
                 raise SystemExit(f"{fn.__name__}: {e}")
             out[fn.__name__] = {"_not_checked": str(e)}
@@ -1152,7 +1171,7 @@ def compare(ref, new, path, report):
         return
     report["values"] += 1
     if isinstance(new, V) and not isinstance(ref, (bool, str)):
-        if abs(float(new) - ref) > 0.5 * 10 ** -new.decimals + 1e-9:
+        if not abs(float(new) - ref) <= 0.5 * 10 ** -new.decimals + 1e-9:
             report["differ"].append(f"{path}: {round(float(new), new.decimals + 3)} in your run, {ref} here")
     elif plain(new) != ref:
         report["differ"].append(f"{path}: {plain(new)!r} in your run, {ref!r} here")

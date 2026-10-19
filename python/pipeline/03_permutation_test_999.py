@@ -5,15 +5,17 @@
 #
 # Two shuffles of caproate, reported side by side (decision 2026-10-11):
 #   1. Across studies: caproate is shuffled over the sampling units of all
-#      studies. This mixes values between studies, which erases the
-#      between-study differences that make the real task hard.
+#      studies. This mixes values between studies, which widens the spread of
+#      most held-out studies' values, so it tends to make R2 easier to reach
+#      and RMSE harder.
 #   2. Within each study: caproate is shuffled among the sampling units of the
 #      same study only, so every study keeps its own values and the
 #      between-study differences stay. This asks whether the predictors (the
-#      genera and the chemistry together) carry information that transfers
+#      genera and the chemistry together) carry information about caproate
 #      beyond study-level patterns. It does not keep the reactor a value came
 #      from or the order of sampling days; 03b_reactor_aware_permutation.py
-#      adds two shuffles that do (exploratory sensitivity analyses).
+#      adds two exploratory sensitivity analyses that keep caproate inside its
+#      reactor (within reactor; a cyclic shift in day order).
 #
 # Both shuffle by sampling unit, not by row (decision 2026-10-08): the three
 # same-day replicate samples of Duber 2024 and of the Nanopore study share one
@@ -37,8 +39,10 @@
 # values when every sampling unit of the study has the same number of rows
 # (checked here), so for each held-out study the shuffles that reach its
 # observed R2 are exactly those that reach its observed RMSE, and p by R2 must
-# equal p by RMSE. The script prints any mismatch. The across-study shuffle
-# changes each study's values, so it has no such check.
+# equal p by RMSE. The script counts, for each study, the shuffles that reach
+# one of the two observed values but not the other, and prints any mismatch.
+# The across-study shuffle changes each study's values, so it has no such
+# check.
 #
 # Output (in BIOTWIN_RESULTS_DIR, default ../../results):
 #   permutation_null_distribution_<N>.csv   across-study shuffles: mean LOSO R2 and RMSE,
@@ -138,7 +142,7 @@ print(f"Rows: {len(df)} | sampling units: {len(unit_values)} in {len(STUDIES)} s
 print(f"Observed LOSO R2 (true labels): {observed_r2:.3f} | observed mean RMSE: {observed_rmse:.1f} mM C "
       f"(training-mean benchmark: {benchmark_rmse:.1f})")
 
-summary, by_study = [], []
+summary, by_study, disagree = [], [], {}
 for scheme, shuffle in [('across studies', shuffled_across), ('within each study', shuffled_within)]:
     print("-" * 80)
     print(f"Shuffling caproate {scheme}")
@@ -169,8 +173,10 @@ for scheme, shuffle in [('across studies', shuffled_across), ('within each study
         study_r2s = [row[f'r2_{h}'] for row in per_study]
         study_rmses = [row[f'rmse_{h}'] for row in per_study]
         obs_r2 = observed_folds_r2[i]
-        k_r2_h = sum(r2 >= obs_r2 for r2 in study_r2s)
-        k_rmse_h = sum(rmse <= observed_folds_rmse[i] for rmse in study_rmses)
+        reach_r2 = [r2 >= obs_r2 for r2 in study_r2s]
+        reach_rmse = [rmse <= observed_folds_rmse[i] for rmse in study_rmses]
+        k_r2_h, k_rmse_h = sum(reach_r2), sum(reach_rmse)
+        disagree[(scheme, h)] = sum(a != b for a, b in zip(reach_r2, reach_rmse))
         by_study.append({'shuffle': scheme, 'held_out_study': h, 'n_shuffles': N_ITERATIONS,
                          'observed_r2': obs_r2, 'null_r2_mean': np.mean(study_r2s),
                          'null_r2_median': np.median(study_r2s),
@@ -185,7 +191,7 @@ for s in summary:
     print(f"  Shuffled {s['shuffle']:18s} R2 {s['null_r2_mean']:7.3f} (± {s['null_r2_sd']:.3f}), "
           f"median {s['null_r2_median']:7.3f} | k = {s['k_r2']:3d}, p = {s['p_r2']:.4f} || "
           f"RMSE {s['null_rmse_mean']:6.1f} (± {s['null_rmse_sd']:.1f}) | k = {s['k_rmse']:3d}, p = {s['p_rmse']:.4f}")
-print("  k = shuffles that do at least as well as the true labels (R2 as high, or RMSE as low)")
+print("  k = shuffles that do at least as well as the true labels (R2 as high or higher, or RMSE as low or lower)")
 print("Per held-out study (observed R2 and RMSE; p of each shuffle scheme):")
 for i, h in enumerate(held_out):
     rows = [b for b in by_study if b['held_out_study'] == h]
@@ -196,9 +202,10 @@ print("Self-check (within each study): per held-out study, p by R2 must equal p 
 if UNEVEN_STUDIES:
     print(f"  Studies whose sampling units differ in rows (no check): {', '.join(UNEVEN_STUDIES)}")
 checked = [b for b in by_study if b['shuffle'] == 'within each study' and b['held_out_study'] not in UNEVEN_STUDIES]
-mismatches = [b for b in checked if b['k_r2'] != b['k_rmse']]
+mismatches = [b for b in checked if disagree[(b['shuffle'], b['held_out_study'])]]
 for b in mismatches:
-    print(f"  MISMATCH {b['held_out_study']}: k(R2) = {b['k_r2']}, k(RMSE) = {b['k_rmse']}")
+    print(f"  MISMATCH {b['held_out_study']}: {disagree[(b['shuffle'], b['held_out_study'])]} shuffle(s) reach the "
+          f"observed R2 or RMSE but not both; k(R2) = {b['k_r2']}, k(RMSE) = {b['k_rmse']}")
 print(f"  {len(checked) - len(mismatches)} of {len(checked)} held-out studies agree; {len(mismatches)} mismatch(es).")
 pd.DataFrame(summary).to_csv(SUMMARY_PATH, index=False)
 pd.DataFrame(by_study).to_csv(BY_STUDY_PATH, index=False)
