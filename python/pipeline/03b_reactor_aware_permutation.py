@@ -1,36 +1,45 @@
 # 03b_reactor_aware_permutation.py
-# Supplementary sensitivity for the permutation controls of 03 (Section 3.4,
-# Figure 2), added 2026-10-19 after the 15 Oct critic review (comment 1). 03's
-# within-study shuffle moves caproate between the reactors of a study and
+# Exploratory sensitivity analyses for the permutation controls of 03 (Section
+# 3.4, Figure 2), added 2026-10-19 after the 15 Oct critic review (comment 1).
+# 03's within-study shuffle moves caproate between the reactors of a study and
 # between sampling days, so its null treats every sampling unit of a study as
 # exchangeable. This script refits the same headline LOSO (full matrix, core
 # predictor set, the same folds and settings as 03) under two shuffles that
-# keep the reactor structure. 03 and its outputs are unchanged; both shuffles
-# are reported whatever they show (decision 2026-10-19).
-#   1. Within reactor: caproate is permuted only among the sampling units of
-#      the same reactor or bottle label (Paper_ID + BIOREACTOR), so each
-#      reactor keeps its own values.
-#   2. Cyclic shift within reactor: each reactor's caproate series, in order of
-#      sampling day, is shifted by a random lag of 1 to n - 1 units (n = the
-#      reactor's sampling units), so each reactor keeps its values and their
-#      autocorrelation in time; only the alignment of caproate with that day's
-#      predictors is broken.
+# keep caproate inside its reactor. 03 and its outputs are unchanged; both
+# shuffles are reported whatever they show (decisions of 2026-10-19).
+#   1. Within reactor: caproate is permuted among the sampling units of the
+#      same reactor or bottle label (Paper_ID + BIOREACTOR), so each reactor
+#      keeps its own values.
+#   2. Cyclic shift within reactor: each reactor's caproate values, in order of
+#      sampling day, are rotated by a random lag drawn from 0 to n - 1 (n = the
+#      reactor's sampling units; the last values wrap round to the first days).
+#      Each reactor keeps its values in the same cyclic order; only their
+#      alignment with the days' predictors changes. The sampling intervals are
+#      uneven, so this is not a shift by a fixed time.
 # Both move caproate by sampling unit, as 03 does: the same-day replicates of
 # Duber 2024 and the Nanopore study share one value and move together.
 # Reactors with a single sampling unit (Brodowski 2022 B1, R2, R3 and R4) keep
-# their value. Each Duber 2022 bottle label (R1-R9) holds two bottles sampled
-# on day 22; both shuffles can only swap the two, and the cyclic shift always
-# does (a lag of 1 of 2).
+# their value. Each Duber 2022 label (R1-R9) holds two replicate bottles
+# sampled once (day 22), so both shuffles can only exchange those two bottles:
+# for Duber 2022 either shuffle is a permutation between replicate bottles,
+# not a shift in time.
 #
 # Shuffle i uses np.random.RandomState(i), drawing the reactors in
 # alphabetical order of their label. Sampling days are read from DAY with the
 # Nanopore study's leading "d" removed; units of one reactor on the same day
 # keep the order of their sampling-unit id. p = (k + 1) / (N + 1), as in 03:
-# k counts the shuffles whose mean R2 reaches the observed one (rounded to 3
-# decimals), or whose mean RMSE is as low as the observed one or lower. The
-# same p is also given without the Duber 2022 fold (the mean over the other
-# six held-out studies, from the same shuffles), because most of the gain over
-# the training-mean benchmark comes from that study.
+# k counts the shuffles whose R2 is as high as the observed one, or whose RMSE
+# is as low as the observed one or lower. Every comparison and every saved
+# statistic is at full precision; values are rounded only when printed.
+# The test is repeated without the Duber 2022 held-out fold: the mean over the
+# other six held-out studies, from the same shuffles. Duber 2022's samples stay
+# in the training sets of those six folds.
+#
+# Self-check: both shuffles keep each study's set of caproate values when every
+# sampling unit of the study has the same number of rows (checked here), so for
+# each held-out study the shuffles that reach its observed R2 are exactly those
+# that reach its observed RMSE, and p by R2 must equal p by RMSE. The script
+# prints any mismatch.
 #
 # Output (in BIOTWIN_RESULTS_DIR, default ../../results):
 #   03b_permutation_null_within_reactor_<N>.csv   mean LOSO R2 and RMSE per shuffle,
@@ -84,7 +93,7 @@ for train_idx, test_idx in LeaveOneGroupOut().split(X, y_true, groups=papers):
         held_out.append(papers.iloc[test_idx[0]])
 if LEFT_OUT_STUDY not in held_out:
     raise SystemExit(f"{LEFT_OUT_STUDY} is not one of the held-out studies {held_out}.")
-kept = np.array([h != LEFT_OUT_STUDY for h in held_out])
+kept = [h for h in held_out if h != LEFT_OUT_STUDY]
 
 
 def loso_r2_rmse(y):
@@ -111,6 +120,9 @@ REACTORS = sorted(unit_reactor.unique())
 REACTOR_UNITS = {r: unit_order[unit_reactor.values == r] for r in REACTORS}
 REACTOR_UNITS_BY_DAY = {r: idx[np.argsort(unit_day.loc[idx].values, kind='mergesort')]
                         for r, idx in REACTOR_UNITS.items()}
+# The self-check's condition: every sampling unit of a study has the same number of rows.
+rows_per_unit = units.value_counts().groupby(papers.groupby(units).first()).nunique()
+UNEVEN_STUDIES = sorted(rows_per_unit.index[rows_per_unit > 1])
 
 
 def to_rows(shuffled_units):
@@ -131,24 +143,25 @@ def shifted_within_reactor(seed):
     shuffled = unit_values.copy()
     for reactor in REACTORS:
         idx = REACTOR_UNITS_BY_DAY[reactor]
-        if len(idx) > 1:
-            shuffled.loc[idx] = np.roll(unit_values.loc[idx].values, rng.randint(1, len(idx)))
+        shuffled.loc[idx] = np.roll(unit_values.loc[idx].values, rng.randint(0, len(idx)))
     return to_rows(shuffled)
 
 
 observed_folds_r2, observed_folds_rmse = loso_r2_rmse(y_true)
+observed = dict(zip(held_out, zip(observed_folds_r2, observed_folds_rmse)))
 observed_r2, observed_rmse = observed_folds_r2.mean(), observed_folds_rmse.mean()
-TRUE_OBSERVED_R2 = round(observed_r2, 3)
-observed_r2_kept = round(observed_folds_r2[kept].mean(), 3)
-observed_rmse_kept = observed_folds_rmse[kept].mean()
+observed_r2_kept = np.mean([observed[h][0] for h in kept])
+observed_rmse_kept = np.mean([observed[h][1] for h in kept])
 benchmark_rmse = np.mean([training_mean_r2_rmse(y_true.iloc[tr], y_true.iloc[te])[1] for tr, te, _, _ in folds])
 
-print(f"\n--- {N_ITERATIONS}-SHUFFLE REACTOR-AWARE PERMUTATION TESTS (headline: full-matrix LOSO, core set) ---")
+print(f"\n--- {N_ITERATIONS}-SHUFFLE REACTOR-AWARE PERMUTATION TESTS (exploratory; headline: full-matrix LOSO, "
+      "core set) ---")
 print(f"Rows: {len(df)} | sampling units: {len(unit_values)} in {len(REACTORS)} reactors "
       f"(same-day replicates move together) | predictors: {len(features)}")
-print(f"Observed LOSO R2 (true labels): {TRUE_OBSERVED_R2} | observed mean RMSE: {observed_rmse:.2f} mM C "
+print(f"Observed LOSO R2 (true labels): {observed_r2:.3f} | observed mean RMSE: {observed_rmse:.2f} mM C "
       f"(training-mean benchmark: {benchmark_rmse:.1f})")
-print(f"Without the {LEFT_OUT_STUDY} fold: observed R2 {observed_r2_kept}, RMSE {observed_rmse_kept:.2f} mM C")
+print(f"Without the {LEFT_OUT_STUDY} held-out fold: observed R2 {observed_r2_kept:.3f}, "
+      f"RMSE {observed_rmse_kept:.2f} mM C")
 print("Sampling units per reactor, in day order (single-unit reactors keep their value):")
 for reactor in REACTORS:
     idx = REACTOR_UNITS_BY_DAY[reactor]
@@ -175,49 +188,58 @@ for scheme, shuffle in [('within reactor', shuffled_within_reactor),
                              'permuted_rmse': rmses}), pd.DataFrame(per_study)],
               axis=1).to_csv(NULL_PATHS[scheme], index=False)
     per = pd.DataFrame(per_study)
-    r2s_kept = per[[f'r2_{h}' for h in np.array(held_out)[kept]]].mean(axis=1)
-    rmses_kept = per[[f'rmse_{h}' for h in np.array(held_out)[kept]]].mean(axis=1)
-    k_r2 = sum(r2 >= TRUE_OBSERVED_R2 for r2 in r2s)
-    k_rmse = sum(rmse <= observed_rmse for rmse in rmses)
+    r2s, rmses = np.array(r2s), np.array(rmses)
+    r2s_kept = per[[f'r2_{h}' for h in kept]].mean(axis=1)
+    rmses_kept = per[[f'rmse_{h}' for h in kept]].mean(axis=1)
+    k_r2 = int((r2s >= observed_r2).sum())
+    k_rmse = int((rmses <= observed_rmse).sum())
     k_r2_kept = int((r2s_kept >= observed_r2_kept).sum())
     k_rmse_kept = int((rmses_kept <= observed_rmse_kept).sum())
-    summary.append({'shuffle': scheme, 'n_shuffles': N_ITERATIONS, 'observed_r2': TRUE_OBSERVED_R2,
-                    'null_r2_mean': np.mean(r2s), 'null_r2_sd': np.std(r2s), 'null_r2_median': np.median(r2s),
+    summary.append({'shuffle': scheme, 'n_shuffles': N_ITERATIONS, 'observed_r2': observed_r2,
+                    'null_r2_mean': r2s.mean(), 'null_r2_sd': r2s.std(), 'null_r2_median': np.median(r2s),
                     'k_r2': k_r2, 'p_r2': (k_r2 + 1) / (N_ITERATIONS + 1),
-                    'observed_rmse': observed_rmse, 'null_rmse_mean': np.mean(rmses),
-                    'null_rmse_sd': np.std(rmses), 'k_rmse': k_rmse, 'p_rmse': (k_rmse + 1) / (N_ITERATIONS + 1),
+                    'observed_rmse': observed_rmse, 'null_rmse_mean': rmses.mean(),
+                    'null_rmse_sd': rmses.std(), 'k_rmse': k_rmse, 'p_rmse': (k_rmse + 1) / (N_ITERATIONS + 1),
                     'training_mean_benchmark_rmse': benchmark_rmse,
                     'left_out_study': LEFT_OUT_STUDY, 'observed_r2_without': observed_r2_kept,
                     'k_r2_without': k_r2_kept, 'p_r2_without': (k_r2_kept + 1) / (N_ITERATIONS + 1),
                     'observed_rmse_without': observed_rmse_kept,
                     'k_rmse_without': k_rmse_kept, 'p_rmse_without': (k_rmse_kept + 1) / (N_ITERATIONS + 1)})
-    for i, h in enumerate(held_out):
-        study_r2s = per[f'r2_{h}']
-        study_rmses = per[f'rmse_{h}']
-        obs_r2 = round(observed_folds_r2[i], 3)
-        k_r2_h = int((study_r2s >= obs_r2).sum())
-        k_rmse_h = int((study_rmses <= observed_folds_rmse[i]).sum())
+    for h in held_out:
+        study_r2s, study_rmses = per[f'r2_{h}'], per[f'rmse_{h}']
+        k_r2_h = int((study_r2s >= observed[h][0]).sum())
+        k_rmse_h = int((study_rmses <= observed[h][1]).sum())
         by_study.append({'shuffle': scheme, 'held_out_study': h, 'n_shuffles': N_ITERATIONS,
-                         'observed_r2': obs_r2, 'null_r2_mean': study_r2s.mean(),
+                         'observed_r2': observed[h][0], 'null_r2_mean': study_r2s.mean(),
                          'null_r2_median': study_r2s.median(),
                          'k_r2': k_r2_h, 'p_r2': (k_r2_h + 1) / (N_ITERATIONS + 1),
-                         'observed_rmse': observed_folds_rmse[i], 'null_rmse_mean': study_rmses.mean(),
+                         'observed_rmse': observed[h][1], 'null_rmse_mean': study_rmses.mean(),
                          'k_rmse': k_rmse_h, 'p_rmse': (k_rmse_h + 1) / (N_ITERATIONS + 1)})
     print(f"  Saved full results to: {NULL_PATHS[scheme]}")
 
 print("-" * 80)
-print(f"NULL DISTRIBUTIONS (N={N_ITERATIONS}), observed R2 {TRUE_OBSERVED_R2:.3f}, RMSE {observed_rmse:.1f} mM C:")
+print(f"NULL DISTRIBUTIONS (N={N_ITERATIONS}), observed R2 {observed_r2:.3f}, RMSE {observed_rmse:.1f} mM C:")
 for s in summary:
     print(f"  Shuffled {s['shuffle']:28s} R2 {s['null_r2_mean']:7.3f} (± {s['null_r2_sd']:.3f}), "
           f"median {s['null_r2_median']:7.3f} | k = {s['k_r2']:3d}, p = {s['p_r2']:.4f} || "
           f"RMSE {s['null_rmse_mean']:6.1f} (± {s['null_rmse_sd']:.1f}) | k = {s['k_rmse']:3d}, p = {s['p_rmse']:.4f}")
-    print(f"    without the {LEFT_OUT_STUDY} fold: p(R2) {s['p_r2_without']:.4f}, p(RMSE) {s['p_rmse_without']:.4f}")
+    print(f"    without the {LEFT_OUT_STUDY} held-out fold: k(R2) = {s['k_r2_without']}, p(R2) "
+          f"{s['p_r2_without']:.4f} | k(RMSE) = {s['k_rmse_without']}, p(RMSE) {s['p_rmse_without']:.4f}")
 print("  k = shuffles that do at least as well as the true labels (R2 as high, or RMSE as low)")
 print("Per held-out study (observed R2 and RMSE; p of each shuffle scheme):")
-for i, h in enumerate(held_out):
+for h in held_out:
     rows = [b for b in by_study if b['held_out_study'] == h]
-    print(f"  {h:34s} R2 {rows[0]['observed_r2']:7.3f}, RMSE {rows[0]['observed_rmse']:6.1f} | " +
+    print(f"  {h:34s} R2 {observed[h][0]:7.3f}, RMSE {observed[h][1]:6.1f} | " +
           " | ".join(f"{b['shuffle']}: p(R2) {b['p_r2']:.4f}, p(RMSE) {b['p_rmse']:.4f}" for b in rows))
+print("Self-check: per held-out study, p by R2 must equal p by RMSE when every sampling unit of the study "
+      "has the same number of rows.")
+if UNEVEN_STUDIES:
+    print(f"  Studies whose sampling units differ in rows (no check): {', '.join(UNEVEN_STUDIES)}")
+mismatches = [b for b in by_study if b['held_out_study'] not in UNEVEN_STUDIES and b['k_r2'] != b['k_rmse']]
+for b in mismatches:
+    print(f"  MISMATCH {b['shuffle']}, {b['held_out_study']}: k(R2) = {b['k_r2']}, k(RMSE) = {b['k_rmse']}")
+n_checked = sum(1 for b in by_study if b['held_out_study'] not in UNEVEN_STUDIES)
+print(f"  {n_checked - len(mismatches)} of {n_checked} study-and-shuffle pairs agree; {len(mismatches)} mismatch(es).")
 pd.DataFrame(summary).to_csv(SUMMARY_PATH, index=False)
 pd.DataFrame(by_study).to_csv(BY_STUDY_PATH, index=False)
 print(f"  Saved: {SUMMARY_PATH}")

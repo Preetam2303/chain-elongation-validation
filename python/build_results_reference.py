@@ -596,12 +596,16 @@ def _permutation_entry(r, by):
 def reactor_aware_permutation_control(run):
     t = run.csv("03b", "03b_reactor_aware_permutation_tests.csv")
     by = run.csv("03b", "03b_reactor_aware_permutation_tests_by_study.csv")
-    out = {"_note": "03b (supplementary, added 2026-10-19): the headline LOSO refitted 999 times for each of two "
-                    "shuffles of caproate that keep the reactor structure, with the same folds, settings, k and p "
-                    "as 03. Within reactor: caproate permuted among the sampling units of the same reactor or "
-                    "bottle label. Cyclic shift: each reactor's series, in order of sampling day, shifted by a "
-                    "random lag, which keeps its autocorrelation. Single-unit reactors keep their value. The "
-                    "'without' values repeat the test on the mean over the other six held-out studies."}
+    out = {"_note": "03b (exploratory sensitivity analyses, added 2026-10-19): the headline LOSO refitted 999 "
+                    "times for each of two shuffles that keep caproate inside its reactor, with the same folds, "
+                    "settings, k and p as 03 (compared at full precision). Within reactor: caproate permuted "
+                    "among the sampling units of the same reactor or bottle label. Cyclic shift: each reactor's "
+                    "values, in order of sampling day, rotated by a random lag from 0 to n - 1, so they keep "
+                    "their cyclic order (the intervals are uneven, so not a shift by a fixed time). Single-unit "
+                    "reactors keep their value; each Duber 2022 label holds two replicate bottles sampled once, "
+                    "so both shuffles can only exchange those two bottles. The 'without' values repeat the test "
+                    "on the mean over the other six held-out folds; Duber 2022's samples stay in their training "
+                    "sets."}
     for shuffle, key in (("within reactor", "within_reactor"), ("cyclic shift within reactor", "cyclic_shift")):
         r = one(t, shuffle=shuffle)
         e = _permutation_entry(r, by[by["shuffle"] == shuffle])
