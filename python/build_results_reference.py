@@ -510,8 +510,8 @@ LEFT_OUT_STUDY = "Duber_2022"
 
 
 def permutation_control(run):
-    t = run.csv("03", "03_permutation_tests.csv")
-    by = run.csv("03", "03_permutation_tests_by_study.csv")
+    t = _complete(run.csv("03", "03_permutation_tests.csv"), "03_permutation_tests.csv")
+    by = _complete(run.csv("03", "03_permutation_tests_by_study.csv"), "03_permutation_tests_by_study.csv")
     # 03 wrote R2 rounded to 3 decimals until 2026-10-19 and at full precision since then.
     full = any(round(v, 3) != v for v in list(t["observed_r2"]) + list(by["observed_r2"]))
     observed_r2 = _observed_r2_full_precision(run, by[by["shuffle"] == "within each study"], full)
@@ -532,8 +532,8 @@ def permutation_control(run):
         r = one(t, shuffle=shuffle)
         rows = by[by["shuffle"] == shuffle].set_index("held_out_study")
         observed = {h: (observed_r2[h], rows.loc[h, "observed_rmse"]) for h in rows.index}
-        null = run.csv("03", NULL_FILES_03[shuffle])
-        if len(null) != int(r["n_shuffles"]) or abs(null["permuted_r2"].mean() - r["null_r2_mean"]) > 1e-9:
+        null = _complete(run.csv("03", NULL_FILES_03[shuffle]), NULL_FILES_03[shuffle])
+        if len(null) != int(r["n_shuffles"]) or not abs(null["permuted_r2"].mean() - r["null_r2_mean"]) <= 1e-9:
             raise SystemExit(f"{NULL_FILES_03[shuffle]} does not reproduce 03's table ({shuffle}).")
         e = _recounted_entry(r, null, observed, NULL_FILES_03[shuffle])
         n = e["shuffles"]
@@ -541,18 +541,23 @@ def permutation_control(run):
             mine = e if where == "all studies" else e["by_held_out_study"][where]
             if mine["k_rmse"] != int(table["k_rmse"]):
                 raise SystemExit(f"{NULL_FILES_03[shuffle]} does not reproduce 03's k by RMSE ({shuffle}, {where}).")
+            if not full:  # the old rule, R2 against the rounded observed value, must reproduce the table
+                column = null["permuted_r2" if where == "all studies" else f"r2_{where}"]
+                if int((column >= table["observed_r2"]).sum()) != int(table["k_r2"]):
+                    raise SystemExit(f"{NULL_FILES_03[shuffle]} does not reproduce 03's k by R2 ({shuffle}, {where}).")
             if mine["k_r2"] != int(table["k_r2"]):
                 if full:
                     raise SystemExit(f"{NULL_FILES_03[shuffle]} does not reproduce 03's k by R2 ({shuffle}, {where}).")
                 differs.append(f"{shuffle}, {where}: k by R2 {mine['k_r2']} (p {(mine['k_r2'] + 1) / (n + 1):.3f}) "
                                f"here, {int(table['k_r2'])} (p {(int(table['k_r2']) + 1) / (n + 1):.3f}) in "
                                "03's table")
+        if key == "within_each_study":
+            note = _r2_equals_rmse(e, uneven, shuffle, null, observed)
         out[key] = e
     out["across_studies"]["held_out_caproate_spread"] = _spread_under_across_shuffle(run, out["across_studies"]["shuffles"])
     out["across_studies"]["_note"] = "Caproate shuffled by sampling day across all studies, as in the published test."
     out["within_each_study"]["_note"] = ("Caproate shuffled by sampling day within each study, so each study keeps "
-                                         "its own values (added 2026-10-11). " + _r2_equals_rmse(
-                                             out["within_each_study"], uneven, "within each study"))
+                                         "its own values (added 2026-10-11). " + note)
     out["_differs_from_03_table"] = differs or "none"
     return out
 
@@ -563,7 +568,7 @@ def _recounted_entry(r, null, observed, name):
     script's own table, for the values that are not recomputed."""
     n = len(null)
     obs_r2, obs_rmse = np.mean([v[0] for v in observed.values()]), np.mean([v[1] for v in observed.values()])
-    if abs(obs_rmse - r["observed_rmse"]) > 1e-9:
+    if not abs(obs_rmse - r["observed_rmse"]) <= 1e-9:
         raise SystemExit(f"The held-out studies' RMSE in {name}'s tables do not average to its observed RMSE.")
     k_r2 = _count_reaching(null["permuted_r2"], obs_r2, higher=True)
     k_rmse = _count_reaching(null["permuted_rmse"], obs_rmse, higher=False)
@@ -594,10 +599,12 @@ def _recounted_entry(r, null, observed, name):
     return e
 
 
-def _r2_equals_rmse(e, uneven, shuffle):
+def _r2_equals_rmse(e, uneven, shuffle, null, observed):
     """Under a shuffle that keeps each study's values, a held-out study whose sampling units all have the same
-    number of rows keeps its set of caproate values, so its k by R2 must equal its k by RMSE. Stops if not."""
-    mismatch = [h for h, v in e["by_held_out_study"].items() if h not in uneven and v["k_r2"] != v["k_rmse"]]
+    number of rows keeps its set of caproate values, so every shuffle that reaches its observed R2 also reaches
+    its observed RMSE, and the reverse. Stops if not."""
+    mismatch = [h for h, (o_r2, o_rmse) in observed.items() if h not in uneven and
+                ((null[f"r2_{h}"] >= o_r2) != (null[f"rmse_{h}"] <= o_rmse)).any()]
     if mismatch:
         raise SystemExit(f"{shuffle}: k by R2 differs from k by RMSE for {mismatch}.")
     if not uneven:
@@ -626,9 +633,16 @@ def _observed_r2_full_precision(run, rows, full):
         yt = y[papers == h].to_numpy(dtype=float)
         out[h] = 1 - len(yt) * s["observed_rmse"] ** 2 / ((yt - yt.mean()) ** 2).sum()
         gap = abs(out[h] - s["observed_r2"]) if full else abs(round(out[h], 3) - s["observed_r2"])
-        if gap > (1e-9 if full else 0.0005 + 1e-12):
+        if not gap <= (1e-9 if full else 0.0005 + 1e-12):
             raise SystemExit(f"The R2 computed from the table's RMSE for {h} does not match the table's R2.")
     return out
+
+
+def _complete(table, name):
+    """Stops if a results table has an empty cell, which no comparison below would catch."""
+    if table.isna().any().any():
+        raise SystemExit(f"{name} has empty cells.")
+    return table
 
 
 def _count_reaching(null, observed, higher):
@@ -1028,7 +1042,7 @@ def compare(ref, new, path, report):
         return
     report["values"] += 1
     if isinstance(new, V) and not isinstance(ref, (bool, str)):
-        if abs(float(new) - ref) > 0.5 * 10 ** -new.decimals + 1e-9:
+        if not abs(float(new) - ref) <= 0.5 * 10 ** -new.decimals + 1e-9:
             report["differ"].append(f"{path}: {round(float(new), new.decimals + 3)} in your run, {ref} here")
     elif plain(new) != ref:
         report["differ"].append(f"{path}: {plain(new)!r} in your run, {ref!r} here")
