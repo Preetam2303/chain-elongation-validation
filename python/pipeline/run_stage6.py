@@ -23,8 +23,8 @@
 # Usage, from the repository root:
 #   python python/pipeline/run_stage6.py            all scripts, in order
 #   python python/pipeline/run_stage6.py 02 04 09   only the scripts named
-# 03 (two permutation tests of 999 shuffles each) takes the longest, then 11
-# (its naive schemes with 20 seeds).
+# 03 and 03b (two permutation tests of 999 shuffles each) take the longest,
+# then 11 (its naive schemes with 20 seeds).
 #
 # The published numbers (and the 2026-10-10 published-settings check run,
 # with its --published environment check) come from the code at commit
@@ -46,6 +46,7 @@ GRAND_MERGE_DIR = "C:/Users/IISiIS-ZWW-233/Documents/BIOTWIN_Grand_Merge"
 SCRIPTS = [
     "02_loso_by_study.py",
     "03_permutation_test_999.py",
+    "03b_reactor_aware_permutation.py",
     "04_vessel_grouped_deployability.py",
     "05_intrastudy_transferability_table5.py",
     "06_cross_platform_transfer.py",

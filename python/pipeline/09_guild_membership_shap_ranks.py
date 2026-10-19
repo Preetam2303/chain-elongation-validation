@@ -2,11 +2,12 @@
 # -----------------------------------------------------------------------------
 # WHICH GENERA, BESIDES THE KNOWN CHAIN ELONGATOR, HOLD A CONSISTENT POSITION?
 #
-# Caproiciproducens is rank 1 by mean |SHAP| in every fold of every validation
-# architecture tested. That is the already-known producer. This script asks the
-# question underneath it: which OTHER genera hold a stable rank across folds,
-# and do they look like helpers (abundance pushes predicted caproate up) or
-# competitors (abundance pushes it down)?
+# Caproiciproducens ranks first or second by mean |SHAP| in every fold of every
+# validation architecture tested (first in 21 of the 22 folds of the corrected
+# run of record, second in the other). That is the already-known producer.
+# This script asks the question underneath it: which OTHER genera hold a
+# stable rank across folds, and do they look like helpers (abundance pushes
+# predicted caproate up) or competitors (abundance pushes it down)?
 #
 # It answers two things at once:
 #   (1) the project's original objective -- identify supporting organisms in
