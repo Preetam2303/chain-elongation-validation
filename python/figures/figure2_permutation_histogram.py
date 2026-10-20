@@ -8,9 +8,11 @@
 #   permutation_null_within_study_999.csv   every shuffle's result, within each study
 #   03_permutation_tests.csv                observed values, k and p
 # k and p are recomputed here from the shuffles with 03's rule (a shuffle
-# counts when its R2 reaches the observed R2, rounded to 3 decimals as in 03,
-# or when its RMSE is as low as the observed one or lower; p = (k + 1) / 1000),
-# and the script stops if they differ from 03's table.
+# counts when its R2 reaches the observed R2 as 03's table gives it, or when
+# its RMSE is as low as the observed one or lower; p = (k + 1) / 1000), and the
+# script stops if they differ from 03's table. 03 saves the observed R2 at full
+# precision since 2026-10-19 (rounded to 3 decimals before); the overall k of
+# the run of record are the same either way.
 #
 # A few shuffles give extreme R2 values (single-fold collapses). Left
 # unclipped, the axis would be sized to fit them and crush the other shuffles

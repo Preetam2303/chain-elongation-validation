@@ -1129,9 +1129,15 @@
   "_source": [
    "corrected_2026-10-11/BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv",
    "corrected_2026-10-11/stage6_corrected_2026-10-11_03_04_07b_09/03_permutation_tests.csv",
-   "corrected_2026-10-11/stage6_corrected_2026-10-11_03_04_07b_09/03_permutation_tests_by_study.csv"
+   "corrected_2026-10-11/stage6_corrected_2026-10-11_03_04_07b_09/03_permutation_tests_by_study.csv",
+   "corrected_2026-10-11/stage6_corrected_2026-10-11_03_04_07b_09/permutation_null_distribution_999.csv",
+   "corrected_2026-10-11/stage6_corrected_2026-10-11_03_04_07b_09/permutation_null_within_study_999.csv"
   ],
-  "_note": "03: the headline LOSO refitted 999 times for each shuffle of caproate by sampling day. k = shuffles that do at least as well as the true labels (R2 as high, or RMSE as low); p = (k + 1) / 1000, so 0.001 is the smallest possible. Shuffle i is seeded with i, so both null distributions reproduce exactly; the Monte Carlo standard error is sqrt(p (1 - p) / 999).",
+  "_note": "03: the headline LOSO refitted 999 times for each shuffle of caproate by sampling day. k = shuffles that do at least as well as the true labels (R2 as high or higher, or RMSE as low or lower); p = (k + 1) / 1000, so 0.001 is the smallest possible. Shuffle i is seeded with i, so both null distributions reproduce exactly; the Monte Carlo standard error is sqrt(p (1 - p) / 999). k and p are recomputed here from every saved shuffle, with the observed R2 at full precision (each held-out study's R2 from its RMSE in 03's table and its measured caproate; the overall R2 is their mean). Until 2026-10-19, 03 compared R2 with the observed value rounded to 3 decimals; the k and p by R2 of 03's table that differ from these are listed in _differs_from_03_table. The 'without' values repeat the test on the mean over the held-out folds other than Duber_2022's, from the same shuffles; Duber_2022's samples stay in the training sets of those folds.",
+  "_differs_from_03_table": [
+   "across studies, Duber_2020: k by R2 307 (p 0.308) here, 305 (p 0.306) in 03's table",
+   "within each study, Hanna_2025: k by R2 195 (p 0.196) here, 196 (p 0.197) in 03's table"
+  ],
   "across_studies": {
    "_note": "Caproate shuffled by sampling day across all studies, as in the published test.",
    "shuffles": 999,
@@ -1177,8 +1183,8 @@
     "Duber_2020": {
      "observed_r2": -0.124,
      "observed_rmse": 119.0,
-     "k_r2": 305,
-     "p_r2": 0.306,
+     "k_r2": 307,
+     "p_r2": 0.308,
      "k_rmse": 472,
      "p_rmse": 0.473
     },
@@ -1206,6 +1212,14 @@
      "k_rmse": 672,
      "p_rmse": 0.673
     }
+   },
+   "without_Duber_2022": {
+    "observed_r2": -0.348,
+    "observed_rmse": 109.5,
+    "k_r2": 369,
+    "p_r2": 0.37,
+    "k_rmse": 28,
+    "p_rmse": 0.029
    },
    "held_out_caproate_spread": {
     "_note": "SD (population) of each study's caproate values (mM C): its own, and the mean over 03's 999 across-study shuffles (the same seeds and sampling units as 03; no model is fitted). A ratio above 1 means the shuffle widens the spread the held-out study is scored against.",
@@ -1249,7 +1263,7 @@
    }
   },
   "within_each_study": {
-   "_note": "Caproate shuffled by sampling day within each study, so each study keeps its own values (added 2026-10-11).",
+   "_note": "Caproate shuffled by sampling day within each study, so each study keeps its own values (added 2026-10-11). Each study's sampling units have the same number of rows, so each held-out study keeps its set of values and its k by R2 equals its k by RMSE (checked).",
    "shuffles": 999,
    "observed_r2": -0.627,
    "observed_rmse": 99.6,
@@ -1317,11 +1331,19 @@
     "Hanna_2025": {
      "observed_r2": -0.044,
      "observed_rmse": 137.5,
-     "k_r2": 196,
-     "p_r2": 0.197,
+     "k_r2": 195,
+     "p_r2": 0.196,
      "k_rmse": 195,
      "p_rmse": 0.196
     }
+   },
+   "without_Duber_2022": {
+    "observed_r2": -0.348,
+    "observed_rmse": 109.5,
+    "k_r2": 0,
+    "p_r2": 0.001,
+    "k_rmse": 1,
+    "p_rmse": 0.002
    }
   }
  },
