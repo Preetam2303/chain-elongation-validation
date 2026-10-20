@@ -13,7 +13,9 @@
 #      between-study differences stay. This asks whether the predictors (the
 #      genera and the chemistry together) carry information about caproate
 #      beyond study-level patterns. It does not keep the reactor a value came
-#      from or the order of sampling days.
+#      from or the order of sampling days; 03b_reactor_aware_permutation.py
+#      adds two exploratory sensitivity analyses that keep caproate inside its
+#      reactor (within reactor; a cyclic shift in day order).
 #
 # Both shuffle by sampling unit, not by row (decision 2026-10-08): the three
 # same-day replicate samples of Duber 2024 and of the Nanopore study share one

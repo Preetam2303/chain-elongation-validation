@@ -90,6 +90,16 @@ def one(t, /, **match):
     return rows.iloc[0]
 
 
+def bh_adjust(p):
+    """Benjamini-Hochberg adjusted p-values, in the order given."""
+    p = np.asarray(p, dtype=float)
+    order = np.argsort(p)
+    adjusted = np.minimum.accumulate((p[order] * len(p) / np.arange(1, len(p) + 1))[::-1])[::-1]
+    out = np.empty(len(p))
+    out[order] = np.minimum(adjusted, 1.0)
+    return out
+
+
 def found(pattern, text, what):
     """The groups of the one line of `text` that `pattern` matches."""
     hits = re.findall(pattern, text, flags=re.M)
@@ -327,6 +337,20 @@ def table_2_prevalence(run):
     out["Clostridium_sensu_stricto_12"]["caveat"] = (
         "Not cross-platform comparable: the synonym dictionary (Methods 2.2) maps every Nanopore 'Clostridium' "
         "call onto this one clade, while the Illumina data resolve several Clostridium sensu stricto clades.")
+    out["clostridium_sensu_stricto_clades"] = _clostridium_clades(gm, illumina)
+    return out
+
+
+def _clostridium_clades(gm, illumina):
+    clades = sorted(c for c in gm.columns if c.startswith("g__Clostridium_sensu_stricto"))
+    out = {"_note": "The Clostridium sensu stricto clades of the final matrix (after the 5% ASV prevalence filter "
+                    "of 00) and the number of each platform's samples in which each is detected (more than zero "
+                    "reads). The clade count is the number of clades detected in at least one of the platform's "
+                    "samples."}
+    for platform, rows in (("illumina", illumina), ("nanopore", ~illumina)):
+        detected = {c.removeprefix("g__"): int((gm.loc[rows, c] > 0).sum()) for c in clades}
+        out[platform] = {"clades_detected": sum(1 for n in detected.values() if n > 0), "of_samples": int(rows.sum()),
+                         "samples_by_clade": {c: n for c, n in detected.items() if n > 0}}
     return out
 
 
@@ -429,6 +453,37 @@ def table_3b_grouped_schemes(run):
         if pd.notna(r["spearman_rho_day_means"]):
             e["spearman_rho_sampling_day_means"] = r3(r["spearman_rho_day_means"])
         out[key] = e
+    out["loso_benchmark_gain_by_held_out_study"] = _benchmark_gain_by_study(
+        run, out["loso_training_mean_benchmark"]["rmse"])
+    return out
+
+
+def _benchmark_gain_by_study(run, benchmark_mean):
+    """Per held-out study of the headline LOSO: the model's RMSE (03's observed values, the same model as 02's
+    headline row) and the training-mean benchmark's, computed here from the matrix (no model is fitted)."""
+    gm, _ = run.matrix()
+    y, papers = gm[ps.TARGET], gm["Paper_ID"]
+    by = run.csv("03", "03_permutation_tests_by_study.csv")
+    model = by[by["shuffle"] == "within each study"].set_index("held_out_study")["observed_rmse"]
+    studies = sorted(papers.unique())
+    if sorted(model.index) != studies:
+        raise SystemExit("03_permutation_tests_by_study.csv does not hold one row per study of the matrix.")
+    bench = {s: ps.training_mean_r2_rmse(y[papers != s], y[papers == s])[1] for s in studies}
+    if abs(np.mean(list(bench.values())) - benchmark_mean) > 0.05:
+        raise SystemExit("The per-study benchmark RMSEs do not average to 02's training-mean benchmark.")
+    gain = {s: bench[s] - model[s] for s in studies}
+    largest = max(gain, key=gain.get)
+    out = {"_note": "RMSE (mM C) of each held-out study under the headline LOSO and under the training-mean "
+                    "benchmark (the mean caproate of the other six studies' rows); gain = benchmark RMSE minus "
+                    "model RMSE, so a positive gain means the model's error was lower. The model RMSEs are 03's "
+                    "observed values; the benchmark RMSEs are computed from the matrix and average to 02's "
+                    "benchmark row."}
+    for s in studies:
+        out[s] = {"model_rmse": r1(model[s]), "benchmark_rmse": r1(bench[s]), "gain": r1(gain[s])}
+    out["mean_gain"] = r1(np.mean(list(gain.values())))
+    out["studies_with_positive_gain"] = sum(1 for g in gain.values() if g > 0)
+    out["largest_gain_study"] = largest
+    out["mean_gain_without_largest_gain_study"] = r1(np.mean([g for s, g in gain.items() if s != largest]))
     return out
 
 
@@ -559,6 +614,54 @@ def permutation_control(run):
     out["within_each_study"]["_note"] = ("Caproate shuffled by sampling day within each study, so each study keeps "
                                          "its own values (added 2026-10-11). " + note)
     out["_differs_from_03_table"] = differs or "none"
+    return out
+
+
+NULL_FILES_03B = {"within reactor": "03b_permutation_null_within_reactor_999.csv",
+                  "cyclic shift within reactor": "03b_permutation_null_cyclic_shift_999.csv"}
+
+
+def reactor_aware_permutation_control(run):
+    t = _complete(run.csv("03b", "03b_reactor_aware_permutation_tests.csv"), "03b_reactor_aware_permutation_tests.csv")
+    by = _complete(run.csv("03b", "03b_reactor_aware_permutation_tests_by_study.csv"),
+                   "03b_reactor_aware_permutation_tests_by_study.csv")
+    uneven = _studies_with_uneven_units(run)
+    out = {"_note": "03b (exploratory sensitivity analyses, added 2026-10-19): the headline LOSO refitted 999 "
+                    "times for each of two shuffles that keep caproate inside its reactor, with the same folds, "
+                    "settings, k and p as 03; k and p are recomputed here from every saved shuffle at full "
+                    "precision, and the build stops if one differs from 03b's tables. Within reactor: caproate "
+                    "permuted among the sampling units of the same reactor or bottle label. Cyclic shift: each "
+                    "reactor's values, in order of sampling day, rotated by a random lag from 0 to n - 1, so they "
+                    "keep their cyclic order (the intervals are uneven, so not a shift by a fixed time). "
+                    "Single-unit reactors keep their value; each Duber 2022 label holds two replicate bottles "
+                    "sampled once, so both shuffles can only exchange those two bottles (a permutation between "
+                    "replicate bottles, not a time shift). The 'without' values repeat the test on the mean over "
+                    f"the held-out folds other than {LEFT_OUT_STUDY}'s, from the same shuffles; {LEFT_OUT_STUDY}'s "
+                    "samples stay in the training sets of those folds, with their values shuffled like the "
+                    "others'."}
+    for shuffle, key in (("within reactor", "within_reactor"), ("cyclic shift within reactor", "cyclic_shift")):
+        r = one(t, shuffle=shuffle)
+        name = NULL_FILES_03B[shuffle]
+        if r["left_out_study"] != LEFT_OUT_STUDY:
+            raise SystemExit(f"03b's table leaves out {r['left_out_study']}, not {LEFT_OUT_STUDY}.")
+        observed_r2 = _observed_r2_full_precision(run, by[by["shuffle"] == shuffle], full=True)
+        rows = by[by["shuffle"] == shuffle].set_index("held_out_study")
+        if not abs(np.mean(list(observed_r2.values())) - r["observed_r2"]) <= 1e-9:
+            raise SystemExit(f"The held-out studies' R2 in 03b's tables do not average to its observed R2 ({shuffle}).")
+        observed = {h: (observed_r2[h], rows.loc[h, "observed_rmse"]) for h in rows.index}
+        null = _complete(run.csv("03b", name), name)
+        if len(null) != int(r["n_shuffles"]) or not abs(null["permuted_r2"].mean() - r["null_r2_mean"]) <= 1e-9:
+            raise SystemExit(f"{name} does not reproduce 03b's table ({shuffle}).")
+        e = _recounted_entry(r, null, observed, name)
+        tables = [("all studies", e, r["k_r2"], r["k_rmse"]),
+                  (f"without {LEFT_OUT_STUDY}", e["without_" + LEFT_OUT_STUDY], r["k_r2_without"],
+                   r["k_rmse_without"])]
+        tables += [(h, e["by_held_out_study"][h], s["k_r2"], s["k_rmse"]) for h, s in rows.iterrows()]
+        for where, mine, k_r2, k_rmse in tables:
+            if (mine["k_r2"], mine["k_rmse"]) != (int(k_r2), int(k_rmse)):
+                raise SystemExit(f"{name} does not reproduce 03b's k ({shuffle}, {where}).")
+        out["_note_r2_and_rmse"] = _r2_equals_rmse(e, uneven, shuffle, null, observed)
+        out[key] = e
     return out
 
 
@@ -740,6 +843,10 @@ def ecological_robustness_claim(run):
     rank2 = re.findall(r"^\s+(g__.+?)\s+rank 2 in (\d+)/(\d+) folds$", log, flags=re.M)
     cross = section_lines(log, "CROSS-CHECK: Illumina-only", "09's log")
     within = run.csv("09", "guild_producer_within_study_correlation.csv")
+    studies = within["study"] != "All studies pooled"
+    if studies.sum() != len(within) - 1:
+        raise SystemExit("Expected one pooled row in guild_producer_within_study_correlation.csv.")
+    within.loc[studies, "p_bh"] = bh_adjust(within.loc[studies, "p_value"])
     return {
         "_definition": f"09: each genus's rank by mean |SHAP| in each of {n} folds ({loso} LOSO, {gkf} "
                        f"GroupKFold-by-vessel, {s10} shuffled 10-fold) on the {n_samples}-sample, "
@@ -754,10 +861,14 @@ def ecological_robustness_claim(run):
         "caproiciproducens_vs_caproate_within_study": {
             r["study"]: {"rows": int(r["n_rows"]), "sampling_units": int(r["n_sampling_units"]),
                          "mean_relative_abundance_percent": r1(r["mean_rel_abundance_pct"]),
-                         "spearman_rho": r3(r["spearman_rho"]), "p": V(r["p_value"], 3 if r["p_value"] > 0.001 else 14)}
+                         "spearman_rho": r3(r["spearman_rho"]), "p": V(r["p_value"], 3 if r["p_value"] > 0.001 else 14),
+                         **({"p_bh_adjusted": r3(r["p_bh"])} if pd.notna(r["p_bh"]) else {})}
             for _, r in within.iterrows()},
         "_within_note": "Spearman rho of Caproiciproducens relative abundance with measured caproate inside each "
-                        "study, on sampling-unit means.",
+                        "study, on sampling-unit means. p is Spearman's test, unadjusted and not corrected for "
+                        "autocorrelation between successive days; p_bh_adjusted is the Benjamini-Hochberg adjusted "
+                        f"p over the {int(studies.sum())} studies as one family of tests (not given for the pooled "
+                        "row).",
     }
 
 
@@ -932,16 +1043,25 @@ def table_s2(run):
 SECTIONS = [primer_trimming, data_construction, table_1_sample_counts, table_2_prevalence, replicate_structure,
             table_3a_naive_schemes, table_3b_grouped_schemes, table_4_substrate_ladder,
             table_5_intrastudy_reactor_transfer, figure_3_leakage_tightening_progression, permutation_control,
-            algorithm_selection, ecological_robustness_claim, shared_subspace_transfer_control, replicate_checks,
+            reactor_aware_permutation_control, algorithm_selection, ecological_robustness_claim, shared_subspace_transfer_control, replicate_checks,
             figures, table_s2]
+# Sections whose script has not yet been run for the run of record, with that script: until the run of record
+# has a folder with its log, results_reference.json marks them as pending instead of stopping, and --check does
+# not compare them. Once the folder is there, a missing file stops the build as for any other section.
+PENDING = {reactor_aware_permutation_control: "03b"}
 
 
 def about(run):
     versions = (run.stage6("02") / "versions.txt").read_text(encoding="utf-8").replace("\r\n", "\n")
     python = found(r"^Python (\S+) on (\S+)$", versions, "versions.txt")
     stage6 = {}
-    for script in ("02", "03", "04", "05", "06", "07a", "07b", "07c", "07d", "08", "09", "10", "11"):
-        stage6[script] = run.name(run.stage6(script))
+    for script in ("02", "03", "03b", "04", "05", "06", "07a", "07b", "07c", "07d", "08", "09", "10", "11"):
+        try:
+            stage6[script] = run.name(run.stage6(script))
+        except Missing:
+            if script != "03b":
+                raise
+            stage6[script] = "not yet run for the run of record"
     matrices = {p.name: sha256_lf(p) for p in sorted(run.corrected.glob("*.csv"))}
     return {
         "purpose": "The corrected, primer-trimmed run's values for the manuscript, with the results files each "
@@ -966,12 +1086,12 @@ def about(run):
         "tolerance": {
             "exact": "Every model of the corrected pipeline is deterministic. XGBoost runs without row or column "
                      "subsampling; the few random parts are seeded (07a's LightGBM random-forest mode, 07d's "
-                     "random forest, the 999 shuffles of 03, the seeds 0-19 of 07b and 11), and the vessel folds "
+                     "random forest, the 999 shuffles of 03 and of each 03b shuffle, the seeds 0-19 of 07b and 11), and the vessel folds "
                      "of 04 and 09 break ties by name. With the pinned versions every value reproduces to every "
                      "decimal given, on any machine: --check on the cloud's own runs of the same scripts (Linux, "
                      "from its own copy of the matrices) finds no value that differs from the laptop run of "
                      "record (Windows 11).",
-            "monte_carlo": "The p-values of 03 reproduce exactly, because every shuffle is seeded, but they are "
+            "monte_carlo": "The p-values of 03 and 03b reproduce exactly, because every shuffle is seeded, but they are "
                            "estimates over 999 shuffles; their Monte Carlo standard error is given with them.",
             "check": "python python/build_results_reference.py --check <your corrected_<date> folder> lists every "
                      "value of your run that differs from this file by more than half a unit in its last decimal.",
@@ -991,6 +1111,12 @@ def build(run, strict):
         try:
             values = fn(run)
         except Missing as e:
+            if strict and fn in PENDING:
+                try:
+                    run.stage6(PENDING[fn])
+                except Missing:
+                    out[fn.__name__] = {"_pending": f"not yet run for the run of record ({e})"}
+                    continue
             if strict:
                 raise SystemExit(f"{fn.__name__}: {e}")
             out[fn.__name__] = {"_not_checked": str(e)}
@@ -1016,6 +1142,9 @@ def plain(x):
 
 def compare(ref, new, path, report):
     if isinstance(ref, dict):
+        if "_pending" in ref:
+            report["not_checked"].append(f"{path}: pending in results_reference.json")
+            return
         if not isinstance(new, dict):
             report["differ"].append(f"{path}: {new!r} instead of a table")
             return
