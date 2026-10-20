@@ -17,7 +17,7 @@
    "stage6_folder_of_each_script": {
     "02": "corrected_2026-10-11/stage6_corrected_2026-10-11",
     "03": "corrected_2026-10-11/stage6_corrected_2026-10-11_03_04_07b_09",
-    "03b": "not yet run for the run of record",
+    "03b": "corrected_2026-10-11/stage6_corrected_2026-10-20_03b",
     "04": "corrected_2026-10-11/stage6_corrected_2026-10-11_03_04_07b_09",
     "05": "corrected_2026-10-11/stage6_corrected_2026-10-11",
     "06": "corrected_2026-10-11/stage6_corrected_2026-10-11",
@@ -1419,7 +1419,181 @@
   }
  },
  "reactor_aware_permutation_control": {
-  "_pending": "not yet run for the run of record (no stage6_corrected_* folder with 03b_*.log)"
+  "_source": [
+   "corrected_2026-10-11/BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv",
+   "corrected_2026-10-11/stage6_corrected_2026-10-20_03b/03b_permutation_null_cyclic_shift_999.csv",
+   "corrected_2026-10-11/stage6_corrected_2026-10-20_03b/03b_permutation_null_within_reactor_999.csv",
+   "corrected_2026-10-11/stage6_corrected_2026-10-20_03b/03b_reactor_aware_permutation_tests.csv",
+   "corrected_2026-10-11/stage6_corrected_2026-10-20_03b/03b_reactor_aware_permutation_tests_by_study.csv"
+  ],
+  "_note": "03b (exploratory sensitivity analyses, added 2026-10-19): the headline LOSO refitted 999 times for each of two shuffles that keep caproate inside its reactor, with the same folds, settings, k and p as 03; k and p are recomputed here from every saved shuffle at full precision, and the build stops if one differs from 03b's tables. Within reactor: caproate permuted among the sampling units of the same reactor or bottle label. Cyclic shift: each reactor's values, in order of sampling day, rotated by a random lag from 0 to n - 1, so they keep their cyclic order (the intervals are uneven, so not a shift by a fixed time). Single-unit reactors keep their value; each Duber 2022 label holds two replicate bottles sampled once, so both shuffles can only exchange those two bottles (a permutation between replicate bottles, not a time shift). The 'without' values repeat the test on the mean over the held-out folds other than Duber_2022's, from the same shuffles; Duber_2022's samples stay in the training sets of those folds, with their values shuffled like the others'.",
+  "_note_r2_and_rmse": "Each study's sampling units have the same number of rows, so each held-out study keeps its set of values and its k by R2 equals its k by RMSE (checked).",
+  "within_reactor": {
+   "shuffles": 999,
+   "observed_r2": -0.627,
+   "observed_rmse": 99.6,
+   "training_mean_benchmark_rmse": 112.6,
+   "null_r2_mean": -4.975,
+   "null_r2_sd": 2.227,
+   "null_r2_median": -4.519,
+   "k_r2": 0,
+   "p_r2": 0.001,
+   "p_r2_monte_carlo_se": 0.001,
+   "null_rmse_mean": 125.9,
+   "null_rmse_sd": 8.8,
+   "k_rmse": 3,
+   "p_rmse": 0.004,
+   "p_rmse_monte_carlo_se": 0.002,
+   "by_held_out_study": {
+    "Brodowski_2022": {
+     "observed_r2": -0.458,
+     "observed_rmse": 69.4,
+     "k_r2": 86,
+     "p_r2": 0.087,
+     "k_rmse": 86,
+     "p_rmse": 0.087
+    },
+    "Brodowski_2022_EXTERNAL_ACETATE": {
+     "observed_r2": -1.383,
+     "observed_rmse": 154.5,
+     "k_r2": 82,
+     "p_r2": 0.083,
+     "k_rmse": 82,
+     "p_rmse": 0.083
+    },
+    "Brodowski_2025": {
+     "observed_r2": -0.006,
+     "observed_rmse": 71.3,
+     "k_r2": 100,
+     "p_r2": 0.101,
+     "k_rmse": 100,
+     "p_rmse": 0.101
+    },
+    "Duber_2020": {
+     "observed_r2": -0.124,
+     "observed_rmse": 119.0,
+     "k_r2": 236,
+     "p_r2": 0.237,
+     "k_rmse": 236,
+     "p_rmse": 0.237
+    },
+    "Duber_2022": {
+     "observed_r2": -2.297,
+     "observed_rmse": 40.6,
+     "k_r2": 0,
+     "p_r2": 0.001,
+     "k_rmse": 0,
+     "p_rmse": 0.001
+    },
+    "Duber_2024": {
+     "observed_r2": -0.076,
+     "observed_rmse": 105.0,
+     "k_r2": 279,
+     "p_r2": 0.28,
+     "k_rmse": 279,
+     "p_rmse": 0.28
+    },
+    "Hanna_2025": {
+     "observed_r2": -0.044,
+     "observed_rmse": 137.5,
+     "k_r2": 207,
+     "p_r2": 0.208,
+     "k_rmse": 207,
+     "p_rmse": 0.208
+    }
+   },
+   "without_Duber_2022": {
+    "observed_r2": -0.348,
+    "observed_rmse": 109.5,
+    "k_r2": 6,
+    "p_r2": 0.007,
+    "k_rmse": 5,
+    "p_rmse": 0.006
+   }
+  },
+  "cyclic_shift": {
+   "shuffles": 999,
+   "observed_r2": -0.627,
+   "observed_rmse": 99.6,
+   "training_mean_benchmark_rmse": 112.6,
+   "null_r2_mean": -4.938,
+   "null_r2_sd": 2.351,
+   "null_r2_median": -4.466,
+   "k_r2": 1,
+   "p_r2": 0.002,
+   "p_r2_monte_carlo_se": 0.001,
+   "null_rmse_mean": 126.2,
+   "null_rmse_sd": 9.7,
+   "k_rmse": 6,
+   "p_rmse": 0.007,
+   "p_rmse_monte_carlo_se": 0.003,
+   "by_held_out_study": {
+    "Brodowski_2022": {
+     "observed_r2": -0.458,
+     "observed_rmse": 69.4,
+     "k_r2": 93,
+     "p_r2": 0.094,
+     "k_rmse": 93,
+     "p_rmse": 0.094
+    },
+    "Brodowski_2022_EXTERNAL_ACETATE": {
+     "observed_r2": -1.383,
+     "observed_rmse": 154.5,
+     "k_r2": 143,
+     "p_r2": 0.144,
+     "k_rmse": 143,
+     "p_rmse": 0.144
+    },
+    "Brodowski_2025": {
+     "observed_r2": -0.006,
+     "observed_rmse": 71.3,
+     "k_r2": 92,
+     "p_r2": 0.093,
+     "k_rmse": 92,
+     "p_rmse": 0.093
+    },
+    "Duber_2020": {
+     "observed_r2": -0.124,
+     "observed_rmse": 119.0,
+     "k_r2": 300,
+     "p_r2": 0.301,
+     "k_rmse": 300,
+     "p_rmse": 0.301
+    },
+    "Duber_2022": {
+     "observed_r2": -2.297,
+     "observed_rmse": 40.6,
+     "k_r2": 2,
+     "p_r2": 0.003,
+     "k_rmse": 2,
+     "p_rmse": 0.003
+    },
+    "Duber_2024": {
+     "observed_r2": -0.076,
+     "observed_rmse": 105.0,
+     "k_r2": 268,
+     "p_r2": 0.269,
+     "k_rmse": 268,
+     "p_rmse": 0.269
+    },
+    "Hanna_2025": {
+     "observed_r2": -0.044,
+     "observed_rmse": 137.5,
+     "k_r2": 190,
+     "p_r2": 0.191,
+     "k_rmse": 190,
+     "p_rmse": 0.191
+    }
+   },
+   "without_Duber_2022": {
+    "observed_r2": -0.348,
+    "observed_rmse": 109.5,
+    "k_r2": 20,
+    "p_r2": 0.021,
+    "k_rmse": 22,
+    "p_rmse": 0.023
+   }
+  }
  },
  "algorithm_selection": {
   "_source": [
