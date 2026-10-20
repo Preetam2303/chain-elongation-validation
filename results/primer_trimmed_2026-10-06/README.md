@@ -1,4 +1,4 @@
-# Primer-trimmed rerun: the run of record (2026-10-05 to 2026-10-14)
+# Primer-trimmed rerun: the run of record (2026-10-05 to 2026-10-20)
 
 These files come from the laptop run of the primer-trimmed rerun (the run of record), unchanged, in the laptop's layout: the run folder `BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06`, with the corrected run `corrected_2026-10-11` inside it. Every value in `results_reference.json` is read from them (or from `data/table_s2/`) by `python/build_results_reference.py`.
 
@@ -23,11 +23,12 @@ These files come from the laptop run of the primer-trimmed rerun (the run of rec
 | 6 | `corrected_2026-10-11/stage6_corrected_2026-10-11_03_04_07b_09/` | `run_stage6.py 03 04 07b 09` | Run of record for 03, 04 and 09 (its 07b output is superseded and not copied). |
 | 6 | `corrected_2026-10-11/stage6_corrected_2026-10-12_07b_11/` | `run_stage6.py 07b 11` | Run of record for 07b and 11. |
 | 6 | `corrected_2026-10-11/stage6_corrected_2026-10-12_07c_07d/` | `run_stage6.py 07c 07d` | Run of record for 07c and 07d. |
+| 6 | `corrected_2026-10-11/stage6_corrected_2026-10-20_03b/` | `run_stage6.py 03b` | Run of record for 03b (added 2026-10-19; exploratory sensitivity analyses for 03). |
 | 7 | `data/table_s2/` (in the repository) | 12, 12b | Table S2, with its own README. |
 | 8 | `corrected_2026-10-11/figures_corrected_2026-10-14/` | `run_figures.py` | Every figure as PNG and PDF. |
 
 Each Stage 6 folder holds each script's log (everything it printed), the tables it wrote and `versions.txt` (the date, the Python and package versions, the input files and the scripts run). The figure folder holds one log per figure script, listing each input file with its SHA-256 and every value the figure plots, and its own `versions.txt`.
 
 Checks:
-- **Against the cloud's runs.** The cloud ran the same scripts (Linux, Python 3.13.14) on its own copy of the matrices. `python python/build_results_reference.py --check` on those runs finds no value that differs from these files: 1,582 values, every one but those of Stage 1 (the `primer_trimming` section), whose files only this run has. For Table S2, the cloud ran 12b on its own run of 12 with the same BLAST file.
+- **Against the cloud's runs.** The cloud ran the same scripts (Linux, Python 3.13.14) on its own copy of the matrices. `python python/build_results_reference.py --check` on those runs finds no value that differs from these files: 1,708 values, every one but those of Stage 1 (the `primer_trimming` section), whose files only this run has. 03b's four tables are also byte-identical to the cloud's (line endings aside). For Table S2, the cloud ran 12b on its own run of 12 with the same BLAST file.
 - **Matrices.** Cell by cell, the cloud's copies of the seven matrices hold the same values as these. They differ only in number formatting (`3.0` for `3`), in the order of tied genera in `stage4_genus_summary.csv`, and in 7 chemistry cells that carry float noise in the cloud's copies (`76.98999999999998` for `76.99`, less than 1e-9 of their size). The cloud built its R/04 matrix with a Python stand-in, because the metadata workbook R/04 reads is only on the laptop.
