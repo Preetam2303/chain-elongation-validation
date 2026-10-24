@@ -303,7 +303,7 @@
     "Duber_2024": 5.82,
     "Hanna_2025": 14.1
    },
-   "caveat": "Not cross-platform comparable: the synonym dictionary (Methods 2.2) maps every Nanopore 'Clostridium' call onto this one clade, while the Illumina data resolve several Clostridium sensu stricto clades."
+   "caveat": "Not cross-platform comparable: the synonym dictionary (Methods 2.4) maps every Nanopore 'Clostridium' call onto this one clade, while the Illumina data resolve several Clostridium sensu stricto clades."
   },
   "Lacticaseibacillus": {
    "samples": 118,
@@ -493,7 +493,7 @@
    "Duber_2022": 18
   },
   "rows_sharing_study_reactor_label_and_day": {
-   "_note": "The count Methods 2.6 gave for the published matrix (124 of 184 rows; 44 of 104 reactor-days).",
+   "_note": "The count the published paper's Methods 2.6 gave for its matrix (124 of 184 rows; 44 of 104 reactor-days).",
    "rows": 123,
    "groups": 44,
    "of_groups": 87,
@@ -1232,56 +1232,70 @@
      "observed_rmse": 69.4,
      "k_r2": 559,
      "p_r2": 0.56,
+     "p_r2_monte_carlo_se": 0.016,
      "k_rmse": 26,
-     "p_rmse": 0.027
+     "p_rmse": 0.027,
+     "p_rmse_monte_carlo_se": 0.005
     },
     "Brodowski_2022_EXTERNAL_ACETATE": {
      "observed_r2": -1.383,
      "observed_rmse": 154.5,
      "k_r2": 948,
      "p_r2": 0.949,
+     "p_r2_monte_carlo_se": 0.007,
      "k_rmse": 850,
-     "p_rmse": 0.851
+     "p_rmse": 0.851,
+     "p_rmse_monte_carlo_se": 0.011
     },
     "Brodowski_2025": {
      "observed_r2": -0.006,
      "observed_rmse": 71.3,
      "k_r2": 135,
      "p_r2": 0.136,
+     "p_r2_monte_carlo_se": 0.011,
      "k_rmse": 6,
-     "p_rmse": 0.007
+     "p_rmse": 0.007,
+     "p_rmse_monte_carlo_se": 0.003
     },
     "Duber_2020": {
      "observed_r2": -0.124,
      "observed_rmse": 119.0,
      "k_r2": 307,
      "p_r2": 0.308,
+     "p_r2_monte_carlo_se": 0.015,
      "k_rmse": 472,
-     "p_rmse": 0.473
+     "p_rmse": 0.473,
+     "p_rmse_monte_carlo_se": 0.016
     },
     "Duber_2022": {
      "observed_r2": -2.297,
      "observed_rmse": 40.6,
      "k_r2": 983,
      "p_r2": 0.984,
+     "p_r2_monte_carlo_se": 0.004,
      "k_rmse": 0,
-     "p_rmse": 0.001
+     "p_rmse": 0.001,
+     "p_rmse_monte_carlo_se": 0.001
     },
     "Duber_2024": {
      "observed_r2": -0.076,
      "observed_rmse": 105.0,
      "k_r2": 212,
      "p_r2": 0.213,
+     "p_r2_monte_carlo_se": 0.013,
      "k_rmse": 168,
-     "p_rmse": 0.169
+     "p_rmse": 0.169,
+     "p_rmse_monte_carlo_se": 0.012
     },
     "Hanna_2025": {
      "observed_r2": -0.044,
      "observed_rmse": 137.5,
      "k_r2": 167,
      "p_r2": 0.168,
+     "p_r2_monte_carlo_se": 0.012,
      "k_rmse": 672,
-     "p_rmse": 0.673
+     "p_rmse": 0.673,
+     "p_rmse_monte_carlo_se": 0.015
     }
    },
    "without_Duber_2022": {
@@ -1289,8 +1303,10 @@
     "observed_rmse": 109.5,
     "k_r2": 369,
     "p_r2": 0.37,
+    "p_r2_monte_carlo_se": 0.015,
     "k_rmse": 28,
-    "p_rmse": 0.029
+    "p_rmse": 0.029,
+    "p_rmse_monte_carlo_se": 0.005
    },
    "held_out_caproate_spread": {
     "_note": "SD (population) of each study's caproate values (mM C): its own, and the mean over 03's 999 across-study shuffles (the same seeds and sampling units as 03; no model is fitted). A ratio above 1 means the shuffle widens the spread the held-out study is scored against.",
@@ -1356,56 +1372,70 @@
      "observed_rmse": 69.4,
      "k_r2": 10,
      "p_r2": 0.011,
+     "p_r2_monte_carlo_se": 0.003,
      "k_rmse": 10,
-     "p_rmse": 0.011
+     "p_rmse": 0.011,
+     "p_rmse_monte_carlo_se": 0.003
     },
     "Brodowski_2022_EXTERNAL_ACETATE": {
      "observed_r2": -1.383,
      "observed_rmse": 154.5,
      "k_r2": 39,
      "p_r2": 0.04,
+     "p_r2_monte_carlo_se": 0.006,
      "k_rmse": 39,
-     "p_rmse": 0.04
+     "p_rmse": 0.04,
+     "p_rmse_monte_carlo_se": 0.006
     },
     "Brodowski_2025": {
      "observed_r2": -0.006,
      "observed_rmse": 71.3,
      "k_r2": 81,
      "p_r2": 0.082,
+     "p_r2_monte_carlo_se": 0.009,
      "k_rmse": 81,
-     "p_rmse": 0.082
+     "p_rmse": 0.082,
+     "p_rmse_monte_carlo_se": 0.009
     },
     "Duber_2020": {
      "observed_r2": -0.124,
      "observed_rmse": 119.0,
      "k_r2": 312,
      "p_r2": 0.313,
+     "p_r2_monte_carlo_se": 0.015,
      "k_rmse": 312,
-     "p_rmse": 0.313
+     "p_rmse": 0.313,
+     "p_rmse_monte_carlo_se": 0.015
     },
     "Duber_2022": {
      "observed_r2": -2.297,
      "observed_rmse": 40.6,
      "k_r2": 0,
      "p_r2": 0.001,
+     "p_r2_monte_carlo_se": 0.001,
      "k_rmse": 0,
-     "p_rmse": 0.001
+     "p_rmse": 0.001,
+     "p_rmse_monte_carlo_se": 0.001
     },
     "Duber_2024": {
      "observed_r2": -0.076,
      "observed_rmse": 105.0,
      "k_r2": 256,
      "p_r2": 0.257,
+     "p_r2_monte_carlo_se": 0.014,
      "k_rmse": 256,
-     "p_rmse": 0.257
+     "p_rmse": 0.257,
+     "p_rmse_monte_carlo_se": 0.014
     },
     "Hanna_2025": {
      "observed_r2": -0.044,
      "observed_rmse": 137.5,
      "k_r2": 195,
      "p_r2": 0.196,
+     "p_r2_monte_carlo_se": 0.013,
      "k_rmse": 195,
-     "p_rmse": 0.196
+     "p_rmse": 0.196,
+     "p_rmse_monte_carlo_se": 0.013
     }
    },
    "without_Duber_2022": {
@@ -1413,8 +1443,10 @@
     "observed_rmse": 109.5,
     "k_r2": 0,
     "p_r2": 0.001,
+    "p_r2_monte_carlo_se": 0.001,
     "k_rmse": 1,
-    "p_rmse": 0.002
+    "p_rmse": 0.002,
+    "p_rmse_monte_carlo_se": 0.001
    }
   }
  },
@@ -1428,6 +1460,7 @@
   ],
   "_note": "03b (exploratory sensitivity analyses, added 2026-10-19): the headline LOSO refitted 999 times for each of two shuffles that keep caproate inside its reactor, with the same folds, settings, k and p as 03; k and p are recomputed here from every saved shuffle at full precision, and the build stops if one differs from 03b's tables. Within reactor: caproate permuted among the sampling units of the same reactor or bottle label. Cyclic shift: each reactor's values, in order of sampling day, rotated by a random lag from 0 to n - 1, so they keep their cyclic order (the intervals are uneven, so not a shift by a fixed time). Single-unit reactors keep their value; each Duber 2022 label holds two replicate bottles sampled once, so both shuffles can only exchange those two bottles (a permutation between replicate bottles, not a time shift). The 'without' values repeat the test on the mean over the held-out folds other than Duber_2022's, from the same shuffles; Duber_2022's samples stay in the training sets of those folds, with their values shuffled like the others'.",
   "_note_r2_and_rmse": "Each study's sampling units have the same number of rows, so each held-out study keeps its set of values and its k by R2 equals its k by RMSE (checked).",
+  "_note_arrangements": "arrangements_of_own_values: how many distinct arrangements of its own caproate values a held-out study can take under the shuffle, the product over its reactors (within reactor: the distinct orderings of each reactor's values; cyclic shift: the distinct rotations of each reactor's values in day order). Each is equally likely, so on average 1 shuffle in that many leaves the study's own values as observed; its R2 and RMSE then change only through the other studies' shuffled training values.",
   "within_reactor": {
    "shuffles": 999,
    "observed_r2": -0.627,
@@ -1450,56 +1483,77 @@
      "observed_rmse": 69.4,
      "k_r2": 86,
      "p_r2": 0.087,
+     "p_r2_monte_carlo_se": 0.009,
      "k_rmse": 86,
-     "p_rmse": 0.087
+     "p_rmse": 0.087,
+     "p_rmse_monte_carlo_se": 0.009,
+     "arrangements_of_own_values": 24
     },
     "Brodowski_2022_EXTERNAL_ACETATE": {
      "observed_r2": -1.383,
      "observed_rmse": 154.5,
      "k_r2": 82,
      "p_r2": 0.083,
+     "p_r2_monte_carlo_se": 0.009,
      "k_rmse": 82,
-     "p_rmse": 0.083
+     "p_rmse": 0.083,
+     "p_rmse_monte_carlo_se": 0.009,
+     "arrangements_of_own_values": 14515200
     },
     "Brodowski_2025": {
      "observed_r2": -0.006,
      "observed_rmse": 71.3,
      "k_r2": 100,
      "p_r2": 0.101,
+     "p_r2_monte_carlo_se": 0.01,
      "k_rmse": 100,
-     "p_rmse": 0.101
+     "p_rmse": 0.101,
+     "p_rmse_monte_carlo_se": 0.01,
+     "arrangements_of_own_values": 25401600
     },
     "Duber_2020": {
      "observed_r2": -0.124,
      "observed_rmse": 119.0,
      "k_r2": 236,
      "p_r2": 0.237,
+     "p_r2_monte_carlo_se": 0.013,
      "k_rmse": 236,
-     "p_rmse": 0.237
+     "p_rmse": 0.237,
+     "p_rmse_monte_carlo_se": 0.013,
+     "arrangements_of_own_values": 5040
     },
     "Duber_2022": {
      "observed_r2": -2.297,
      "observed_rmse": 40.6,
      "k_r2": 0,
      "p_r2": 0.001,
+     "p_r2_monte_carlo_se": 0.001,
      "k_rmse": 0,
-     "p_rmse": 0.001
+     "p_rmse": 0.001,
+     "p_rmse_monte_carlo_se": 0.001,
+     "arrangements_of_own_values": 512
     },
     "Duber_2024": {
      "observed_r2": -0.076,
      "observed_rmse": 105.0,
      "k_r2": 279,
      "p_r2": 0.28,
+     "p_r2_monte_carlo_se": 0.014,
      "k_rmse": 279,
-     "p_rmse": 0.28
+     "p_rmse": 0.28,
+     "p_rmse_monte_carlo_se": 0.014,
+     "arrangements_of_own_values": 18289152000
     },
     "Hanna_2025": {
      "observed_r2": -0.044,
      "observed_rmse": 137.5,
      "k_r2": 207,
      "p_r2": 0.208,
+     "p_r2_monte_carlo_se": 0.013,
      "k_rmse": 207,
-     "p_rmse": 0.208
+     "p_rmse": 0.208,
+     "p_rmse_monte_carlo_se": 0.013,
+     "arrangements_of_own_values": 131681894400
     }
    },
    "without_Duber_2022": {
@@ -1507,8 +1561,10 @@
     "observed_rmse": 109.5,
     "k_r2": 6,
     "p_r2": 0.007,
+    "p_r2_monte_carlo_se": 0.003,
     "k_rmse": 5,
-    "p_rmse": 0.006
+    "p_rmse": 0.006,
+    "p_rmse_monte_carlo_se": 0.002
    }
   },
   "cyclic_shift": {
@@ -1533,56 +1589,77 @@
      "observed_rmse": 69.4,
      "k_r2": 93,
      "p_r2": 0.094,
+     "p_r2_monte_carlo_se": 0.009,
      "k_rmse": 93,
-     "p_rmse": 0.094
+     "p_rmse": 0.094,
+     "p_rmse_monte_carlo_se": 0.009,
+     "arrangements_of_own_values": 4
     },
     "Brodowski_2022_EXTERNAL_ACETATE": {
      "observed_r2": -1.383,
      "observed_rmse": 154.5,
      "k_r2": 143,
      "p_r2": 0.144,
+     "p_r2_monte_carlo_se": 0.011,
      "k_rmse": 143,
-     "p_rmse": 0.144
+     "p_rmse": 0.144,
+     "p_rmse_monte_carlo_se": 0.011,
+     "arrangements_of_own_values": 48
     },
     "Brodowski_2025": {
      "observed_r2": -0.006,
      "observed_rmse": 71.3,
      "k_r2": 92,
      "p_r2": 0.093,
+     "p_r2_monte_carlo_se": 0.009,
      "k_rmse": 92,
-     "p_rmse": 0.093
+     "p_rmse": 0.093,
+     "p_rmse_monte_carlo_se": 0.009,
+     "arrangements_of_own_values": 49
     },
     "Duber_2020": {
      "observed_r2": -0.124,
      "observed_rmse": 119.0,
      "k_r2": 300,
      "p_r2": 0.301,
+     "p_r2_monte_carlo_se": 0.015,
      "k_rmse": 300,
-     "p_rmse": 0.301
+     "p_rmse": 0.301,
+     "p_rmse_monte_carlo_se": 0.015,
+     "arrangements_of_own_values": 7
     },
     "Duber_2022": {
      "observed_r2": -2.297,
      "observed_rmse": 40.6,
      "k_r2": 2,
      "p_r2": 0.003,
+     "p_r2_monte_carlo_se": 0.002,
      "k_rmse": 2,
-     "p_rmse": 0.003
+     "p_rmse": 0.003,
+     "p_rmse_monte_carlo_se": 0.002,
+     "arrangements_of_own_values": 512
     },
     "Duber_2024": {
      "observed_r2": -0.076,
      "observed_rmse": 105.0,
      "k_r2": 268,
      "p_r2": 0.269,
+     "p_r2_monte_carlo_se": 0.014,
      "k_rmse": 268,
-     "p_rmse": 0.269
+     "p_rmse": 0.269,
+     "p_rmse_monte_carlo_se": 0.014,
+     "arrangements_of_own_values": 70
     },
     "Hanna_2025": {
      "observed_r2": -0.044,
      "observed_rmse": 137.5,
      "k_r2": 190,
      "p_r2": 0.191,
+     "p_r2_monte_carlo_se": 0.012,
      "k_rmse": 190,
-     "p_rmse": 0.191
+     "p_rmse": 0.191,
+     "p_rmse_monte_carlo_se": 0.012,
+     "arrangements_of_own_values": 81
     }
    },
    "without_Duber_2022": {
@@ -1590,8 +1667,10 @@
     "observed_rmse": 109.5,
     "k_r2": 20,
     "p_r2": 0.021,
+    "p_r2_monte_carlo_se": 0.005,
     "k_rmse": 22,
-    "p_rmse": 0.023
+    "p_rmse": 0.023,
+    "p_rmse_monte_carlo_se": 0.005
    }
   }
  },
