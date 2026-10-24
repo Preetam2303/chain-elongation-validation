@@ -335,7 +335,7 @@ def table_2_prevalence(run):
             study: V(100 * v, 2) for study, v in g.groupby(gm["Paper_ID"]).mean().items()}
         out[name] = entry
     out["Clostridium_sensu_stricto_12"]["caveat"] = (
-        "Not cross-platform comparable: the synonym dictionary (Methods 2.2) maps every Nanopore 'Clostridium' "
+        "Not cross-platform comparable: the synonym dictionary (Methods 2.4) maps every Nanopore 'Clostridium' "
         "call onto this one clade, while the Illumina data resolve several Clostridium sensu stricto clades.")
     out["clostridium_sensu_stricto_clades"] = _clostridium_clades(gm, illumina)
     return out
@@ -377,7 +377,8 @@ def replicate_structure(run):
     out["rows_sharing_study_reactor_label_and_day"] = {
         "rows": int(groups[groups > 1].sum()), "groups": int((groups > 1).sum()), "of_groups": len(groups),
         "largest_group": int(groups.max()),
-        "_note": "The count Methods 2.6 gave for the published matrix (124 of 184 rows; 44 of 104 reactor-days)."}
+        "_note": "The count the published paper's Methods 2.6 gave for its matrix (124 of 184 rows; 44 of 104 "
+                 "reactor-days)."}
     return out
 
 

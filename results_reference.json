@@ -303,7 +303,7 @@
     "Duber_2024": 5.82,
     "Hanna_2025": 14.1
    },
-   "caveat": "Not cross-platform comparable: the synonym dictionary (Methods 2.2) maps every Nanopore 'Clostridium' call onto this one clade, while the Illumina data resolve several Clostridium sensu stricto clades."
+   "caveat": "Not cross-platform comparable: the synonym dictionary (Methods 2.4) maps every Nanopore 'Clostridium' call onto this one clade, while the Illumina data resolve several Clostridium sensu stricto clades."
   },
   "Lacticaseibacillus": {
    "samples": 118,
@@ -493,7 +493,7 @@
    "Duber_2022": 18
   },
   "rows_sharing_study_reactor_label_and_day": {
-   "_note": "The count Methods 2.6 gave for the published matrix (124 of 184 rows; 44 of 104 reactor-days).",
+   "_note": "The count the published paper's Methods 2.6 gave for its matrix (124 of 184 rows; 44 of 104 reactor-days).",
    "rows": 123,
    "groups": 44,
    "of_groups": 87,
