@@ -626,6 +626,7 @@ def reactor_aware_permutation_control(run):
     by = _complete(run.csv("03b", "03b_reactor_aware_permutation_tests_by_study.csv"),
                    "03b_reactor_aware_permutation_tests_by_study.csv")
     uneven = _studies_with_uneven_units(run)
+    arrangements = _arrangements_of_held_out_values(run)
     out = {"_note": "03b (exploratory sensitivity analyses, added 2026-10-19): the headline LOSO refitted 999 "
                     "times for each of two shuffles that keep caproate inside its reactor, with the same folds, "
                     "settings, k and p as 03; k and p are recomputed here from every saved shuffle at full "
@@ -661,7 +662,16 @@ def reactor_aware_permutation_control(run):
             if (mine["k_r2"], mine["k_rmse"]) != (int(k_r2), int(k_rmse)):
                 raise SystemExit(f"{name} does not reproduce 03b's k ({shuffle}, {where}).")
         out["_note_r2_and_rmse"] = _r2_equals_rmse(e, uneven, shuffle, null, observed)
+        for h in e["by_held_out_study"]:
+            e["by_held_out_study"][h]["arrangements_of_own_values"] = arrangements[h][shuffle]
         out[key] = e
+    out["_note_arrangements"] = ("arrangements_of_own_values: how many distinct arrangements of its own caproate "
+                                 "values a held-out study can take under the shuffle, the product over its "
+                                 "reactors (within reactor: the distinct orderings of each reactor's values; cyclic "
+                                 "shift: the distinct rotations of each reactor's values in day order). Each is "
+                                 "equally likely, so on average 1 shuffle in that many leaves the study's own values "
+                                 "as observed; its R2 and RMSE then change only through the other studies' shuffled "
+                                 "training values.")
     return out
 
 
@@ -680,16 +690,18 @@ def _recounted_entry(r, null, observed, name):
          "training_mean_benchmark_rmse": r1(r["training_mean_benchmark_rmse"]),
          "null_r2_mean": r3(r["null_r2_mean"]), "null_r2_sd": r3(r["null_r2_sd"]),
          "null_r2_median": r3(r["null_r2_median"]), "k_r2": k_r2, "p_r2": r3(p_r2),
-         "p_r2_monte_carlo_se": r3(math.sqrt(p_r2 * (1 - p_r2) / n)),
+         "p_r2_monte_carlo_se": _monte_carlo_se(k_r2, n),
          "null_rmse_mean": r1(r["null_rmse_mean"]), "null_rmse_sd": r1(r["null_rmse_sd"]),
          "k_rmse": k_rmse, "p_rmse": r3(p_rmse),
-         "p_rmse_monte_carlo_se": r3(math.sqrt(p_rmse * (1 - p_rmse) / n)), "by_held_out_study": {}}
+         "p_rmse_monte_carlo_se": _monte_carlo_se(k_rmse, n), "by_held_out_study": {}}
     for h, (o_r2, o_rmse) in observed.items():
         k_r2_h = _count_reaching(null[f"r2_{h}"], o_r2, higher=True)
         k_rmse_h = _count_reaching(null[f"rmse_{h}"], o_rmse, higher=False)
         e["by_held_out_study"][h] = {"observed_r2": r3(o_r2), "observed_rmse": r1(o_rmse),
                                      "k_r2": k_r2_h, "p_r2": r3((k_r2_h + 1) / (n + 1)),
-                                     "k_rmse": k_rmse_h, "p_rmse": r3((k_rmse_h + 1) / (n + 1))}
+                                     "p_r2_monte_carlo_se": _monte_carlo_se(k_r2_h, n),
+                                     "k_rmse": k_rmse_h, "p_rmse": r3((k_rmse_h + 1) / (n + 1)),
+                                     "p_rmse_monte_carlo_se": _monte_carlo_se(k_rmse_h, n)}
     if LEFT_OUT_STUDY not in observed:
         raise SystemExit(f"{LEFT_OUT_STUDY} is not one of the held-out studies in {name}.")
     kept = [h for h in observed if h != LEFT_OUT_STUDY]
@@ -698,8 +710,45 @@ def _recounted_entry(r, null, observed, name):
     k_rmse_w = _count_reaching(null[[f"rmse_{h}" for h in kept]].mean(axis=1), w_rmse, higher=False)
     e["without_" + LEFT_OUT_STUDY] = {"observed_r2": r3(w_r2), "observed_rmse": r1(w_rmse),
                                       "k_r2": k_r2_w, "p_r2": r3((k_r2_w + 1) / (n + 1)),
-                                      "k_rmse": k_rmse_w, "p_rmse": r3((k_rmse_w + 1) / (n + 1))}
+                                      "p_r2_monte_carlo_se": _monte_carlo_se(k_r2_w, n),
+                                      "k_rmse": k_rmse_w, "p_rmse": r3((k_rmse_w + 1) / (n + 1)),
+                                      "p_rmse_monte_carlo_se": _monte_carlo_se(k_rmse_w, n)}
     return e
+
+
+def _monte_carlo_se(k, n):
+    """Monte Carlo standard error of p = (k + 1) / (n + 1) over n shuffles: sqrt(p (1 - p) / n)."""
+    p = (k + 1) / (n + 1)
+    return r3(math.sqrt(p * (1 - p) / n))
+
+
+def _arrangements_of_held_out_values(run):
+    """For each study, how many distinct arrangements of its own caproate values each 03b shuffle can give, with
+    sampling units and reactor labels as 03b builds them. Within reactor: per reactor, the distinct orderings of
+    its units' values, n! / (product of m! over values repeated m times). Cyclic shift: per reactor, the distinct
+    rotations of its values in day order (n, unless the sequence repeats). A study's count is the product over its
+    reactors, so a study whose reactors all have one unit has 1."""
+    gm, _ = run.matrix()
+    units = ps.sampling_units(gm)
+    values = gm[ps.TARGET].groupby(units).first()
+    reactor = (gm["Paper_ID"] + "|" + gm["BIOREACTOR"]).groupby(units).first().reindex(values.index)
+    day_text = gm["DAY"].astype(str).str.strip().str.removeprefix("d")
+    if not day_text.str.fullmatch(r"\d+(\.\d+)?").all():
+        raise SystemExit("Unreadable sampling days in the matrix.")
+    day = day_text.astype(float).groupby(units).first().reindex(values.index)
+    out = {}
+    for label in sorted(reactor.unique()):
+        idx = values.index[reactor.values == label]
+        v = values.loc[idx[np.argsort(day.loc[idx].values, kind="mergesort")]].to_numpy(dtype=float)
+        orderings = math.factorial(len(v))
+        for m in pd.Series(v).value_counts():
+            orderings //= math.factorial(int(m))
+        rotations = next(s for s in range(1, len(v) + 1) if np.array_equal(np.roll(v, s), v))
+        study = label.split("|")[0]
+        counts = out.setdefault(study, {"within reactor": 1, "cyclic shift within reactor": 1})
+        counts["within reactor"] *= orderings
+        counts["cyclic shift within reactor"] *= rotations
+    return out
 
 
 def _r2_equals_rmse(e, uneven, shuffle, null, observed):
