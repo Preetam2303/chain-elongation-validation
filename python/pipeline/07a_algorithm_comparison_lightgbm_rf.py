@@ -4,7 +4,7 @@
 # on the same ASV-level 80/20 single-split baseline used elsewhere in early
 # algorithm selection (random_state=42, identical split across all algorithm
 # comparisons in this project). This is the run behind the potential-target-
-# proxy demonstration cited in Methods 2.7: admitting the full chemistry panel,
+# proxy check of Methods 2.7: admitting the full chemistry panel,
 # including the potential target proxies caprylate, heptanoate and
 # isovalerate, nearly doubled apparent accuracy (0.359 -> 0.657 in the
 # published run) on an otherwise identical feature scope, motivating their
@@ -16,7 +16,7 @@
 #                propionate) + ASVs
 #   3. Maximum:  the core set + the Illumina-only compounds (valerate,
 #                isovalerate, caprylate, heptanoate, isocaproate: the potential
-#                target proxies) + ASVs, the potential-target-proxy demonstration
+#                target proxies) + ASVs, the potential-target-proxy check
 # NaOH, DAY and the other never-modelled columns are no longer used; blank
 # (unmeasured) cells stay blank. The values published before this change
 # (0.354 / 0.359 / 0.657) came from the earlier scopes, which included NaOH and
@@ -126,4 +126,4 @@ print(f"Top 10 features by mean |SHAP| ({best_name}):")
 for rank, feature in enumerate(mean_abs.sort_values(ascending=False, kind='mergesort').head(10).index, 1):
     print(f"  {rank:2d}. {feature}")
 print("If the Maximum model wins and the Illumina-only compounds (caprylate, heptanoate, "
-      "isovalerate) lead, that is the potential-target-proxy demonstration cited in Methods 2.7.")
+      "isovalerate) lead, that is the potential-target-proxy check of Methods 2.7.")
