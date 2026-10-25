@@ -56,7 +56,7 @@ for paper, (br_train, br_test) in REACTOR_PAIRS.items():
             print(f"      {c:<5s} {counts(d[c])}")
 
 results = []
-print(f"\n--- EXECUTING LEAK-PROOF INTRA-STUDY GENERALIZATION (XGBOOST) ---")
+print(f"\n--- EXECUTING INTRA-STUDY REACTOR TRANSFER (XGBOOST, CORE SET) ---")
 print("-" * 88)
 for paper, (br_train, br_test) in REACTOR_PAIRS.items():
     train = df[(df['Paper_ID'] == paper) & (df['BIOREACTOR'] == br_train)]
@@ -78,7 +78,7 @@ for paper, (br_train, br_test) in REACTOR_PAIRS.items():
 
 res_df = pd.DataFrame(results)
 print("\n" + "=" * 88)
-print("CLEAN INTRA-STUDY GENERALIZATION RESULTS (NO TARGET LEAKAGE)")
+print("INTRA-STUDY REACTOR TRANSFER RESULTS (CORE SET, NO POTENTIAL TARGET PROXIES)")
 print("=" * 88)
 print(res_df.to_string(index=False, float_format=lambda x: f"{x:.3f}"))
 print("=" * 88)

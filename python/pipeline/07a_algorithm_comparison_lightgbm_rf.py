@@ -3,21 +3,20 @@
 # Random-Forest-mode LightGBM configuration against three feature scopes,
 # on the same ASV-level 80/20 single-split baseline used elsewhere in early
 # algorithm selection (random_state=42, identical split across all algorithm
-# comparisons in this project). This is the run that surfaced the concrete
-# target-leakage demonstration cited in Methods 2.7: admitting the full
-# chemistry panel, including the downstream co-products caprylate, heptanoate
-# and isovalerate, nearly doubled apparent accuracy (0.359 -> 0.657 in the
+# comparisons in this project). This is the run behind the potential-target-
+# proxy check of Methods 2.7: admitting the full chemistry panel,
+# including the potential target proxies caprylate, heptanoate and
+# isovalerate, nearly doubled apparent accuracy (0.359 -> 0.657 in the
 # published run) on an otherwise identical feature scope, motivating their
-# exclusion from every leakage-controlled script elsewhere in this pipeline
-# (Methods 2.5).
+# exclusion from the core set used elsewhere in this pipeline (Methods 2.5).
 #
 # Feature scopes follow the decision of 2026-10-10 (pipeline_settings.py):
 #   1. Base:     pH, temperature, HRT, the 2 categoricals + ASVs
 #   2. Ultimate: the core set (adds lactate, acetate, ethanol, butyrate,
 #                propionate) + ASVs
 #   3. Maximum:  the core set + the Illumina-only compounds (valerate,
-#                isovalerate, caprylate, heptanoate, isocaproate) + ASVs, the
-#                leakage demonstration
+#                isovalerate, caprylate, heptanoate, isocaproate: the potential
+#                target proxies) + ASVs, the potential-target-proxy check
 # NaOH, DAY and the other never-modelled columns are no longer used; blank
 # (unmeasured) cells stay blank. The values published before this change
 # (0.354 / 0.359 / 0.657) came from the earlier scopes, which included NaOH and
@@ -115,7 +114,7 @@ print(f"BEST R2 SCORE:    {best_r2:.3f}")
 print("=" * 50)
 
 # ==============================================================================
-# 5. SHAP FOR THE WINNER -- surfaces the downstream-co-product leakage pattern
+# 5. SHAP FOR THE WINNER -- shows whether the potential target proxies lead
 # ==============================================================================
 print("\nCalculating SHAP values for the winning model...")
 explainer = shap.TreeExplainer(best_model)
@@ -127,4 +126,4 @@ print(f"Top 10 features by mean |SHAP| ({best_name}):")
 for rank, feature in enumerate(mean_abs.sort_values(ascending=False, kind='mergesort').head(10).index, 1):
     print(f"  {rank:2d}. {feature}")
 print("If the Maximum model wins and the Illumina-only compounds (caprylate, heptanoate, "
-      "isovalerate) lead, that is the target-leakage demonstration cited in Methods 2.7.")
+      "isovalerate) lead, that is the potential-target-proxy check of Methods 2.7.")

@@ -1,7 +1,7 @@
 # 07d_figure3_stage1_random_forest.py
 # Figure 3, stage 1: the earliest, least leakage-controlled evaluation of the
 # same reactor-pair transfer, using a plain sklearn RandomForestRegressor with
-# no scaling and no explicit downstream-co-product exclusion (only a short
+# no scaling and no exclusion of the potential target proxies (only a short
 # list of sparse/junk columns is dropped). This is the starting point of the
 # three-stage progression reported in Figure 3 and Section 3.5: R2 = 0.217 ->
 # -0.228 (07c) -> -5.869 (05), as leakage controls were progressively
@@ -65,7 +65,7 @@ for paper, (br_train, br_test) in REACTOR_PAIRS.items():
                           errors='ignore').select_dtypes(include=[np.number]).reindex(columns=X_train.columns)
     y_test = pd.to_numeric(test_df['Caproate'], errors='coerce')
 
-    # Train and Evaluate Model -- no scaling, no explicit leakage exclusion
+    # Train and Evaluate Model -- no scaling, no exclusion of DAY or the potential target proxies
     model = RandomForestRegressor(n_estimators=150, random_state=42)
     model.fit(X_train, y_train)
     y_pred = model.predict(X_test)

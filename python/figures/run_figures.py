@@ -4,11 +4,12 @@
 #
 # The figures read the tables that Stage 6 wrote (02 to 10), 09's log for its
 # fold count, and the corrected genus matrix (00b) for Figures 4, 5, 6, S4 and
-# S5. Each Stage 6 script's run of record is in one of the stage6_corrected_*
-# folders inside the corrected_<date> folder, and RUN_OF_RECORD below names it:
-# 03, 04 and 09 were rerun after PR #15, so theirs is a later folder, and 07c
-# and 07d were rerun (run_stage6.py 07c 07d) once they saved their tables, so
-# theirs is found by a pattern that must match exactly one folder.
+# S5. Each Stage 6 script's run of record is the one stage6_corrected_* folder
+# inside the corrected_<date> folder that holds its log (<script>_*.log), as in
+# build_results_reference.py. After one full run_stage6.py run that is the same
+# folder for every script; in the run of 2026-10-11, where some scripts were
+# rerun later, it is a later folder for those. If a log is in more than one
+# folder, move the one that is not the run of record out of corrected_<date>.
 #
 # Output: a new folder figures_corrected_<date> inside the corrected_<date>
 # folder, with each figure as PNG and PDF, one <script>.log per figure script
@@ -35,19 +36,8 @@ import sys
 # ============================================================================
 GRAND_MERGE_DIR = "C:/Users/IISiIS-ZWW-233/Documents/BIOTWIN_Grand_Merge"
 
-# The folder inside corrected_<date> that holds each Stage 6 script's run of
-# record (a name, or a pattern that must match exactly one folder)
-RUN_OF_RECORD = {
-    "02": "stage6_corrected_2026-10-11",
-    "03": "stage6_corrected_2026-10-11_03_04_07b_09",
-    "04": "stage6_corrected_2026-10-11_03_04_07b_09",
-    "05": "stage6_corrected_2026-10-11",
-    "06": "stage6_corrected_2026-10-11",
-    "07c": "stage6_corrected_*_07c_07d",
-    "07d": "stage6_corrected_*_07c_07d",
-    "09": "stage6_corrected_2026-10-11_03_04_07b_09",
-    "10": "stage6_corrected_2026-10-11",
-}
+# The Stage 6 scripts whose tables or logs the figures read
+STAGE6_SCRIPTS = ["02", "03", "04", "05", "06", "07c", "07d", "09", "10"]
 
 FIGURES = {
     "1": "figure1_r2_comparison.py",
@@ -80,14 +70,14 @@ CORRECTED_DIR = os.path.abspath(corrected_dirs[0])
 inputs = {"BIOTWIN_MATRIX": os.path.join(CORRECTED_DIR, "BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv")}
 if not os.path.exists(inputs["BIOTWIN_MATRIX"]):
     raise SystemExit(f"Missing {inputs['BIOTWIN_MATRIX']}. Run 04_metadata_merge.R, 00 and 00b first.")
-for script, folder in RUN_OF_RECORD.items():
-    found = glob.glob(os.path.join(CORRECTED_DIR, folder))
+for script in STAGE6_SCRIPTS:
+    found = [d for d in sorted(glob.glob(os.path.join(CORRECTED_DIR, "stage6_corrected_*")))
+             if glob.glob(os.path.join(d, f"{script}_*.log"))]
     if len(found) != 1:
-        raise SystemExit(f"Expected one folder {folder} in {CORRECTED_DIR} for {script}'s run of record, found "
-                         f"{len(found)}." + (" Run python/pipeline/run_stage6.py 07c 07d first." if "*" in folder else ""))
-    if len(glob.glob(os.path.join(found[0], f"{script}_*.log"))) != 1:
-        raise SystemExit(f"{found[0]} should hold {script}'s run of record (one {script}_*.log). "
-                         "Check RUN_OF_RECORD.")
+        raise SystemExit(f"Expected one stage6_corrected_* folder in {CORRECTED_DIR} with {script}'s log "
+                         f"({script}_*.log), found {len(found)}: {[os.path.basename(d) for d in found]}. "
+                         + ("Run python/pipeline/run_stage6.py first." if not found else
+                            "Move the folder that is not its run of record out of the corrected_<date> folder."))
     inputs[f"BIOTWIN_STAGE6_{script}"] = found[0]
 
 only = "".join("_" + f for f in figures) if wanted else ""
@@ -96,6 +86,8 @@ if os.path.exists(OUT_DIR):
     raise SystemExit(f"{OUT_DIR} already exists. Rename or move it before rerunning.")
 os.makedirs(OUT_DIR)
 print(f"Corrected-run folder: {CORRECTED_DIR}")
+for script in STAGE6_SCRIPTS:
+    print(f"Stage 6 {script:<3} from: {os.path.basename(inputs[f'BIOTWIN_STAGE6_{script}'])}")
 print(f"Writing to: {OUT_DIR}")
 
 env = dict(os.environ, **inputs, BIOTWIN_FIGURES_DIR=OUT_DIR, MPLBACKEND="Agg",

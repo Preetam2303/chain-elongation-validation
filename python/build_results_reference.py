@@ -866,8 +866,8 @@ def algorithm_selection(run):
     out["lightgbm_random_forest_07a"] = {
         "_note": "07a, LightGBM in random-forest mode (bagging, seeded) on the single 80/20 split at ASV level, "
                  "with three predictor scopes. The Maximum scope adds the five compounds measured only in the "
-                 "Illumina studies; its attribution is led by caprylate (the target-leakage demonstration of "
-                 "Methods 2.7).",
+                 "Illumina studies (the potential target proxies); its attribution is led by caprylate (the "
+                 "potential-target-proxy check of Methods 2.7).",
         **{name: {"features": int(f), "r2": num(r2), "rmse": num(rmse)} for _, name, f, r2, rmse in scopes},
         "top_10_features_of_the_best_model": re.findall(r"^\s+\d+\. (\S+)$", "\n".join(top[:10]), flags=re.M)}
     return out
