@@ -18,7 +18,7 @@
 # 22 folds across three architectures on the full matrix, matching the paper's
 # own schemes, plus one cross-check (fold counts are printed from the run):
 #     7  leave-one-study-out            (full matrix; the headline model)
-#     5  GroupKFold by physical vessel  (full matrix)
+#     5  GroupKFold by reactor or trial group (full matrix)
 #    10  shuffled 10-fold               (full matrix)
 #     1  Illumina-only global model     (Illumina genus matrix, reported separately)
 # Every model uses the core predictor set and the shared settings
