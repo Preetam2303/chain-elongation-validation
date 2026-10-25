@@ -45,8 +45,8 @@ python/pipeline/       The validation architectures, in Methods 2.6's order
                                              (Table 5; Figure 3, stage 3)
   06_cross_platform_transfer.py      Illumina -> Nanopore transfer (Table 3b)
   07a_algorithm_comparison_lightgbm_rf.py        Algorithm selection (Methods 2.7);
-                                                  the target-leakage demonstration
-                                                  behind excluding downstream co-products
+                                                  the potential-target-proxy demonstration
+                                                  behind leaving those compounds out
   07b_algorithm_comparison_lightgbm_standard.py  XGBoost vs LightGBM (Methods 2.7): 80/20
                                                   split, shuffled 10-fold and LOSO; the two
                                                   naive schemes also with seeds 0-19

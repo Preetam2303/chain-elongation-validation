@@ -3,7 +3,8 @@
 # 0.217 -> -0.228 -> -5.869; corrected run 0.155 -> -0.709 -> -5.296): the
 # same Duber 2025 B1(n=30) -> B2(n=21) split, evaluated with
 # XGBoost but WITHOUT training-only scaling confirmed (no StandardScaler
-# applied at all here) and without an explicit, curated leakage exclusion list.
+# applied at all here) and with a broader predictor list than the core set
+# (it keeps DAY and the potential target proxies).
 #
 # IMPORTANT -- read before running or citing:
 #   1. This script loads an Illumina genus matrix (BIOTWIN_GENUS_ML_MATRIX.csv),
@@ -51,7 +52,7 @@ study_id = 'Duber_2024'
 df_local = df[df['Paper_ID'] == study_id].copy()
 print(f"Isolated {study_id}. Total samples: {len(df_local)}")
 
-# 3. Clean sparse columns only -- NOT an explicit downstream-co-product exclusion
+# 3. Clean sparse columns only -- NOT an exclusion of the potential target proxies
 cols_to_drop = ['succinate', 'Lactose', 'lactose', 'i-propanol', 'izo-butanol',
                  'NAOH', 'naoh', 'Paper_ID', 'Sample_ID', 'Groups']
 df_local = df_local.drop(columns=[c for c in cols_to_drop if c in df_local.columns])

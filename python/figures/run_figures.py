@@ -86,6 +86,8 @@ if os.path.exists(OUT_DIR):
     raise SystemExit(f"{OUT_DIR} already exists. Rename or move it before rerunning.")
 os.makedirs(OUT_DIR)
 print(f"Corrected-run folder: {CORRECTED_DIR}")
+for script in STAGE6_SCRIPTS:
+    print(f"Stage 6 {script:<3} from: {os.path.basename(inputs[f'BIOTWIN_STAGE6_{script}'])}")
 print(f"Writing to: {OUT_DIR}")
 
 env = dict(os.environ, **inputs, BIOTWIN_FIGURES_DIR=OUT_DIR, MPLBACKEND="Agg",

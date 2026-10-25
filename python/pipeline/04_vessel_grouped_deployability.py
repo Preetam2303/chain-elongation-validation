@@ -9,7 +9,8 @@
 # cross-study and within-reactor temporal leakage. These are reactor or trial
 # groups, not always one physical vessel: each continuous reactor is one group,
 # each Duber 2022 group holds the two bottles of one trial, and each Brodowski
-# 2022 batch group one bottle (23 groups on the full matrix).
+# 2022 batch group holds one sequencing run, representing one batch trial (23
+# groups on the full matrix).
 #
 # Produces both rows of Table 3b's vessel-grouped section: CSTR-only (Mode 1)
 # and all vessel types including batch reactors (Mode 2), each with the

@@ -1805,7 +1805,7 @@
    }
   },
   "lightgbm_random_forest_07a": {
-   "_note": "07a, LightGBM in random-forest mode (bagging, seeded) on the single 80/20 split at ASV level, with three predictor scopes. The Maximum scope adds the five compounds measured only in the Illumina studies; its attribution is led by caprylate (the target-leakage demonstration of Methods 2.7).",
+   "_note": "07a, LightGBM in random-forest mode (bagging, seeded) on the single 80/20 split at ASV level, with three predictor scopes. The Maximum scope adds the five compounds measured only in the Illumina studies (the potential target proxies); its attribution is led by caprylate (the potential-target-proxy demonstration of Methods 2.7).",
    "Base Model (Ops + categoricals + ASVs)": {
     "features": 408,
     "r2": 0.311,
