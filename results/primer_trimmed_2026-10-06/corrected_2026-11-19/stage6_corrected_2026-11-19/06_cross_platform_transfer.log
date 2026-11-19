@@ -1,0 +1,18 @@
+--- RAW COUNTS: ILLUMINA -> NANOPORE TRANSFER ---
+Training Samples (Illumina): 112
+Testing Samples (Nanopore): 54 (18 sampling days)
+Features: 215
+Transfer R2:   -0.053
+Transfer RMSE: 138.126 mM C
+Spearman rho (sampling-day means): 0.263
+--- RELATIVE ABUNDANCE: ILLUMINA -> NANOPORE TRANSFER ---
+Training Samples (Illumina): 112
+Testing Samples (Nanopore): 54 (18 sampling days)
+Features: 215
+Transfer R2:   -0.047
+Transfer RMSE: 137.741 mM C
+Spearman rho (sampling-day means): 0.370
+--- TRAINING-MEAN BENCHMARK (predict the Illumina mean) ---
+Benchmark R2:   -0.038
+Benchmark RMSE: 137.168 mM C
+  Saved: C:/Users/IISiIS-ZWW-233/Documents/BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-11-19\stage6_corrected_2026-11-19\06_platform_transfer.csv

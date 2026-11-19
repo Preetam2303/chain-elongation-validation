@@ -1,0 +1,13 @@
+Input: C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-11-19\stage6_corrected_2026-11-19\02_loso_tables_3b_4.csv
+       sha256 33720d6a088624d3e59e89a11af50fe4442cd06c26833b26e50774fa0604c3f5
+
+[Figure S1] Values plotted (LOSO R2 mean, SD across held-out studies):
+  Illumina-only Tier 1: pH, temperature, HRT, categoricals + genera        R2 -1.276 ± 1.412 (112 samples, 210 predictors)
+  Illumina-only Tier 2: + lactate, acetate, ethanol                        R2 -0.729 ± 0.869 (112 samples, 213 predictors)
+  Illumina-only Tier 3: + butyrate, propionate, valerate, isovalerate      R2 -0.473 ± 0.636 (112 samples, 217 predictors)
+  Illumina-only Tier 4: + caprylate, heptanoate, isocaproate               R2 -0.553 ± 0.700 (112 samples, 220 predictors)
+  Full matrix   Tier 1: pH, temperature, HRT, categoricals + genera        R2 -1.132 ± 1.553 (166 samples, 210 predictors)
+  Full matrix   Tier 2: + lactate, acetate, ethanol                        R2 -0.989 ± 1.174 (166 samples, 213 predictors)
+  Full matrix   Tier 3: + butyrate, propionate (core set; HEADLINE)        R2 -0.628 ± 0.818 (166 samples, 215 predictors)
+Saved: C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-11-19\figures_corrected_2026-11-19\Figure_S1_Substrate_Ladder.png
+Saved: C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-11-19\figures_corrected_2026-11-19\Figure_S1_Substrate_Ladder.pdf

@@ -1,7 +1,7 @@
 # build_results_reference.py
 # Stage 9 of the primer-trimmed rerun: builds results_reference.json from the
-# run of record in results/primer_trimmed_2026-10-06/ (the laptop's files,
-# copied unchanged) and data/table_s2/. Every value is read from a results
+# run of record in results/primer_trimmed_2026-10-06/corrected_2026-11-19/ (the
+# laptop's files, copied unchanged). Every value is read from a results
 # file: the read tracking of Stage 1, the matrices that R/04, 00 and 00b wrote,
 # the tables and logs of Stage 6 (02 to 11), the figure logs (Stage 8) and
 # Table S2 (12, 12b). None is typed in. Each value is rounded as the
@@ -35,8 +35,11 @@ import numpy as np
 import pandas as pd
 
 REPO = Path(__file__).resolve().parents[1]
-RUN_OF_RECORD = REPO / "results" / "primer_trimmed_2026-10-06" / "corrected_2026-10-11"
-TABLE_S2_DIR = REPO / "data" / "table_s2"
+# The run of record since 2026-11-19: the full laptop rerun after PR #30 (Brodowski 2022 batch rows at day 7).
+# The earlier run of record, corrected_2026-10-11, is kept unchanged next to it.
+RUN_OF_RECORD = REPO / "results" / "primer_trimmed_2026-10-06" / "corrected_2026-11-19"
+# Table S2 (12 and 12b) is in the run's own Stage 6 folder; 12b read the BLAST file in data/table_s2/.
+TABLE_S2_DIR = RUN_OF_RECORD / "stage6_corrected_2026-11-19"
 REFERENCE = REPO / "results_reference.json"
 sys.path.insert(0, str(REPO / "python" / "pipeline"))
 sys.path.insert(0, str(REPO / "python" / "figures"))
@@ -1121,11 +1124,12 @@ def about(run):
                       "Elongation: A Multi-Study, Multi-Platform Validation Framework",
         "run_of_record": {
             "folder": "results/primer_trimmed_2026-10-06 (copied unchanged from the laptop run; see its README)",
-            "matrices": f"{run.name(run.corrected)} (R/04_metadata_merge.R, 00 and 00b, 2026-10-11)",
+            "matrices": f"{run.name(run.corrected)} (R/04_metadata_merge.R, 00 and 00b, 2026-11-19)",
             "matrix_sha256_lf": matrices,
             "stage6_folder_of_each_script": stage6,
             "figures": run.name(run._folder("figures_corrected_*", "figure1_*.log")),
-            "table_s2": "data/table_s2 (12 and 12b, 2026-10-12)",
+            "table_s2": f"{run.name(run.table_s2)} (12 and 12b, 2026-11-19; BLAST file "
+                        "repository: data/table_s2/CTJH4F4E014-Alignment.txt)",
         },
         "reference_environment": {"python": python[0], "os": python[1],
                                   "packages": "exactly as pinned in requirements.txt"},
@@ -1148,7 +1152,10 @@ def about(run):
         },
         "earlier_values": "The published run's values (before primer trimming, with the earlier settings and "
                           "predictors) are in this file as it stood at tag draft-v1-2026-10-04 (commit 29635f7). "
-                          "They reproduce with the code at commit 844f478.",
+                          "They reproduce with the code at commit 844f478. The previous run of record, "
+                          "corrected_2026-10-11 (Brodowski 2022 batch rows at their starting pH and day 6), is "
+                          "kept unchanged; its values are in this file as of commit 95420b1, and every value that "
+                          "changed is listed in differences_2026-10-11_to_2026-11-19.csv.",
         "sources_note": "Paths in each section's _source are relative to results/primer_trimmed_2026-10-06 unless "
                         "marked as repository paths.",
     }

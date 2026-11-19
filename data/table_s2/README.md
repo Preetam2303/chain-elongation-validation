@@ -1,5 +1,7 @@
 # Table S2: ranking, FASTA, BLAST file and table (rerun, 2026-10-12)
 
+**Since 2026-11-19 the Table S2 of record is in the run of record's Stage 6 folder**, `results/primer_trimmed_2026-10-06/corrected_2026-11-19/stage6_corrected_2026-11-19/` (`12_asv_shap_ranking.csv`, `12_table_s2_asvs.csv`, `Table_S2_ASVs_2026-11-19.fasta`, `TableS2_2026-11-19.csv`). 12 picked the same ASVs in the same order with identical sequences, so 12b read the BLAST file in this folder, `CTJH4F4E014-Alignment.txt`. Of the 151 values `results_reference.json` takes from Table S2, one changed: ASV_143's mean |SHAP|, 8.558 → 8.555. The files below are the first run (2026-10-12), kept unchanged.
+
 These files come from one laptop run (the run of record) of the primer-trimmed rerun, unchanged:
 - `python/pipeline/run_stage6.py 12`, written to `corrected_2026-10-11\stage6_corrected_2026-10-12_12`;
 - an NCBI web BLAST of the FASTA;
