@@ -1,0 +1,23 @@
+Input: C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-11-19\BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv
+       sha256 98ffb7f1a5b9235fa7d51baa027b44fd922bc72bf9e99226e332d4e0352696c7
+One XGBoost fit on all 166 modelled samples (7 studies) with 215 predictors (205 genera); TreeSHAP on the same samples.
+
+[Figure S5] Top 15 predictors by mean |SHAP| (mM C) (3 chemistry, operational or categorical; 12 genera):
+                        feature  mean_abs_shap   rank
+           g__Caproiciproducens         29.400  1.000
+                       Butyrate         27.665  2.000
+            g__Rummeliibacillus         13.798  3.000
+              g__Microbacterium          9.173  4.000
+                  g__Gudongella          8.444  5.000
+                  g__Anaerobium          7.064  6.000
+                g__Ochrobactrum          6.559  7.000
+                g__Unclassified          5.797  8.000
+                        Lactate          5.260  9.000
+               g__Oscillibacter          4.939 10.000
+                     Propionate          4.926 11.000
+          g__Sporolactobacillus          3.823 12.000
+g__Clostridium_sensu_stricto_12          3.745 13.000
+                  g__Monoglobus          3.483 14.000
+                 g__Bacteroides          2.984 15.000
+Saved: C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-11-19\figures_corrected_2026-11-19\Figure_S5_Combined_SHAP.png
+Saved: C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-11-19\figures_corrected_2026-11-19\Figure_S5_Combined_SHAP.pdf

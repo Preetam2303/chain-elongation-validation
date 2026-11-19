@@ -1,0 +1,1839 @@
+path,corrected_2026-10-11,corrected_2026-11-19,state
+primer_trimming/asvs_ending_with_805R_reverse_complement,0,0,same
+primer_trimming/asvs_in_merged_table,3672,3672,same
+primer_trimming/asvs_starting_with_341F,0,0,same
+primer_trimming/cutadapt/max_errors,2,2,same
+primer_trimming/cutadapt/options,-g ^341F -G ^805R -e 2 --discard-untrimmed --pair-filter=any,-g ^341F -G ^805R -e 2 --discard-untrimmed --pair-filter=any,same
+primer_trimming/cutadapt/version,5.2,5.2,same
+primer_trimming/dada2_truncLen_after_trimming[0],233,233,same
+primer_trimming/dada2_truncLen_after_trimming[1],229,229,same
+primer_trimming/primers/341F,CCTACGGGNGGCWGCAG,CCTACGGGNGGCWGCAG,same
+primer_trimming/primers/805R,GACTACHVGGGTATCTAATCC,GACTACHVGGGTATCTAATCC,same
+primer_trimming/read_pairs_by_study/Brodowski_2022/percent_per_sample_highest,98.9,98.9,same
+primer_trimming/read_pairs_by_study/Brodowski_2022/percent_per_sample_lowest,98.0,98.0,same
+primer_trimming/read_pairs_by_study/Brodowski_2022/percent_per_sample_median,98.4,98.4,same
+primer_trimming/read_pairs_by_study/Brodowski_2022/percent_with_both_primers,98.4,98.4,same
+primer_trimming/read_pairs_by_study/Brodowski_2022/read_pairs_in,1281663,1281663,same
+primer_trimming/read_pairs_by_study/Brodowski_2022/read_pairs_with_both_primers,1261534,1261534,same
+primer_trimming/read_pairs_by_study/Brodowski_2022/samples,10,10,same
+primer_trimming/read_pairs_by_study/Brodowski_2022_EXTERNAL_ACETATE/percent_per_sample_highest,98.7,98.7,same
+primer_trimming/read_pairs_by_study/Brodowski_2022_EXTERNAL_ACETATE/percent_per_sample_lowest,98.1,98.1,same
+primer_trimming/read_pairs_by_study/Brodowski_2022_EXTERNAL_ACETATE/percent_per_sample_median,98.5,98.5,same
+primer_trimming/read_pairs_by_study/Brodowski_2022_EXTERNAL_ACETATE/percent_with_both_primers,98.4,98.4,same
+primer_trimming/read_pairs_by_study/Brodowski_2022_EXTERNAL_ACETATE/read_pairs_in,1957049,1957049,same
+primer_trimming/read_pairs_by_study/Brodowski_2022_EXTERNAL_ACETATE/read_pairs_with_both_primers,1926569,1926569,same
+primer_trimming/read_pairs_by_study/Brodowski_2022_EXTERNAL_ACETATE/samples,16,16,same
+primer_trimming/read_pairs_by_study/Brodowski_2025/percent_per_sample_highest,97.6,97.6,same
+primer_trimming/read_pairs_by_study/Brodowski_2025/percent_per_sample_lowest,97.3,97.3,same
+primer_trimming/read_pairs_by_study/Brodowski_2025/percent_per_sample_median,97.5,97.5,same
+primer_trimming/read_pairs_by_study/Brodowski_2025/percent_with_both_primers,97.5,97.5,same
+primer_trimming/read_pairs_by_study/Brodowski_2025/read_pairs_in,2297696,2297696,same
+primer_trimming/read_pairs_by_study/Brodowski_2025/read_pairs_with_both_primers,2240109,2240109,same
+primer_trimming/read_pairs_by_study/Brodowski_2025/samples,15,15,same
+primer_trimming/read_pairs_by_study/Duber_2020/percent_per_sample_highest,96.4,96.4,same
+primer_trimming/read_pairs_by_study/Duber_2020/percent_per_sample_lowest,94.6,94.6,same
+primer_trimming/read_pairs_by_study/Duber_2020/percent_per_sample_median,96.0,96.0,same
+primer_trimming/read_pairs_by_study/Duber_2020/percent_with_both_primers,95.9,95.9,same
+primer_trimming/read_pairs_by_study/Duber_2020/read_pairs_in,938025,938025,same
+primer_trimming/read_pairs_by_study/Duber_2020/read_pairs_with_both_primers,899458,899458,same
+primer_trimming/read_pairs_by_study/Duber_2020/samples,9,9,same
+primer_trimming/read_pairs_by_study/Duber_2022/percent_per_sample_highest,98.2,98.2,same
+primer_trimming/read_pairs_by_study/Duber_2022/percent_per_sample_lowest,97.2,97.2,same
+primer_trimming/read_pairs_by_study/Duber_2022/percent_per_sample_median,97.5,97.5,same
+primer_trimming/read_pairs_by_study/Duber_2022/percent_with_both_primers,97.6,97.6,same
+primer_trimming/read_pairs_by_study/Duber_2022/read_pairs_in,1831322,1831322,same
+primer_trimming/read_pairs_by_study/Duber_2022/read_pairs_with_both_primers,1787856,1787856,same
+primer_trimming/read_pairs_by_study/Duber_2022/samples,19,19,same
+primer_trimming/read_pairs_by_study/Duber_2024/percent_per_sample_highest,97.7,97.7,same
+primer_trimming/read_pairs_by_study/Duber_2024/percent_per_sample_lowest,96.4,96.4,same
+primer_trimming/read_pairs_by_study/Duber_2024/percent_per_sample_median,97.2,97.2,same
+primer_trimming/read_pairs_by_study/Duber_2024/percent_with_both_primers,97.1,97.1,same
+primer_trimming/read_pairs_by_study/Duber_2024/read_pairs_in,4339860,4339860,same
+primer_trimming/read_pairs_by_study/Duber_2024/read_pairs_with_both_primers,4216066,4216066,same
+primer_trimming/read_pairs_by_study/Duber_2024/samples,53,53,same
+data_construction/final_matrix/columns,234,234,same
+data_construction/final_matrix/genera,205,205,same
+data_construction/final_matrix/rows,166,166,same
+data_construction/genera_shared_across_platforms,28,28,same
+data_construction/illumina_genera,109,109,same
+data_construction/inoculum_rows/rows,17,17,same
+data_construction/inoculum_rows/sequencing_runs,5,5,same
+data_construction/named_genera_shared_across_platforms,27,27,same
+data_construction/nanopore_genera,124,124,same
+data_construction/nanopore_rows,54,54,same
+data_construction/prevalence_filter/asvs_kept,403,403,same
+data_construction/prevalence_filter/fewest_samples_of_a_kept_asv,6,6,same
+data_construction/prevalence_filter/fraction,0.05,0.05,same
+data_construction/prevalence_filter/min_samples,6,6,same
+data_construction/prevalence_filter/of_modelled_illumina_samples,112,112,same
+data_construction/prevalence_filter/percent_of_reads_kept,90.3,90.3,same
+data_construction/prevalence_filter/spike_in_genera_removed_first[0],Imtechella,Imtechella,same
+data_construction/prevalence_filter/spike_in_genera_removed_first[1],Allobacillus,Allobacillus,same
+data_construction/r04_matrix/asv_columns,3672,3672,same
+data_construction/r04_matrix/rows,129,129,same
+data_construction/r04_matrix/runs_excluded[0],ERR3200169,ERR3200169,same
+data_construction/r04_matrix/runs_without_metadata[0],SRR28044230,SRR28044230,same
+data_construction/r04_matrix/runs_without_metadata[1],SRR28047173,SRR28047173,same
+data_construction/r04_matrix/runs_without_metadata[2],SRR28047174,SRR28047174,same
+data_construction/r04_matrix/sequencing_runs,117,117,same
+data_construction/stage2_asv_table/asvs,3672,3672,same
+data_construction/stage2_asv_table/sequencing_runs,121,121,same
+table_1_sample_counts/Brodowski_2022/inoculum_rows,5,5,same
+table_1_sample_counts/Brodowski_2022/modelled_rows,8,8,same
+table_1_sample_counts/Brodowski_2022/modelled_sequencing_runs,8,8,same
+table_1_sample_counts/Brodowski_2022_EXTERNAL_ACETATE/inoculum_rows,2,2,same
+table_1_sample_counts/Brodowski_2022_EXTERNAL_ACETATE/modelled_rows,14,14,same
+table_1_sample_counts/Brodowski_2022_EXTERNAL_ACETATE/modelled_sequencing_runs,14,14,same
+table_1_sample_counts/Brodowski_2025/inoculum_rows,0,0,same
+table_1_sample_counts/Brodowski_2025/modelled_rows,14,14,same
+table_1_sample_counts/Brodowski_2025/modelled_sequencing_runs,14,14,same
+table_1_sample_counts/Duber_2020/inoculum_rows,1,1,same
+table_1_sample_counts/Duber_2020/modelled_rows,7,7,same
+table_1_sample_counts/Duber_2020/modelled_sequencing_runs,7,7,same
+table_1_sample_counts/Duber_2022/inoculum_rows,9,9,same
+table_1_sample_counts/Duber_2022/modelled_rows,18,18,same
+table_1_sample_counts/Duber_2022/modelled_sequencing_runs,18,18,same
+table_1_sample_counts/Duber_2024/inoculum_rows,0,0,same
+table_1_sample_counts/Duber_2024/modelled_rows,51,51,same
+table_1_sample_counts/Duber_2024/modelled_sequencing_runs,51,51,same
+table_1_sample_counts/Hanna_2025/inoculum_rows,0,0,same
+table_1_sample_counts/Hanna_2025/modelled_rows,54,54,same
+table_1_sample_counts/Hanna_2025/modelled_sequencing_runs,54,54,same
+table_1_sample_counts/total/inoculum_rows,17,17,same
+table_1_sample_counts/total/modelled_rows,166,166,same
+table_1_sample_counts/total/modelled_sequencing_runs,166,166,same
+table_2_prevalence/Acinetobacter/groups,4,4,same
+table_2_prevalence/Acinetobacter/illumina/mean_relative_abundance_percent,5.19,5.19,same
+table_2_prevalence/Acinetobacter/illumina/of,112,112,same
+table_2_prevalence/Acinetobacter/illumina/percent,24.1,24.1,same
+table_2_prevalence/Acinetobacter/illumina/samples,27,27,same
+table_2_prevalence/Acinetobacter/mean_relative_abundance_percent_by_study/Brodowski_2022,5.13,5.13,same
+table_2_prevalence/Acinetobacter/mean_relative_abundance_percent_by_study/Brodowski_2022_EXTERNAL_ACETATE,38.57,38.57,same
+table_2_prevalence/Acinetobacter/mean_relative_abundance_percent_by_study/Brodowski_2025,0.0,0.0,same
+table_2_prevalence/Acinetobacter/mean_relative_abundance_percent_by_study/Duber_2020,0.0,0.0,same
+table_2_prevalence/Acinetobacter/mean_relative_abundance_percent_by_study/Duber_2022,0.0,0.0,same
+table_2_prevalence/Acinetobacter/mean_relative_abundance_percent_by_study/Duber_2024,0.01,0.01,same
+table_2_prevalence/Acinetobacter/mean_relative_abundance_percent_by_study/Hanna_2025,0.0,0.0,same
+table_2_prevalence/Acinetobacter/nanopore/mean_relative_abundance_percent,0.0,0.0,same
+table_2_prevalence/Acinetobacter/nanopore/of,54,54,same
+table_2_prevalence/Acinetobacter/nanopore/percent,0.0,0.0,same
+table_2_prevalence/Acinetobacter/nanopore/samples,0,0,same
+table_2_prevalence/Acinetobacter/of,166,166,same
+table_2_prevalence/Acinetobacter/percent,16.3,16.3,same
+table_2_prevalence/Acinetobacter/samples,27,27,same
+table_2_prevalence/Caproiciproducens/groups,7,7,same
+table_2_prevalence/Caproiciproducens/illumina/mean_relative_abundance_percent,25.46,25.46,same
+table_2_prevalence/Caproiciproducens/illumina/of,112,112,same
+table_2_prevalence/Caproiciproducens/illumina/percent,98.2,98.2,same
+table_2_prevalence/Caproiciproducens/illumina/samples,110,110,same
+table_2_prevalence/Caproiciproducens/mean_relative_abundance_percent_by_study/Brodowski_2022,28.65,28.65,same
+table_2_prevalence/Caproiciproducens/mean_relative_abundance_percent_by_study/Brodowski_2022_EXTERNAL_ACETATE,32.28,32.28,same
+table_2_prevalence/Caproiciproducens/mean_relative_abundance_percent_by_study/Brodowski_2025,43.81,43.81,same
+table_2_prevalence/Caproiciproducens/mean_relative_abundance_percent_by_study/Duber_2020,4.4,4.4,same
+table_2_prevalence/Caproiciproducens/mean_relative_abundance_percent_by_study/Duber_2022,1.57,1.57,same
+table_2_prevalence/Caproiciproducens/mean_relative_abundance_percent_by_study/Duber_2024,29.36,29.36,same
+table_2_prevalence/Caproiciproducens/mean_relative_abundance_percent_by_study/Hanna_2025,9.79,9.79,same
+table_2_prevalence/Caproiciproducens/nanopore/mean_relative_abundance_percent,9.79,9.79,same
+table_2_prevalence/Caproiciproducens/nanopore/of,54,54,same
+table_2_prevalence/Caproiciproducens/nanopore/percent,94.4,94.4,same
+table_2_prevalence/Caproiciproducens/nanopore/samples,51,51,same
+table_2_prevalence/Caproiciproducens/of,166,166,same
+table_2_prevalence/Caproiciproducens/percent,97.0,97.0,same
+table_2_prevalence/Caproiciproducens/samples,161,161,same
+table_2_prevalence/Clostridium_sensu_stricto_12/caveat,"Not cross-platform comparable: the synonym dictionary (Methods 2.4) maps every Nanopore 'Clostridium' call onto this one clade, while the Illumina data resolve several Clostridium sensu stricto clades.","Not cross-platform comparable: the synonym dictionary (Methods 2.4) maps every Nanopore 'Clostridium' call onto this one clade, while the Illumina data resolve several Clostridium sensu stricto clades.",same
+table_2_prevalence/Clostridium_sensu_stricto_12/groups,7,7,same
+table_2_prevalence/Clostridium_sensu_stricto_12/illumina/mean_relative_abundance_percent,4.68,4.68,same
+table_2_prevalence/Clostridium_sensu_stricto_12/illumina/of,112,112,same
+table_2_prevalence/Clostridium_sensu_stricto_12/illumina/percent,93.8,93.8,same
+table_2_prevalence/Clostridium_sensu_stricto_12/illumina/samples,105,105,same
+table_2_prevalence/Clostridium_sensu_stricto_12/mean_relative_abundance_percent_by_study/Brodowski_2022,2.4,2.4,same
+table_2_prevalence/Clostridium_sensu_stricto_12/mean_relative_abundance_percent_by_study/Brodowski_2022_EXTERNAL_ACETATE,1.73,1.73,same
+table_2_prevalence/Clostridium_sensu_stricto_12/mean_relative_abundance_percent_by_study/Brodowski_2025,6.32,6.32,same
+table_2_prevalence/Clostridium_sensu_stricto_12/mean_relative_abundance_percent_by_study/Duber_2020,0.71,0.71,same
+table_2_prevalence/Clostridium_sensu_stricto_12/mean_relative_abundance_percent_by_study/Duber_2022,5.03,5.03,same
+table_2_prevalence/Clostridium_sensu_stricto_12/mean_relative_abundance_percent_by_study/Duber_2024,5.82,5.82,same
+table_2_prevalence/Clostridium_sensu_stricto_12/mean_relative_abundance_percent_by_study/Hanna_2025,14.1,14.1,same
+table_2_prevalence/Clostridium_sensu_stricto_12/nanopore/mean_relative_abundance_percent,14.1,14.1,same
+table_2_prevalence/Clostridium_sensu_stricto_12/nanopore/of,54,54,same
+table_2_prevalence/Clostridium_sensu_stricto_12/nanopore/percent,98.1,98.1,same
+table_2_prevalence/Clostridium_sensu_stricto_12/nanopore/samples,53,53,same
+table_2_prevalence/Clostridium_sensu_stricto_12/of,166,166,same
+table_2_prevalence/Clostridium_sensu_stricto_12/percent,95.2,95.2,same
+table_2_prevalence/Clostridium_sensu_stricto_12/samples,158,158,same
+table_2_prevalence/Gudongella/groups,1,1,same
+table_2_prevalence/Gudongella/illumina/mean_relative_abundance_percent,0.0,0.0,same
+table_2_prevalence/Gudongella/illumina/of,112,112,same
+table_2_prevalence/Gudongella/illumina/percent,0.0,0.0,same
+table_2_prevalence/Gudongella/illumina/samples,0,0,same
+table_2_prevalence/Gudongella/mean_relative_abundance_percent_by_study/Brodowski_2022,0.0,0.0,same
+table_2_prevalence/Gudongella/mean_relative_abundance_percent_by_study/Brodowski_2022_EXTERNAL_ACETATE,0.0,0.0,same
+table_2_prevalence/Gudongella/mean_relative_abundance_percent_by_study/Brodowski_2025,0.0,0.0,same
+table_2_prevalence/Gudongella/mean_relative_abundance_percent_by_study/Duber_2020,0.0,0.0,same
+table_2_prevalence/Gudongella/mean_relative_abundance_percent_by_study/Duber_2022,0.0,0.0,same
+table_2_prevalence/Gudongella/mean_relative_abundance_percent_by_study/Duber_2024,0.0,0.0,same
+table_2_prevalence/Gudongella/mean_relative_abundance_percent_by_study/Hanna_2025,0.09,0.09,same
+table_2_prevalence/Gudongella/nanopore/mean_relative_abundance_percent,0.09,0.09,same
+table_2_prevalence/Gudongella/nanopore/of,54,54,same
+table_2_prevalence/Gudongella/nanopore/percent,50.0,50.0,same
+table_2_prevalence/Gudongella/nanopore/samples,27,27,same
+table_2_prevalence/Gudongella/of,166,166,same
+table_2_prevalence/Gudongella/percent,16.3,16.3,same
+table_2_prevalence/Gudongella/samples,27,27,same
+table_2_prevalence/Lacticaseibacillus/groups,5,5,same
+table_2_prevalence/Lacticaseibacillus/illumina/mean_relative_abundance_percent,8.23,8.23,same
+table_2_prevalence/Lacticaseibacillus/illumina/of,112,112,same
+table_2_prevalence/Lacticaseibacillus/illumina/percent,58.0,58.0,same
+table_2_prevalence/Lacticaseibacillus/illumina/samples,65,65,same
+table_2_prevalence/Lacticaseibacillus/mean_relative_abundance_percent_by_study/Brodowski_2022,0.05,0.05,same
+table_2_prevalence/Lacticaseibacillus/mean_relative_abundance_percent_by_study/Brodowski_2022_EXTERNAL_ACETATE,0.0,0.0,same
+table_2_prevalence/Lacticaseibacillus/mean_relative_abundance_percent_by_study/Brodowski_2025,0.0,0.0,same
+table_2_prevalence/Lacticaseibacillus/mean_relative_abundance_percent_by_study/Duber_2020,0.25,0.25,same
+table_2_prevalence/Lacticaseibacillus/mean_relative_abundance_percent_by_study/Duber_2022,0.66,0.66,same
+table_2_prevalence/Lacticaseibacillus/mean_relative_abundance_percent_by_study/Duber_2024,17.79,17.79,same
+table_2_prevalence/Lacticaseibacillus/mean_relative_abundance_percent_by_study/Hanna_2025,6.1,6.1,same
+table_2_prevalence/Lacticaseibacillus/nanopore/mean_relative_abundance_percent,6.1,6.1,same
+table_2_prevalence/Lacticaseibacillus/nanopore/of,54,54,same
+table_2_prevalence/Lacticaseibacillus/nanopore/percent,98.1,98.1,same
+table_2_prevalence/Lacticaseibacillus/nanopore/samples,53,53,same
+table_2_prevalence/Lacticaseibacillus/of,166,166,same
+table_2_prevalence/Lacticaseibacillus/percent,71.1,71.1,same
+table_2_prevalence/Lacticaseibacillus/samples,118,118,same
+table_2_prevalence/Lactobacillus/groups,4,4,same
+table_2_prevalence/Lactobacillus/illumina/mean_relative_abundance_percent,0.05,0.05,same
+table_2_prevalence/Lactobacillus/illumina/of,112,112,same
+table_2_prevalence/Lactobacillus/illumina/percent,15.2,15.2,same
+table_2_prevalence/Lactobacillus/illumina/samples,17,17,same
+table_2_prevalence/Lactobacillus/mean_relative_abundance_percent_by_study/Brodowski_2022,0.02,0.02,same
+table_2_prevalence/Lactobacillus/mean_relative_abundance_percent_by_study/Brodowski_2022_EXTERNAL_ACETATE,0.0,0.0,same
+table_2_prevalence/Lactobacillus/mean_relative_abundance_percent_by_study/Brodowski_2025,0.0,0.0,same
+table_2_prevalence/Lactobacillus/mean_relative_abundance_percent_by_study/Duber_2020,0.72,0.72,same
+table_2_prevalence/Lactobacillus/mean_relative_abundance_percent_by_study/Duber_2022,0.02,0.02,same
+table_2_prevalence/Lactobacillus/mean_relative_abundance_percent_by_study/Duber_2024,0.0,0.0,same
+table_2_prevalence/Lactobacillus/mean_relative_abundance_percent_by_study/Hanna_2025,0.01,0.01,same
+table_2_prevalence/Lactobacillus/nanopore/mean_relative_abundance_percent,0.01,0.01,same
+table_2_prevalence/Lactobacillus/nanopore/of,54,54,same
+table_2_prevalence/Lactobacillus/nanopore/percent,13.0,13.0,same
+table_2_prevalence/Lactobacillus/nanopore/samples,7,7,same
+table_2_prevalence/Lactobacillus/of,166,166,same
+table_2_prevalence/Lactobacillus/percent,14.5,14.5,same
+table_2_prevalence/Lactobacillus/samples,24,24,same
+table_2_prevalence/Stenotrophomonas/groups,6,6,same
+table_2_prevalence/Stenotrophomonas/illumina/mean_relative_abundance_percent,1.29,1.29,same
+table_2_prevalence/Stenotrophomonas/illumina/of,112,112,same
+table_2_prevalence/Stenotrophomonas/illumina/percent,45.5,45.5,same
+table_2_prevalence/Stenotrophomonas/illumina/samples,51,51,same
+table_2_prevalence/Stenotrophomonas/mean_relative_abundance_percent_by_study/Brodowski_2022,0.14,0.14,same
+table_2_prevalence/Stenotrophomonas/mean_relative_abundance_percent_by_study/Brodowski_2022_EXTERNAL_ACETATE,0.14,0.14,same
+table_2_prevalence/Stenotrophomonas/mean_relative_abundance_percent_by_study/Brodowski_2025,1.36,1.36,same
+table_2_prevalence/Stenotrophomonas/mean_relative_abundance_percent_by_study/Duber_2020,0.06,0.06,same
+table_2_prevalence/Stenotrophomonas/mean_relative_abundance_percent_by_study/Duber_2022,6.77,6.77,same
+table_2_prevalence/Stenotrophomonas/mean_relative_abundance_percent_by_study/Duber_2024,0.0,0.0,same
+table_2_prevalence/Stenotrophomonas/mean_relative_abundance_percent_by_study/Hanna_2025,0.0,0.0,same
+table_2_prevalence/Stenotrophomonas/nanopore/mean_relative_abundance_percent,0.0,0.0,same
+table_2_prevalence/Stenotrophomonas/nanopore/of,54,54,same
+table_2_prevalence/Stenotrophomonas/nanopore/percent,0.0,0.0,same
+table_2_prevalence/Stenotrophomonas/nanopore/samples,0,0,same
+table_2_prevalence/Stenotrophomonas/of,166,166,same
+table_2_prevalence/Stenotrophomonas/percent,30.7,30.7,same
+table_2_prevalence/Stenotrophomonas/samples,51,51,same
+table_2_prevalence/clostridium_sensu_stricto_clades/illumina/clades_detected,10,10,same
+table_2_prevalence/clostridium_sensu_stricto_clades/illumina/of_samples,112,112,same
+table_2_prevalence/clostridium_sensu_stricto_clades/illumina/samples_by_clade/Clostridium_sensu_stricto_1,73,73,same
+table_2_prevalence/clostridium_sensu_stricto_clades/illumina/samples_by_clade/Clostridium_sensu_stricto_10,20,20,same
+table_2_prevalence/clostridium_sensu_stricto_clades/illumina/samples_by_clade/Clostridium_sensu_stricto_11,34,34,same
+table_2_prevalence/clostridium_sensu_stricto_clades/illumina/samples_by_clade/Clostridium_sensu_stricto_12,105,105,same
+table_2_prevalence/clostridium_sensu_stricto_clades/illumina/samples_by_clade/Clostridium_sensu_stricto_13,6,6,same
+table_2_prevalence/clostridium_sensu_stricto_clades/illumina/samples_by_clade/Clostridium_sensu_stricto_16,33,33,same
+table_2_prevalence/clostridium_sensu_stricto_clades/illumina/samples_by_clade/Clostridium_sensu_stricto_2,42,42,same
+table_2_prevalence/clostridium_sensu_stricto_clades/illumina/samples_by_clade/Clostridium_sensu_stricto_3,44,44,same
+table_2_prevalence/clostridium_sensu_stricto_clades/illumina/samples_by_clade/Clostridium_sensu_stricto_7,19,19,same
+table_2_prevalence/clostridium_sensu_stricto_clades/illumina/samples_by_clade/Clostridium_sensu_stricto_8,15,15,same
+table_2_prevalence/clostridium_sensu_stricto_clades/nanopore/clades_detected,1,1,same
+table_2_prevalence/clostridium_sensu_stricto_clades/nanopore/of_samples,54,54,same
+table_2_prevalence/clostridium_sensu_stricto_clades/nanopore/samples_by_clade/Clostridium_sensu_stricto_12,53,53,same
+replicate_structure/Duber_2024/replicate_sets,17,17,same
+replicate_structure/Duber_2024/rows,51,51,same
+replicate_structure/Duber_2024/samples_per_set[0],3,3,same
+replicate_structure/Hanna_2025/replicate_sets,18,18,same
+replicate_structure/Hanna_2025/rows,54,54,same
+replicate_structure/Hanna_2025/samples_per_set[0],3,3,same
+replicate_structure/of_rows,166,166,same
+replicate_structure/other_rows_sharing_reactor_label_and_day/Duber_2022,18,18,same
+replicate_structure/rows_sharing_study_reactor_label_and_day/groups,44,44,same
+replicate_structure/rows_sharing_study_reactor_label_and_day/largest_group,3,3,same
+replicate_structure/rows_sharing_study_reactor_label_and_day/of_groups,87,87,same
+replicate_structure/rows_sharing_study_reactor_label_and_day/rows,123,123,same
+replicate_structure/sampling_units,96,96,same
+table_3a_naive_schemes/random_5_fold_cv/features,413,413,same
+table_3a_naive_schemes/random_5_fold_cv/folds[0],0.542,0.542,same
+table_3a_naive_schemes/random_5_fold_cv/folds[1],0.96,0.961,differs
+table_3a_naive_schemes/random_5_fold_cv/folds[2],0.898,0.897,differs
+table_3a_naive_schemes/random_5_fold_cv/folds[3],0.189,0.189,same
+table_3a_naive_schemes/random_5_fold_cv/folds[4],0.823,0.823,same
+table_3a_naive_schemes/random_5_fold_cv/n,112,112,same
+table_3a_naive_schemes/random_5_fold_cv/r2,0.682,0.682,same
+table_3a_naive_schemes/random_5_fold_cv/r2_sd,0.285,0.285,same
+table_3a_naive_schemes/random_5_fold_cv/replicate_sets,17,17,same
+table_3a_naive_schemes/random_5_fold_cv/replicate_sets_split,17,17,same
+table_3a_naive_schemes/random_5_fold_cv/rmse,54.9,55.0,differs
+table_3a_naive_schemes/random_5_fold_cv/rmse_sd,31.0,31.0,same
+table_3a_naive_schemes/seeds_0_19/random_5_fold_cv/every_sample/highest,0.786,0.787,differs
+table_3a_naive_schemes/seeds_0_19/random_5_fold_cv/every_sample/lowest,0.636,0.636,same
+table_3a_naive_schemes/seeds_0_19/random_5_fold_cv/every_sample/median,0.71,0.71,same
+table_3a_naive_schemes/seeds_0_19/random_5_fold_cv/lower_with_one_row_per_day_in_seeds,18,18,same
+table_3a_naive_schemes/seeds_0_19/random_5_fold_cv/one_row_per_sampling_day/highest,0.691,0.691,same
+table_3a_naive_schemes/seeds_0_19/random_5_fold_cv/one_row_per_sampling_day/lowest,0.419,0.414,differs
+table_3a_naive_schemes/seeds_0_19/random_5_fold_cv/one_row_per_sampling_day/median,0.576,0.576,same
+table_3a_naive_schemes/seeds_0_19/shuffled_10_fold_cv/every_sample/highest,0.852,0.853,differs
+table_3a_naive_schemes/seeds_0_19/shuffled_10_fold_cv/every_sample/lowest,0.721,0.719,differs
+table_3a_naive_schemes/seeds_0_19/shuffled_10_fold_cv/every_sample/median,0.804,0.803,differs
+table_3a_naive_schemes/seeds_0_19/shuffled_10_fold_cv/lower_with_one_row_per_day_in_seeds,20,20,same
+table_3a_naive_schemes/seeds_0_19/shuffled_10_fold_cv/one_row_per_sampling_day/highest,0.632,0.632,same
+table_3a_naive_schemes/seeds_0_19/shuffled_10_fold_cv/one_row_per_sampling_day/lowest,0.034,0.057,differs
+table_3a_naive_schemes/seeds_0_19/shuffled_10_fold_cv/one_row_per_sampling_day/median,0.483,0.482,differs
+table_3a_naive_schemes/seeds_0_19/single_random_80_20/every_sample/highest,0.929,0.929,same
+table_3a_naive_schemes/seeds_0_19/single_random_80_20/every_sample/lowest,0.481,0.47,differs
+table_3a_naive_schemes/seeds_0_19/single_random_80_20/every_sample/median,0.803,0.803,same
+table_3a_naive_schemes/seeds_0_19/single_random_80_20/lower_with_one_row_per_day_in_seeds,16,16,same
+table_3a_naive_schemes/seeds_0_19/single_random_80_20/one_row_per_sampling_day/highest,0.922,0.922,same
+table_3a_naive_schemes/seeds_0_19/single_random_80_20/one_row_per_sampling_day/lowest,0.251,0.247,differs
+table_3a_naive_schemes/seeds_0_19/single_random_80_20/one_row_per_sampling_day/median,0.592,0.595,differs
+table_3a_naive_schemes/seeds_0_19/single_study_internal_80_20/every_sample/highest,0.997,0.997,same
+table_3a_naive_schemes/seeds_0_19/single_study_internal_80_20/every_sample/lowest,-0.326,-0.326,same
+table_3a_naive_schemes/seeds_0_19/single_study_internal_80_20/every_sample/median,0.925,0.925,same
+table_3a_naive_schemes/seeds_0_19/single_study_internal_80_20/lower_with_one_row_per_day_in_seeds,20,20,same
+table_3a_naive_schemes/seeds_0_19/single_study_internal_80_20/one_row_per_sampling_day/highest,0.879,0.879,same
+table_3a_naive_schemes/seeds_0_19/single_study_internal_80_20/one_row_per_sampling_day/lowest,-122.696,-122.696,same
+table_3a_naive_schemes/seeds_0_19/single_study_internal_80_20/one_row_per_sampling_day/median,-0.742,-0.742,same
+table_3a_naive_schemes/shuffled_10_fold_cv/features,215,215,same
+table_3a_naive_schemes/shuffled_10_fold_cv/folds[0],0.764,0.764,same
+table_3a_naive_schemes/shuffled_10_fold_cv/folds[1],0.795,0.791,differs
+table_3a_naive_schemes/shuffled_10_fold_cv/folds[2],0.703,0.717,differs
+table_3a_naive_schemes/shuffled_10_fold_cv/folds[3],0.685,0.683,differs
+table_3a_naive_schemes/shuffled_10_fold_cv/folds[4],0.779,0.77,differs
+table_3a_naive_schemes/shuffled_10_fold_cv/folds[5],0.876,0.885,differs
+table_3a_naive_schemes/shuffled_10_fold_cv/folds[6],0.924,0.932,differs
+table_3a_naive_schemes/shuffled_10_fold_cv/folds[7],0.926,0.923,differs
+table_3a_naive_schemes/shuffled_10_fold_cv/folds[8],0.95,0.951,differs
+table_3a_naive_schemes/shuffled_10_fold_cv/folds[9],0.878,0.866,differs
+table_3a_naive_schemes/shuffled_10_fold_cv/n,166,166,same
+table_3a_naive_schemes/shuffled_10_fold_cv/r2,0.828,0.828,same
+table_3a_naive_schemes/shuffled_10_fold_cv/r2_sd,0.091,0.09,differs
+table_3a_naive_schemes/shuffled_10_fold_cv/replicate_sets,35,35,same
+table_3a_naive_schemes/shuffled_10_fold_cv/replicate_sets_split,35,35,same
+table_3a_naive_schemes/shuffled_10_fold_cv/rmse,47.0,46.9,differs
+table_3a_naive_schemes/shuffled_10_fold_cv/rmse_sd,21.1,20.9,differs
+table_3a_naive_schemes/single_random_80_20/features,413,413,same
+table_3a_naive_schemes/single_random_80_20/n,112,112,same
+table_3a_naive_schemes/single_random_80_20/n_test,23,23,same
+table_3a_naive_schemes/single_random_80_20/r2,0.542,0.542,same
+table_3a_naive_schemes/single_random_80_20/replicate_sets,17,17,same
+table_3a_naive_schemes/single_random_80_20/replicate_sets_split,9,9,same
+table_3a_naive_schemes/single_random_80_20/rmse,76.0,76.1,differs
+table_3a_naive_schemes/single_study_internal_80_20/features,215,215,same
+table_3a_naive_schemes/single_study_internal_80_20/n,51,51,same
+table_3a_naive_schemes/single_study_internal_80_20/n_test,11,11,same
+table_3a_naive_schemes/single_study_internal_80_20/r2,0.913,0.913,same
+table_3a_naive_schemes/single_study_internal_80_20/replicate_sets,17,17,same
+table_3a_naive_schemes/single_study_internal_80_20/replicate_sets_split,7,7,same
+table_3a_naive_schemes/single_study_internal_80_20/rmse,26.5,26.5,same
+table_3b_grouped_schemes/loso_benchmark_gain_by_held_out_study/Brodowski_2022/benchmark_rmse,67.7,67.7,same
+table_3b_grouped_schemes/loso_benchmark_gain_by_held_out_study/Brodowski_2022/gain,-1.7,-1.9,differs
+table_3b_grouped_schemes/loso_benchmark_gain_by_held_out_study/Brodowski_2022/model_rmse,69.4,69.6,differs
+table_3b_grouped_schemes/loso_benchmark_gain_by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE/benchmark_rmse,174.2,174.2,same
+table_3b_grouped_schemes/loso_benchmark_gain_by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE/gain,19.7,19.5,differs
+table_3b_grouped_schemes/loso_benchmark_gain_by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE/model_rmse,154.5,154.7,differs
+table_3b_grouped_schemes/loso_benchmark_gain_by_held_out_study/Brodowski_2025/benchmark_rmse,72.0,72.0,same
+table_3b_grouped_schemes/loso_benchmark_gain_by_held_out_study/Brodowski_2025/gain,0.7,0.9,differs
+table_3b_grouped_schemes/loso_benchmark_gain_by_held_out_study/Brodowski_2025/model_rmse,71.3,71.1,differs
+table_3b_grouped_schemes/loso_benchmark_gain_by_held_out_study/Duber_2020/benchmark_rmse,113.9,113.9,same
+table_3b_grouped_schemes/loso_benchmark_gain_by_held_out_study/Duber_2020/gain,-5.1,-5.0,differs
+table_3b_grouped_schemes/loso_benchmark_gain_by_held_out_study/Duber_2020/model_rmse,119.0,118.9,differs
+table_3b_grouped_schemes/loso_benchmark_gain_by_held_out_study/Duber_2022/benchmark_rmse,118.5,118.5,same
+table_3b_grouped_schemes/loso_benchmark_gain_by_held_out_study/Duber_2022/gain,77.9,77.9,same
+table_3b_grouped_schemes/loso_benchmark_gain_by_held_out_study/Duber_2022/model_rmse,40.6,40.6,same
+table_3b_grouped_schemes/loso_benchmark_gain_by_held_out_study/Duber_2024/benchmark_rmse,104.5,104.5,same
+table_3b_grouped_schemes/loso_benchmark_gain_by_held_out_study/Duber_2024/gain,-0.5,-0.4,differs
+table_3b_grouped_schemes/loso_benchmark_gain_by_held_out_study/Duber_2024/model_rmse,105.0,104.9,differs
+table_3b_grouped_schemes/loso_benchmark_gain_by_held_out_study/Hanna_2025/benchmark_rmse,137.2,137.2,same
+table_3b_grouped_schemes/loso_benchmark_gain_by_held_out_study/Hanna_2025/gain,-0.4,-0.6,differs
+table_3b_grouped_schemes/loso_benchmark_gain_by_held_out_study/Hanna_2025/model_rmse,137.5,137.7,differs
+table_3b_grouped_schemes/loso_benchmark_gain_by_held_out_study/largest_gain_study,Duber_2022,Duber_2022,same
+table_3b_grouped_schemes/loso_benchmark_gain_by_held_out_study/mean_gain,13.0,12.9,differs
+table_3b_grouped_schemes/loso_benchmark_gain_by_held_out_study/mean_gain_without_largest_gain_study,2.1,2.1,same
+table_3b_grouped_schemes/loso_benchmark_gain_by_held_out_study/studies_with_positive_gain,3,3,same
+table_3b_grouped_schemes/loso_headline/features,215,215,same
+table_3b_grouped_schemes/loso_headline/n,166,166,same
+table_3b_grouped_schemes/loso_headline/r2_by_held_out_study/Brodowski_2022,-0.458,-0.465,differs
+table_3b_grouped_schemes/loso_headline/r2_by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE,-1.383,-1.389,differs
+table_3b_grouped_schemes/loso_headline/r2_by_held_out_study/Brodowski_2025,-0.006,-0.0,differs
+table_3b_grouped_schemes/loso_headline/r2_by_held_out_study/Duber_2020,-0.124,-0.122,differs
+table_3b_grouped_schemes/loso_headline/r2_by_held_out_study/Duber_2022,-2.297,-2.297,same
+table_3b_grouped_schemes/loso_headline/r2_by_held_out_study/Duber_2024,-0.076,-0.074,differs
+table_3b_grouped_schemes/loso_headline/r2_by_held_out_study/Hanna_2025,-0.044,-0.047,differs
+table_3b_grouped_schemes/loso_headline/r2_mean,-0.627,-0.628,differs
+table_3b_grouped_schemes/loso_headline/r2_sd,0.817,0.818,differs
+table_3b_grouped_schemes/loso_headline/rmse,99.6,99.7,differs
+table_3b_grouped_schemes/loso_headline/rmse_sd,37.9,38.0,differs
+table_3b_grouped_schemes/loso_shap_top25_per_fold/features,215,215,same
+table_3b_grouped_schemes/loso_shap_top25_per_fold/n,166,166,same
+table_3b_grouped_schemes/loso_shap_top25_per_fold/r2_by_held_out_study/Brodowski_2022,-0.546,-0.549,differs
+table_3b_grouped_schemes/loso_shap_top25_per_fold/r2_by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE,-1.409,-1.306,differs
+table_3b_grouped_schemes/loso_shap_top25_per_fold/r2_by_held_out_study/Brodowski_2025,0.256,0.229,differs
+table_3b_grouped_schemes/loso_shap_top25_per_fold/r2_by_held_out_study/Duber_2020,-0.098,-0.114,differs
+table_3b_grouped_schemes/loso_shap_top25_per_fold/r2_by_held_out_study/Duber_2022,-2.615,-2.598,differs
+table_3b_grouped_schemes/loso_shap_top25_per_fold/r2_by_held_out_study/Duber_2024,-0.064,-0.08,differs
+table_3b_grouped_schemes/loso_shap_top25_per_fold/r2_by_held_out_study/Hanna_2025,0.004,-0.011,differs
+table_3b_grouped_schemes/loso_shap_top25_per_fold/r2_mean,-0.639,-0.633,differs
+table_3b_grouped_schemes/loso_shap_top25_per_fold/r2_sd,0.952,0.928,differs
+table_3b_grouped_schemes/loso_shap_top25_per_fold/rmse,98.2,98.2,same
+table_3b_grouped_schemes/loso_shap_top25_per_fold/rmse_sd,38.1,37.5,differs
+table_3b_grouped_schemes/loso_training_mean_benchmark/features,0,0,same
+table_3b_grouped_schemes/loso_training_mean_benchmark/n,166,166,same
+table_3b_grouped_schemes/loso_training_mean_benchmark/r2_by_held_out_study/Brodowski_2022,-0.388,-0.388,same
+table_3b_grouped_schemes/loso_training_mean_benchmark/r2_by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE,-2.029,-2.029,same
+table_3b_grouped_schemes/loso_training_mean_benchmark/r2_by_held_out_study/Brodowski_2025,-0.026,-0.026,same
+table_3b_grouped_schemes/loso_training_mean_benchmark/r2_by_held_out_study/Duber_2020,-0.03,-0.03,same
+table_3b_grouped_schemes/loso_training_mean_benchmark/r2_by_held_out_study/Duber_2022,-27.128,-27.128,same
+table_3b_grouped_schemes/loso_training_mean_benchmark/r2_by_held_out_study/Duber_2024,-0.066,-0.066,same
+table_3b_grouped_schemes/loso_training_mean_benchmark/r2_by_held_out_study/Hanna_2025,-0.038,-0.038,same
+table_3b_grouped_schemes/loso_training_mean_benchmark/r2_mean,-4.243,-4.243,same
+table_3b_grouped_schemes/loso_training_mean_benchmark/r2_sd,9.367,9.367,same
+table_3b_grouped_schemes/loso_training_mean_benchmark/rmse,112.6,112.6,same
+table_3b_grouped_schemes/loso_training_mean_benchmark/rmse_sd,34.1,34.1,same
+table_3b_grouped_schemes/platform_transfer_raw_counts/r2,-0.056,-0.053,differs
+table_3b_grouped_schemes/platform_transfer_raw_counts/rmse,138.3,138.1,differs
+table_3b_grouped_schemes/platform_transfer_raw_counts/spearman_rho_sampling_day_means,0.29,0.263,differs
+table_3b_grouped_schemes/platform_transfer_raw_counts/test_n,54,54,same
+table_3b_grouped_schemes/platform_transfer_raw_counts/train_n,112,112,same
+table_3b_grouped_schemes/platform_transfer_relative_abundance/r2,-0.044,-0.047,differs
+table_3b_grouped_schemes/platform_transfer_relative_abundance/rmse,137.5,137.7,differs
+table_3b_grouped_schemes/platform_transfer_relative_abundance/spearman_rho_sampling_day_means,0.389,0.37,differs
+table_3b_grouped_schemes/platform_transfer_relative_abundance/test_n,54,54,same
+table_3b_grouped_schemes/platform_transfer_relative_abundance/train_n,112,112,same
+table_3b_grouped_schemes/platform_transfer_training_mean_benchmark/r2,-0.038,-0.038,same
+table_3b_grouped_schemes/platform_transfer_training_mean_benchmark/rmse,137.2,137.2,same
+table_3b_grouped_schemes/platform_transfer_training_mean_benchmark/test_n,54,54,same
+table_3b_grouped_schemes/platform_transfer_training_mean_benchmark/train_n,112,112,same
+table_3b_grouped_schemes/vessel_grouped_all_vessels/n,166,166,same
+table_3b_grouped_schemes/vessel_grouped_all_vessels/r2_mean,-0.171,-0.167,differs
+table_3b_grouped_schemes/vessel_grouped_all_vessels/r2_sd,0.31,0.306,differs
+table_3b_grouped_schemes/vessel_grouped_all_vessels/rmse,118.0,117.9,differs
+table_3b_grouped_schemes/vessel_grouped_all_vessels/rmse_sd,29.6,29.6,same
+table_3b_grouped_schemes/vessel_grouped_all_vessels/vessels,23,23,same
+table_3b_grouped_schemes/vessel_grouped_all_vessels_training_mean_benchmark/n,166,166,same
+table_3b_grouped_schemes/vessel_grouped_all_vessels_training_mean_benchmark/r2_mean,-0.237,-0.237,same
+table_3b_grouped_schemes/vessel_grouped_all_vessels_training_mean_benchmark/r2_sd,0.218,0.218,same
+table_3b_grouped_schemes/vessel_grouped_all_vessels_training_mean_benchmark/rmse,119.8,119.8,same
+table_3b_grouped_schemes/vessel_grouped_all_vessels_training_mean_benchmark/rmse_sd,20.1,20.1,same
+table_3b_grouped_schemes/vessel_grouped_all_vessels_training_mean_benchmark/vessels,23,23,same
+table_3b_grouped_schemes/vessel_grouped_cstr_only/n,145,145,same
+table_3b_grouped_schemes/vessel_grouped_cstr_only/r2_mean,-0.36,-0.36,same
+table_3b_grouped_schemes/vessel_grouped_cstr_only/r2_sd,0.506,0.506,same
+table_3b_grouped_schemes/vessel_grouped_cstr_only/rmse,124.8,124.8,same
+table_3b_grouped_schemes/vessel_grouped_cstr_only/rmse_sd,32.7,32.7,same
+table_3b_grouped_schemes/vessel_grouped_cstr_only/vessels,11,11,same
+table_3b_grouped_schemes/vessel_grouped_cstr_only_training_mean_benchmark/n,145,145,same
+table_3b_grouped_schemes/vessel_grouped_cstr_only_training_mean_benchmark/r2_mean,-0.277,-0.277,same
+table_3b_grouped_schemes/vessel_grouped_cstr_only_training_mean_benchmark/r2_sd,0.267,0.267,same
+table_3b_grouped_schemes/vessel_grouped_cstr_only_training_mean_benchmark/rmse,120.4,120.4,same
+table_3b_grouped_schemes/vessel_grouped_cstr_only_training_mean_benchmark/rmse_sd,18.6,18.6,same
+table_3b_grouped_schemes/vessel_grouped_cstr_only_training_mean_benchmark/vessels,11,11,same
+table_4_substrate_ladder/chemistry_only_no_genera/features,10,10,same
+table_4_substrate_ladder/chemistry_only_no_genera/n,166,166,same
+table_4_substrate_ladder/chemistry_only_no_genera/r2_by_held_out_study/Brodowski_2022,-1.314,-1.227,differs
+table_4_substrate_ladder/chemistry_only_no_genera/r2_by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE,-1.584,-1.466,differs
+table_4_substrate_ladder/chemistry_only_no_genera/r2_by_held_out_study/Brodowski_2025,0.479,0.482,differs
+table_4_substrate_ladder/chemistry_only_no_genera/r2_by_held_out_study/Duber_2020,-0.107,-0.232,differs
+table_4_substrate_ladder/chemistry_only_no_genera/r2_by_held_out_study/Duber_2022,-15.523,-15.032,differs
+table_4_substrate_ladder/chemistry_only_no_genera/r2_by_held_out_study/Duber_2024,-1.012,-0.969,differs
+table_4_substrate_ladder/chemistry_only_no_genera/r2_by_held_out_study/Hanna_2025,-0.12,-0.131,differs
+table_4_substrate_ladder/chemistry_only_no_genera/r2_mean,-2.74,-2.654,differs
+table_4_substrate_ladder/chemistry_only_no_genera/r2_sd,5.263,5.093,differs
+table_4_substrate_ladder/chemistry_only_no_genera/rmse,113.5,113.3,differs
+table_4_substrate_ladder/chemistry_only_no_genera/rmse_sd,36.0,35.8,differs
+table_4_substrate_ladder/full_matrix/tier_1/description,"Tier 1: pH, temperature, HRT, categoricals + genera","Tier 1: pH, temperature, HRT, categoricals + genera",same
+table_4_substrate_ladder/full_matrix/tier_1/features,210,210,same
+table_4_substrate_ladder/full_matrix/tier_1/n,166,166,same
+table_4_substrate_ladder/full_matrix/tier_1/r2_by_held_out_study/Brodowski_2022,0.232,0.228,differs
+table_4_substrate_ladder/full_matrix/tier_1/r2_by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE,-2.481,-2.494,differs
+table_4_substrate_ladder/full_matrix/tier_1/r2_by_held_out_study/Brodowski_2025,-0.854,-0.851,differs
+table_4_substrate_ladder/full_matrix/tier_1/r2_by_held_out_study/Duber_2020,-0.432,-0.432,same
+table_4_substrate_ladder/full_matrix/tier_1/r2_by_held_out_study/Duber_2022,-4.312,-4.312,same
+table_4_substrate_ladder/full_matrix/tier_1/r2_by_held_out_study/Duber_2024,0.162,0.162,same
+table_4_substrate_ladder/full_matrix/tier_1/r2_by_held_out_study/Hanna_2025,-0.197,-0.223,differs
+table_4_substrate_ladder/full_matrix/tier_1/r2_mean,-1.126,-1.132,differs
+table_4_substrate_ladder/full_matrix/tier_1/r2_sd,1.554,1.553,differs
+table_4_substrate_ladder/full_matrix/tier_1/rmse,108.5,108.8,differs
+table_4_substrate_ladder/full_matrix/tier_1/rmse_sd,46.8,47.0,differs
+table_4_substrate_ladder/full_matrix/tier_2/description,"Tier 2: + lactate, acetate, ethanol","Tier 2: + lactate, acetate, ethanol",same
+table_4_substrate_ladder/full_matrix/tier_2/features,213,213,same
+table_4_substrate_ladder/full_matrix/tier_2/n,166,166,same
+table_4_substrate_ladder/full_matrix/tier_2/r2_by_held_out_study/Brodowski_2022,-0.46,-0.461,differs
+table_4_substrate_ladder/full_matrix/tier_2/r2_by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE,-2.034,-2.189,differs
+table_4_substrate_ladder/full_matrix/tier_2/r2_by_held_out_study/Brodowski_2025,-0.325,-0.343,differs
+table_4_substrate_ladder/full_matrix/tier_2/r2_by_held_out_study/Duber_2020,-0.434,-0.433,differs
+table_4_substrate_ladder/full_matrix/tier_2/r2_by_held_out_study/Duber_2022,-3.325,-3.325,same
+table_4_substrate_ladder/full_matrix/tier_2/r2_by_held_out_study/Duber_2024,0.146,0.146,same
+table_4_substrate_ladder/full_matrix/tier_2/r2_by_held_out_study/Hanna_2025,-0.26,-0.318,differs
+table_4_substrate_ladder/full_matrix/tier_2/r2_mean,-0.956,-0.989,differs
+table_4_substrate_ladder/full_matrix/tier_2/r2_sd,1.158,1.174,differs
+table_4_substrate_ladder/full_matrix/tier_2/rmse,107.3,108.5,differs
+table_4_substrate_ladder/full_matrix/tier_2/rmse_sd,43.3,44.7,differs
+table_4_substrate_ladder/full_matrix/tier_3/description,"Tier 3: + butyrate, propionate (core set; HEADLINE)","Tier 3: + butyrate, propionate (core set; HEADLINE)",same
+table_4_substrate_ladder/full_matrix/tier_3/features,215,215,same
+table_4_substrate_ladder/full_matrix/tier_3/n,166,166,same
+table_4_substrate_ladder/full_matrix/tier_3/r2_by_held_out_study/Brodowski_2022,-0.458,-0.465,differs
+table_4_substrate_ladder/full_matrix/tier_3/r2_by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE,-1.383,-1.389,differs
+table_4_substrate_ladder/full_matrix/tier_3/r2_by_held_out_study/Brodowski_2025,-0.006,-0.0,differs
+table_4_substrate_ladder/full_matrix/tier_3/r2_by_held_out_study/Duber_2020,-0.124,-0.122,differs
+table_4_substrate_ladder/full_matrix/tier_3/r2_by_held_out_study/Duber_2022,-2.297,-2.297,same
+table_4_substrate_ladder/full_matrix/tier_3/r2_by_held_out_study/Duber_2024,-0.076,-0.074,differs
+table_4_substrate_ladder/full_matrix/tier_3/r2_by_held_out_study/Hanna_2025,-0.044,-0.047,differs
+table_4_substrate_ladder/full_matrix/tier_3/r2_mean,-0.627,-0.628,differs
+table_4_substrate_ladder/full_matrix/tier_3/r2_sd,0.817,0.818,differs
+table_4_substrate_ladder/full_matrix/tier_3/rmse,99.6,99.7,differs
+table_4_substrate_ladder/full_matrix/tier_3/rmse_sd,37.9,38.0,differs
+table_4_substrate_ladder/full_matrix/training_mean_benchmark/description,Training-mean benchmark,Training-mean benchmark,same
+table_4_substrate_ladder/full_matrix/training_mean_benchmark/features,0,0,same
+table_4_substrate_ladder/full_matrix/training_mean_benchmark/n,166,166,same
+table_4_substrate_ladder/full_matrix/training_mean_benchmark/r2_by_held_out_study/Brodowski_2022,-0.388,-0.388,same
+table_4_substrate_ladder/full_matrix/training_mean_benchmark/r2_by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE,-2.029,-2.029,same
+table_4_substrate_ladder/full_matrix/training_mean_benchmark/r2_by_held_out_study/Brodowski_2025,-0.026,-0.026,same
+table_4_substrate_ladder/full_matrix/training_mean_benchmark/r2_by_held_out_study/Duber_2020,-0.03,-0.03,same
+table_4_substrate_ladder/full_matrix/training_mean_benchmark/r2_by_held_out_study/Duber_2022,-27.128,-27.128,same
+table_4_substrate_ladder/full_matrix/training_mean_benchmark/r2_by_held_out_study/Duber_2024,-0.066,-0.066,same
+table_4_substrate_ladder/full_matrix/training_mean_benchmark/r2_by_held_out_study/Hanna_2025,-0.038,-0.038,same
+table_4_substrate_ladder/full_matrix/training_mean_benchmark/r2_mean,-4.243,-4.243,same
+table_4_substrate_ladder/full_matrix/training_mean_benchmark/r2_sd,9.367,9.367,same
+table_4_substrate_ladder/full_matrix/training_mean_benchmark/rmse,112.6,112.6,same
+table_4_substrate_ladder/full_matrix/training_mean_benchmark/rmse_sd,34.1,34.1,same
+table_4_substrate_ladder/illumina_only/tier_1/description,"Tier 1: pH, temperature, HRT, categoricals + genera","Tier 1: pH, temperature, HRT, categoricals + genera",same
+table_4_substrate_ladder/illumina_only/tier_1/features,210,210,same
+table_4_substrate_ladder/illumina_only/tier_1/n,112,112,same
+table_4_substrate_ladder/illumina_only/tier_1/r2_by_held_out_study/Brodowski_2022,0.289,0.257,differs
+table_4_substrate_ladder/illumina_only/tier_1/r2_by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE,-2.227,-2.03,differs
+table_4_substrate_ladder/illumina_only/tier_1/r2_by_held_out_study/Brodowski_2025,-1.372,-1.341,differs
+table_4_substrate_ladder/illumina_only/tier_1/r2_by_held_out_study/Duber_2020,-0.518,-0.584,differs
+table_4_substrate_ladder/illumina_only/tier_1/r2_by_held_out_study/Duber_2022,-4.419,-3.925,differs
+table_4_substrate_ladder/illumina_only/tier_1/r2_by_held_out_study/Duber_2024,-0.034,-0.035,differs
+table_4_substrate_ladder/illumina_only/tier_1/r2_mean,-1.38,-1.276,differs
+table_4_substrate_ladder/illumina_only/tier_1/r2_sd,1.596,1.412,differs
+table_4_substrate_ladder/illumina_only/tier_1/rmse,105.2,104.4,differs
+table_4_substrate_ladder/illumina_only/tier_1/rmse_sd,46.1,45.2,differs
+table_4_substrate_ladder/illumina_only/tier_2/description,"Tier 2: + lactate, acetate, ethanol","Tier 2: + lactate, acetate, ethanol",same
+table_4_substrate_ladder/illumina_only/tier_2/features,213,213,same
+table_4_substrate_ladder/illumina_only/tier_2/n,112,112,same
+table_4_substrate_ladder/illumina_only/tier_2/r2_by_held_out_study/Brodowski_2022,0.443,0.421,differs
+table_4_substrate_ladder/illumina_only/tier_2/r2_by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE,-1.508,-1.339,differs
+table_4_substrate_ladder/illumina_only/tier_2/r2_by_held_out_study/Brodowski_2025,-1.19,-1.179,differs
+table_4_substrate_ladder/illumina_only/tier_2/r2_by_held_out_study/Duber_2020,-0.351,-0.402,differs
+table_4_substrate_ladder/illumina_only/tier_2/r2_by_held_out_study/Duber_2022,-2.132,-2.044,differs
+table_4_substrate_ladder/illumina_only/tier_2/r2_by_held_out_study/Duber_2024,0.167,0.167,same
+table_4_substrate_ladder/illumina_only/tier_2/r2_mean,-0.762,-0.729,differs
+table_4_substrate_ladder/illumina_only/tier_2/r2_sd,0.922,0.869,differs
+table_4_substrate_ladder/illumina_only/tier_2/rmse,94.8,94.3,differs
+table_4_substrate_ladder/illumina_only/tier_2/rmse_sd,43.2,42.2,differs
+table_4_substrate_ladder/illumina_only/tier_3/description,"Tier 3: + butyrate, propionate, valerate, isovalerate","Tier 3: + butyrate, propionate, valerate, isovalerate",same
+table_4_substrate_ladder/illumina_only/tier_3/features,217,217,same
+table_4_substrate_ladder/illumina_only/tier_3/n,112,112,same
+table_4_substrate_ladder/illumina_only/tier_3/r2_by_held_out_study/Brodowski_2022,0.315,0.315,same
+table_4_substrate_ladder/illumina_only/tier_3/r2_by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE,-1.301,-1.297,differs
+table_4_substrate_ladder/illumina_only/tier_3/r2_by_held_out_study/Brodowski_2025,-1.07,-1.07,same
+table_4_substrate_ladder/illumina_only/tier_3/r2_by_held_out_study/Duber_2020,-0.357,-0.357,same
+table_4_substrate_ladder/illumina_only/tier_3/r2_by_held_out_study/Duber_2022,-0.822,-0.77,differs
+table_4_substrate_ladder/illumina_only/tier_3/r2_by_held_out_study/Duber_2024,0.344,0.344,same
+table_4_substrate_ladder/illumina_only/tier_3/r2_mean,-0.482,-0.473,differs
+table_4_substrate_ladder/illumina_only/tier_3/r2_sd,0.641,0.636,differs
+table_4_substrate_ladder/illumina_only/tier_3/rmse,90.8,90.7,differs
+table_4_substrate_ladder/illumina_only/tier_3/rmse_sd,43.0,43.0,same
+table_4_substrate_ladder/illumina_only/tier_4/description,"Tier 4: + caprylate, heptanoate, isocaproate","Tier 4: + caprylate, heptanoate, isocaproate",same
+table_4_substrate_ladder/illumina_only/tier_4/features,220,220,same
+table_4_substrate_ladder/illumina_only/tier_4/n,112,112,same
+table_4_substrate_ladder/illumina_only/tier_4/r2_by_held_out_study/Brodowski_2022,-0.238,-0.238,same
+table_4_substrate_ladder/illumina_only/tier_4/r2_by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE,-1.91,-1.91,same
+table_4_substrate_ladder/illumina_only/tier_4/r2_by_held_out_study/Brodowski_2025,-0.834,-0.834,same
+table_4_substrate_ladder/illumina_only/tier_4/r2_by_held_out_study/Duber_2020,0.244,0.237,differs
+table_4_substrate_ladder/illumina_only/tier_4/r2_by_held_out_study/Duber_2022,-0.562,-0.562,same
+table_4_substrate_ladder/illumina_only/tier_4/r2_by_held_out_study/Duber_2024,-0.011,-0.011,same
+table_4_substrate_ladder/illumina_only/tier_4/r2_mean,-0.552,-0.553,differs
+table_4_substrate_ladder/illumina_only/tier_4/r2_sd,0.701,0.7,differs
+table_4_substrate_ladder/illumina_only/tier_4/rmse,93.1,93.1,same
+table_4_substrate_ladder/illumina_only/tier_4/rmse_sd,43.3,43.3,same
+table_4_substrate_ladder/illumina_only/training_mean_benchmark/description,Training-mean benchmark,Training-mean benchmark,same
+table_4_substrate_ladder/illumina_only/training_mean_benchmark/features,0,0,same
+table_4_substrate_ladder/illumina_only/training_mean_benchmark/n,112,112,same
+table_4_substrate_ladder/illumina_only/training_mean_benchmark/r2_by_held_out_study/Brodowski_2022,-0.229,-0.229,same
+table_4_substrate_ladder/illumina_only/training_mean_benchmark/r2_by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE,-2.522,-2.522,same
+table_4_substrate_ladder/illumina_only/training_mean_benchmark/r2_by_held_out_study/Brodowski_2025,-0.093,-0.093,same
+table_4_substrate_ladder/illumina_only/training_mean_benchmark/r2_by_held_out_study/Duber_2020,-0.066,-0.066,same
+table_4_substrate_ladder/illumina_only/training_mean_benchmark/r2_by_held_out_study/Duber_2022,-25.78,-25.78,same
+table_4_substrate_ladder/illumina_only/training_mean_benchmark/r2_by_held_out_study/Duber_2024,-0.03,-0.03,same
+table_4_substrate_ladder/illumina_only/training_mean_benchmark/r2_mean,-4.787,-4.787,same
+table_4_substrate_ladder/illumina_only/training_mean_benchmark/r2_sd,9.43,9.43,same
+table_4_substrate_ladder/illumina_only/training_mean_benchmark/rmse,110.0,110.0,same
+table_4_substrate_ladder/illumina_only/training_mean_benchmark/rmse_sd,40.0,40.0,same
+table_5_intrastudy_reactor_transfer/Brodowski_2022_EXTERNAL_ACETATE/conditions_B1/HRT/5,8,8,same
+table_5_intrastudy_reactor_transfer/Brodowski_2022_EXTERNAL_ACETATE/conditions_B1/PH/5.5,8,8,same
+table_5_intrastudy_reactor_transfer/Brodowski_2022_EXTERNAL_ACETATE/conditions_B1/TEMP/30,8,8,same
+table_5_intrastudy_reactor_transfer/Brodowski_2022_EXTERNAL_ACETATE/conditions_B1/feed[0],Defined Synthetic Media / Lactate + Acetate,Defined Synthetic Media / Lactate + Acetate,same
+table_5_intrastudy_reactor_transfer/Brodowski_2022_EXTERNAL_ACETATE/conditions_B1/feed[1],Defined Synthetic Media / Lactate Only,Defined Synthetic Media / Lactate Only,same
+table_5_intrastudy_reactor_transfer/Brodowski_2022_EXTERNAL_ACETATE/conditions_B1/samples,8,8,same
+table_5_intrastudy_reactor_transfer/Brodowski_2022_EXTERNAL_ACETATE/conditions_B2/HRT/5,6,6,same
+table_5_intrastudy_reactor_transfer/Brodowski_2022_EXTERNAL_ACETATE/conditions_B2/PH/5.5,6,6,same
+table_5_intrastudy_reactor_transfer/Brodowski_2022_EXTERNAL_ACETATE/conditions_B2/TEMP/30,6,6,same
+table_5_intrastudy_reactor_transfer/Brodowski_2022_EXTERNAL_ACETATE/conditions_B2/feed[0],Defined Synthetic Media / Lactate + Acetate,Defined Synthetic Media / Lactate + Acetate,same
+table_5_intrastudy_reactor_transfer/Brodowski_2022_EXTERNAL_ACETATE/conditions_B2/samples,6,6,same
+table_5_intrastudy_reactor_transfer/Brodowski_2022_EXTERNAL_ACETATE/r2,-0.359,-0.359,same
+table_5_intrastudy_reactor_transfer/Brodowski_2022_EXTERNAL_ACETATE/rmse,113.9,113.9,same
+table_5_intrastudy_reactor_transfer/Brodowski_2022_EXTERNAL_ACETATE/spearman_rho,-0.03,-0.03,same
+table_5_intrastudy_reactor_transfer/Brodowski_2022_EXTERNAL_ACETATE/test_n,6,6,same
+table_5_intrastudy_reactor_transfer/Brodowski_2022_EXTERNAL_ACETATE/test_reactor,B2,B2,same
+table_5_intrastudy_reactor_transfer/Brodowski_2022_EXTERNAL_ACETATE/test_sampling_units,6,6,same
+table_5_intrastudy_reactor_transfer/Brodowski_2022_EXTERNAL_ACETATE/train_n,8,8,same
+table_5_intrastudy_reactor_transfer/Brodowski_2022_EXTERNAL_ACETATE/train_reactor,B1,B1,same
+table_5_intrastudy_reactor_transfer/Brodowski_2025/conditions_B1/HRT/4,7,7,same
+table_5_intrastudy_reactor_transfer/Brodowski_2025/conditions_B1/PH/5.5,2,2,same
+table_5_intrastudy_reactor_transfer/Brodowski_2025/conditions_B1/PH/6,1,1,same
+table_5_intrastudy_reactor_transfer/Brodowski_2025/conditions_B1/PH/6.5,2,2,same
+table_5_intrastudy_reactor_transfer/Brodowski_2025/conditions_B1/PH/7,2,2,same
+table_5_intrastudy_reactor_transfer/Brodowski_2025/conditions_B1/TEMP/30,7,7,same
+table_5_intrastudy_reactor_transfer/Brodowski_2025/conditions_B1/feed[0],Defined Synthetic Media / Lactate + Acetate,Defined Synthetic Media / Lactate + Acetate,same
+table_5_intrastudy_reactor_transfer/Brodowski_2025/conditions_B1/samples,7,7,same
+table_5_intrastudy_reactor_transfer/Brodowski_2025/conditions_B2/HRT/4,7,7,same
+table_5_intrastudy_reactor_transfer/Brodowski_2025/conditions_B2/PH/5.5,2,2,same
+table_5_intrastudy_reactor_transfer/Brodowski_2025/conditions_B2/PH/6,2,2,same
+table_5_intrastudy_reactor_transfer/Brodowski_2025/conditions_B2/PH/6.5,1,1,same
+table_5_intrastudy_reactor_transfer/Brodowski_2025/conditions_B2/PH/7,2,2,same
+table_5_intrastudy_reactor_transfer/Brodowski_2025/conditions_B2/TEMP/30,7,7,same
+table_5_intrastudy_reactor_transfer/Brodowski_2025/conditions_B2/feed[0],Defined Synthetic Media / Lactate + Ethanol + Acetate,Defined Synthetic Media / Lactate + Ethanol + Acetate,same
+table_5_intrastudy_reactor_transfer/Brodowski_2025/conditions_B2/samples,7,7,same
+table_5_intrastudy_reactor_transfer/Brodowski_2025/r2,0.54,0.54,same
+table_5_intrastudy_reactor_transfer/Brodowski_2025/rmse,51.1,51.1,same
+table_5_intrastudy_reactor_transfer/Brodowski_2025/spearman_rho,0.617,0.617,same
+table_5_intrastudy_reactor_transfer/Brodowski_2025/test_n,7,7,same
+table_5_intrastudy_reactor_transfer/Brodowski_2025/test_reactor,B2,B2,same
+table_5_intrastudy_reactor_transfer/Brodowski_2025/test_sampling_units,7,7,same
+table_5_intrastudy_reactor_transfer/Brodowski_2025/train_n,7,7,same
+table_5_intrastudy_reactor_transfer/Brodowski_2025/train_reactor,B1,B1,same
+table_5_intrastudy_reactor_transfer/Duber_2024/conditions_B1/HRT/5,30,30,same
+table_5_intrastudy_reactor_transfer/Duber_2024/conditions_B1/PH/5.5,12,12,same
+table_5_intrastudy_reactor_transfer/Duber_2024/conditions_B1/PH/6.5,18,18,same
+table_5_intrastudy_reactor_transfer/Duber_2024/conditions_B1/TEMP/30,12,12,same
+table_5_intrastudy_reactor_transfer/Duber_2024/conditions_B1/TEMP/37,15,15,same
+table_5_intrastudy_reactor_transfer/Duber_2024/conditions_B1/TEMP/50,3,3,same
+table_5_intrastudy_reactor_transfer/Duber_2024/conditions_B1/feed[0],Complex Organic Waste / OFMSW,Complex Organic Waste / OFMSW,same
+table_5_intrastudy_reactor_transfer/Duber_2024/conditions_B1/samples,30,30,same
+table_5_intrastudy_reactor_transfer/Duber_2024/conditions_B2/HRT/5,21,21,same
+table_5_intrastudy_reactor_transfer/Duber_2024/conditions_B2/PH/5.5,21,21,same
+table_5_intrastudy_reactor_transfer/Duber_2024/conditions_B2/TEMP/30,9,9,same
+table_5_intrastudy_reactor_transfer/Duber_2024/conditions_B2/TEMP/37,3,3,same
+table_5_intrastudy_reactor_transfer/Duber_2024/conditions_B2/TEMP/50,9,9,same
+table_5_intrastudy_reactor_transfer/Duber_2024/conditions_B2/feed[0],Complex Organic Waste / OFMSW,Complex Organic Waste / OFMSW,same
+table_5_intrastudy_reactor_transfer/Duber_2024/conditions_B2/samples,21,21,same
+table_5_intrastudy_reactor_transfer/Duber_2024/r2,-5.296,-5.296,same
+table_5_intrastudy_reactor_transfer/Duber_2024/rmse,144.3,144.3,same
+table_5_intrastudy_reactor_transfer/Duber_2024/spearman_rho,-0.607,-0.607,same
+table_5_intrastudy_reactor_transfer/Duber_2024/test_n,21,21,same
+table_5_intrastudy_reactor_transfer/Duber_2024/test_reactor,B2,B2,same
+table_5_intrastudy_reactor_transfer/Duber_2024/test_sampling_units,7,7,same
+table_5_intrastudy_reactor_transfer/Duber_2024/train_n,30,30,same
+table_5_intrastudy_reactor_transfer/Duber_2024/train_reactor,B1,B1,same
+table_5_intrastudy_reactor_transfer/Hanna_2025/conditions_B1/HRT/1.25,3,3,same
+table_5_intrastudy_reactor_transfer/Hanna_2025/conditions_B1/HRT/2.5,3,3,same
+table_5_intrastudy_reactor_transfer/Hanna_2025/conditions_B1/HRT/5,21,21,same
+table_5_intrastudy_reactor_transfer/Hanna_2025/conditions_B1/PH/5.5,6,6,same
+table_5_intrastudy_reactor_transfer/Hanna_2025/conditions_B1/PH/6.5,12,12,same
+table_5_intrastudy_reactor_transfer/Hanna_2025/conditions_B1/PH/7,9,9,same
+table_5_intrastudy_reactor_transfer/Hanna_2025/conditions_B1/TEMP/37,24,24,same
+table_5_intrastudy_reactor_transfer/Hanna_2025/conditions_B1/TEMP/50,3,3,same
+table_5_intrastudy_reactor_transfer/Hanna_2025/conditions_B1/feed[0],Complex Organic Waste / OFMSW,Complex Organic Waste / OFMSW,same
+table_5_intrastudy_reactor_transfer/Hanna_2025/conditions_B1/samples,27,27,same
+table_5_intrastudy_reactor_transfer/Hanna_2025/conditions_B2/HRT/1.25,3,3,same
+table_5_intrastudy_reactor_transfer/Hanna_2025/conditions_B2/HRT/2.5,3,3,same
+table_5_intrastudy_reactor_transfer/Hanna_2025/conditions_B2/HRT/5,21,21,same
+table_5_intrastudy_reactor_transfer/Hanna_2025/conditions_B2/PH/6,6,6,same
+table_5_intrastudy_reactor_transfer/Hanna_2025/conditions_B2/PH/6.5,12,12,same
+table_5_intrastudy_reactor_transfer/Hanna_2025/conditions_B2/PH/7,9,9,same
+table_5_intrastudy_reactor_transfer/Hanna_2025/conditions_B2/TEMP/37,24,24,same
+table_5_intrastudy_reactor_transfer/Hanna_2025/conditions_B2/TEMP/50,3,3,same
+table_5_intrastudy_reactor_transfer/Hanna_2025/conditions_B2/feed[0],Complex Organic Waste / OFMSW,Complex Organic Waste / OFMSW,same
+table_5_intrastudy_reactor_transfer/Hanna_2025/conditions_B2/samples,27,27,same
+table_5_intrastudy_reactor_transfer/Hanna_2025/r2,-2.016,-2.016,same
+table_5_intrastudy_reactor_transfer/Hanna_2025/rmse,164.4,164.4,same
+table_5_intrastudy_reactor_transfer/Hanna_2025/spearman_rho,0.787,0.787,same
+table_5_intrastudy_reactor_transfer/Hanna_2025/test_n,27,27,same
+table_5_intrastudy_reactor_transfer/Hanna_2025/test_reactor,B2,B2,same
+table_5_intrastudy_reactor_transfer/Hanna_2025/test_sampling_units,9,9,same
+table_5_intrastudy_reactor_transfer/Hanna_2025/train_n,27,27,same
+table_5_intrastudy_reactor_transfer/Hanna_2025/train_reactor,B1,B1,same
+table_5_intrastudy_reactor_transfer/not_in_table_5/Brodowski_2022,CSTR B1 has 1 sample (B2 has 4); the batch bottles are 1 per condition,CSTR B1 has 1 sample (B2 has 4); the batch bottles are 1 per condition,same
+table_5_intrastudy_reactor_transfer/not_in_table_5/Duber_2020,one reactor,one reactor,same
+table_5_intrastudy_reactor_transfer/not_in_table_5/Duber_2022,"batch bottles, 2 per condition; no reactor with 3 or more samples","batch bottles, 2 per condition; no reactor with 3 or more samples",same
+figure_3_leakage_tightening_progression/stage_1_unscaled_random_forest/r2,0.15549998,0.15549998,same
+figure_3_leakage_tightening_progression/stage_1_unscaled_random_forest/rmsd,52.86,52.86,same
+figure_3_leakage_tightening_progression/stage_1_unscaled_random_forest/test_n,21,21,same
+figure_3_leakage_tightening_progression/stage_1_unscaled_random_forest/train_n,30,30,same
+figure_3_leakage_tightening_progression/stage_2_intermediate_unscaled_xgboost/r2,-0.709,-0.709,same
+figure_3_leakage_tightening_progression/stage_2_intermediate_unscaled_xgboost/rmse,75.2,75.2,same
+figure_3_leakage_tightening_progression/stage_2_intermediate_unscaled_xgboost/test_n,21,21,same
+figure_3_leakage_tightening_progression/stage_2_intermediate_unscaled_xgboost/top_10_mean_abs_shap/Acetate,0.130516,0.130516,same
+figure_3_leakage_tightening_progression/stage_2_intermediate_unscaled_xgboost/top_10_mean_abs_shap/DAY,95.248291,95.248291,same
+figure_3_leakage_tightening_progression/stage_2_intermediate_unscaled_xgboost/top_10_mean_abs_shap/Ethanol,0.473182,0.473182,same
+figure_3_leakage_tightening_progression/stage_2_intermediate_unscaled_xgboost/top_10_mean_abs_shap/Isobutyrate,0.972846,0.972846,same
+figure_3_leakage_tightening_progression/stage_2_intermediate_unscaled_xgboost/top_10_mean_abs_shap/Lactate,0.141293,0.141293,same
+figure_3_leakage_tightening_progression/stage_2_intermediate_unscaled_xgboost/top_10_mean_abs_shap/PH,1.451943,1.451943,same
+figure_3_leakage_tightening_progression/stage_2_intermediate_unscaled_xgboost/top_10_mean_abs_shap/g__Actinomyces,0.193842,0.193842,same
+figure_3_leakage_tightening_progression/stage_2_intermediate_unscaled_xgboost/top_10_mean_abs_shap/g__Caproiciproducens,0.040445,0.040445,same
+figure_3_leakage_tightening_progression/stage_2_intermediate_unscaled_xgboost/top_10_mean_abs_shap/g__Clostridium_sensu_stricto_1,0.008979,0.008979,same
+figure_3_leakage_tightening_progression/stage_2_intermediate_unscaled_xgboost/top_10_mean_abs_shap/g__Clostridium_sensu_stricto_11,24.366699,24.366699,same
+figure_3_leakage_tightening_progression/stage_2_intermediate_unscaled_xgboost/train_n,30,30,same
+figure_3_leakage_tightening_progression/stage_3_fully_leakage_controlled/r2,-5.296,-5.296,same
+figure_3_leakage_tightening_progression/stage_3_fully_leakage_controlled/rmse,144.3,144.3,same
+figure_3_leakage_tightening_progression/stage_3_fully_leakage_controlled/test_n,21,21,same
+figure_3_leakage_tightening_progression/stage_3_fully_leakage_controlled/train_n,30,30,same
+permutation_control/across_studies/by_held_out_study/Brodowski_2022/k_r2,559,564,differs
+permutation_control/across_studies/by_held_out_study/Brodowski_2022/k_rmse,26,26,same
+permutation_control/across_studies/by_held_out_study/Brodowski_2022/observed_r2,-0.458,-0.465,differs
+permutation_control/across_studies/by_held_out_study/Brodowski_2022/observed_rmse,69.4,69.6,differs
+permutation_control/across_studies/by_held_out_study/Brodowski_2022/p_r2,0.56,0.565,differs
+permutation_control/across_studies/by_held_out_study/Brodowski_2022/p_r2_monte_carlo_se,0.016,0.016,same
+permutation_control/across_studies/by_held_out_study/Brodowski_2022/p_rmse,0.027,0.027,same
+permutation_control/across_studies/by_held_out_study/Brodowski_2022/p_rmse_monte_carlo_se,0.005,0.005,same
+permutation_control/across_studies/by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE/k_r2,948,947,differs
+permutation_control/across_studies/by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE/k_rmse,850,851,differs
+permutation_control/across_studies/by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE/observed_r2,-1.383,-1.389,differs
+permutation_control/across_studies/by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE/observed_rmse,154.5,154.7,differs
+permutation_control/across_studies/by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE/p_r2,0.949,0.948,differs
+permutation_control/across_studies/by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE/p_r2_monte_carlo_se,0.007,0.007,same
+permutation_control/across_studies/by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE/p_rmse,0.851,0.852,differs
+permutation_control/across_studies/by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE/p_rmse_monte_carlo_se,0.011,0.011,same
+permutation_control/across_studies/by_held_out_study/Brodowski_2025/k_r2,135,131,differs
+permutation_control/across_studies/by_held_out_study/Brodowski_2025/k_rmse,6,7,differs
+permutation_control/across_studies/by_held_out_study/Brodowski_2025/observed_r2,-0.006,-0.0,differs
+permutation_control/across_studies/by_held_out_study/Brodowski_2025/observed_rmse,71.3,71.1,differs
+permutation_control/across_studies/by_held_out_study/Brodowski_2025/p_r2,0.136,0.132,differs
+permutation_control/across_studies/by_held_out_study/Brodowski_2025/p_r2_monte_carlo_se,0.011,0.011,same
+permutation_control/across_studies/by_held_out_study/Brodowski_2025/p_rmse,0.007,0.008,differs
+permutation_control/across_studies/by_held_out_study/Brodowski_2025/p_rmse_monte_carlo_se,0.003,0.003,same
+permutation_control/across_studies/by_held_out_study/Duber_2020/k_r2,307,299,differs
+permutation_control/across_studies/by_held_out_study/Duber_2020/k_rmse,472,471,differs
+permutation_control/across_studies/by_held_out_study/Duber_2020/observed_r2,-0.124,-0.122,differs
+permutation_control/across_studies/by_held_out_study/Duber_2020/observed_rmse,119.0,118.9,differs
+permutation_control/across_studies/by_held_out_study/Duber_2020/p_r2,0.308,0.3,differs
+permutation_control/across_studies/by_held_out_study/Duber_2020/p_r2_monte_carlo_se,0.015,0.014,differs
+permutation_control/across_studies/by_held_out_study/Duber_2020/p_rmse,0.473,0.472,differs
+permutation_control/across_studies/by_held_out_study/Duber_2020/p_rmse_monte_carlo_se,0.016,0.016,same
+permutation_control/across_studies/by_held_out_study/Duber_2022/k_r2,983,983,same
+permutation_control/across_studies/by_held_out_study/Duber_2022/k_rmse,0,0,same
+permutation_control/across_studies/by_held_out_study/Duber_2022/observed_r2,-2.297,-2.297,same
+permutation_control/across_studies/by_held_out_study/Duber_2022/observed_rmse,40.6,40.6,same
+permutation_control/across_studies/by_held_out_study/Duber_2022/p_r2,0.984,0.984,same
+permutation_control/across_studies/by_held_out_study/Duber_2022/p_r2_monte_carlo_se,0.004,0.004,same
+permutation_control/across_studies/by_held_out_study/Duber_2022/p_rmse,0.001,0.001,same
+permutation_control/across_studies/by_held_out_study/Duber_2022/p_rmse_monte_carlo_se,0.001,0.001,same
+permutation_control/across_studies/by_held_out_study/Duber_2024/k_r2,212,209,differs
+permutation_control/across_studies/by_held_out_study/Duber_2024/k_rmse,168,164,differs
+permutation_control/across_studies/by_held_out_study/Duber_2024/observed_r2,-0.076,-0.074,differs
+permutation_control/across_studies/by_held_out_study/Duber_2024/observed_rmse,105.0,104.9,differs
+permutation_control/across_studies/by_held_out_study/Duber_2024/p_r2,0.213,0.21,differs
+permutation_control/across_studies/by_held_out_study/Duber_2024/p_r2_monte_carlo_se,0.013,0.013,same
+permutation_control/across_studies/by_held_out_study/Duber_2024/p_rmse,0.169,0.165,differs
+permutation_control/across_studies/by_held_out_study/Duber_2024/p_rmse_monte_carlo_se,0.012,0.012,same
+permutation_control/across_studies/by_held_out_study/Hanna_2025/k_r2,167,174,differs
+permutation_control/across_studies/by_held_out_study/Hanna_2025/k_rmse,672,685,differs
+permutation_control/across_studies/by_held_out_study/Hanna_2025/observed_r2,-0.044,-0.047,differs
+permutation_control/across_studies/by_held_out_study/Hanna_2025/observed_rmse,137.5,137.7,differs
+permutation_control/across_studies/by_held_out_study/Hanna_2025/p_r2,0.168,0.175,differs
+permutation_control/across_studies/by_held_out_study/Hanna_2025/p_r2_monte_carlo_se,0.012,0.012,same
+permutation_control/across_studies/by_held_out_study/Hanna_2025/p_rmse,0.673,0.686,differs
+permutation_control/across_studies/by_held_out_study/Hanna_2025/p_rmse_monte_carlo_se,0.015,0.015,same
+permutation_control/across_studies/held_out_caproate_spread/Brodowski_2022/mean_sd_under_shuffle,104.4,104.4,same
+permutation_control/across_studies/held_out_caproate_spread/Brodowski_2022/own_sd,57.5,57.5,same
+permutation_control/across_studies/held_out_caproate_spread/Brodowski_2022/sd_ratio,1.82,1.82,same
+permutation_control/across_studies/held_out_caproate_spread/Brodowski_2022_EXTERNAL_ACETATE/mean_sd_under_shuffle,111.5,111.5,same
+permutation_control/across_studies/held_out_caproate_spread/Brodowski_2022_EXTERNAL_ACETATE/own_sd,100.1,100.1,same
+permutation_control/across_studies/held_out_caproate_spread/Brodowski_2022_EXTERNAL_ACETATE/sd_ratio,1.11,1.11,same
+permutation_control/across_studies/held_out_caproate_spread/Brodowski_2025/mean_sd_under_shuffle,110.8,110.8,same
+permutation_control/across_studies/held_out_caproate_spread/Brodowski_2025/own_sd,71.1,71.1,same
+permutation_control/across_studies/held_out_caproate_spread/Brodowski_2025/sd_ratio,1.56,1.56,same
+permutation_control/across_studies/held_out_caproate_spread/Duber_2020/mean_sd_under_shuffle,101.8,101.8,same
+permutation_control/across_studies/held_out_caproate_spread/Duber_2020/own_sd,112.3,112.3,same
+permutation_control/across_studies/held_out_caproate_spread/Duber_2020/sd_ratio,0.91,0.91,same
+permutation_control/across_studies/held_out_caproate_spread/Duber_2022/mean_sd_under_shuffle,111.1,111.1,same
+permutation_control/across_studies/held_out_caproate_spread/Duber_2022/own_sd,22.3,22.3,same
+permutation_control/across_studies/held_out_caproate_spread/Duber_2022/sd_ratio,4.97,4.97,same
+permutation_control/across_studies/held_out_caproate_spread/Duber_2024/mean_sd_under_shuffle,112.1,112.1,same
+permutation_control/across_studies/held_out_caproate_spread/Duber_2024/own_sd,101.2,101.2,same
+permutation_control/across_studies/held_out_caproate_spread/Duber_2024/sd_ratio,1.11,1.11,same
+permutation_control/across_studies/held_out_caproate_spread/Hanna_2025/mean_sd_under_shuffle,112.1,112.1,same
+permutation_control/across_studies/held_out_caproate_spread/Hanna_2025/own_sd,134.6,134.6,same
+permutation_control/across_studies/held_out_caproate_spread/Hanna_2025/sd_ratio,0.83,0.83,same
+permutation_control/across_studies/held_out_caproate_spread/studies,7,7,same
+permutation_control/across_studies/held_out_caproate_spread/studies_widened,5,5,same
+permutation_control/across_studies/k_r2,714,710,differs
+permutation_control/across_studies/k_rmse,0,0,same
+permutation_control/across_studies/null_r2_mean,-0.584,-0.584,same
+permutation_control/across_studies/null_r2_median,-0.439,-0.437,differs
+permutation_control/across_studies/null_r2_sd,0.925,0.96,differs
+permutation_control/across_studies/null_rmse_mean,127.7,127.7,same
+permutation_control/across_studies/null_rmse_sd,8.5,8.5,same
+permutation_control/across_studies/observed_r2,-0.627,-0.628,differs
+permutation_control/across_studies/observed_rmse,99.6,99.7,differs
+permutation_control/across_studies/p_r2,0.715,0.711,differs
+permutation_control/across_studies/p_r2_monte_carlo_se,0.014,0.014,same
+permutation_control/across_studies/p_rmse,0.001,0.001,same
+permutation_control/across_studies/p_rmse_monte_carlo_se,0.001,0.001,same
+permutation_control/across_studies/shuffles,999,999,same
+permutation_control/across_studies/training_mean_benchmark_rmse,112.6,112.6,same
+permutation_control/across_studies/without_Duber_2022/k_r2,369,377,differs
+permutation_control/across_studies/without_Duber_2022/k_rmse,28,29,differs
+permutation_control/across_studies/without_Duber_2022/observed_r2,-0.348,-0.35,differs
+permutation_control/across_studies/without_Duber_2022/observed_rmse,109.5,109.5,same
+permutation_control/across_studies/without_Duber_2022/p_r2,0.37,0.378,differs
+permutation_control/across_studies/without_Duber_2022/p_r2_monte_carlo_se,0.015,0.015,same
+permutation_control/across_studies/without_Duber_2022/p_rmse,0.029,0.03,differs
+permutation_control/across_studies/without_Duber_2022/p_rmse_monte_carlo_se,0.005,0.005,same
+permutation_control/within_each_study/by_held_out_study/Brodowski_2022/k_r2,10,11,differs
+permutation_control/within_each_study/by_held_out_study/Brodowski_2022/k_rmse,10,11,differs
+permutation_control/within_each_study/by_held_out_study/Brodowski_2022/observed_r2,-0.458,-0.465,differs
+permutation_control/within_each_study/by_held_out_study/Brodowski_2022/observed_rmse,69.4,69.6,differs
+permutation_control/within_each_study/by_held_out_study/Brodowski_2022/p_r2,0.011,0.012,differs
+permutation_control/within_each_study/by_held_out_study/Brodowski_2022/p_r2_monte_carlo_se,0.003,0.003,same
+permutation_control/within_each_study/by_held_out_study/Brodowski_2022/p_rmse,0.011,0.012,differs
+permutation_control/within_each_study/by_held_out_study/Brodowski_2022/p_rmse_monte_carlo_se,0.003,0.003,same
+permutation_control/within_each_study/by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE/k_r2,39,40,differs
+permutation_control/within_each_study/by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE/k_rmse,39,40,differs
+permutation_control/within_each_study/by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE/observed_r2,-1.383,-1.389,differs
+permutation_control/within_each_study/by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE/observed_rmse,154.5,154.7,differs
+permutation_control/within_each_study/by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE/p_r2,0.04,0.041,differs
+permutation_control/within_each_study/by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE/p_r2_monte_carlo_se,0.006,0.006,same
+permutation_control/within_each_study/by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE/p_rmse,0.04,0.041,differs
+permutation_control/within_each_study/by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE/p_rmse_monte_carlo_se,0.006,0.006,same
+permutation_control/within_each_study/by_held_out_study/Brodowski_2025/k_r2,81,76,differs
+permutation_control/within_each_study/by_held_out_study/Brodowski_2025/k_rmse,81,76,differs
+permutation_control/within_each_study/by_held_out_study/Brodowski_2025/observed_r2,-0.006,-0.0,differs
+permutation_control/within_each_study/by_held_out_study/Brodowski_2025/observed_rmse,71.3,71.1,differs
+permutation_control/within_each_study/by_held_out_study/Brodowski_2025/p_r2,0.082,0.077,differs
+permutation_control/within_each_study/by_held_out_study/Brodowski_2025/p_r2_monte_carlo_se,0.009,0.008,differs
+permutation_control/within_each_study/by_held_out_study/Brodowski_2025/p_rmse,0.082,0.077,differs
+permutation_control/within_each_study/by_held_out_study/Brodowski_2025/p_rmse_monte_carlo_se,0.009,0.008,differs
+permutation_control/within_each_study/by_held_out_study/Duber_2020/k_r2,312,309,differs
+permutation_control/within_each_study/by_held_out_study/Duber_2020/k_rmse,312,309,differs
+permutation_control/within_each_study/by_held_out_study/Duber_2020/observed_r2,-0.124,-0.122,differs
+permutation_control/within_each_study/by_held_out_study/Duber_2020/observed_rmse,119.0,118.9,differs
+permutation_control/within_each_study/by_held_out_study/Duber_2020/p_r2,0.313,0.31,differs
+permutation_control/within_each_study/by_held_out_study/Duber_2020/p_r2_monte_carlo_se,0.015,0.015,same
+permutation_control/within_each_study/by_held_out_study/Duber_2020/p_rmse,0.313,0.31,differs
+permutation_control/within_each_study/by_held_out_study/Duber_2020/p_rmse_monte_carlo_se,0.015,0.015,same
+permutation_control/within_each_study/by_held_out_study/Duber_2022/k_r2,0,0,same
+permutation_control/within_each_study/by_held_out_study/Duber_2022/k_rmse,0,0,same
+permutation_control/within_each_study/by_held_out_study/Duber_2022/observed_r2,-2.297,-2.297,same
+permutation_control/within_each_study/by_held_out_study/Duber_2022/observed_rmse,40.6,40.6,same
+permutation_control/within_each_study/by_held_out_study/Duber_2022/p_r2,0.001,0.001,same
+permutation_control/within_each_study/by_held_out_study/Duber_2022/p_r2_monte_carlo_se,0.001,0.001,same
+permutation_control/within_each_study/by_held_out_study/Duber_2022/p_rmse,0.001,0.001,same
+permutation_control/within_each_study/by_held_out_study/Duber_2022/p_rmse_monte_carlo_se,0.001,0.001,same
+permutation_control/within_each_study/by_held_out_study/Duber_2024/k_r2,256,242,differs
+permutation_control/within_each_study/by_held_out_study/Duber_2024/k_rmse,256,242,differs
+permutation_control/within_each_study/by_held_out_study/Duber_2024/observed_r2,-0.076,-0.074,differs
+permutation_control/within_each_study/by_held_out_study/Duber_2024/observed_rmse,105.0,104.9,differs
+permutation_control/within_each_study/by_held_out_study/Duber_2024/p_r2,0.257,0.243,differs
+permutation_control/within_each_study/by_held_out_study/Duber_2024/p_r2_monte_carlo_se,0.014,0.014,same
+permutation_control/within_each_study/by_held_out_study/Duber_2024/p_rmse,0.257,0.243,differs
+permutation_control/within_each_study/by_held_out_study/Duber_2024/p_rmse_monte_carlo_se,0.014,0.014,same
+permutation_control/within_each_study/by_held_out_study/Hanna_2025/k_r2,195,200,differs
+permutation_control/within_each_study/by_held_out_study/Hanna_2025/k_rmse,195,200,differs
+permutation_control/within_each_study/by_held_out_study/Hanna_2025/observed_r2,-0.044,-0.047,differs
+permutation_control/within_each_study/by_held_out_study/Hanna_2025/observed_rmse,137.5,137.7,differs
+permutation_control/within_each_study/by_held_out_study/Hanna_2025/p_r2,0.196,0.201,differs
+permutation_control/within_each_study/by_held_out_study/Hanna_2025/p_r2_monte_carlo_se,0.013,0.013,same
+permutation_control/within_each_study/by_held_out_study/Hanna_2025/p_rmse,0.196,0.201,differs
+permutation_control/within_each_study/by_held_out_study/Hanna_2025/p_rmse_monte_carlo_se,0.013,0.013,same
+permutation_control/within_each_study/k_r2,0,0,same
+permutation_control/within_each_study/k_rmse,0,0,same
+permutation_control/within_each_study/null_r2_mean,-5.763,-5.769,differs
+permutation_control/within_each_study/null_r2_median,-5.449,-5.435,differs
+permutation_control/within_each_study/null_r2_sd,2.11,2.104,differs
+permutation_control/within_each_study/null_rmse_mean,131.8,131.8,same
+permutation_control/within_each_study/null_rmse_sd,8.3,8.3,same
+permutation_control/within_each_study/observed_r2,-0.627,-0.628,differs
+permutation_control/within_each_study/observed_rmse,99.6,99.7,differs
+permutation_control/within_each_study/p_r2,0.001,0.001,same
+permutation_control/within_each_study/p_r2_monte_carlo_se,0.001,0.001,same
+permutation_control/within_each_study/p_rmse,0.001,0.001,same
+permutation_control/within_each_study/p_rmse_monte_carlo_se,0.001,0.001,same
+permutation_control/within_each_study/shuffles,999,999,same
+permutation_control/within_each_study/training_mean_benchmark_rmse,112.6,112.6,same
+permutation_control/within_each_study/without_Duber_2022/k_r2,0,0,same
+permutation_control/within_each_study/without_Duber_2022/k_rmse,1,1,same
+permutation_control/within_each_study/without_Duber_2022/observed_r2,-0.348,-0.35,differs
+permutation_control/within_each_study/without_Duber_2022/observed_rmse,109.5,109.5,same
+permutation_control/within_each_study/without_Duber_2022/p_r2,0.001,0.001,same
+permutation_control/within_each_study/without_Duber_2022/p_r2_monte_carlo_se,0.001,0.001,same
+permutation_control/within_each_study/without_Duber_2022/p_rmse,0.002,0.002,same
+permutation_control/within_each_study/without_Duber_2022/p_rmse_monte_carlo_se,0.001,0.001,same
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Brodowski_2022/arrangements_of_own_values,4,4,same
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Brodowski_2022/k_r2,93,94,differs
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Brodowski_2022/k_rmse,93,94,differs
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Brodowski_2022/observed_r2,-0.458,-0.465,differs
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Brodowski_2022/observed_rmse,69.4,69.6,differs
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Brodowski_2022/p_r2,0.094,0.095,differs
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Brodowski_2022/p_r2_monte_carlo_se,0.009,0.009,same
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Brodowski_2022/p_rmse,0.094,0.095,differs
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Brodowski_2022/p_rmse_monte_carlo_se,0.009,0.009,same
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE/arrangements_of_own_values,48,48,same
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE/k_r2,143,139,differs
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE/k_rmse,143,139,differs
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE/observed_r2,-1.383,-1.389,differs
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE/observed_rmse,154.5,154.7,differs
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE/p_r2,0.144,0.14,differs
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE/p_r2_monte_carlo_se,0.011,0.011,same
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE/p_rmse,0.144,0.14,differs
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE/p_rmse_monte_carlo_se,0.011,0.011,same
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Brodowski_2025/arrangements_of_own_values,49,49,same
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Brodowski_2025/k_r2,92,91,differs
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Brodowski_2025/k_rmse,92,91,differs
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Brodowski_2025/observed_r2,-0.006,-0.0,differs
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Brodowski_2025/observed_rmse,71.3,71.1,differs
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Brodowski_2025/p_r2,0.093,0.092,differs
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Brodowski_2025/p_r2_monte_carlo_se,0.009,0.009,same
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Brodowski_2025/p_rmse,0.093,0.092,differs
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Brodowski_2025/p_rmse_monte_carlo_se,0.009,0.009,same
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Duber_2020/arrangements_of_own_values,7,7,same
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Duber_2020/k_r2,300,297,differs
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Duber_2020/k_rmse,300,297,differs
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Duber_2020/observed_r2,-0.124,-0.122,differs
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Duber_2020/observed_rmse,119.0,118.9,differs
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Duber_2020/p_r2,0.301,0.298,differs
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Duber_2020/p_r2_monte_carlo_se,0.015,0.014,differs
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Duber_2020/p_rmse,0.301,0.298,differs
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Duber_2020/p_rmse_monte_carlo_se,0.015,0.014,differs
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Duber_2022/arrangements_of_own_values,512,512,same
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Duber_2022/k_r2,2,2,same
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Duber_2022/k_rmse,2,2,same
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Duber_2022/observed_r2,-2.297,-2.297,same
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Duber_2022/observed_rmse,40.6,40.6,same
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Duber_2022/p_r2,0.003,0.003,same
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Duber_2022/p_r2_monte_carlo_se,0.002,0.002,same
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Duber_2022/p_rmse,0.003,0.003,same
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Duber_2022/p_rmse_monte_carlo_se,0.002,0.002,same
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Duber_2024/arrangements_of_own_values,70,70,same
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Duber_2024/k_r2,268,267,differs
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Duber_2024/k_rmse,268,267,differs
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Duber_2024/observed_r2,-0.076,-0.074,differs
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Duber_2024/observed_rmse,105.0,104.9,differs
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Duber_2024/p_r2,0.269,0.268,differs
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Duber_2024/p_r2_monte_carlo_se,0.014,0.014,same
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Duber_2024/p_rmse,0.269,0.268,differs
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Duber_2024/p_rmse_monte_carlo_se,0.014,0.014,same
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Hanna_2025/arrangements_of_own_values,81,81,same
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Hanna_2025/k_r2,190,187,differs
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Hanna_2025/k_rmse,190,187,differs
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Hanna_2025/observed_r2,-0.044,-0.047,differs
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Hanna_2025/observed_rmse,137.5,137.7,differs
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Hanna_2025/p_r2,0.191,0.188,differs
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Hanna_2025/p_r2_monte_carlo_se,0.012,0.012,same
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Hanna_2025/p_rmse,0.191,0.188,differs
+reactor_aware_permutation_control/cyclic_shift/by_held_out_study/Hanna_2025/p_rmse_monte_carlo_se,0.012,0.012,same
+reactor_aware_permutation_control/cyclic_shift/k_r2,1,1,same
+reactor_aware_permutation_control/cyclic_shift/k_rmse,6,6,same
+reactor_aware_permutation_control/cyclic_shift/null_r2_mean,-4.938,-4.943,differs
+reactor_aware_permutation_control/cyclic_shift/null_r2_median,-4.466,-4.493,differs
+reactor_aware_permutation_control/cyclic_shift/null_r2_sd,2.351,2.338,differs
+reactor_aware_permutation_control/cyclic_shift/null_rmse_mean,126.2,126.3,differs
+reactor_aware_permutation_control/cyclic_shift/null_rmse_sd,9.7,9.7,same
+reactor_aware_permutation_control/cyclic_shift/observed_r2,-0.627,-0.628,differs
+reactor_aware_permutation_control/cyclic_shift/observed_rmse,99.6,99.7,differs
+reactor_aware_permutation_control/cyclic_shift/p_r2,0.002,0.002,same
+reactor_aware_permutation_control/cyclic_shift/p_r2_monte_carlo_se,0.001,0.001,same
+reactor_aware_permutation_control/cyclic_shift/p_rmse,0.007,0.007,same
+reactor_aware_permutation_control/cyclic_shift/p_rmse_monte_carlo_se,0.003,0.003,same
+reactor_aware_permutation_control/cyclic_shift/shuffles,999,999,same
+reactor_aware_permutation_control/cyclic_shift/training_mean_benchmark_rmse,112.6,112.6,same
+reactor_aware_permutation_control/cyclic_shift/without_Duber_2022/k_r2,20,21,differs
+reactor_aware_permutation_control/cyclic_shift/without_Duber_2022/k_rmse,22,22,same
+reactor_aware_permutation_control/cyclic_shift/without_Duber_2022/observed_r2,-0.348,-0.35,differs
+reactor_aware_permutation_control/cyclic_shift/without_Duber_2022/observed_rmse,109.5,109.5,same
+reactor_aware_permutation_control/cyclic_shift/without_Duber_2022/p_r2,0.021,0.022,differs
+reactor_aware_permutation_control/cyclic_shift/without_Duber_2022/p_r2_monte_carlo_se,0.005,0.005,same
+reactor_aware_permutation_control/cyclic_shift/without_Duber_2022/p_rmse,0.023,0.023,same
+reactor_aware_permutation_control/cyclic_shift/without_Duber_2022/p_rmse_monte_carlo_se,0.005,0.005,same
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Brodowski_2022/arrangements_of_own_values,24,24,same
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Brodowski_2022/k_r2,86,89,differs
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Brodowski_2022/k_rmse,86,89,differs
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Brodowski_2022/observed_r2,-0.458,-0.465,differs
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Brodowski_2022/observed_rmse,69.4,69.6,differs
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Brodowski_2022/p_r2,0.087,0.09,differs
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Brodowski_2022/p_r2_monte_carlo_se,0.009,0.009,same
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Brodowski_2022/p_rmse,0.087,0.09,differs
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Brodowski_2022/p_rmse_monte_carlo_se,0.009,0.009,same
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE/arrangements_of_own_values,14515200,14515200,same
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE/k_r2,82,89,differs
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE/k_rmse,82,89,differs
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE/observed_r2,-1.383,-1.389,differs
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE/observed_rmse,154.5,154.7,differs
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE/p_r2,0.083,0.09,differs
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE/p_r2_monte_carlo_se,0.009,0.009,same
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE/p_rmse,0.083,0.09,differs
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE/p_rmse_monte_carlo_se,0.009,0.009,same
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Brodowski_2025/arrangements_of_own_values,25401600,25401600,same
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Brodowski_2025/k_r2,100,92,differs
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Brodowski_2025/k_rmse,100,92,differs
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Brodowski_2025/observed_r2,-0.006,-0.0,differs
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Brodowski_2025/observed_rmse,71.3,71.1,differs
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Brodowski_2025/p_r2,0.101,0.093,differs
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Brodowski_2025/p_r2_monte_carlo_se,0.01,0.009,differs
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Brodowski_2025/p_rmse,0.101,0.093,differs
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Brodowski_2025/p_rmse_monte_carlo_se,0.01,0.009,differs
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Duber_2020/arrangements_of_own_values,5040,5040,same
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Duber_2020/k_r2,236,241,differs
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Duber_2020/k_rmse,236,241,differs
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Duber_2020/observed_r2,-0.124,-0.122,differs
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Duber_2020/observed_rmse,119.0,118.9,differs
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Duber_2020/p_r2,0.237,0.242,differs
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Duber_2020/p_r2_monte_carlo_se,0.013,0.014,differs
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Duber_2020/p_rmse,0.237,0.242,differs
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Duber_2020/p_rmse_monte_carlo_se,0.013,0.014,differs
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Duber_2022/arrangements_of_own_values,512,512,same
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Duber_2022/k_r2,0,0,same
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Duber_2022/k_rmse,0,0,same
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Duber_2022/observed_r2,-2.297,-2.297,same
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Duber_2022/observed_rmse,40.6,40.6,same
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Duber_2022/p_r2,0.001,0.001,same
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Duber_2022/p_r2_monte_carlo_se,0.001,0.001,same
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Duber_2022/p_rmse,0.001,0.001,same
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Duber_2022/p_rmse_monte_carlo_se,0.001,0.001,same
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Duber_2024/arrangements_of_own_values,18289152000,18289152000,same
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Duber_2024/k_r2,279,270,differs
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Duber_2024/k_rmse,279,270,differs
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Duber_2024/observed_r2,-0.076,-0.074,differs
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Duber_2024/observed_rmse,105.0,104.9,differs
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Duber_2024/p_r2,0.28,0.271,differs
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Duber_2024/p_r2_monte_carlo_se,0.014,0.014,same
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Duber_2024/p_rmse,0.28,0.271,differs
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Duber_2024/p_rmse_monte_carlo_se,0.014,0.014,same
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Hanna_2025/arrangements_of_own_values,131681894400,131681894400,same
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Hanna_2025/k_r2,207,208,differs
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Hanna_2025/k_rmse,207,208,differs
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Hanna_2025/observed_r2,-0.044,-0.047,differs
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Hanna_2025/observed_rmse,137.5,137.7,differs
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Hanna_2025/p_r2,0.208,0.209,differs
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Hanna_2025/p_r2_monte_carlo_se,0.013,0.013,same
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Hanna_2025/p_rmse,0.208,0.209,differs
+reactor_aware_permutation_control/within_reactor/by_held_out_study/Hanna_2025/p_rmse_monte_carlo_se,0.013,0.013,same
+reactor_aware_permutation_control/within_reactor/k_r2,0,0,same
+reactor_aware_permutation_control/within_reactor/k_rmse,3,3,same
+reactor_aware_permutation_control/within_reactor/null_r2_mean,-4.975,-4.993,differs
+reactor_aware_permutation_control/within_reactor/null_r2_median,-4.519,-4.535,differs
+reactor_aware_permutation_control/within_reactor/null_r2_sd,2.227,2.229,differs
+reactor_aware_permutation_control/within_reactor/null_rmse_mean,125.9,126.0,differs
+reactor_aware_permutation_control/within_reactor/null_rmse_sd,8.8,8.8,same
+reactor_aware_permutation_control/within_reactor/observed_r2,-0.627,-0.628,differs
+reactor_aware_permutation_control/within_reactor/observed_rmse,99.6,99.7,differs
+reactor_aware_permutation_control/within_reactor/p_r2,0.001,0.001,same
+reactor_aware_permutation_control/within_reactor/p_r2_monte_carlo_se,0.001,0.001,same
+reactor_aware_permutation_control/within_reactor/p_rmse,0.004,0.004,same
+reactor_aware_permutation_control/within_reactor/p_rmse_monte_carlo_se,0.002,0.002,same
+reactor_aware_permutation_control/within_reactor/shuffles,999,999,same
+reactor_aware_permutation_control/within_reactor/training_mean_benchmark_rmse,112.6,112.6,same
+reactor_aware_permutation_control/within_reactor/without_Duber_2022/k_r2,6,6,same
+reactor_aware_permutation_control/within_reactor/without_Duber_2022/k_rmse,5,5,same
+reactor_aware_permutation_control/within_reactor/without_Duber_2022/observed_r2,-0.348,-0.35,differs
+reactor_aware_permutation_control/within_reactor/without_Duber_2022/observed_rmse,109.5,109.5,same
+reactor_aware_permutation_control/within_reactor/without_Duber_2022/p_r2,0.007,0.007,same
+reactor_aware_permutation_control/within_reactor/without_Duber_2022/p_r2_monte_carlo_se,0.003,0.003,same
+reactor_aware_permutation_control/within_reactor/without_Duber_2022/p_rmse,0.006,0.006,same
+reactor_aware_permutation_control/within_reactor/without_Duber_2022/p_rmse_monte_carlo_se,0.002,0.002,same
+algorithm_selection/LOSO (headline)/LightGBM/features,215,215,same
+algorithm_selection/LOSO (headline)/LightGBM/n,166,166,same
+algorithm_selection/LOSO (headline)/LightGBM/r2,-0.938,-0.983,differs
+algorithm_selection/LOSO (headline)/LightGBM/r2_by_held_out_study/Brodowski_2022,-0.629,-0.63,differs
+algorithm_selection/LOSO (headline)/LightGBM/r2_by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE,-1.544,-1.575,differs
+algorithm_selection/LOSO (headline)/LightGBM/r2_by_held_out_study/Brodowski_2025,-0.192,-0.192,same
+algorithm_selection/LOSO (headline)/LightGBM/r2_by_held_out_study/Duber_2020,0.003,0.011,differs
+algorithm_selection/LOSO (headline)/LightGBM/r2_by_held_out_study/Duber_2022,-3.957,-4.258,differs
+algorithm_selection/LOSO (headline)/LightGBM/r2_by_held_out_study/Duber_2024,-0.19,-0.158,differs
+algorithm_selection/LOSO (headline)/LightGBM/r2_by_held_out_study/Hanna_2025,-0.059,-0.079,differs
+algorithm_selection/LOSO (headline)/LightGBM/r2_sd,1.328,1.43,differs
+algorithm_selection/LOSO (headline)/LightGBM/rmse,103.1,103.3,differs
+algorithm_selection/LOSO (headline)/LightGBM/rmse_sd,35.8,35.8,same
+algorithm_selection/LOSO (headline)/Training-mean benchmark/features,0,0,same
+algorithm_selection/LOSO (headline)/Training-mean benchmark/n,166,166,same
+algorithm_selection/LOSO (headline)/Training-mean benchmark/r2,-4.243,-4.243,same
+algorithm_selection/LOSO (headline)/Training-mean benchmark/r2_by_held_out_study/Brodowski_2022,-0.388,-0.388,same
+algorithm_selection/LOSO (headline)/Training-mean benchmark/r2_by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE,-2.029,-2.029,same
+algorithm_selection/LOSO (headline)/Training-mean benchmark/r2_by_held_out_study/Brodowski_2025,-0.026,-0.026,same
+algorithm_selection/LOSO (headline)/Training-mean benchmark/r2_by_held_out_study/Duber_2020,-0.03,-0.03,same
+algorithm_selection/LOSO (headline)/Training-mean benchmark/r2_by_held_out_study/Duber_2022,-27.128,-27.128,same
+algorithm_selection/LOSO (headline)/Training-mean benchmark/r2_by_held_out_study/Duber_2024,-0.066,-0.066,same
+algorithm_selection/LOSO (headline)/Training-mean benchmark/r2_by_held_out_study/Hanna_2025,-0.038,-0.038,same
+algorithm_selection/LOSO (headline)/Training-mean benchmark/r2_sd,9.367,9.367,same
+algorithm_selection/LOSO (headline)/Training-mean benchmark/rmse,112.6,112.6,same
+algorithm_selection/LOSO (headline)/Training-mean benchmark/rmse_sd,34.1,34.1,same
+algorithm_selection/LOSO (headline)/XGBoost/features,215,215,same
+algorithm_selection/LOSO (headline)/XGBoost/n,166,166,same
+algorithm_selection/LOSO (headline)/XGBoost/r2,-0.627,-0.628,differs
+algorithm_selection/LOSO (headline)/XGBoost/r2_by_held_out_study/Brodowski_2022,-0.458,-0.465,differs
+algorithm_selection/LOSO (headline)/XGBoost/r2_by_held_out_study/Brodowski_2022_EXTERNAL_ACETATE,-1.383,-1.389,differs
+algorithm_selection/LOSO (headline)/XGBoost/r2_by_held_out_study/Brodowski_2025,-0.006,-0.0,differs
+algorithm_selection/LOSO (headline)/XGBoost/r2_by_held_out_study/Duber_2020,-0.124,-0.122,differs
+algorithm_selection/LOSO (headline)/XGBoost/r2_by_held_out_study/Duber_2022,-2.297,-2.297,same
+algorithm_selection/LOSO (headline)/XGBoost/r2_by_held_out_study/Duber_2024,-0.076,-0.074,differs
+algorithm_selection/LOSO (headline)/XGBoost/r2_by_held_out_study/Hanna_2025,-0.044,-0.047,differs
+algorithm_selection/LOSO (headline)/XGBoost/r2_sd,0.817,0.818,differs
+algorithm_selection/LOSO (headline)/XGBoost/rmse,99.6,99.7,differs
+algorithm_selection/LOSO (headline)/XGBoost/rmse_sd,37.9,38.0,differs
+algorithm_selection/Shuffled 10-fold CV (headline predictors)/LightGBM/features,215,215,same
+algorithm_selection/Shuffled 10-fold CV (headline predictors)/LightGBM/n,166,166,same
+algorithm_selection/Shuffled 10-fold CV (headline predictors)/LightGBM/r2,0.848,0.844,differs
+algorithm_selection/Shuffled 10-fold CV (headline predictors)/LightGBM/r2_sd,0.09,0.09,same
+algorithm_selection/Shuffled 10-fold CV (headline predictors)/LightGBM/rmse,41.8,42.4,differs
+algorithm_selection/Shuffled 10-fold CV (headline predictors)/LightGBM/rmse_sd,13.8,13.6,differs
+algorithm_selection/Shuffled 10-fold CV (headline predictors)/Training-mean benchmark/features,0,0,same
+algorithm_selection/Shuffled 10-fold CV (headline predictors)/Training-mean benchmark/n,166,166,same
+algorithm_selection/Shuffled 10-fold CV (headline predictors)/Training-mean benchmark/r2,-0.082,-0.082,same
+algorithm_selection/Shuffled 10-fold CV (headline predictors)/Training-mean benchmark/r2_sd,0.1,0.1,same
+algorithm_selection/Shuffled 10-fold CV (headline predictors)/Training-mean benchmark/rmse,115.9,115.9,same
+algorithm_selection/Shuffled 10-fold CV (headline predictors)/Training-mean benchmark/rmse_sd,23.9,23.9,same
+algorithm_selection/Shuffled 10-fold CV (headline predictors)/XGBoost/features,215,215,same
+algorithm_selection/Shuffled 10-fold CV (headline predictors)/XGBoost/n,166,166,same
+algorithm_selection/Shuffled 10-fold CV (headline predictors)/XGBoost/r2,0.835,0.833,differs
+algorithm_selection/Shuffled 10-fold CV (headline predictors)/XGBoost/r2_sd,0.085,0.085,same
+algorithm_selection/Shuffled 10-fold CV (headline predictors)/XGBoost/rmse,45.9,46.3,differs
+algorithm_selection/Shuffled 10-fold CV (headline predictors)/XGBoost/rmse_sd,20.1,20.0,differs
+algorithm_selection/Single 80/20 split (ASV level)/LightGBM/features,413,413,same
+algorithm_selection/Single 80/20 split (ASV level)/LightGBM/n,112,112,same
+algorithm_selection/Single 80/20 split (ASV level)/LightGBM/r2,0.749,0.755,differs
+algorithm_selection/Single 80/20 split (ASV level)/LightGBM/rmse,56.2,55.6,differs
+algorithm_selection/Single 80/20 split (ASV level)/XGBoost/features,413,413,same
+algorithm_selection/Single 80/20 split (ASV level)/XGBoost/n,112,112,same
+algorithm_selection/Single 80/20 split (ASV level)/XGBoost/r2,0.542,0.542,same
+algorithm_selection/Single 80/20 split (ASV level)/XGBoost/rmse,76.0,76.1,differs
+algorithm_selection/lightgbm_random_forest_07a/Base Model (Ops + categoricals + ASVs)/features,408,408,same
+algorithm_selection/lightgbm_random_forest_07a/Base Model (Ops + categoricals + ASVs)/r2,0.311,0.311,same
+algorithm_selection/lightgbm_random_forest_07a/Base Model (Ops + categoricals + ASVs)/rmse,93.213,93.213,same
+algorithm_selection/lightgbm_random_forest_07a/Maximum Model (core set + Illumina-only compounds + ASVs)/features,418,418,same
+algorithm_selection/lightgbm_random_forest_07a/Maximum Model (core set + Illumina-only compounds + ASVs)/r2,0.472,0.472,same
+algorithm_selection/lightgbm_random_forest_07a/Maximum Model (core set + Illumina-only compounds + ASVs)/rmse,81.621,81.621,same
+algorithm_selection/lightgbm_random_forest_07a/Ultimate Model (core set + ASVs)/features,413,413,same
+algorithm_selection/lightgbm_random_forest_07a/Ultimate Model (core set + ASVs)/r2,0.327,0.327,same
+algorithm_selection/lightgbm_random_forest_07a/Ultimate Model (core set + ASVs)/rmse,92.166,92.166,same
+algorithm_selection/lightgbm_random_forest_07a/top_10_features_of_the_best_model[0],Caprylate,Caprylate,same
+algorithm_selection/lightgbm_random_forest_07a/top_10_features_of_the_best_model[1],Butyrate,Butyrate,same
+algorithm_selection/lightgbm_random_forest_07a/top_10_features_of_the_best_model[2],ASV_15,ASV_15,same
+algorithm_selection/lightgbm_random_forest_07a/top_10_features_of_the_best_model[3],Acetate,Acetate,same
+algorithm_selection/lightgbm_random_forest_07a/top_10_features_of_the_best_model[4],Heptanoate,Heptanoate,same
+algorithm_selection/lightgbm_random_forest_07a/top_10_features_of_the_best_model[5],ASV_257,ASV_257,same
+algorithm_selection/lightgbm_random_forest_07a/top_10_features_of_the_best_model[6],ASV_64,ASV_64,same
+algorithm_selection/lightgbm_random_forest_07a/top_10_features_of_the_best_model[7],ASV_59,ASV_59,same
+algorithm_selection/lightgbm_random_forest_07a/top_10_features_of_the_best_model[8],ASV_133,ASV_133,same
+algorithm_selection/lightgbm_random_forest_07a/top_10_features_of_the_best_model[9],ASV_27,ASV_27,same
+algorithm_selection/seeds_0_19/Shuffled 10-fold CV (headline predictors)/LightGBM/highest,0.855,0.857,differs
+algorithm_selection/seeds_0_19/Shuffled 10-fold CV (headline predictors)/LightGBM/lowest,0.761,0.765,differs
+algorithm_selection/seeds_0_19/Shuffled 10-fold CV (headline predictors)/LightGBM/median,0.832,0.832,same
+algorithm_selection/seeds_0_19/Shuffled 10-fold CV (headline predictors)/XGBoost/highest,0.842,0.843,differs
+algorithm_selection/seeds_0_19/Shuffled 10-fold CV (headline predictors)/XGBoost/lowest,0.716,0.716,same
+algorithm_selection/seeds_0_19/Shuffled 10-fold CV (headline predictors)/XGBoost/median,0.803,0.803,same
+algorithm_selection/seeds_0_19/Shuffled 10-fold CV (headline predictors)/lightgbm_higher_in_seeds,15,15,same
+algorithm_selection/seeds_0_19/Shuffled 10-fold CV (headline predictors)/median_difference_lightgbm_minus_xgboost,0.026,0.027,differs
+algorithm_selection/seeds_0_19/Single 80/20 split (ASV level)/LightGBM/highest,0.877,0.882,differs
+algorithm_selection/seeds_0_19/Single 80/20 split (ASV level)/LightGBM/lowest,0.522,0.522,same
+algorithm_selection/seeds_0_19/Single 80/20 split (ASV level)/LightGBM/median,0.8,0.799,differs
+algorithm_selection/seeds_0_19/Single 80/20 split (ASV level)/XGBoost/highest,0.929,0.929,same
+algorithm_selection/seeds_0_19/Single 80/20 split (ASV level)/XGBoost/lowest,0.481,0.47,differs
+algorithm_selection/seeds_0_19/Single 80/20 split (ASV level)/XGBoost/median,0.803,0.804,differs
+algorithm_selection/seeds_0_19/Single 80/20 split (ASV level)/lightgbm_higher_in_seeds,9,10,differs
+algorithm_selection/seeds_0_19/Single 80/20 split (ASV level)/median_difference_lightgbm_minus_xgboost,-0.003,-0.001,differs
+ecological_robustness_claim/Caproiciproducens/best_rank,1,1,same
+ecological_robustness_claim/Caproiciproducens/median_rank,1,1,same
+ecological_robustness_claim/Caproiciproducens/of_folds,22,22,same
+ecological_robustness_claim/Caproiciproducens/raw_spearman_rho,0.634,0.634,same
+ecological_robustness_claim/Caproiciproducens/shap_direction,0.798,0.796,differs
+ecological_robustness_claim/Caproiciproducens/top_10_folds,22,22,same
+ecological_robustness_claim/Caproiciproducens/top_10_in_loso_folds,7,7,same
+ecological_robustness_claim/Caproiciproducens/top_10_in_shuffled_10_fold,10,10,same
+ecological_robustness_claim/Caproiciproducens/top_10_in_vessel_folds,5,5,same
+ecological_robustness_claim/Caproiciproducens/top_25_folds,22,22,same
+ecological_robustness_claim/Caproiciproducens/top_5_folds,22,22,same
+ecological_robustness_claim/Caproiciproducens/worst_rank,2,2,same
+ecological_robustness_claim/Caproiciproducens/zero_attribution_without_nanopore,False,False,same
+ecological_robustness_claim/Clostridium_sensu_stricto_12/best_rank,5,4,differs
+ecological_robustness_claim/Clostridium_sensu_stricto_12/median_rank,9,9,same
+ecological_robustness_claim/Clostridium_sensu_stricto_12/of_folds,22,22,same
+ecological_robustness_claim/Clostridium_sensu_stricto_12/raw_spearman_rho,0.314,0.314,same
+ecological_robustness_claim/Clostridium_sensu_stricto_12/shap_direction,0.541,0.539,differs
+ecological_robustness_claim/Clostridium_sensu_stricto_12/top_10_folds,13,13,same
+ecological_robustness_claim/Clostridium_sensu_stricto_12/top_10_in_loso_folds,4,4,same
+ecological_robustness_claim/Clostridium_sensu_stricto_12/top_10_in_shuffled_10_fold,6,6,same
+ecological_robustness_claim/Clostridium_sensu_stricto_12/top_10_in_vessel_folds,3,3,same
+ecological_robustness_claim/Clostridium_sensu_stricto_12/top_25_folds,20,20,same
+ecological_robustness_claim/Clostridium_sensu_stricto_12/top_5_folds,1,2,differs
+ecological_robustness_claim/Clostridium_sensu_stricto_12/worst_rank,35,35,same
+ecological_robustness_claim/Clostridium_sensu_stricto_12/zero_attribution_without_nanopore,False,False,same
+ecological_robustness_claim/caproiciproducens_vs_caproate_within_study/All studies pooled/mean_relative_abundance_percent,20.4,20.4,same
+ecological_robustness_claim/caproiciproducens_vs_caproate_within_study/All studies pooled/p,3.96e-12,3.96e-12,same
+ecological_robustness_claim/caproiciproducens_vs_caproate_within_study/All studies pooled/rows,166,166,same
+ecological_robustness_claim/caproiciproducens_vs_caproate_within_study/All studies pooled/sampling_units,96,96,same
+ecological_robustness_claim/caproiciproducens_vs_caproate_within_study/All studies pooled/spearman_rho,0.634,0.634,same
+ecological_robustness_claim/caproiciproducens_vs_caproate_within_study/Brodowski_2022/mean_relative_abundance_percent,28.6,28.6,same
+ecological_robustness_claim/caproiciproducens_vs_caproate_within_study/Brodowski_2022/p,0.12,0.12,same
+ecological_robustness_claim/caproiciproducens_vs_caproate_within_study/Brodowski_2022/p_bh_adjusted,0.167,0.167,same
+ecological_robustness_claim/caproiciproducens_vs_caproate_within_study/Brodowski_2022/rows,8,8,same
+ecological_robustness_claim/caproiciproducens_vs_caproate_within_study/Brodowski_2022/sampling_units,8,8,same
+ecological_robustness_claim/caproiciproducens_vs_caproate_within_study/Brodowski_2022/spearman_rho,0.595,0.595,same
+ecological_robustness_claim/caproiciproducens_vs_caproate_within_study/Brodowski_2022_EXTERNAL_ACETATE/mean_relative_abundance_percent,32.3,32.3,same
+ecological_robustness_claim/caproiciproducens_vs_caproate_within_study/Brodowski_2022_EXTERNAL_ACETATE/p,0.266,0.266,same
+ecological_robustness_claim/caproiciproducens_vs_caproate_within_study/Brodowski_2022_EXTERNAL_ACETATE/p_bh_adjusted,0.266,0.266,same
+ecological_robustness_claim/caproiciproducens_vs_caproate_within_study/Brodowski_2022_EXTERNAL_ACETATE/rows,14,14,same
+ecological_robustness_claim/caproiciproducens_vs_caproate_within_study/Brodowski_2022_EXTERNAL_ACETATE/sampling_units,14,14,same
+ecological_robustness_claim/caproiciproducens_vs_caproate_within_study/Brodowski_2022_EXTERNAL_ACETATE/spearman_rho,0.319,0.319,same
+ecological_robustness_claim/caproiciproducens_vs_caproate_within_study/Brodowski_2025/mean_relative_abundance_percent,43.8,43.8,same
+ecological_robustness_claim/caproiciproducens_vs_caproate_within_study/Brodowski_2025/p,0.043,0.043,same
+ecological_robustness_claim/caproiciproducens_vs_caproate_within_study/Brodowski_2025/p_bh_adjusted,0.1,0.1,same
+ecological_robustness_claim/caproiciproducens_vs_caproate_within_study/Brodowski_2025/rows,14,14,same
+ecological_robustness_claim/caproiciproducens_vs_caproate_within_study/Brodowski_2025/sampling_units,14,14,same
+ecological_robustness_claim/caproiciproducens_vs_caproate_within_study/Brodowski_2025/spearman_rho,0.547,0.547,same
+ecological_robustness_claim/caproiciproducens_vs_caproate_within_study/Duber_2020/mean_relative_abundance_percent,4.4,4.4,same
+ecological_robustness_claim/caproiciproducens_vs_caproate_within_study/Duber_2020/p,0.023,0.023,same
+ecological_robustness_claim/caproiciproducens_vs_caproate_within_study/Duber_2020/p_bh_adjusted,0.091,0.091,same
+ecological_robustness_claim/caproiciproducens_vs_caproate_within_study/Duber_2020/rows,7,7,same
+ecological_robustness_claim/caproiciproducens_vs_caproate_within_study/Duber_2020/sampling_units,7,7,same
+ecological_robustness_claim/caproiciproducens_vs_caproate_within_study/Duber_2020/spearman_rho,0.821,0.821,same
+ecological_robustness_claim/caproiciproducens_vs_caproate_within_study/Duber_2022/mean_relative_abundance_percent,1.6,1.6,same
+ecological_robustness_claim/caproiciproducens_vs_caproate_within_study/Duber_2022/p,0.076,0.076,same
+ecological_robustness_claim/caproiciproducens_vs_caproate_within_study/Duber_2022/p_bh_adjusted,0.133,0.133,same
+ecological_robustness_claim/caproiciproducens_vs_caproate_within_study/Duber_2022/rows,18,18,same
+ecological_robustness_claim/caproiciproducens_vs_caproate_within_study/Duber_2022/sampling_units,18,18,same
+ecological_robustness_claim/caproiciproducens_vs_caproate_within_study/Duber_2022/spearman_rho,-0.428,-0.428,same
+ecological_robustness_claim/caproiciproducens_vs_caproate_within_study/Duber_2024/mean_relative_abundance_percent,29.4,29.4,same
+ecological_robustness_claim/caproiciproducens_vs_caproate_within_study/Duber_2024/p,0.194,0.194,same
+ecological_robustness_claim/caproiciproducens_vs_caproate_within_study/Duber_2024/p_bh_adjusted,0.227,0.227,same
+ecological_robustness_claim/caproiciproducens_vs_caproate_within_study/Duber_2024/rows,51,51,same
+ecological_robustness_claim/caproiciproducens_vs_caproate_within_study/Duber_2024/sampling_units,17,17,same
+ecological_robustness_claim/caproiciproducens_vs_caproate_within_study/Duber_2024/spearman_rho,0.331,0.331,same
+ecological_robustness_claim/caproiciproducens_vs_caproate_within_study/Hanna_2025/mean_relative_abundance_percent,9.8,9.8,same
+ecological_robustness_claim/caproiciproducens_vs_caproate_within_study/Hanna_2025/p,0.026,0.026,same
+ecological_robustness_claim/caproiciproducens_vs_caproate_within_study/Hanna_2025/p_bh_adjusted,0.091,0.091,same
+ecological_robustness_claim/caproiciproducens_vs_caproate_within_study/Hanna_2025/rows,54,54,same
+ecological_robustness_claim/caproiciproducens_vs_caproate_within_study/Hanna_2025/sampling_units,18,18,same
+ecological_robustness_claim/caproiciproducens_vs_caproate_within_study/Hanna_2025/spearman_rho,0.523,0.523,same
+ecological_robustness_claim/folds/loso,7,7,same
+ecological_robustness_claim/folds/shuffled_10_fold,10,10,same
+ecological_robustness_claim/folds/total,22,22,same
+ecological_robustness_claim/folds/vessel,5,5,same
+ecological_robustness_claim/illumina_only_109_genus_model_top_10[0],g__Caproiciproducens,g__Caproiciproducens,same
+ecological_robustness_claim/illumina_only_109_genus_model_top_10[1],g__Microbacterium,g__Microbacterium,same
+ecological_robustness_claim/illumina_only_109_genus_model_top_10[2],g__Unclassified,g__Unclassified,same
+ecological_robustness_claim/illumina_only_109_genus_model_top_10[3],g__Ochrobactrum,g__Ochrobactrum,same
+ecological_robustness_claim/illumina_only_109_genus_model_top_10[4],g__Monoglobus,g__Monoglobus,same
+ecological_robustness_claim/illumina_only_109_genus_model_top_10[5],g__Clostridium_sensu_stricto_12,g__Clostridium_sensu_stricto_12,same
+ecological_robustness_claim/illumina_only_109_genus_model_top_10[6],g__Actinomyces,g__Actinomyces,same
+ecological_robustness_claim/illumina_only_109_genus_model_top_10[7],g__Oscillibacter,g__Oscillibacter,same
+ecological_robustness_claim/illumina_only_109_genus_model_top_10[8],g__Rhodococcus,g__Rhodococcus,same
+ecological_robustness_claim/illumina_only_109_genus_model_top_10[9],g__Acetobacter,g__Acetobacter,same
+ecological_robustness_claim/rank_2_folds/g__Caproiciproducens,1,1,same
+ecological_robustness_claim/rank_2_folds/g__Gudongella,4,5,differs
+ecological_robustness_claim/rank_2_folds/g__Microbacterium,1,1,same
+ecological_robustness_claim/rank_2_folds/g__Rummeliibacillus,12,11,differs
+ecological_robustness_claim/rank_2_folds/g__Sporolactobacillus,2,2,same
+ecological_robustness_claim/rank_2_folds/g__Unclassified,2,2,same
+ecological_robustness_claim/top_10_in_at_least_80_percent_of_folds[0],g__Anaerobium,g__Anaerobium,same
+ecological_robustness_claim/top_10_in_at_least_80_percent_of_folds[1],g__Caproiciproducens,g__Caproiciproducens,same
+ecological_robustness_claim/top_10_in_at_least_80_percent_of_folds[2],g__Gudongella,g__Gudongella,same
+ecological_robustness_claim/top_10_in_at_least_80_percent_of_folds[3],g__Microbacterium,g__Microbacterium,same
+ecological_robustness_claim/top_10_in_at_least_80_percent_of_folds[4],g__Ochrobactrum,g__Ochrobactrum,same
+ecological_robustness_claim/top_10_in_at_least_80_percent_of_folds[5],g__Rummeliibacillus,g__Rummeliibacillus,same
+ecological_robustness_claim/top_10_in_every_fold[0],g__Caproiciproducens,g__Caproiciproducens,same
+shared_subspace_transfer_control/consistency_with_06,PASS,PASS,same
+shared_subspace_transfer_control/guard_reverse_nanopore_to_illumina/28 shared genera + chemistry + ops/features,38,38,same
+shared_subspace_transfer_control/guard_reverse_nanopore_to_illumina/28 shared genera + chemistry + ops/mae,86.4,86.4,same
+shared_subspace_transfer_control/guard_reverse_nanopore_to_illumina/28 shared genera + chemistry + ops/r2,-0.135,-0.135,same
+shared_subspace_transfer_control/guard_reverse_nanopore_to_illumina/28 shared genera + chemistry + ops/rmse,115.2,115.2,same
+shared_subspace_transfer_control/guard_reverse_nanopore_to_illumina/28 shared genera + chemistry + ops/spearman_rho,0.321,0.321,same
+shared_subspace_transfer_control/guard_reverse_nanopore_to_illumina/all 205 genera + chemistry + ops/features,215,215,same
+shared_subspace_transfer_control/guard_reverse_nanopore_to_illumina/all 205 genera + chemistry + ops/mae,84.0,84.0,same
+shared_subspace_transfer_control/guard_reverse_nanopore_to_illumina/all 205 genera + chemistry + ops/r2,-0.343,-0.343,same
+shared_subspace_transfer_control/guard_reverse_nanopore_to_illumina/all 205 genera + chemistry + ops/rmse,125.4,125.4,same
+shared_subspace_transfer_control/guard_reverse_nanopore_to_illumina/all 205 genera + chemistry + ops/spearman_rho,0.526,0.526,same
+shared_subspace_transfer_control/guard_within_illumina_loso/109 Illumina-detected genera + chem + ops/features,119,119,same
+shared_subspace_transfer_control/guard_within_illumina_loso/109 Illumina-detected genera + chem + ops/r2_mean,-0.362,-0.39,differs
+shared_subspace_transfer_control/guard_within_illumina_loso/109 Illumina-detected genera + chem + ops/r2_sd,0.642,0.691,differs
+shared_subspace_transfer_control/guard_within_illumina_loso/109 Illumina-detected genera ONLY/features,109,109,same
+shared_subspace_transfer_control/guard_within_illumina_loso/109 Illumina-detected genera ONLY/r2_mean,-1.297,-1.297,same
+shared_subspace_transfer_control/guard_within_illumina_loso/109 Illumina-detected genera ONLY/r2_sd,1.53,1.53,same
+shared_subspace_transfer_control/guard_within_illumina_loso/28 shared genera + chemistry + ops/features,38,38,same
+shared_subspace_transfer_control/guard_within_illumina_loso/28 shared genera + chemistry + ops/r2_mean,-0.887,-0.815,differs
+shared_subspace_transfer_control/guard_within_illumina_loso/28 shared genera + chemistry + ops/r2_sd,1.499,1.355,differs
+shared_subspace_transfer_control/guard_within_illumina_loso/28 shared genera ONLY/features,28,28,same
+shared_subspace_transfer_control/guard_within_illumina_loso/28 shared genera ONLY/r2_mean,-1.262,-1.262,same
+shared_subspace_transfer_control/guard_within_illumina_loso/28 shared genera ONLY/r2_sd,1.347,1.347,same
+shared_subspace_transfer_control/illumina_to_nanopore/S0: core chemistry + ops + categoricals only/features,10,10,same
+shared_subspace_transfer_control/illumina_to_nanopore/S0: core chemistry + ops + categoricals only/mae,100.3,99.3,differs
+shared_subspace_transfer_control/illumina_to_nanopore/S0: core chemistry + ops + categoricals only/r2,-0.12,-0.131,differs
+shared_subspace_transfer_control/illumina_to_nanopore/S0: core chemistry + ops + categoricals only/rmse,142.5,143.2,differs
+shared_subspace_transfer_control/illumina_to_nanopore/S0: core chemistry + ops + categoricals only/spearman_rho,0.333,0.296,differs
+shared_subspace_transfer_control/illumina_to_nanopore/S1: 28 shared genera ONLY (no chemistry)/features,28,28,same
+shared_subspace_transfer_control/illumina_to_nanopore/S1: 28 shared genera ONLY (no chemistry)/mae,102.7,102.7,same
+shared_subspace_transfer_control/illumina_to_nanopore/S1: 28 shared genera ONLY (no chemistry)/r2,-0.194,-0.194,same
+shared_subspace_transfer_control/illumina_to_nanopore/S1: 28 shared genera ONLY (no chemistry)/rmse,147.1,147.1,same
+shared_subspace_transfer_control/illumina_to_nanopore/S1: 28 shared genera ONLY (no chemistry)/spearman_rho,0.232,0.232,same
+shared_subspace_transfer_control/illumina_to_nanopore/S2: all 205 genera ONLY (no chemistry)/features,205,205,same
+shared_subspace_transfer_control/illumina_to_nanopore/S2: all 205 genera ONLY (no chemistry)/mae,102.0,102.0,same
+shared_subspace_transfer_control/illumina_to_nanopore/S2: all 205 genera ONLY (no chemistry)/r2,-0.25,-0.25,same
+shared_subspace_transfer_control/illumina_to_nanopore/S2: all 205 genera ONLY (no chemistry)/rmse,150.5,150.5,same
+shared_subspace_transfer_control/illumina_to_nanopore/S2: all 205 genera ONLY (no chemistry)/spearman_rho,0.375,0.375,same
+shared_subspace_transfer_control/illumina_to_nanopore/S3: 28 shared genera + chemistry + ops/features,38,38,same
+shared_subspace_transfer_control/illumina_to_nanopore/S3: 28 shared genera + chemistry + ops/mae,91.5,89.4,differs
+shared_subspace_transfer_control/illumina_to_nanopore/S3: 28 shared genera + chemistry + ops/r2,0.125,0.12,differs
+shared_subspace_transfer_control/illumina_to_nanopore/S3: 28 shared genera + chemistry + ops/rmse,125.9,126.3,differs
+shared_subspace_transfer_control/illumina_to_nanopore/S3: 28 shared genera + chemistry + ops/spearman_rho,0.531,0.517,differs
+shared_subspace_transfer_control/illumina_to_nanopore/S4: 27 shared genera (no Unclassified) + chem + ops/features,37,37,same
+shared_subspace_transfer_control/illumina_to_nanopore/S4: 27 shared genera (no Unclassified) + chem + ops/mae,95.7,95.8,differs
+shared_subspace_transfer_control/illumina_to_nanopore/S4: 27 shared genera (no Unclassified) + chem + ops/r2,-0.154,-0.151,differs
+shared_subspace_transfer_control/illumina_to_nanopore/S4: 27 shared genera (no Unclassified) + chem + ops/rmse,144.6,144.4,differs
+shared_subspace_transfer_control/illumina_to_nanopore/S4: 27 shared genera (no Unclassified) + chem + ops/spearman_rho,0.437,0.41,differs
+shared_subspace_transfer_control/illumina_to_nanopore/S5: all 205 genera + chemistry + ops/features,215,215,same
+shared_subspace_transfer_control/illumina_to_nanopore/S5: all 205 genera + chemistry + ops/mae,94.2,94.4,differs
+shared_subspace_transfer_control/illumina_to_nanopore/S5: all 205 genera + chemistry + ops/r2,-0.044,-0.047,differs
+shared_subspace_transfer_control/illumina_to_nanopore/S5: all 205 genera + chemistry + ops/rmse,137.5,137.7,differs
+shared_subspace_transfer_control/illumina_to_nanopore/S5: all 205 genera + chemistry + ops/spearman_rho,0.389,0.37,differs
+shared_subspace_transfer_control/illumina_to_nanopore_renormalized/S1: 28 shared genera ONLY (no chemistry)/features,28,28,same
+shared_subspace_transfer_control/illumina_to_nanopore_renormalized/S1: 28 shared genera ONLY (no chemistry)/mae,92.0,92.0,same
+shared_subspace_transfer_control/illumina_to_nanopore_renormalized/S1: 28 shared genera ONLY (no chemistry)/r2,-0.131,-0.131,same
+shared_subspace_transfer_control/illumina_to_nanopore_renormalized/S1: 28 shared genera ONLY (no chemistry)/rmse,143.2,143.2,same
+shared_subspace_transfer_control/illumina_to_nanopore_renormalized/S1: 28 shared genera ONLY (no chemistry)/spearman_rho,0.395,0.395,same
+shared_subspace_transfer_control/illumina_to_nanopore_renormalized/S2: all 205 genera ONLY (no chemistry)/features,205,205,same
+shared_subspace_transfer_control/illumina_to_nanopore_renormalized/S2: all 205 genera ONLY (no chemistry)/mae,102.0,102.0,same
+shared_subspace_transfer_control/illumina_to_nanopore_renormalized/S2: all 205 genera ONLY (no chemistry)/r2,-0.25,-0.25,same
+shared_subspace_transfer_control/illumina_to_nanopore_renormalized/S2: all 205 genera ONLY (no chemistry)/rmse,150.5,150.5,same
+shared_subspace_transfer_control/illumina_to_nanopore_renormalized/S2: all 205 genera ONLY (no chemistry)/spearman_rho,0.375,0.375,same
+shared_subspace_transfer_control/illumina_to_nanopore_renormalized/S3: 28 shared genera + chemistry + ops/features,38,38,same
+shared_subspace_transfer_control/illumina_to_nanopore_renormalized/S3: 28 shared genera + chemistry + ops/mae,90.1,89.8,differs
+shared_subspace_transfer_control/illumina_to_nanopore_renormalized/S3: 28 shared genera + chemistry + ops/r2,-0.044,-0.081,differs
+shared_subspace_transfer_control/illumina_to_nanopore_renormalized/S3: 28 shared genera + chemistry + ops/rmse,137.6,140.0,differs
+shared_subspace_transfer_control/illumina_to_nanopore_renormalized/S3: 28 shared genera + chemistry + ops/spearman_rho,0.457,0.445,differs
+shared_subspace_transfer_control/illumina_to_nanopore_renormalized/S4: 27 shared genera (no Unclassified) + chem + ops/features,37,37,same
+shared_subspace_transfer_control/illumina_to_nanopore_renormalized/S4: 27 shared genera (no Unclassified) + chem + ops/mae,90.7,90.4,differs
+shared_subspace_transfer_control/illumina_to_nanopore_renormalized/S4: 27 shared genera (no Unclassified) + chem + ops/r2,-0.073,-0.079,differs
+shared_subspace_transfer_control/illumina_to_nanopore_renormalized/S4: 27 shared genera (no Unclassified) + chem + ops/rmse,139.5,139.9,differs
+shared_subspace_transfer_control/illumina_to_nanopore_renormalized/S4: 27 shared genera (no Unclassified) + chem + ops/spearman_rho,0.282,0.298,differs
+shared_subspace_transfer_control/illumina_to_nanopore_renormalized/S5: all 205 genera + chemistry + ops/features,215,215,same
+shared_subspace_transfer_control/illumina_to_nanopore_renormalized/S5: all 205 genera + chemistry + ops/mae,94.2,94.4,differs
+shared_subspace_transfer_control/illumina_to_nanopore_renormalized/S5: all 205 genera + chemistry + ops/r2,-0.044,-0.047,differs
+shared_subspace_transfer_control/illumina_to_nanopore_renormalized/S5: all 205 genera + chemistry + ops/rmse,137.5,137.7,differs
+shared_subspace_transfer_control/illumina_to_nanopore_renormalized/S5: all 205 genera + chemistry + ops/spearman_rho,0.389,0.37,differs
+shared_subspace_transfer_control/shared_feature_space/detected_illumina,109,109,same
+shared_subspace_transfer_control/shared_feature_space/detected_nanopore,124,124,same
+shared_subspace_transfer_control/shared_feature_space/genera_total,205,205,same
+shared_subspace_transfer_control/shared_feature_space/illumina_only,81,81,same
+shared_subspace_transfer_control/shared_feature_space/nanopore_only,96,96,same
+shared_subspace_transfer_control/shared_feature_space/shared,28,28,same
+shared_subspace_transfer_control/shared_feature_space/shared_genera[0],g__Acetobacter,g__Acetobacter,same
+shared_subspace_transfer_control/shared_feature_space/shared_genera[1],g__Actinomyces,g__Actinomyces,same
+shared_subspace_transfer_control/shared_feature_space/shared_genera[2],g__Anaerocolumna,g__Anaerocolumna,same
+shared_subspace_transfer_control/shared_feature_space/shared_genera[3],g__Anaerostignum,g__Anaerostignum,same
+shared_subspace_transfer_control/shared_feature_space/shared_genera[4],g__Anaerotruncus,g__Anaerotruncus,same
+shared_subspace_transfer_control/shared_feature_space/shared_genera[5],g__Bacillus,g__Bacillus,same
+shared_subspace_transfer_control/shared_feature_space/shared_genera[6],g__Bacteroides,g__Bacteroides,same
+shared_subspace_transfer_control/shared_feature_space/shared_genera[7],g__Blautia,g__Blautia,same
+shared_subspace_transfer_control/shared_feature_space/shared_genera[8],g__Caproiciproducens,g__Caproiciproducens,same
+shared_subspace_transfer_control/shared_feature_space/shared_genera[9],g__Clostridium_sensu_stricto_12,g__Clostridium_sensu_stricto_12,same
+shared_subspace_transfer_control/shared_feature_space/shared_genera[10],g__Escherichia-Shigella,g__Escherichia-Shigella,same
+shared_subspace_transfer_control/shared_feature_space/shared_genera[11],g__Fonticella,g__Fonticella,same
+shared_subspace_transfer_control/shared_feature_space/shared_genera[12],g__Gluconobacter,g__Gluconobacter,same
+shared_subspace_transfer_control/shared_feature_space/shared_genera[13],g__Herbinix,g__Herbinix,same
+shared_subspace_transfer_control/shared_feature_space/shared_genera[14],g__Intestinimonas,g__Intestinimonas,same
+shared_subspace_transfer_control/shared_feature_space/shared_genera[15],g__Lachnoclostridium,g__Lachnoclostridium,same
+shared_subspace_transfer_control/shared_feature_space/shared_genera[16],g__Lacticaseibacillus,g__Lacticaseibacillus,same
+shared_subspace_transfer_control/shared_feature_space/shared_genera[17],g__Lactobacillus,g__Lactobacillus,same
+shared_subspace_transfer_control/shared_feature_space/shared_genera[18],g__Monoglobus,g__Monoglobus,same
+shared_subspace_transfer_control/shared_feature_space/shared_genera[19],g__Oscillibacter,g__Oscillibacter,same
+shared_subspace_transfer_control/shared_feature_space/shared_genera[20],g__Propionibacterium,g__Propionibacterium,same
+shared_subspace_transfer_control/shared_feature_space/shared_genera[21],g__Pseudoclostridium,g__Pseudoclostridium,same
+shared_subspace_transfer_control/shared_feature_space/shared_genera[22],g__Rummeliibacillus,g__Rummeliibacillus,same
+shared_subspace_transfer_control/shared_feature_space/shared_genera[23],g__Solobacterium,g__Solobacterium,same
+shared_subspace_transfer_control/shared_feature_space/shared_genera[24],g__Sporolactobacillus,g__Sporolactobacillus,same
+shared_subspace_transfer_control/shared_feature_space/shared_genera[25],g__Thermoanaerobacterium,g__Thermoanaerobacterium,same
+shared_subspace_transfer_control/shared_feature_space/shared_genera[26],g__Tissierella,g__Tissierella,same
+shared_subspace_transfer_control/shared_feature_space/shared_genera[27],g__Unclassified,g__Unclassified,same
+shared_subspace_transfer_control/shared_feature_space/shared_mass_illumina_percent,69.9,69.9,same
+shared_subspace_transfer_control/shared_feature_space/shared_mass_nanopore_percent,59.9,59.9,same
+shared_subspace_transfer_control/shared_feature_space/unclassified_mass_percent/illumina,5.5,5.5,same
+shared_subspace_transfer_control/shared_feature_space/unclassified_mass_percent/nanopore,0.0,0.0,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Acetobacter/illumina,3.72,3.72,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Acetobacter/nanopore,0.03,0.03,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Actinomyces/illumina,4.24,4.24,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Actinomyces/nanopore,5.18,5.18,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Anaerocolumna/illumina,0.13,0.13,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Anaerocolumna/nanopore,0.01,0.01,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Anaerostignum/illumina,1.16,1.16,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Anaerostignum/nanopore,0.13,0.13,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Anaerotruncus/illumina,0.01,0.01,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Anaerotruncus/nanopore,0.0,0.0,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Bacillus/illumina,5.64,5.64,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Bacillus/nanopore,0.16,0.16,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Bacteroides/illumina,0.67,0.67,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Bacteroides/nanopore,0.06,0.06,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Blautia/illumina,0.36,0.36,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Blautia/nanopore,0.03,0.03,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Caproiciproducens/illumina,25.46,25.46,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Caproiciproducens/nanopore,9.79,9.79,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Clostridium_sensu_stricto_12/illumina,4.68,4.68,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Clostridium_sensu_stricto_12/nanopore,14.1,14.1,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Escherichia-Shigella/illumina,0.21,0.21,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Escherichia-Shigella/nanopore,0.01,0.01,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Fonticella/illumina,0.34,0.34,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Fonticella/nanopore,0.01,0.01,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Gluconobacter/illumina,0.01,0.01,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Gluconobacter/nanopore,0.0,0.0,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Herbinix/illumina,0.09,0.09,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Herbinix/nanopore,0.02,0.02,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Intestinimonas/illumina,0.33,0.33,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Intestinimonas/nanopore,0.1,0.1,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Lachnoclostridium/illumina,0.07,0.07,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Lachnoclostridium/nanopore,13.8,13.8,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Lacticaseibacillus/illumina,8.23,8.23,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Lacticaseibacillus/nanopore,6.1,6.1,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Lactobacillus/illumina,0.05,0.05,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Lactobacillus/nanopore,0.01,0.01,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Monoglobus/illumina,0.02,0.02,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Monoglobus/nanopore,0.0,0.0,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Oscillibacter/illumina,2.43,2.43,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Oscillibacter/nanopore,0.36,0.36,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Propionibacterium/illumina,0.15,0.15,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Propionibacterium/nanopore,0.05,0.05,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Pseudoclostridium/illumina,1.8,1.8,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Pseudoclostridium/nanopore,0.13,0.13,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Rummeliibacillus/illumina,0.4,0.4,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Rummeliibacillus/nanopore,0.25,0.25,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Solobacterium/illumina,0.02,0.02,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Solobacterium/nanopore,0.0,0.0,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Sporolactobacillus/illumina,0.24,0.24,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Sporolactobacillus/nanopore,5.07,5.07,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Thermoanaerobacterium/illumina,2.42,2.42,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Thermoanaerobacterium/nanopore,4.3,4.3,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Tissierella/illumina,1.5,1.5,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Tissierella/nanopore,0.15,0.15,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Unclassified/illumina,5.51,5.51,same
+shared_subspace_transfer_control/shared_genera_mean_relative_abundance_percent/g__Unclassified/nanopore,0.0,0.0,same
+replicate_checks/bray_curtis/Duber_2024/any two different days/highest,0.965,0.965,same
+replicate_checks/bray_curtis/Duber_2024/any two different days/lowest,0.054,0.054,same
+replicate_checks/bray_curtis/Duber_2024/any two different days/median,0.561,0.561,same
+replicate_checks/bray_curtis/Duber_2024/any two different days/pairs,594,594,same
+replicate_checks/bray_curtis/Duber_2024/any two different days/q25,0.382,0.382,same
+replicate_checks/bray_curtis/Duber_2024/any two different days/q75,0.828,0.828,same
+replicate_checks/bray_curtis/Duber_2024/next sampling day/highest,0.963,0.963,same
+replicate_checks/bray_curtis/Duber_2024/next sampling day/lowest,0.1,0.1,same
+replicate_checks/bray_curtis/Duber_2024/next sampling day/median,0.343,0.343,same
+replicate_checks/bray_curtis/Duber_2024/next sampling day/pairs,135,135,same
+replicate_checks/bray_curtis/Duber_2024/next sampling day/q25,0.22,0.22,same
+replicate_checks/bray_curtis/Duber_2024/next sampling day/q75,0.596,0.596,same
+replicate_checks/bray_curtis/Duber_2024/same day/highest,0.46,0.46,same
+replicate_checks/bray_curtis/Duber_2024/same day/lowest,0.021,0.021,same
+replicate_checks/bray_curtis/Duber_2024/same day/median,0.09,0.09,same
+replicate_checks/bray_curtis/Duber_2024/same day/pairs,51,51,same
+replicate_checks/bray_curtis/Duber_2024/same day/q25,0.049,0.049,same
+replicate_checks/bray_curtis/Duber_2024/same day/q75,0.136,0.136,same
+replicate_checks/bray_curtis/Duber_2024/samples,51,51,same
+replicate_checks/bray_curtis/Duber_2024/samples_whose_most_similar_sample_is_a_same_day_replicate,41,41,same
+replicate_checks/bray_curtis/Hanna_2025/any two different days/highest,0.973,0.973,same
+replicate_checks/bray_curtis/Hanna_2025/any two different days/lowest,0.136,0.136,same
+replicate_checks/bray_curtis/Hanna_2025/any two different days/median,0.646,0.646,same
+replicate_checks/bray_curtis/Hanna_2025/any two different days/pairs,648,648,same
+replicate_checks/bray_curtis/Hanna_2025/any two different days/q25,0.488,0.488,same
+replicate_checks/bray_curtis/Hanna_2025/any two different days/q75,0.834,0.834,same
+replicate_checks/bray_curtis/Hanna_2025/next sampling day/highest,0.903,0.903,same
+replicate_checks/bray_curtis/Hanna_2025/next sampling day/lowest,0.136,0.136,same
+replicate_checks/bray_curtis/Hanna_2025/next sampling day/median,0.48,0.48,same
+replicate_checks/bray_curtis/Hanna_2025/next sampling day/pairs,144,144,same
+replicate_checks/bray_curtis/Hanna_2025/next sampling day/q25,0.329,0.329,same
+replicate_checks/bray_curtis/Hanna_2025/next sampling day/q75,0.732,0.732,same
+replicate_checks/bray_curtis/Hanna_2025/same day/highest,0.185,0.185,same
+replicate_checks/bray_curtis/Hanna_2025/same day/lowest,0.004,0.004,same
+replicate_checks/bray_curtis/Hanna_2025/same day/median,0.049,0.049,same
+replicate_checks/bray_curtis/Hanna_2025/same day/pairs,54,54,same
+replicate_checks/bray_curtis/Hanna_2025/same day/q25,0.034,0.034,same
+replicate_checks/bray_curtis/Hanna_2025/same day/q75,0.075,0.075,same
+replicate_checks/bray_curtis/Hanna_2025/samples,54,54,same
+replicate_checks/bray_curtis/Hanna_2025/samples_whose_most_similar_sample_is_a_same_day_replicate,53,53,same
+"replicate_checks/one_row_per_sampling_day/LOSO, core set (the headline)/every sample/n",166,166,same
+"replicate_checks/one_row_per_sampling_day/LOSO, core set (the headline)/every sample/r2",-0.627,-0.628,differs
+"replicate_checks/one_row_per_sampling_day/LOSO, core set (the headline)/every sample/r2_sd",0.817,0.818,differs
+"replicate_checks/one_row_per_sampling_day/LOSO, core set (the headline)/every sample/rmse",99.6,99.7,differs
+"replicate_checks/one_row_per_sampling_day/LOSO, core set (the headline)/one row per sampling day/n",96,96,same
+"replicate_checks/one_row_per_sampling_day/LOSO, core set (the headline)/one row per sampling day/r2",-0.587,-0.606,differs
+"replicate_checks/one_row_per_sampling_day/LOSO, core set (the headline)/one row per sampling day/r2_sd",0.715,0.755,differs
+"replicate_checks/one_row_per_sampling_day/LOSO, core set (the headline)/one row per sampling day/rmse",99.0,99.1,differs
+"replicate_checks/one_row_per_sampling_day/LOSO, core set (the headline): Training-mean benchmark/every sample/n",166,166,same
+"replicate_checks/one_row_per_sampling_day/LOSO, core set (the headline): Training-mean benchmark/every sample/r2",-4.243,-4.243,same
+"replicate_checks/one_row_per_sampling_day/LOSO, core set (the headline): Training-mean benchmark/every sample/r2_sd",9.367,9.367,same
+"replicate_checks/one_row_per_sampling_day/LOSO, core set (the headline): Training-mean benchmark/every sample/rmse",112.6,112.6,same
+"replicate_checks/one_row_per_sampling_day/LOSO, core set (the headline): Training-mean benchmark/one row per sampling day/n",96,96,same
+"replicate_checks/one_row_per_sampling_day/LOSO, core set (the headline): Training-mean benchmark/one row per sampling day/r2",-5.056,-5.056,same
+"replicate_checks/one_row_per_sampling_day/LOSO, core set (the headline): Training-mean benchmark/one row per sampling day/r2_sd",11.233,11.233,same
+"replicate_checks/one_row_per_sampling_day/LOSO, core set (the headline): Training-mean benchmark/one row per sampling day/rmse",115.3,115.3,same
+replicate_checks/one_row_per_sampling_day/Random 5-fold CV (ASV level)/every sample/n,112,112,same
+replicate_checks/one_row_per_sampling_day/Random 5-fold CV (ASV level)/every sample/r2,0.682,0.682,same
+replicate_checks/one_row_per_sampling_day/Random 5-fold CV (ASV level)/every sample/r2_sd,0.285,0.285,same
+replicate_checks/one_row_per_sampling_day/Random 5-fold CV (ASV level)/every sample/rmse,54.9,55.0,differs
+replicate_checks/one_row_per_sampling_day/Random 5-fold CV (ASV level)/one row per sampling day/n,78,78,same
+replicate_checks/one_row_per_sampling_day/Random 5-fold CV (ASV level)/one row per sampling day/r2,0.661,0.662,differs
+replicate_checks/one_row_per_sampling_day/Random 5-fold CV (ASV level)/one row per sampling day/r2_sd,0.242,0.242,same
+replicate_checks/one_row_per_sampling_day/Random 5-fold CV (ASV level)/one row per sampling day/rmse,59.6,59.5,differs
+"replicate_checks/one_row_per_sampling_day/Shuffled 10-fold CV, per-fold SHAP top-25 genera/every sample/n",166,166,same
+"replicate_checks/one_row_per_sampling_day/Shuffled 10-fold CV, per-fold SHAP top-25 genera/every sample/r2",0.828,0.828,same
+"replicate_checks/one_row_per_sampling_day/Shuffled 10-fold CV, per-fold SHAP top-25 genera/every sample/r2_sd",0.091,0.09,differs
+"replicate_checks/one_row_per_sampling_day/Shuffled 10-fold CV, per-fold SHAP top-25 genera/every sample/rmse",47.0,46.9,differs
+"replicate_checks/one_row_per_sampling_day/Shuffled 10-fold CV, per-fold SHAP top-25 genera/one row per sampling day/n",96,96,same
+"replicate_checks/one_row_per_sampling_day/Shuffled 10-fold CV, per-fold SHAP top-25 genera/one row per sampling day/r2",0.59,0.595,differs
+"replicate_checks/one_row_per_sampling_day/Shuffled 10-fold CV, per-fold SHAP top-25 genera/one row per sampling day/r2_sd",0.226,0.224,differs
+"replicate_checks/one_row_per_sampling_day/Shuffled 10-fold CV, per-fold SHAP top-25 genera/one row per sampling day/rmse",67.7,67.1,differs
+replicate_checks/one_row_per_sampling_day/Single random 80/20 split (ASV level)/every sample/n,112,112,same
+replicate_checks/one_row_per_sampling_day/Single random 80/20 split (ASV level)/every sample/r2,0.542,0.542,same
+replicate_checks/one_row_per_sampling_day/Single random 80/20 split (ASV level)/every sample/rmse,76.0,76.1,differs
+replicate_checks/one_row_per_sampling_day/Single random 80/20 split (ASV level)/one row per sampling day/n,78,78,same
+replicate_checks/one_row_per_sampling_day/Single random 80/20 split (ASV level)/one row per sampling day/r2,0.8,0.802,differs
+replicate_checks/one_row_per_sampling_day/Single random 80/20 split (ASV level)/one row per sampling day/rmse,51.9,51.6,differs
+replicate_checks/one_row_per_sampling_day/Single-study internal 80/20 split (Duber 2024)/every sample/n,51,51,same
+replicate_checks/one_row_per_sampling_day/Single-study internal 80/20 split (Duber 2024)/every sample/r2,0.913,0.913,same
+replicate_checks/one_row_per_sampling_day/Single-study internal 80/20 split (Duber 2024)/every sample/rmse,26.5,26.5,same
+replicate_checks/one_row_per_sampling_day/Single-study internal 80/20 split (Duber 2024)/one row per sampling day/n,17,17,same
+replicate_checks/one_row_per_sampling_day/Single-study internal 80/20 split (Duber 2024)/one row per sampling day/r2,-0.919,-0.919,same
+replicate_checks/one_row_per_sampling_day/Single-study internal 80/20 split (Duber 2024)/one row per sampling day/rmse,63.3,63.3,same
+figures/figure_4_cohorts/Acetate (mM C)/illumina/mean,87.03,87.03,same
+figures/figure_4_cohorts/Acetate (mM C)/illumina/median,78.44,78.44,same
+figures/figure_4_cohorts/Acetate (mM C)/illumina/n,112,112,same
+figures/figure_4_cohorts/Acetate (mM C)/nanopore/mean,173.44,173.44,same
+figures/figure_4_cohorts/Acetate (mM C)/nanopore/median,175.94,175.94,same
+figures/figure_4_cohorts/Acetate (mM C)/nanopore/n,54,54,same
+figures/figure_4_cohorts/Caproate (mM C)/illumina/mean,106.04,106.04,same
+figures/figure_4_cohorts/Caproate (mM C)/illumina/median,98.12,98.12,same
+figures/figure_4_cohorts/Caproate (mM C)/illumina/n,112,112,same
+figures/figure_4_cohorts/Caproate (mM C)/nanopore/mean,132.29,132.29,same
+figures/figure_4_cohorts/Caproate (mM C)/nanopore/median,88.2,88.2,same
+figures/figure_4_cohorts/Caproate (mM C)/nanopore/n,54,54,same
+figures/figure_4_cohorts/Caproiciproducens (%)/illumina/mean,25.46,25.46,same
+figures/figure_4_cohorts/Caproiciproducens (%)/illumina/median,23.23,23.23,same
+figures/figure_4_cohorts/Caproiciproducens (%)/illumina/n,112,112,same
+figures/figure_4_cohorts/Caproiciproducens (%)/nanopore/mean,9.79,9.79,same
+figures/figure_4_cohorts/Caproiciproducens (%)/nanopore/median,5.83,5.83,same
+figures/figure_4_cohorts/Caproiciproducens (%)/nanopore/n,54,54,same
+figures/figure_4_cohorts/Lactate (mM C)/illumina/mean,54.57,54.57,same
+figures/figure_4_cohorts/Lactate (mM C)/illumina/median,0.45,0.45,same
+figures/figure_4_cohorts/Lactate (mM C)/illumina/n,112,112,same
+figures/figure_4_cohorts/Lactate (mM C)/nanopore/mean,29.36,29.36,same
+figures/figure_4_cohorts/Lactate (mM C)/nanopore/median,0.12,0.12,same
+figures/figure_4_cohorts/Lactate (mM C)/nanopore/n,54,54,same
+figures/figure_4_cohorts/Lacticaseibacillus (%)/illumina/mean,8.23,8.23,same
+figures/figure_4_cohorts/Lacticaseibacillus (%)/illumina/median,0.12,0.12,same
+figures/figure_4_cohorts/Lacticaseibacillus (%)/illumina/n,112,112,same
+figures/figure_4_cohorts/Lacticaseibacillus (%)/nanopore/mean,6.1,6.1,same
+figures/figure_4_cohorts/Lacticaseibacillus (%)/nanopore/median,2.4,2.4,same
+figures/figure_4_cohorts/Lacticaseibacillus (%)/nanopore/n,54,54,same
+figures/figure_4_cohorts/pH/illumina/mean,5.7,5.73,differs
+figures/figure_4_cohorts/pH/illumina/median,5.5,5.5,same
+figures/figure_4_cohorts/pH/illumina/n,112,112,same
+figures/figure_4_cohorts/pH/nanopore/mean,6.5,6.5,same
+figures/figure_4_cohorts/pH/nanopore/median,6.5,6.5,same
+figures/figure_4_cohorts/pH/nanopore/n,54,54,same
+figures/figure_4_cohorts/samples/illumina,112,112,same
+figures/figure_4_cohorts/samples/nanopore,54,54,same
+figures/figure_5_top_10_genera/shown[0],g__Caproiciproducens,g__Caproiciproducens,same
+figures/figure_5_top_10_genera/shown[1],g__Rummeliibacillus,g__Rummeliibacillus,same
+figures/figure_5_top_10_genera/shown[2],g__Microbacterium,g__Microbacterium,same
+figures/figure_5_top_10_genera/shown[3],g__Gudongella,g__Gudongella,same
+figures/figure_5_top_10_genera/shown[4],g__Anaerobium,g__Anaerobium,same
+figures/figure_5_top_10_genera/shown[5],g__Ochrobactrum,g__Ochrobactrum,same
+figures/figure_5_top_10_genera/shown[6],g__Clostridium_sensu_stricto_12,g__Oscillibacter,differs
+figures/figure_5_top_10_genera/shown[7],g__Oscillibacter,g__Sporolactobacillus,differs
+figures/figure_5_top_10_genera/shown[8],g__Sporolactobacillus,g__Clostridium_sensu_stricto_12,differs
+figures/figure_5_top_10_genera/shown[9],g__Monoglobus,g__Monoglobus,same
+figures/figure_5_top_10_genera/top_15_genera_mean_abs_shap/g__Anaerobium/mean_abs_shap,7.15,7.064,differs
+figures/figure_5_top_10_genera/top_15_genera_mean_abs_shap/g__Anaerobium/rank_among_all_predictors,6,6,same
+figures/figure_5_top_10_genera/top_15_genera_mean_abs_shap/g__Anaerobium/rank_among_genera,5,5,same
+figures/figure_5_top_10_genera/top_15_genera_mean_abs_shap/g__Bacillus/mean_abs_shap,2.707,2.966,differs
+figures/figure_5_top_10_genera/top_15_genera_mean_abs_shap/g__Bacillus/rank_among_all_predictors,16,16,same
+figures/figure_5_top_10_genera/top_15_genera_mean_abs_shap/g__Bacillus/rank_among_genera,13,13,same
+figures/figure_5_top_10_genera/top_15_genera_mean_abs_shap/g__Bacteroides/mean_abs_shap,2.954,2.984,differs
+figures/figure_5_top_10_genera/top_15_genera_mean_abs_shap/g__Bacteroides/rank_among_all_predictors,15,15,same
+figures/figure_5_top_10_genera/top_15_genera_mean_abs_shap/g__Bacteroides/rank_among_genera,12,12,same
+figures/figure_5_top_10_genera/top_15_genera_mean_abs_shap/g__Caproiciproducens/mean_abs_shap,29.413,29.4,differs
+figures/figure_5_top_10_genera/top_15_genera_mean_abs_shap/g__Caproiciproducens/rank_among_all_predictors,1,1,same
+figures/figure_5_top_10_genera/top_15_genera_mean_abs_shap/g__Caproiciproducens/rank_among_genera,1,1,same
+figures/figure_5_top_10_genera/top_15_genera_mean_abs_shap/g__Clostridium_sensu_stricto_12/mean_abs_shap,4.613,3.745,differs
+figures/figure_5_top_10_genera/top_15_genera_mean_abs_shap/g__Clostridium_sensu_stricto_12/rank_among_all_predictors,11,13,differs
+figures/figure_5_top_10_genera/top_15_genera_mean_abs_shap/g__Clostridium_sensu_stricto_12/rank_among_genera,8,10,differs
+figures/figure_5_top_10_genera/top_15_genera_mean_abs_shap/g__Gudongella/mean_abs_shap,8.533,8.444,differs
+figures/figure_5_top_10_genera/top_15_genera_mean_abs_shap/g__Gudongella/rank_among_all_predictors,5,5,same
+figures/figure_5_top_10_genera/top_15_genera_mean_abs_shap/g__Gudongella/rank_among_genera,4,4,same
+figures/figure_5_top_10_genera/top_15_genera_mean_abs_shap/g__Incertae_Sedis/mean_abs_shap,2.21,1.827,differs
+figures/figure_5_top_10_genera/top_15_genera_mean_abs_shap/g__Incertae_Sedis/rank_among_all_predictors,18,18,same
+figures/figure_5_top_10_genera/top_15_genera_mean_abs_shap/g__Incertae_Sedis/rank_among_genera,14,15,differs
+figures/figure_5_top_10_genera/top_15_genera_mean_abs_shap/g__Marasmitruncus/mean_abs_shap,2.078,2.01,differs
+figures/figure_5_top_10_genera/top_15_genera_mean_abs_shap/g__Marasmitruncus/rank_among_all_predictors,19,17,differs
+figures/figure_5_top_10_genera/top_15_genera_mean_abs_shap/g__Marasmitruncus/rank_among_genera,15,14,differs
+figures/figure_5_top_10_genera/top_15_genera_mean_abs_shap/g__Microbacterium/mean_abs_shap,9.352,9.173,differs
+figures/figure_5_top_10_genera/top_15_genera_mean_abs_shap/g__Microbacterium/rank_among_all_predictors,4,4,same
+figures/figure_5_top_10_genera/top_15_genera_mean_abs_shap/g__Microbacterium/rank_among_genera,3,3,same
+figures/figure_5_top_10_genera/top_15_genera_mean_abs_shap/g__Monoglobus/mean_abs_shap,3.522,3.483,differs
+figures/figure_5_top_10_genera/top_15_genera_mean_abs_shap/g__Monoglobus/rank_among_all_predictors,14,14,same
+figures/figure_5_top_10_genera/top_15_genera_mean_abs_shap/g__Monoglobus/rank_among_genera,11,11,same
+figures/figure_5_top_10_genera/top_15_genera_mean_abs_shap/g__Ochrobactrum/mean_abs_shap,6.476,6.559,differs
+figures/figure_5_top_10_genera/top_15_genera_mean_abs_shap/g__Ochrobactrum/rank_among_all_predictors,7,7,same
+figures/figure_5_top_10_genera/top_15_genera_mean_abs_shap/g__Ochrobactrum/rank_among_genera,6,6,same
+figures/figure_5_top_10_genera/top_15_genera_mean_abs_shap/g__Oscillibacter/mean_abs_shap,4.584,4.939,differs
+figures/figure_5_top_10_genera/top_15_genera_mean_abs_shap/g__Oscillibacter/rank_among_all_predictors,12,10,differs
+figures/figure_5_top_10_genera/top_15_genera_mean_abs_shap/g__Oscillibacter/rank_among_genera,9,8,differs
+figures/figure_5_top_10_genera/top_15_genera_mean_abs_shap/g__Rummeliibacillus/mean_abs_shap,13.42,13.798,differs
+figures/figure_5_top_10_genera/top_15_genera_mean_abs_shap/g__Rummeliibacillus/rank_among_all_predictors,3,3,same
+figures/figure_5_top_10_genera/top_15_genera_mean_abs_shap/g__Rummeliibacillus/rank_among_genera,2,2,same
+figures/figure_5_top_10_genera/top_15_genera_mean_abs_shap/g__Sporolactobacillus/mean_abs_shap,3.863,3.823,differs
+figures/figure_5_top_10_genera/top_15_genera_mean_abs_shap/g__Sporolactobacillus/rank_among_all_predictors,13,12,differs
+figures/figure_5_top_10_genera/top_15_genera_mean_abs_shap/g__Sporolactobacillus/rank_among_genera,10,9,differs
+figures/figure_5_top_10_genera/top_15_genera_mean_abs_shap/g__Unclassified/mean_abs_shap,5.436,5.797,differs
+figures/figure_5_top_10_genera/top_15_genera_mean_abs_shap/g__Unclassified/rank_among_all_predictors,9,8,differs
+figures/figure_5_top_10_genera/top_15_genera_mean_abs_shap/g__Unclassified/rank_among_genera,7,7,same
+figures/figure_6_attribution_vs_spread/folds,22,22,same
+figures/figure_6_attribution_vs_spread/genera_plotted,204,204,same
+figures/figure_6_attribution_vs_spread/mean_groups_of_genera_with_median_rank_above_25/genera,181,181,same
+figures/figure_6_attribution_vs_spread/mean_groups_of_genera_with_median_rank_above_25/mean,1.94,1.94,same
+figures/figure_6_attribution_vs_spread/mean_groups_of_genera_with_median_rank_at_most_10/genera,10,10,same
+figures/figure_6_attribution_vs_spread/mean_groups_of_genera_with_median_rank_at_most_10/mean,3.6,3.6,same
+figures/figure_6_attribution_vs_spread/named_genera/g__Anaerobium/groups,1,1,same
+figures/figure_6_attribution_vs_spread/named_genera/g__Anaerobium/median_rank,6.0,6.0,same
+figures/figure_6_attribution_vs_spread/named_genera/g__Anaerobium/samples,30,30,same
+figures/figure_6_attribution_vs_spread/named_genera/g__Anaerobium/shap_direction,0.346,0.342,differs
+figures/figure_6_attribution_vs_spread/named_genera/g__Anaerobium/zero_attribution_without_nanopore,True,True,same
+figures/figure_6_attribution_vs_spread/named_genera/g__Caproiciproducens/groups,7,7,same
+figures/figure_6_attribution_vs_spread/named_genera/g__Caproiciproducens/median_rank,1.0,1.0,same
+figures/figure_6_attribution_vs_spread/named_genera/g__Caproiciproducens/samples,161,161,same
+figures/figure_6_attribution_vs_spread/named_genera/g__Caproiciproducens/shap_direction,0.798,0.796,differs
+figures/figure_6_attribution_vs_spread/named_genera/g__Caproiciproducens/zero_attribution_without_nanopore,False,False,same
+figures/figure_6_attribution_vs_spread/named_genera/g__Clostridium_sensu_stricto_12/groups,7,7,same
+figures/figure_6_attribution_vs_spread/named_genera/g__Clostridium_sensu_stricto_12/median_rank,9.0,9.0,same
+figures/figure_6_attribution_vs_spread/named_genera/g__Clostridium_sensu_stricto_12/samples,158,158,same
+figures/figure_6_attribution_vs_spread/named_genera/g__Clostridium_sensu_stricto_12/shap_direction,0.541,0.539,differs
+figures/figure_6_attribution_vs_spread/named_genera/g__Clostridium_sensu_stricto_12/zero_attribution_without_nanopore,False,False,same
+figures/figure_6_attribution_vs_spread/named_genera/g__Gudongella/groups,1,1,same
+figures/figure_6_attribution_vs_spread/named_genera/g__Gudongella/median_rank,3.5,3.5,same
+figures/figure_6_attribution_vs_spread/named_genera/g__Gudongella/samples,27,27,same
+figures/figure_6_attribution_vs_spread/named_genera/g__Gudongella/shap_direction,0.636,0.637,differs
+figures/figure_6_attribution_vs_spread/named_genera/g__Gudongella/zero_attribution_without_nanopore,True,True,same
+figures/figure_6_attribution_vs_spread/named_genera/g__Lacticaseibacillus/groups,5,5,same
+figures/figure_6_attribution_vs_spread/named_genera/g__Lacticaseibacillus/median_rank,20.0,20.0,same
+figures/figure_6_attribution_vs_spread/named_genera/g__Lacticaseibacillus/samples,118,118,same
+figures/figure_6_attribution_vs_spread/named_genera/g__Lacticaseibacillus/shap_direction,0.381,0.392,differs
+figures/figure_6_attribution_vs_spread/named_genera/g__Lacticaseibacillus/zero_attribution_without_nanopore,False,False,same
+figures/figure_6_attribution_vs_spread/named_genera/g__Microbacterium/groups,3,3,same
+figures/figure_6_attribution_vs_spread/named_genera/g__Microbacterium/median_rank,4.5,4.5,same
+figures/figure_6_attribution_vs_spread/named_genera/g__Microbacterium/samples,30,30,same
+figures/figure_6_attribution_vs_spread/named_genera/g__Microbacterium/shap_direction,0.589,0.588,differs
+figures/figure_6_attribution_vs_spread/named_genera/g__Microbacterium/zero_attribution_without_nanopore,False,False,same
+figures/figure_6_attribution_vs_spread/named_genera/g__Monoglobus/groups,2,2,same
+figures/figure_6_attribution_vs_spread/named_genera/g__Monoglobus/median_rank,10.0,9.5,differs
+figures/figure_6_attribution_vs_spread/named_genera/g__Monoglobus/samples,16,16,same
+figures/figure_6_attribution_vs_spread/named_genera/g__Monoglobus/shap_direction,0.451,0.453,differs
+figures/figure_6_attribution_vs_spread/named_genera/g__Monoglobus/zero_attribution_without_nanopore,False,False,same
+figures/figure_6_attribution_vs_spread/named_genera/g__Ochrobactrum/groups,1,1,same
+figures/figure_6_attribution_vs_spread/named_genera/g__Ochrobactrum/median_rank,6.0,6.0,same
+figures/figure_6_attribution_vs_spread/named_genera/g__Ochrobactrum/samples,10,10,same
+figures/figure_6_attribution_vs_spread/named_genera/g__Ochrobactrum/shap_direction,0.368,0.361,differs
+figures/figure_6_attribution_vs_spread/named_genera/g__Ochrobactrum/zero_attribution_without_nanopore,False,False,same
+figures/figure_6_attribution_vs_spread/named_genera/g__Oscillibacter/groups,7,7,same
+figures/figure_6_attribution_vs_spread/named_genera/g__Oscillibacter/median_rank,10.0,10.0,same
+figures/figure_6_attribution_vs_spread/named_genera/g__Oscillibacter/samples,135,135,same
+figures/figure_6_attribution_vs_spread/named_genera/g__Oscillibacter/shap_direction,0.099,0.099,same
+figures/figure_6_attribution_vs_spread/named_genera/g__Oscillibacter/zero_attribution_without_nanopore,False,False,same
+figures/figure_6_attribution_vs_spread/named_genera/g__Rummeliibacillus/groups,5,5,same
+figures/figure_6_attribution_vs_spread/named_genera/g__Rummeliibacillus/median_rank,2.0,2.5,differs
+figures/figure_6_attribution_vs_spread/named_genera/g__Rummeliibacillus/samples,85,85,same
+figures/figure_6_attribution_vs_spread/named_genera/g__Rummeliibacillus/shap_direction,0.607,0.606,differs
+figures/figure_6_attribution_vs_spread/named_genera/g__Rummeliibacillus/zero_attribution_without_nanopore,True,True,same
+figures/figure_6_attribution_vs_spread/named_genera/g__Sporolactobacillus/groups,2,2,same
+figures/figure_6_attribution_vs_spread/named_genera/g__Sporolactobacillus/median_rank,9.0,9.0,same
+figures/figure_6_attribution_vs_spread/named_genera/g__Sporolactobacillus/samples,75,75,same
+figures/figure_6_attribution_vs_spread/named_genera/g__Sporolactobacillus/shap_direction,-0.288,-0.295,differs
+figures/figure_6_attribution_vs_spread/named_genera/g__Sporolactobacillus/zero_attribution_without_nanopore,True,True,same
+figures/figure_6_attribution_vs_spread/study_groups,7,7,same
+figures/figure_s5_top_15_predictors/Butyrate/mean_abs_shap,27.365,27.665,differs
+figures/figure_s5_top_15_predictors/Butyrate/rank,2,2,same
+figures/figure_s5_top_15_predictors/Lactate/mean_abs_shap,5.447,5.26,differs
+figures/figure_s5_top_15_predictors/Lactate/rank,8,9,differs
+figures/figure_s5_top_15_predictors/Propionate/mean_abs_shap,5.422,4.926,differs
+figures/figure_s5_top_15_predictors/Propionate/rank,10,11,differs
+figures/figure_s5_top_15_predictors/g__Anaerobium/mean_abs_shap,7.15,7.064,differs
+figures/figure_s5_top_15_predictors/g__Anaerobium/rank,6,6,same
+figures/figure_s5_top_15_predictors/g__Bacteroides/mean_abs_shap,2.954,2.984,differs
+figures/figure_s5_top_15_predictors/g__Bacteroides/rank,15,15,same
+figures/figure_s5_top_15_predictors/g__Caproiciproducens/mean_abs_shap,29.413,29.4,differs
+figures/figure_s5_top_15_predictors/g__Caproiciproducens/rank,1,1,same
+figures/figure_s5_top_15_predictors/g__Clostridium_sensu_stricto_12/mean_abs_shap,4.613,3.745,differs
+figures/figure_s5_top_15_predictors/g__Clostridium_sensu_stricto_12/rank,11,13,differs
+figures/figure_s5_top_15_predictors/g__Gudongella/mean_abs_shap,8.533,8.444,differs
+figures/figure_s5_top_15_predictors/g__Gudongella/rank,5,5,same
+figures/figure_s5_top_15_predictors/g__Microbacterium/mean_abs_shap,9.352,9.173,differs
+figures/figure_s5_top_15_predictors/g__Microbacterium/rank,4,4,same
+figures/figure_s5_top_15_predictors/g__Monoglobus/mean_abs_shap,3.522,3.483,differs
+figures/figure_s5_top_15_predictors/g__Monoglobus/rank,14,14,same
+figures/figure_s5_top_15_predictors/g__Ochrobactrum/mean_abs_shap,6.476,6.559,differs
+figures/figure_s5_top_15_predictors/g__Ochrobactrum/rank,7,7,same
+figures/figure_s5_top_15_predictors/g__Oscillibacter/mean_abs_shap,4.584,4.939,differs
+figures/figure_s5_top_15_predictors/g__Oscillibacter/rank,12,10,differs
+figures/figure_s5_top_15_predictors/g__Rummeliibacillus/mean_abs_shap,13.42,13.798,differs
+figures/figure_s5_top_15_predictors/g__Rummeliibacillus/rank,3,3,same
+figures/figure_s5_top_15_predictors/g__Sporolactobacillus/mean_abs_shap,3.863,3.823,differs
+figures/figure_s5_top_15_predictors/g__Sporolactobacillus/rank,13,12,differs
+figures/figure_s5_top_15_predictors/g__Unclassified/mean_abs_shap,5.436,5.797,differs
+figures/figure_s5_top_15_predictors/g__Unclassified/rank,9,8,differs
+table_s2/asvs_ranked,403,403,same
+table_s2/blast_rid,CTJH4F4E014,CTJH4F4E014,same
+table_s2/caproiciproducens_asvs_with_90_percent_of_reads/asvs,19,19,same
+table_s2/caproiciproducens_asvs_with_90_percent_of_reads/at_least_99_to_C_lactatifermentans/asvs[0],ASV_1,ASV_1,same
+table_s2/caproiciproducens_asvs_with_90_percent_of_reads/at_least_99_to_C_lactatifermentans/asvs[1],ASV_4,ASV_4,same
+table_s2/caproiciproducens_asvs_with_90_percent_of_reads/at_least_99_to_C_lactatifermentans/percent_of_genus_reads,60.7,60.7,same
+table_s2/caproiciproducens_asvs_with_90_percent_of_reads/at_least_99_to_another_species/asvs,3,3,same
+table_s2/caproiciproducens_asvs_with_90_percent_of_reads/at_least_99_to_another_species/percent_of_genus_reads,3.2,3.2,same
+table_s2/caproiciproducens_asvs_with_90_percent_of_reads/below_99_to_any_type_strain/asvs,14,14,same
+table_s2/caproiciproducens_asvs_with_90_percent_of_reads/below_99_to_any_type_strain/percent_of_genus_reads,26.3,26.3,same
+table_s2/caproiciproducens_asvs_with_90_percent_of_reads/percent_of_genus_reads,90.3,90.3,same
+table_s2/top_20/ASV_1/closest_relatives,Caproicibacterium lactatifermentans,Caproicibacterium lactatifermentans,same
+table_s2/top_20/ASV_1/identity_pct,100.0,100.0,same
+table_s2/top_20/ASV_1/mean_abs_shap,1.957,1.957,same
+table_s2/top_20/ASV_1/query_cover_pct,100,100,same
+table_s2/top_20/ASV_1/rank,18,18,same
+table_s2/top_20/ASV_1/silva_taxon,Caproiciproducens,Caproiciproducens,same
+table_s2/top_20/ASV_1/studies,6,6,same
+table_s2/top_20/ASV_133/closest_relatives,Caproicibacter fermentans,Caproicibacter fermentans,same
+table_s2/top_20/ASV_133/identity_pct,94.53,94.53,same
+table_s2/top_20/ASV_133/mean_abs_shap,2.96,2.96,same
+table_s2/top_20/ASV_133/query_cover_pct,100,100,same
+table_s2/top_20/ASV_133/rank,13,13,same
+table_s2/top_20/ASV_133/silva_taxon,Caproiciproducens,Caproiciproducens,same
+table_s2/top_20/ASV_133/studies,5,5,same
+table_s2/top_20/ASV_139/closest_relatives,Clostridium amylolyticum,Clostridium amylolyticum,same
+table_s2/top_20/ASV_139/identity_pct,100.0,100.0,same
+table_s2/top_20/ASV_139/mean_abs_shap,2.618,2.618,same
+table_s2/top_20/ASV_139/query_cover_pct,100,100,same
+table_s2/top_20/ASV_139/rank,14,14,same
+table_s2/top_20/ASV_139/silva_taxon,Clostridium sensu stricto 3,Clostridium sensu stricto 3,same
+table_s2/top_20/ASV_139/studies,4,4,same
+table_s2/top_20/ASV_143/closest_relatives,Caproicibacter fermentans,Caproicibacter fermentans,same
+table_s2/top_20/ASV_143/identity_pct,98.26,98.26,same
+table_s2/top_20/ASV_143/mean_abs_shap,8.558,8.555,differs
+table_s2/top_20/ASV_143/query_cover_pct,100,100,same
+table_s2/top_20/ASV_143/rank,4,4,same
+table_s2/top_20/ASV_143/silva_taxon,Caproiciproducens,Caproiciproducens,same
+table_s2/top_20/ASV_143/studies,5,5,same
+table_s2/top_20/ASV_15/closest_relatives,Natranaerovirga pectinivora,Natranaerovirga pectinivora,same
+table_s2/top_20/ASV_15/identity_pct,87.62,87.62,same
+table_s2/top_20/ASV_15/mean_abs_shap,10.9,10.9,same
+table_s2/top_20/ASV_15/query_cover_pct,100,100,same
+table_s2/top_20/ASV_15/rank,2,2,same
+table_s2/top_20/ASV_15/silva_taxon,order Clostridia UCG-014,order Clostridia UCG-014,same
+table_s2/top_20/ASV_15/studies,4,4,same
+table_s2/top_20/ASV_2/closest_relatives,Acinetobacter guillouiae,Acinetobacter guillouiae,same
+table_s2/top_20/ASV_2/identity_pct,100.0,100.0,same
+table_s2/top_20/ASV_2/mean_abs_shap,9.627,9.627,same
+table_s2/top_20/ASV_2/query_cover_pct,100,100,same
+table_s2/top_20/ASV_2/rank,3,3,same
+table_s2/top_20/ASV_2/silva_taxon,Acinetobacter,Acinetobacter,same
+table_s2/top_20/ASV_2/studies,3,3,same
+table_s2/top_20/ASV_247/closest_relatives,Caproicibacter fermentans,Caproicibacter fermentans,same
+table_s2/top_20/ASV_247/identity_pct,97.26,97.26,same
+table_s2/top_20/ASV_247/mean_abs_shap,5.195,5.195,same
+table_s2/top_20/ASV_247/query_cover_pct,100,100,same
+table_s2/top_20/ASV_247/rank,7,7,same
+table_s2/top_20/ASV_247/silva_taxon,Caproiciproducens,Caproiciproducens,same
+table_s2/top_20/ASV_247/studies,4,4,same
+table_s2/top_20/ASV_25/closest_relatives,Clostridium chromiireducens,Clostridium chromiireducens,same
+table_s2/top_20/ASV_25/identity_pct,98.76,98.76,same
+table_s2/top_20/ASV_25/mean_abs_shap,2.077,2.077,same
+table_s2/top_20/ASV_25/query_cover_pct,100,100,same
+table_s2/top_20/ASV_25/rank,17,17,same
+table_s2/top_20/ASV_25/silva_taxon,Clostridium sensu stricto 1,Clostridium sensu stricto 1,same
+table_s2/top_20/ASV_25/studies,4,4,same
+table_s2/top_20/ASV_254/closest_relatives,Caproicibacter fermentans,Caproicibacter fermentans,same
+table_s2/top_20/ASV_254/identity_pct,94.78,94.78,same
+table_s2/top_20/ASV_254/mean_abs_shap,3.203,3.203,same
+table_s2/top_20/ASV_254/query_cover_pct,100,100,same
+table_s2/top_20/ASV_254/rank,12,12,same
+table_s2/top_20/ASV_254/silva_taxon,Caproiciproducens,Caproiciproducens,same
+table_s2/top_20/ASV_254/studies,4,4,same
+table_s2/top_20/ASV_257/closest_relatives,Microbacterium maritypicum,Microbacterium maritypicum,same
+table_s2/top_20/ASV_257/identity_pct,100.0,100.0,same
+table_s2/top_20/ASV_257/mean_abs_shap,7.14,7.14,same
+table_s2/top_20/ASV_257/query_cover_pct,100,100,same
+table_s2/top_20/ASV_257/rank,6,6,same
+table_s2/top_20/ASV_257/silva_taxon,Microbacterium,Microbacterium,same
+table_s2/top_20/ASV_257/studies,3,3,same
+table_s2/top_20/ASV_286/closest_relatives,Actinomyces provencensis / Actinomyces polynesiensis,Actinomyces provencensis / Actinomyces polynesiensis,same
+table_s2/top_20/ASV_286/identity_pct,98.33,98.33,same
+table_s2/top_20/ASV_286/mean_abs_shap,1.552,1.552,same
+table_s2/top_20/ASV_286/query_cover_pct,100,100,same
+table_s2/top_20/ASV_286/rank,20,20,same
+table_s2/top_20/ASV_286/silva_taxon,Actinomyces,Actinomyces,same
+table_s2/top_20/ASV_286/studies,2,2,same
+table_s2/top_20/ASV_337/closest_relatives,Anaerotignum aminivorans,Anaerotignum aminivorans,same
+table_s2/top_20/ASV_337/identity_pct,96.31,96.31,same
+table_s2/top_20/ASV_337/mean_abs_shap,2.6,2.6,same
+table_s2/top_20/ASV_337/query_cover_pct,100,100,same
+table_s2/top_20/ASV_337/rank,15,15,same
+table_s2/top_20/ASV_337/silva_taxon,Tuzzerella,Tuzzerella,same
+table_s2/top_20/ASV_337/studies,6,6,same
+table_s2/top_20/ASV_372/closest_relatives,Robinsoniella peoriensis,Robinsoniella peoriensis,same
+table_s2/top_20/ASV_372/identity_pct,97.26,97.26,same
+table_s2/top_20/ASV_372/mean_abs_shap,13.927,13.927,same
+table_s2/top_20/ASV_372/query_cover_pct,100,100,same
+table_s2/top_20/ASV_372/rank,1,1,same
+table_s2/top_20/ASV_372/silva_taxon,family Lachnospiraceae,family Lachnospiraceae,same
+table_s2/top_20/ASV_372/studies,1,1,same
+table_s2/top_20/ASV_447/closest_relatives,Ochrobactrum quorumnocens,Ochrobactrum quorumnocens,same
+table_s2/top_20/ASV_447/identity_pct,100.0,100.0,same
+table_s2/top_20/ASV_447/mean_abs_shap,8.258,8.258,same
+table_s2/top_20/ASV_447/query_cover_pct,100,100,same
+table_s2/top_20/ASV_447/rank,5,5,same
+table_s2/top_20/ASV_447/silva_taxon,Ochrobactrum,Ochrobactrum,same
+table_s2/top_20/ASV_447/studies,1,1,same
+table_s2/top_20/ASV_47/closest_relatives,Lacticaseibacillus styriensis / Lacticaseibacillus chiayiensis / Lacticaseibacillus paracasei / Lacticaseibacillus casei / Lacticaseibacillus paracasei subsp. tolerans / Lacticaseibacillus zeae,Lacticaseibacillus styriensis / Lacticaseibacillus chiayiensis / Lacticaseibacillus paracasei / Lacticaseibacillus casei / Lacticaseibacillus paracasei subsp. tolerans / Lacticaseibacillus zeae,same
+table_s2/top_20/ASV_47/identity_pct,99.77,99.77,same
+table_s2/top_20/ASV_47/mean_abs_shap,2.13,2.13,same
+table_s2/top_20/ASV_47/query_cover_pct,100,100,same
+table_s2/top_20/ASV_47/rank,16,16,same
+table_s2/top_20/ASV_47/silva_taxon,Lacticaseibacillus,Lacticaseibacillus,same
+table_s2/top_20/ASV_47/studies,1,1,same
+table_s2/top_20/ASV_53/closest_relatives,Clostridium prolinivorans,Clostridium prolinivorans,same
+table_s2/top_20/ASV_53/identity_pct,95.52,95.52,same
+table_s2/top_20/ASV_53/mean_abs_shap,1.665,1.665,same
+table_s2/top_20/ASV_53/query_cover_pct,100,100,same
+table_s2/top_20/ASV_53/rank,19,19,same
+table_s2/top_20/ASV_53/silva_taxon,Clostridium sensu stricto 12,Clostridium sensu stricto 12,same
+table_s2/top_20/ASV_53/studies,5,5,same
+table_s2/top_20/ASV_65/closest_relatives,Thermoanaerobacterium thermosaccharolyticum,Thermoanaerobacterium thermosaccharolyticum,same
+table_s2/top_20/ASV_65/identity_pct,100.0,100.0,same
+table_s2/top_20/ASV_65/mean_abs_shap,5.046,5.046,same
+table_s2/top_20/ASV_65/query_cover_pct,100,100,same
+table_s2/top_20/ASV_65/rank,8,8,same
+table_s2/top_20/ASV_65/silva_taxon,Thermoanaerobacterium,Thermoanaerobacterium,same
+table_s2/top_20/ASV_65/studies,1,1,same
+table_s2/top_20/ASV_80/closest_relatives,Caproiciproducens lactatisolvens / Caproiciproducens puteiluti,Caproiciproducens lactatisolvens / Caproiciproducens puteiluti,same
+table_s2/top_20/ASV_80/identity_pct,98.52,98.52,same
+table_s2/top_20/ASV_80/mean_abs_shap,4.764,4.764,same
+table_s2/top_20/ASV_80/query_cover_pct,100,100,same
+table_s2/top_20/ASV_80/rank,9,9,same
+table_s2/top_20/ASV_80/silva_taxon,Caproiciproducens,Caproiciproducens,same
+table_s2/top_20/ASV_80/studies,3,3,same
+table_s2/top_20/ASV_821/closest_relatives,Caproicibacter fermentans,Caproicibacter fermentans,same
+table_s2/top_20/ASV_821/identity_pct,98.01,98.01,same
+table_s2/top_20/ASV_821/mean_abs_shap,3.337,3.337,same
+table_s2/top_20/ASV_821/query_cover_pct,100,100,same
+table_s2/top_20/ASV_821/rank,11,11,same
+table_s2/top_20/ASV_821/silva_taxon,Caproiciproducens,Caproiciproducens,same
+table_s2/top_20/ASV_821/studies,2,2,same
+table_s2/top_20/ASV_92/closest_relatives,Thermocaproicibacter melissae,Thermocaproicibacter melissae,same
+table_s2/top_20/ASV_92/identity_pct,94.78,94.78,same
+table_s2/top_20/ASV_92/mean_abs_shap,3.998,3.998,same
+table_s2/top_20/ASV_92/query_cover_pct,100,100,same
+table_s2/top_20/ASV_92/rank,10,10,same
+table_s2/top_20/ASV_92/silva_taxon,Caproiciproducens,Caproiciproducens,same
+table_s2/top_20/ASV_92/studies,5,5,same
