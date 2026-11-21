@@ -4,13 +4,10 @@
 # is detected at all. Vertical: its median importance rank (mean |SHAP|)
 # across 09's validation folds, rank 1 at the top.
 #
-# The message the figure carries:
-#   - Top-right  = important AND found everywhere. A genuine universal driver
-#                  would sit here.
-#   - Top-left   = important but confined to one or two studies. These genera
-#                  rank highly because they identify WHICH STUDY a sample came
-#                  from, not because they drive caproate.
-#   - Bottom     = rarely or never important.
+# Two shaded zones, both for a median rank of 5 or better (the caption
+# describes them):
+#   - Top-left   = found in one or two study groups.
+#   - Top-right  = found in every study group.
 # An asterisk marks a named genus that gets exactly zero attribution once the
 # Nanopore study is held out (09's zero_when_no_nano): its importance comes
 # from that study alone, wherever else it is detected.
@@ -51,14 +48,15 @@ DIR_THRESHOLD = 0.15   # |shap_dir| below this is treated as no consistent direc
 
 LABEL_RANK = 10                            # name every genus with median rank this good or better
 EXTRA_LABELS = ["g__Lacticaseibacillus"]
-# (dx, dy) offset in points from the point, set for the run of record; others get (10, 0)
+# (dx, dy) offset in points from the point, set for the run of record and the
+# 21 Nov 2026 feed-label preview (Ochrobactrum above Anaerobium); others get (10, 0)
 OFFSETS = {
     "g__Caproiciproducens":            (-16, -10),
     "g__Rummeliibacillus":             (10, 0),
     "g__Gudongella":                   (10, 2),
     "g__Microbacterium":               (10, 0),
-    "g__Anaerobium":                   (10, 7),
-    "g__Ochrobactrum":                 (10, -7),
+    "g__Anaerobium":                   (10, -14),
+    "g__Ochrobactrum":                 (10, 7),
     "g__Clostridium_sensu_stricto_12": (-14, 8),
     "g__Oscillibacter":                (-14, -9),
     "g__Sporolactobacillus":           (10, 7),
@@ -116,13 +114,14 @@ def main():
 
     fig, ax = plt.subplots(figsize=(8.8, 5.2))
 
-    # interpretive zones: 'important' = median rank 5 or better; same threshold both zones
+    # shaded zones: median rank 5 or better; same threshold for both zones
     ZONE = 5.5
     ax.add_patch(Rectangle((0.5, 0.8), 2.38, ZONE - 0.8, color="#F4E3DF", zorder=0, linewidth=0))
     ax.add_patch(Rectangle((n_groups - 0.62, 0.8), 1.12, ZONE - 0.8, color="#DDEFEA", zorder=0, linewidth=0))
-    ax.text(0.62, 0.9, "Important, but found in only\none or two studies: identifies\nthe study, not the biology",
+    ax.text(0.62, 0.9, "Median rank 5 or better,\nfound in one or two\nstudy groups",
             fontsize=7.2, color="#8A3B2A", va="top", ha="left", style="italic")
-    ax.text(n_groups + 0.42, 5.15, "Important AND\nfound everywhere",
+    all_groups = {7: "seven"}.get(n_groups, str(n_groups))
+    ax.text(n_groups + 0.42, 4.85, f"Median rank 5 or better,\nfound in all {all_groups}\nstudy groups",
             fontsize=7.2, color="#1E6B5A", va="bottom", ha="right", style="italic")
 
     unl = d[~d["named"]]
