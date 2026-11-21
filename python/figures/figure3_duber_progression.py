@@ -71,8 +71,6 @@ def generate_figure_3():
         ax.text(bar.get_x() + bar.get_width() / 2, yval + offset, f"$R^2 = {yval:.3f}$",
                 ha="center", va="bottom" if yval >= 0 else "top", fontweight="bold", fontsize=8.5)
 
-    plt.title("Figure 3. Duber et al. (2025) Reactor-to-Reactor Transfer Under Three Setups",
-              loc="left", fontweight="bold", pad=12)
     plt.tight_layout()
     fi.save(fig, "Figure_3_Duber_Progression")
     plt.close()

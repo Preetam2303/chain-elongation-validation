@@ -74,8 +74,6 @@ def generate_figure_s4():
             fontsize=8.5, ha="right", va="bottom",
             bbox=dict(boxstyle="round,pad=0.4", facecolor="#F8F9FA", edgecolor="#CCCCCC"))
 
-    plt.title("Figure S4. Rank-Inverted Prediction (Duber et al. 2025, B1 \u2192 B2)",
-              loc="left", fontweight="bold", pad=12, fontsize=9.5)
     plt.tight_layout()
     fi.save(fig, "Figure_S4_Duber_Scatter")
     plt.close()

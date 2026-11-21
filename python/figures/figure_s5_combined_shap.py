@@ -44,8 +44,6 @@ def generate_figure_s5(max_display=15):
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
     ax.set_xlabel("SHAP value (impact on predicted caproate, mM C)", fontsize=11, fontweight="bold")
-    plt.title("Figure S5. Combined Chemistry, Operational, and\nGenus-Level SHAP Attribution",
-              loc="left", fontweight="bold", fontsize=11)
     plt.tight_layout()
     fi.save(fig, "Figure_S5_Combined_SHAP")
     plt.close()
