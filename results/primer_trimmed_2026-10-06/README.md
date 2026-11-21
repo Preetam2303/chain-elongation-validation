@@ -8,6 +8,10 @@ These files come from the laptop runs of the primer-trimmed rerun, unchanged, in
 - The files have Windows line endings, as written. The SHA-256 values in `results_reference.json` (`_about`) and in the figure logs read line endings as LF, so they match these files and a Linux run's alike.
 - To rerun from these files, work on a copy. The scripts write their new dated folders inside the folders they read, and this folder should stay as the record.
 
+## Reactor-conditions table (supplement)
+
+`reactor_conditions_2026-11-21/` holds the reactor-conditions table built from the run of record's final matrix (`corrected_2026-11-19/BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv`) by `python/tables/reactor_conditions_table.py`: one row per reactor or trial group (23 groups, 166 samples, 96 sampling units), one row per sample, and a log with the inputs' SHA-256. It is made in the repository, not on the laptop, and changes nothing in the run folders. Its README says where each column comes from.
+
 ## Shared by both runs (Stages 1 and 2)
 
 | Stage | File or folder | Made by | What it holds |
