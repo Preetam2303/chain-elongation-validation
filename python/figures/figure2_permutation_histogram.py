@@ -138,8 +138,6 @@ def generate_figure_2():
                plt.Line2D([0], [0], color=CLR_BENCHMARK, linestyle=":", linewidth=1.5,
                           label="Training-mean benchmark (RMSE)")]
     fig.legend(handles=handles, loc="lower center", ncol=2, frameon=False, bbox_to_anchor=(0.5, -0.02))
-    fig.suptitle(f"Figure 2. Label-Permutation Null Distributions ({n} Shuffles Each)",
-                 x=0.02, ha="left", fontweight="bold", fontsize=11)
     plt.tight_layout(rect=[0, 0.03, 1, 1])
     fi.save(fig, "Figure_2_Permutation_Control")
     plt.close()

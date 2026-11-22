@@ -82,8 +82,6 @@ def generate_figure_s1():
     ax.spines["right"].set_visible(False)
     ax.legend(loc="lower right", frameon=True, edgecolor="none")
 
-    plt.title("Figure S1. Feature Curation Does Not Rescue Cross-Study Generalization (Table 4)",
-              loc="left", fontweight="bold", pad=12, fontsize=9.5)
     plt.tight_layout()
     fi.save(fig, "Figure_S1_Substrate_Ladder")
     plt.close()

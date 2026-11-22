@@ -126,9 +126,6 @@ def generate_figure_1():
     ax.legend(handles=legend_elements, loc="center left", bbox_to_anchor=(1.02, 0.5),
               frameon=True, edgecolor="#cccccc")
 
-    plt.title("Figure 1. Predictive Performance Collapses Under Grouped Validation",
-              loc="left", fontweight="bold", pad=12)
-
     # bbox_inches="tight" ensures the saved image expands to include the outside legend
     plt.tight_layout()
 

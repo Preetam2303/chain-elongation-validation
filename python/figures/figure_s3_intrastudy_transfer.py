@@ -62,8 +62,6 @@ def generate_figure_s3():
         ax.text(bar.get_x() + bar.get_width() / 2, yval + offset, f"{yval:.3f}",
                 ha="center", va="bottom" if yval >= 0 else "top", fontweight="bold", fontsize=7.5)
 
-    plt.title("Figure S3 (optional). Intra-Study Reactor-Pair Transferability: $R^2$ vs. Rank Correlation (Table 5)",
-              loc="left", fontweight="bold", pad=12, fontsize=9)
     plt.tight_layout()
     fi.save(fig, "Figure_S3_Intrastudy_Transfer")
     plt.close()

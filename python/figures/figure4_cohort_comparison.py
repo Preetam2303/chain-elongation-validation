@@ -76,9 +76,7 @@ def generate_figure_4():
         ax.spines["top"].set_visible(False)
         ax.spines["right"].set_visible(False)
 
-    plt.suptitle("Figure 4. Distributional & Compositional Shift Between Sequencing Platforms",
-                 x=0.08, y=0.98, ha="left", fontweight="bold", fontsize=11)
-    plt.tight_layout(rect=[0, 0, 1, 0.95])
+    plt.tight_layout()
     fi.save(fig, "Figure_4_Cohort_Comparison")
     plt.close()
 

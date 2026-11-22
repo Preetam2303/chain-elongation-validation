@@ -89,6 +89,10 @@ python/build_results_reference.py
                        Builds results_reference.json from the run of record,
                        and checks your own run against it (Stage 9)
 
+python/tables/reactor_conditions_table.py
+                       Builds the supplement's reactor-conditions table from a
+                       corrected run's final matrix and data/reactor_conditions/
+
 results/
   primer_trimmed_2026-10-06/   The run of record of the primer-trimmed rerun,
                                unchanged from the laptop run: Stage 1 read
@@ -197,6 +201,10 @@ data/
                                               The run of record's Table S2 (2026-11-19)
                                               is in its Stage 6 folder in results/.
   oscillibacter_blast/                       12c's Oscillibacter ASVs, FASTA and BLAST result (2026-10-14).
+  reactor_conditions/                        Each trial's feed recipe by phase, and each
+                                              reactor's vessel, name in the paper and pH
+                                              kind (set point or measured), with sources:
+                                              the inputs of the reactor-conditions table (README).
 ```
 
 All four dataset snapshots are provided so the complete history behind Figure 3 -- not just its final, headline number -- stays runnable, in keeping with this repository's whole premise: every reported number traceable to a script that produces it.
