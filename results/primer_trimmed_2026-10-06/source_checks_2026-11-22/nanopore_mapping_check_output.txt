@@ -1,0 +1,109 @@
+Inputs (SHA-256; text files with line endings read as LF, the workbook as saved):
+  Nanopore_Abundance.csv  e153f808e4fa470b16177c09a315517e3d2d95e6fd935feeda597b46816fbae8
+  Nanopore_Taxonomy.csv  2e603424e628905d162a2d78dbe40c677805a165b07cd06298e7616e6bf1b028
+  results/primer_trimmed_2026-10-06/corrected_2026-11-22/BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv  9e7d691a6fd78695e980b2d39a049517e602d70c5ea0ac89a7cc91168a68743a
+  metadata_Expanding the product_Prusak.xlsx  a1b723508a659d3b10e4ffbbdec888e4d7e8e79d6e77975e4b6dd0a77cd387f5
+
+EMU taxa: 286; EMU genera: 124; Nanopore genus columns in the matrix: 124; samples: 54
+EMU genera that are not matrix genus names: ['(no genus)', 'Anaerotignum', 'Clostridium', 'Escherichia']
+Matrix genus columns that are not EMU genus names: ['Anaerostignum', 'Clostridium_sensu_stricto_12', 'Escherichia-Shigella', 'Unclassified']
+EMU taxa that are 0 in all 54 samples: 0
+
+1. Verbatim genera: 120; equal to the sum of their EMU taxa in all 54 samples: 120 (largest difference 9.09e-11, Lactiplantibacillus); not equal: none
+Remaining EMU taxa (genus not a matrix genus name): 51, of which 0 in all samples: 0
+  EMU genus (no genus): 1 taxa
+  EMU genus Anaerotignum: 2 taxa
+  EMU genus Clostridium: 47 taxa
+  EMU genus Escherichia: 1 taxa
+Smallest value above zero among the remaining taxa: 1
+
+2. Columns each remaining taxon can go into (column > 0 wherever the taxon is > 0):
+  EMU genus (no genus): 1 taxa -> ['Clostridium_sensu_stricto_12', 'Unclassified']
+      unassigned
+  EMU genus Anaerotignum: 2 taxa -> ['Clostridium_sensu_stricto_12', 'Anaerostignum']
+      Anaerotignum propionicum DSM 1682
+      unclassified Anaerotignum lactatifermentans strain
+  EMU genus Clostridium: 42 taxa -> ['Clostridium_sensu_stricto_12']
+  EMU genus Clostridium: 4 taxa -> ['Clostridium_sensu_stricto_12', 'Anaerostignum']
+  EMU genus Clostridium: 1 taxa -> ['Escherichia-Shigella', 'Clostridium_sensu_stricto_12', 'Anaerostignum']
+      unclassified Clostridium jeddahense strain
+  EMU genus Escherichia: 1 taxa -> ['Escherichia-Shigella', 'Clostridium_sensu_stricto_12', 'Anaerostignum']
+      unclassified Escherichia coli strain
+
+3. Each column on its own: groupings of its candidate taxa that reproduce it
+  Escherichia-Shigella: 2 candidate taxa, rank 2, smallest singular value 9.95 (the proof needs > 1.5e-08)
+      a grouping of 1 taxa reproduces all 54 samples: True (largest difference 0; tolerance there 1e-09)
+      the only grouping that fits, taking this column alone: True
+  Clostridium_sensu_stricto_12: 51 candidate taxa, rank 45, smallest singular value 7.75e-16 (the proof needs > 1.6e-08)
+      a grouping of 47 taxa reproduces all 54 samples: True (largest difference 8.73e-11; tolerance there 1.11e-09)
+      search for other groupings: 0 found; 0 added sets too large to search
+      the only grouping that fits, taking this column alone: True
+  Anaerostignum: 8 candidate taxa, rank 8, smallest singular value 9.57 (the proof needs > 1.5e-08)
+      a grouping of 2 taxa reproduces all 54 samples: True (largest difference 9.09e-13; tolerance there 1e-09)
+      the only grouping that fits, taking this column alone: True
+  Unclassified: 1 candidate taxa, rank 1, smallest singular value 2.83 (the proof needs > 1.5e-08)
+      a grouping of 1 taxa reproduces all 54 samples: True (largest difference 0; tolerance there 1e-09)
+      the only grouping that fits, taking this column alone: True
+
+4. The four columns together
+  Taxa placed in more than one column: none
+  Remaining taxa above zero that are in no column: none
+
+Verdict (all 54 samples, at the precision of the saved files):
+  Escherichia-Shigella: uniquely supported; = all 1 EMU taxa of genus Escherichia: True
+      unclassified Escherichia coli strain
+  Clostridium_sensu_stricto_12: uniquely supported; = all 47 EMU taxa of genus Clostridium: True
+      unclassified Clostridium tyrobutyricum strain
+      unclassified Clostridium scatologenes strain
+      unclassified Clostridium drakei strain
+      Clostridium magnum DSM 2767
+      unclassified Clostridium argentinense strain
+      unclassified Clostridium tetanomorphum strain
+      Clostridium autoethanogenum DSM 10061
+      Clostridium ljungdahlii DSM 13528
+      unclassified Clostridium kluyveri strain
+      Clostridium kluyveri DSM 555
+      Clostridium kluyveri NBRC 12016
+      unclassified Clostridium pasteurianum strain
+      unclassified Clostridium fallax strain
+      unclassified Clostridium merdae strain
+      unclassified Clostridium amazonitimonense strain
+      unclassified Clostridium minihomine strain
+      unclassified Clostridium botulinum strain
+      unclassified Clostridium luticellarii strain
+      unclassified Clostridium tarantellae strain
+      unclassified Clostridium acetobutylicum strain
+      Clostridium carboxidivorans P7
+      unclassified Clostridium niameyense strain
+      Clostridium botulinum B1
+      Clostridium botulinum H04402 065
+      Clostridium botulinum F str. Langeland
+      Clostridium botulinum CDC_1436
+      Clostridium pasteurianum BC1
+      unclassified Clostridium estertheticum subsp. estertheticum strain
+      Clostridium botulinum A3 str. Loch Maree
+      unclassified Clostridium sporogenes strain
+      unclassified Clostridium chauvoei strain
+      Clostridium butyricum E4 str. BoNT E BL5262
+      Clostridium botulinum NCTC 2916
+      Clostridium botulinum Bf
+      unclassified Clostridium butyricum strain
+      Clostridium butyricum 5521
+      unclassified Clostridium jeddahense strain
+      unclassified Clostridium beijerinckii strain
+      unclassified Clostridium oryzae strain
+      unclassified Clostridium nigeriense strain
+      Clostridium butyricum 60E.3
+      Clostridium butyricum AGR2140
+      unclassified Clostridium diolis strain
+      unclassified Clostridium saccharobutylicum strain
+      Clostridium haemolyticum NCTC 8350
+      unclassified Clostridium novyi strain
+      Clostridium intestinale URNW
+  Anaerostignum: uniquely supported; = all 2 EMU taxa of genus Anaerotignum: True
+      Anaerotignum propionicum DSM 1682
+      unclassified Anaerotignum lactatifermentans strain
+  Unclassified: uniquely supported; = all 1 EMU taxa of genus (no genus: unassigned): True
+      unassigned
+
+Wrote results/primer_trimmed_2026-10-06/source_checks_2026-11-22/nanopore_emu_to_matrix_genus.csv (286 EMU taxa)

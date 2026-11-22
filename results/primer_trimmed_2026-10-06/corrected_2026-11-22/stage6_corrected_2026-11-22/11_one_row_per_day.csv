@@ -1,0 +1,13 @@
+scheme,rows,model,r2_mean,r2_sd,rmse_mean,rmse_sd,n,n_features,replicate_sets_split,replicate_sets,folds
+"LOSO, core set (the headline)",every sample,XGBoost,-0.838262200507465,1.5216012779774326,96.76120659011592,39.61046141063109,166,215,0,35,Brodowski_2022 -0.581; Brodowski_2022_EXTERNAL_ACETATE -1.842; Brodowski_2025 0.392; Duber_2020 0.227; Duber_2022 -4.146; Duber_2024 0.068; Hanna_2025 0.013
+"LOSO, core set (the headline)",every sample,Training-mean benchmark,-4.243466427233113,9.366879697604734,112.580178854599,34.14304986490629,166,0,0,35,Brodowski_2022 -0.388; Brodowski_2022_EXTERNAL_ACETATE -2.029; Brodowski_2025 -0.026; Duber_2020 -0.030; Duber_2022 -27.128; Duber_2024 -0.066; Hanna_2025 -0.038
+Single random 80/20 split (ASV level),every sample,XGBoost,0.7913996706316411,,51.30526035962143,,112,413,9,17,
+Random 5-fold CV (ASV level),every sample,XGBoost,0.7641121296045921,0.17201043103951205,49.420543810770745,21.006036924521613,112,413,17,17,0.791; 0.943; 0.827; 0.436; 0.823
+"Shuffled 10-fold CV, per-fold SHAP top-25 genera",every sample,XGBoost,0.8638432184444721,0.06601626996893122,41.91224430511842,18.267359158291065,166,215,35,35,0.837; 0.821; 0.739; 0.769; 0.876; 0.909; 0.916; 0.948; 0.915; 0.910
+Single-study internal 80/20 split (Duber 2024),every sample,XGBoost,0.9896506597015847,,9.152150617023961,,51,215,7,17,
+"LOSO, core set (the headline)",one row per sampling day,XGBoost,-1.0268361155072128,1.585280962604263,102.41785296085082,37.078992073171975,96,215,0,0,Brodowski_2022 -0.557; Brodowski_2022_EXTERNAL_ACETATE -1.796; Brodowski_2025 -0.335; Duber_2020 -0.083; Duber_2022 -4.611; Duber_2024 0.232; Hanna_2025 -0.038
+"LOSO, core set (the headline)",one row per sampling day,Training-mean benchmark,-5.056129118869873,11.232925997255604,115.25998596339669,36.69443755144581,96,0,0,0,Brodowski_2022 -0.412; Brodowski_2022_EXTERNAL_ACETATE -2.341; Brodowski_2025 -0.031; Duber_2020 -0.033; Duber_2022 -32.505; Duber_2024 -0.046; Hanna_2025 -0.027
+Single random 80/20 split (ASV level),one row per sampling day,XGBoost,0.857346715426637,,43.774317205349064,,78,413,0,0,
+Random 5-fold CV (ASV level),one row per sampling day,XGBoost,0.6742834289243622,0.23627860486150273,58.34370567682104,24.503192640652156,78,413,0,0,0.857; 0.853; 0.284; 0.863; 0.514
+"Shuffled 10-fold CV, per-fold SHAP top-25 genera",one row per sampling day,XGBoost,0.5935121179813821,0.20935268027230702,67.72156785965205,25.61758693195472,96,215,0,0,0.614; 0.294; 0.757; 0.866; 0.274; 0.631; 0.932; 0.500; 0.453; 0.613
+Single-study internal 80/20 split (Duber 2024),one row per sampling day,XGBoost,-0.8446269342956967,,62.04499175643353,,17,215,0,0,

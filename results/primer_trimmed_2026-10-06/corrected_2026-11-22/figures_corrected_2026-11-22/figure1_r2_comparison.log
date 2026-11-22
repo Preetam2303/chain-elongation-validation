@@ -1,0 +1,23 @@
+Input: C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-11-22\stage6_corrected_2026-11-22\10_table3a_naive_splits.csv
+       sha256 e68411c99babe6b0dc2b9ee42636f47ce23e9f052d1cd66ef5f7f40f51814165
+Input: C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-11-22\stage6_corrected_2026-11-22\04_groupkfold_by_vessel.csv
+       sha256 f635c198f4228ad43a250100c11404c56a8d4478a8a7ac1c8f427f389cc8c925
+Input: C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-11-22\stage6_corrected_2026-11-22\02_loso_tables_3b_4.csv
+       sha256 d02be94b347d144f07a9c46a3c0685572a05b6d918ba4a571645f256db68557b
+Input: C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-11-22\stage6_corrected_2026-11-22\06_platform_transfer.csv
+       sha256 39e39a1c679a7c1539f74b5fbf6e9af7b5cecd865c6bd3cf664964d9fd890411
+
+[Figure 1] Values plotted (R2 mean, SD across folds; 0 = single split):
+                                  Scheme     R2  Error              Type
+Single-Study Internal 80/20 (Duber 2025)  0.990  0.000 Naive / Ungrouped
+       Shuffled 10-Fold CV (Full Matrix)  0.864  0.066 Naive / Ungrouped
+        Single Random 80/20 Split (ASVs)  0.791  0.000 Naive / Ungrouped
+                 Random 5-Fold CV (ASVs)  0.764  0.172 Naive / Ungrouped
+  Platform Transfer (Relative Abundance)  0.013  0.000           Grouped
+          Platform Transfer (Raw Counts) -0.075  0.000           Grouped
+      GroupKFold by Vessel (All Vessels) -0.109  0.367           Grouped
+       GroupKFold by Vessel (CSTRs Only) -0.411  0.493           Grouped
+               LOSO (Core Set; Headline) -0.838  1.522           Grouped
+      LOSO (Per-Fold SHAP Top-25 Genera) -1.152  2.197           Grouped
+Saved: C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-11-22\figures_corrected_2026-11-22\Figure_1_Validation_Architectures.png
+Saved: C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-11-22\figures_corrected_2026-11-22\Figure_1_Validation_Architectures.pdf

@@ -1,0 +1,22 @@
+Input: C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-11-22\stage6_corrected_2026-11-22\guild_membership_shap_ranks.csv
+       sha256 7d86eaae5481b3b2278d679e7b3eb16d94791ad50640803541aa14b958da4ea6
+Input: C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-11-22\stage6_corrected_2026-11-22\09_guild_membership_shap_ranks.log
+       sha256 565060a11f866123a2d505c83b3ab67773d5cd76d0421fcb4faf177a9a80bc36
+Input: C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-11-22\BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv
+       sha256 9e7d691a6fd78695e980b2d39a049517e602d70c5ea0ac89a7cc91168a68743a
+Saved: C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-11-22\figures_corrected_2026-11-22\Figure_6_Attribution_vs_Spread.png
+Saved: C:\Users\IISiIS-ZWW-233\Documents\BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-11-22\figures_corrected_2026-11-22\Figure_6_Attribution_vs_Spread.pdf
+
+[Figure 6] 204 genera plotted (22 folds, 7 study groups). Named genera:
+                          genus  groups  samples  median_rank  shap_dir  zero_when_no_nano
+           g__Caproiciproducens       7      161        1.000     0.804              False
+            g__Rummeliibacillus       5       85        2.000     0.626               True
+                  g__Gudongella       1       27        3.000     0.623               True
+                g__Ochrobactrum       1       10        5.000     0.375              False
+g__Clostridium_sensu_stricto_12       7      158        6.000     0.603              False
+                  g__Anaerobium       1       30        6.500     0.382               True
+          g__Sporolactobacillus       2       75        7.000    -0.313               True
+              g__Microbacterium       3       30        9.000     0.585              False
+          g__Lacticaseibacillus       5      118       17.000     0.547              False
+     genera with median rank <=10: mean groups present = 3.38 (n=8)
+     genera with median rank  >25: mean groups present = 1.98 (n=181)

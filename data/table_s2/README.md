@@ -1,6 +1,8 @@
 # Table S2: ranking, FASTA, BLAST file and table (rerun, 2026-10-12)
 
-**Since 2026-11-19 the Table S2 of record is in the run of record's Stage 6 folder**, `results/primer_trimmed_2026-10-06/corrected_2026-11-19/stage6_corrected_2026-11-19/` (`12_asv_shap_ranking.csv`, `12_table_s2_asvs.csv`, `Table_S2_ASVs_2026-11-19.fasta`, `TableS2_2026-11-19.csv`). 12 picked the same ASVs in the same order with identical sequences, so 12b read the BLAST file in this folder, `CTJH4F4E014-Alignment.txt`. Of the 151 values `results_reference.json` takes from Table S2, one changed: ASV_143's mean |SHAP|, 8.558 → 8.555. The files below are the first run (2026-10-12), kept unchanged.
+**Since 2026-11-22 the Table S2 of record is in the run of record's Stage 6 folder**, `results/primer_trimmed_2026-10-06/corrected_2026-11-22/stage6_corrected_2026-11-22/` (`12_asv_shap_ranking.csv`, `12_table_s2_asvs.csv`, `Table_S2_ASVs_2026-11-22.fasta`, `G6AH6P3Y014-Alignment.txt`, `BLAST_search_record.txt`, `TableS2_2026-11-22.csv`). After the feed-label fix of PR #32, 12 picked a different set of ASVs (35, against 36 before), so that FASTA was BLASTed again on 2026-11-22: RID G6AH6P3Y014, BLASTN (megablast) against rRNA_typestrains/16S_ribosomal_RNA as posted on 2026-11-19 (27,657 sequences). `BLAST_search_record.txt` records the search.
+
+From 2026-11-19 to 2026-11-22 the Table S2 of record was `results/primer_trimmed_2026-10-06/corrected_2026-11-19/stage6_corrected_2026-11-19/TableS2_2026-11-19.csv`. There 12 picked the same ASVs as on 2026-10-12, in the same order and with identical sequences, so 12b read the BLAST file in this folder, `CTJH4F4E014-Alignment.txt`. The files below are the first run (2026-10-12), kept unchanged.
 
 These files come from one laptop run (the run of record) of the primer-trimmed rerun, unchanged:
 - `python/pipeline/run_stage6.py 12`, written to `corrected_2026-10-11\stage6_corrected_2026-10-12_12`;

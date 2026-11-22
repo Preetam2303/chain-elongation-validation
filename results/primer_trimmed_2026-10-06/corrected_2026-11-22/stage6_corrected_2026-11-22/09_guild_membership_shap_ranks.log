@@ -1,0 +1,79 @@
+==============================================================================================================
+GUILD MEMBERSHIP BY SHAP RANK  --  22 folds on the 166-sample, 205-genus matrix
+  LOSO = 7 folds | GroupKFold-by-vessel = 5 | Shuffled 10-fold = 10
+==============================================================================================================
+genus                               med best wrst  top5  top10  top25  LOSO  GKF  S10 noNano  shapDir  rawRho
+--------------------------------------------------------------------------------------------------------------
+g__Caproiciproducens                  1    1    3  22/22   22/22   22/22   7/7  5/5 10/10       1    0.804   0.634
+g__Rummeliibacillus                   2    2  124  18/22   20/22   21/22   5/7  5/5 10/10    ZERO    0.626   0.237
+g__Gudongella                         3    1  132  15/22   19/22   20/22   6/7  3/5 10/10    ZERO    0.623   0.249
+g__Clostridium_sensu_stricto_12       6    3   25  10/22   19/22   22/22   6/7  3/5 10/10       8    0.603   0.314
+g__Ochrobactrum                       5    3  132  12/22   18/22   20/22   5/7  4/5  9/10       5    0.375   0.452
+g__Anaerobium                         6    3  124   8/22   18/22   20/22   6/7  4/5  8/10    ZERO    0.382   0.173
+g__Sporolactobacillus                 7    2  129   8/22   17/22   20/22   6/7  3/5  8/10    ZERO   -0.313   0.058
+g__Microbacterium                     9    3  130   4/22   13/22   20/22   3/7  4/5  6/10       3    0.585   0.523
+g__Unclassified                      10    2   50   4/22   12/22   20/22   2/7  3/5  7/10       4   -0.558  -0.218
+g__Oscillibacter                     12    6   23   0/22   10/22   22/22   3/7  0/5  7/10       7   -0.254   0.192
+g__Acinetobacter                     12    3  132   2/22    8/22   17/22   3/7  1/5  4/10       6    0.246   0.371
+g__Marasmitruncus                    12    5  129   1/22    8/22   19/22   4/7  0/5  4/10    ZERO   -0.012   0.118
+g__Aquamicrobium                     14    6  133   0/22    5/22   17/22   2/7  2/5  1/10      10    0.417   0.468
+g__Monoglobus                        16    2  134   1/22    4/22   16/22   2/7  1/5  1/10       2    0.477   0.208
+g__Lacticaseibacillus                17    4   56   1/22    3/22   17/22   1/7  1/5  1/10       9    0.547  -0.084
+g__Bacteroides                       16    8  133   0/22    2/22   19/22   0/7  1/5  1/10      29   -0.570  -0.210
+g__Clostridium_sensu_stricto_11      17    6  134   0/22    2/22   18/22   1/7  1/5  0/10      14    0.488   0.074
+g__Eubacterium_fissicatena_group     18    9  134   0/22    2/22   15/22   1/7  1/5  0/10    ZERO    0.591   0.263
+g__unclassified Oscillospiraceae genus   20    5  134   2/22    2/22   14/22   1/7  1/5  0/10    ZERO    0.675   0.223
+g__Acetobacter                       24    9  132   0/22    2/22   12/22   1/7  1/5  0/10      11   -0.388   0.157
+
+==============================================================================================================
+RANK-2 OCCUPANCY  (which genus sits directly below the known producer)
+==============================================================================================================
+  g__Rummeliibacillus                      rank 2 in 13/22 folds
+  g__Gudongella                            rank 2 in 5/22 folds
+  g__Sporolactobacillus                    rank 2 in 2/22 folds
+  g__Monoglobus                            rank 2 in 1/22 folds
+  g__Unclassified                          rank 2 in 1/22 folds
+
+==============================================================================================================
+STRICT CRITERION: top-10 in EVERY fold of EVERY architecture
+==============================================================================================================
+  g__Caproiciproducens                     median rank 1, shap_dir +0.804, raw_rho +0.634
+
+  Relaxed (top-10 in >=80% of folds):
+  g__Caproiciproducens                     top10 22/22, median 1, shap_dir +0.804, raw_rho +0.634
+  g__Rummeliibacillus                      top10 20/22, median 2, shap_dir +0.626, raw_rho +0.237
+  g__Gudongella                            top10 19/22, median 3, shap_dir +0.623, raw_rho +0.249
+  g__Clostridium_sensu_stricto_12          top10 19/22, median 6, shap_dir +0.603, raw_rho +0.314
+  g__Ochrobactrum                          top10 18/22, median 5, shap_dir +0.375, raw_rho +0.452
+  g__Anaerobium                            top10 18/22, median 6, shap_dir +0.382, raw_rho +0.173
+
+==============================================================================================================
+WITHIN-STUDY CHECK: Spearman rho of g__Caproiciproducens abundance with measured caproate,
+inside each study, on sampling-unit means (same-day replicates count once)
+==============================================================================================================
+  Brodowski_2022                     n =   8 units (  8 rows) | mean abundance  28.6% | rho +0.595 (p = 0.120)
+  Brodowski_2022_EXTERNAL_ACETATE    n =  14 units ( 14 rows) | mean abundance  32.3% | rho +0.319 (p = 0.266)
+  Brodowski_2025                     n =  14 units ( 14 rows) | mean abundance  43.8% | rho +0.547 (p = 0.043)
+  Duber_2020                         n =   7 units (  7 rows) | mean abundance   4.4% | rho +0.821 (p = 0.023)
+  Duber_2022                         n =  18 units ( 18 rows) | mean abundance   1.6% | rho -0.428 (p = 0.076)
+  Duber_2024                         n =  17 units ( 51 rows) | mean abundance  29.4% | rho +0.331 (p = 0.194)
+  Hanna_2025                         n =  18 units ( 54 rows) | mean abundance   9.8% | rho +0.523 (p = 0.026)
+  All studies pooled                 n =  96 units (166 rows) | rho +0.634 (p = 3.96e-12)
+
+==============================================================================================================
+CROSS-CHECK: Illumina-only 109-genus universe (single global model)
+==============================================================================================================
+     1. g__Caproiciproducens
+     2. g__Monoglobus
+     3. g__Microbacterium
+     4. g__Unclassified
+     5. g__Ochrobactrum
+     6. g__Acinetobacter
+     7. g__Oscillibacter
+     8. g__Clostridium_sensu_stricto_12
+     9. g__Lacticaseibacillus
+    10. g__Aquamicrobium
+
+  Table written to C:/Users/IISiIS-ZWW-233/Documents/BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-11-22\stage6_corrected_2026-11-22\guild_membership_shap_ranks.csv
+
+  Table written to C:/Users/IISiIS-ZWW-233/Documents/BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-11-22\stage6_corrected_2026-11-22\guild_producer_within_study_correlation.csv
