@@ -1165,7 +1165,7 @@
   ],
   "_note": "The same Duber 2025 (Duber_2024) split, B1 (30 samples) -> B2 (21), evaluated with three setups that differ in algorithm and predictor set. No sample changes between stages. Scaling plays no part: 05 run without scaling gives the identical predictions (cloud check, 2026-10-14), since scaling a predictor does not change a tree model's splits. The keys keep their earlier names.",
   "stage_1_unscaled_random_forest": {
-   "_note": "07d, scikit-learn random forest (seeded). Its R2 rounds to 0.155 at three decimals but sits next to the rounding boundary, so it is given to eight.",
+   "_note": "07d, scikit-learn random forest (seeded). Its R2 is given to eight decimals, as in the earlier runs of record, where it sat next to a boundary for rounding to three decimals.",
    "r2": 0.15698053,
    "rmsd": 52.814,
    "train_n": 30,

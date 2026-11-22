@@ -549,8 +549,8 @@ def figure_3_leakage_tightening_progression(run):
         "stage_1_unscaled_random_forest": {
             "r2": V(d["R2"], 8), "rmsd": V(d["RMSD"], 3), "train_n": int(d["Train_Size"]),
             "test_n": int(d["Test_Size"]),
-            "_note": "07d, scikit-learn random forest (seeded). Its R2 rounds to 0.155 at three decimals but sits "
-                     "next to the rounding boundary, so it is given to eight."},
+            "_note": "07d, scikit-learn random forest (seeded). Its R2 is given to eight decimals, as in the earlier "
+                     "runs of record, where it sat next to a boundary for rounding to three decimals."},
         "stage_2_intermediate_unscaled_xgboost": {
             "r2": r3(c["R2"]), "rmse": r1(c["RMSE"]), "train_n": int(c["Train_Size"]), "test_n": int(c["Test_Size"]),
             "top_10_mean_abs_shap": {f: num(v) for f, v in shap},
