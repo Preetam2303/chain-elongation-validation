@@ -1,0 +1,13 @@
+Input: /home/claude/chain-elongation-validation/results/primer_trimmed_2026-10-06/corrected_2026-11-22/stage6_corrected_2026-11-22/02_loso_tables_3b_4.csv
+       sha256 d02be94b347d144f07a9c46a3c0685572a05b6d918ba4a571645f256db68557b
+
+[Figure S1] Values plotted (LOSO R2 mean, SD across held-out studies):
+  Illumina-only Tier 1: pH, temperature, HRT, categoricals + genera        R2 -2.001 ± 2.884 (112 samples, 210 predictors)
+  Illumina-only Tier 2: + lactate, acetate, ethanol                        R2 -2.199 ± 3.584 (112 samples, 213 predictors)
+  Illumina-only Tier 3: + butyrate, propionate, valerate, isovalerate      R2 -1.346 ± 2.056 (112 samples, 217 predictors)
+  Illumina-only Tier 4: + caprylate, heptanoate, isocaproate               R2 -5.277 ± 11.057 (112 samples, 220 predictors)
+  Full matrix   Tier 1: pH, temperature, HRT, categoricals + genera        R2 -1.308 ± 1.996 (166 samples, 210 predictors)
+  Full matrix   Tier 2: + lactate, acetate, ethanol                        R2 -1.357 ± 2.161 (166 samples, 213 predictors)
+  Full matrix   Tier 3: + butyrate, propionate (core set; HEADLINE)        R2 -0.838 ± 1.522 (166 samples, 215 predictors)
+Saved: /home/claude/chain-elongation-validation/results/primer_trimmed_2026-10-06/figures_relabelled_2026-11-23/Figure_S1_Substrate_Ladder.png
+Saved: /home/claude/chain-elongation-validation/results/primer_trimmed_2026-10-06/figures_relabelled_2026-11-23/Figure_S1_Substrate_Ladder.pdf

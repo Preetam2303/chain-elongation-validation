@@ -29,11 +29,12 @@ plt.rcParams["axes.linewidth"] = 0.8
 
 CLR_GROUPED = "#3C5488"
 CLR_ACCENT = "#00A087"
+# Each tier is named by the predictors it adds, as in Table 4
 LABELS = {
-    1: "Tier 1:\nOps + Genera",
-    2: "Tier 2:\n+ Foundational Feeds",
-    3: "Tier 3:\n+ Intermediates",
-    4: "Tier 4:\n+ Downstream Proxies",
+    1: "Tier 1:\npH, temperature, HRT,\nfeed descriptors, genera",
+    2: "Tier 2:\n+ lactate, acetate,\nethanol",
+    3: "Tier 3:\n+ butyrate, propionate\n(Illumina only: also\nvalerate, isovalerate)",
+    4: "Tier 4:\n+ caprylate, heptanoate,\nisocaproate",
 }
 
 
