@@ -1,0 +1,230 @@
+
+--- 999-SHUFFLE TARGET PERMUTATION TESTS (headline: full-matrix LOSO, core set) ---
+Rows: 166 | sampling units: 96 in 7 studies (same-day replicates move together) | predictors: 215
+Observed LOSO R2 (true labels): -0.838 | observed mean RMSE: 96.8 mM C (training-mean benchmark: 112.6)
+--------------------------------------------------------------------------------
+Shuffling caproate across studies
+Iteration 001/999 | Permuted LOGO R2: -0.377 | RMSE:  131.4 | Elapsed Time: 0.7s
+Iteration 010/999 | Permuted LOGO R2: -0.565 | RMSE:  133.0 | Elapsed Time: 6.8s
+Iteration 020/999 | Permuted LOGO R2: -0.404 | RMSE:  117.6 | Elapsed Time: 13.8s
+Iteration 030/999 | Permuted LOGO R2: -1.826 | RMSE:  136.0 | Elapsed Time: 21.3s
+Iteration 040/999 | Permuted LOGO R2: -0.434 | RMSE:  132.4 | Elapsed Time: 28.7s
+Iteration 050/999 | Permuted LOGO R2: -0.818 | RMSE:  116.3 | Elapsed Time: 35.9s
+Iteration 060/999 | Permuted LOGO R2: -0.245 | RMSE:  126.2 | Elapsed Time: 43.1s
+Iteration 070/999 | Permuted LOGO R2: -0.319 | RMSE:  123.1 | Elapsed Time: 50.3s
+Iteration 080/999 | Permuted LOGO R2: -0.099 | RMSE:  120.9 | Elapsed Time: 57.8s
+Iteration 090/999 | Permuted LOGO R2: -0.340 | RMSE:  132.9 | Elapsed Time: 64.9s
+Iteration 100/999 | Permuted LOGO R2: -0.995 | RMSE:  138.2 | Elapsed Time: 72.2s
+Iteration 110/999 | Permuted LOGO R2: -0.444 | RMSE:  138.2 | Elapsed Time: 79.5s
+Iteration 120/999 | Permuted LOGO R2: -0.215 | RMSE:  126.6 | Elapsed Time: 87.0s
+Iteration 130/999 | Permuted LOGO R2: -0.610 | RMSE:  125.1 | Elapsed Time: 96.2s
+Iteration 140/999 | Permuted LOGO R2: -0.285 | RMSE:  120.3 | Elapsed Time: 106.3s
+Iteration 150/999 | Permuted LOGO R2: -0.469 | RMSE:  135.7 | Elapsed Time: 116.7s
+Iteration 160/999 | Permuted LOGO R2: -0.339 | RMSE:  120.9 | Elapsed Time: 127.3s
+Iteration 170/999 | Permuted LOGO R2: -0.216 | RMSE:  115.5 | Elapsed Time: 138.2s
+Iteration 180/999 | Permuted LOGO R2: -0.182 | RMSE:  117.1 | Elapsed Time: 148.7s
+Iteration 190/999 | Permuted LOGO R2: -0.194 | RMSE:  123.9 | Elapsed Time: 158.1s
+Iteration 200/999 | Permuted LOGO R2: -0.353 | RMSE:  127.2 | Elapsed Time: 166.0s
+Iteration 210/999 | Permuted LOGO R2: -0.504 | RMSE:  123.5 | Elapsed Time: 175.5s
+Iteration 220/999 | Permuted LOGO R2: -1.154 | RMSE:  114.4 | Elapsed Time: 187.0s
+Iteration 230/999 | Permuted LOGO R2: -0.092 | RMSE:  120.4 | Elapsed Time: 198.0s
+Iteration 240/999 | Permuted LOGO R2: -0.004 | RMSE:  109.0 | Elapsed Time: 209.8s
+Iteration 250/999 | Permuted LOGO R2: -0.281 | RMSE:  126.0 | Elapsed Time: 220.0s
+Iteration 260/999 | Permuted LOGO R2: -0.786 | RMSE:  137.4 | Elapsed Time: 231.3s
+Iteration 270/999 | Permuted LOGO R2: -0.373 | RMSE:  124.2 | Elapsed Time: 243.1s
+Iteration 280/999 | Permuted LOGO R2: -0.708 | RMSE:  133.0 | Elapsed Time: 254.7s
+Iteration 290/999 | Permuted LOGO R2: -0.527 | RMSE:  125.7 | Elapsed Time: 266.9s
+Iteration 300/999 | Permuted LOGO R2: -0.449 | RMSE:  135.0 | Elapsed Time: 278.0s
+Iteration 310/999 | Permuted LOGO R2: -0.372 | RMSE:  125.5 | Elapsed Time: 288.2s
+Iteration 320/999 | Permuted LOGO R2: -0.610 | RMSE:  138.2 | Elapsed Time: 300.0s
+Iteration 330/999 | Permuted LOGO R2: -0.714 | RMSE:  122.4 | Elapsed Time: 311.4s
+Iteration 340/999 | Permuted LOGO R2: -0.113 | RMSE:  120.6 | Elapsed Time: 322.7s
+Iteration 350/999 | Permuted LOGO R2: -0.289 | RMSE:  124.7 | Elapsed Time: 333.4s
+Iteration 360/999 | Permuted LOGO R2: -0.507 | RMSE:  122.7 | Elapsed Time: 343.9s
+Iteration 370/999 | Permuted LOGO R2: -0.256 | RMSE:  121.2 | Elapsed Time: 354.0s
+Iteration 380/999 | Permuted LOGO R2: -0.340 | RMSE:  128.2 | Elapsed Time: 363.8s
+Iteration 390/999 | Permuted LOGO R2: -0.509 | RMSE:  129.5 | Elapsed Time: 373.6s
+Iteration 400/999 | Permuted LOGO R2: -0.268 | RMSE:  124.5 | Elapsed Time: 383.3s
+Iteration 410/999 | Permuted LOGO R2: -1.324 | RMSE:  138.3 | Elapsed Time: 393.1s
+Iteration 420/999 | Permuted LOGO R2: -0.440 | RMSE:  121.2 | Elapsed Time: 402.8s
+Iteration 430/999 | Permuted LOGO R2: -0.142 | RMSE:  113.1 | Elapsed Time: 412.5s
+Iteration 440/999 | Permuted LOGO R2: -0.184 | RMSE:  118.5 | Elapsed Time: 422.4s
+Iteration 450/999 | Permuted LOGO R2: -1.531 | RMSE:  144.9 | Elapsed Time: 432.3s
+Iteration 460/999 | Permuted LOGO R2: -0.952 | RMSE:  133.8 | Elapsed Time: 441.9s
+Iteration 470/999 | Permuted LOGO R2: -0.602 | RMSE:  142.0 | Elapsed Time: 451.8s
+Iteration 480/999 | Permuted LOGO R2: -0.688 | RMSE:  123.3 | Elapsed Time: 461.8s
+Iteration 490/999 | Permuted LOGO R2: -0.604 | RMSE:  133.7 | Elapsed Time: 471.5s
+Iteration 500/999 | Permuted LOGO R2: -0.681 | RMSE:  126.4 | Elapsed Time: 481.3s
+Iteration 510/999 | Permuted LOGO R2: -0.656 | RMSE:  147.6 | Elapsed Time: 491.2s
+Iteration 520/999 | Permuted LOGO R2: -0.648 | RMSE:  144.6 | Elapsed Time: 500.8s
+Iteration 530/999 | Permuted LOGO R2: -0.456 | RMSE:  139.8 | Elapsed Time: 510.7s
+Iteration 540/999 | Permuted LOGO R2: -0.452 | RMSE:  111.9 | Elapsed Time: 520.3s
+Iteration 550/999 | Permuted LOGO R2: -0.185 | RMSE:  124.0 | Elapsed Time: 530.1s
+Iteration 560/999 | Permuted LOGO R2: -0.379 | RMSE:  127.6 | Elapsed Time: 539.5s
+Iteration 570/999 | Permuted LOGO R2: -0.238 | RMSE:  123.2 | Elapsed Time: 549.3s
+Iteration 580/999 | Permuted LOGO R2: -0.941 | RMSE:  144.2 | Elapsed Time: 559.2s
+Iteration 590/999 | Permuted LOGO R2: -0.602 | RMSE:  130.1 | Elapsed Time: 569.4s
+Iteration 600/999 | Permuted LOGO R2: -0.706 | RMSE:  147.6 | Elapsed Time: 580.1s
+Iteration 610/999 | Permuted LOGO R2: -0.682 | RMSE:  129.9 | Elapsed Time: 590.7s
+Iteration 620/999 | Permuted LOGO R2: -0.260 | RMSE:  123.7 | Elapsed Time: 601.4s
+Iteration 630/999 | Permuted LOGO R2: -0.404 | RMSE:  135.9 | Elapsed Time: 610.8s
+Iteration 640/999 | Permuted LOGO R2: -0.362 | RMSE:  125.2 | Elapsed Time: 619.9s
+Iteration 650/999 | Permuted LOGO R2: -0.184 | RMSE:  121.3 | Elapsed Time: 630.5s
+Iteration 660/999 | Permuted LOGO R2: -0.309 | RMSE:  130.5 | Elapsed Time: 641.3s
+Iteration 670/999 | Permuted LOGO R2: -0.483 | RMSE:  135.4 | Elapsed Time: 652.0s
+Iteration 680/999 | Permuted LOGO R2: -23.086 | RMSE:  152.6 | Elapsed Time: 662.7s
+Iteration 690/999 | Permuted LOGO R2: -0.602 | RMSE:  140.8 | Elapsed Time: 672.2s
+Iteration 700/999 | Permuted LOGO R2: -0.587 | RMSE:  132.2 | Elapsed Time: 682.8s
+Iteration 710/999 | Permuted LOGO R2: -0.267 | RMSE:  120.9 | Elapsed Time: 693.6s
+Iteration 720/999 | Permuted LOGO R2: -0.149 | RMSE:  118.1 | Elapsed Time: 704.2s
+Iteration 730/999 | Permuted LOGO R2: -0.221 | RMSE:  126.4 | Elapsed Time: 714.5s
+Iteration 740/999 | Permuted LOGO R2: -0.574 | RMSE:  124.0 | Elapsed Time: 725.2s
+Iteration 750/999 | Permuted LOGO R2: -0.609 | RMSE:  128.9 | Elapsed Time: 736.0s
+Iteration 760/999 | Permuted LOGO R2: -0.444 | RMSE:  123.3 | Elapsed Time: 746.9s
+Iteration 770/999 | Permuted LOGO R2: -0.235 | RMSE:  122.5 | Elapsed Time: 757.4s
+Iteration 780/999 | Permuted LOGO R2: -0.543 | RMSE:  137.8 | Elapsed Time: 768.1s
+Iteration 790/999 | Permuted LOGO R2: -0.239 | RMSE:  129.2 | Elapsed Time: 777.4s
+Iteration 800/999 | Permuted LOGO R2: -0.366 | RMSE:  116.7 | Elapsed Time: 788.3s
+Iteration 810/999 | Permuted LOGO R2: -0.372 | RMSE:  117.5 | Elapsed Time: 798.8s
+Iteration 820/999 | Permuted LOGO R2: -0.642 | RMSE:  127.2 | Elapsed Time: 809.4s
+Iteration 830/999 | Permuted LOGO R2: -0.324 | RMSE:  117.6 | Elapsed Time: 820.3s
+Iteration 840/999 | Permuted LOGO R2: -9.094 | RMSE:  136.2 | Elapsed Time: 830.7s
+Iteration 850/999 | Permuted LOGO R2: -0.168 | RMSE:  116.1 | Elapsed Time: 841.4s
+Iteration 860/999 | Permuted LOGO R2: -0.425 | RMSE:  118.3 | Elapsed Time: 852.2s
+Iteration 870/999 | Permuted LOGO R2: -0.398 | RMSE:  122.7 | Elapsed Time: 863.0s
+Iteration 880/999 | Permuted LOGO R2: -0.310 | RMSE:  120.6 | Elapsed Time: 872.0s
+Iteration 890/999 | Permuted LOGO R2: -0.158 | RMSE:  122.2 | Elapsed Time: 882.8s
+Iteration 900/999 | Permuted LOGO R2: -0.387 | RMSE:  125.6 | Elapsed Time: 893.2s
+Iteration 910/999 | Permuted LOGO R2: -0.366 | RMSE:  129.3 | Elapsed Time: 903.7s
+Iteration 920/999 | Permuted LOGO R2: -0.484 | RMSE:  133.0 | Elapsed Time: 914.3s
+Iteration 930/999 | Permuted LOGO R2: -0.128 | RMSE:  116.0 | Elapsed Time: 924.9s
+Iteration 940/999 | Permuted LOGO R2: -0.017 | RMSE:  112.9 | Elapsed Time: 935.6s
+Iteration 950/999 | Permuted LOGO R2: -0.122 | RMSE:  118.0 | Elapsed Time: 946.5s
+Iteration 960/999 | Permuted LOGO R2: -0.197 | RMSE:  126.4 | Elapsed Time: 956.0s
+Iteration 970/999 | Permuted LOGO R2: -0.172 | RMSE:  126.0 | Elapsed Time: 965.9s
+Iteration 980/999 | Permuted LOGO R2: -0.405 | RMSE:  127.3 | Elapsed Time: 976.5s
+Iteration 990/999 | Permuted LOGO R2: -0.452 | RMSE:  135.0 | Elapsed Time: 987.1s
+Iteration 999/999 | Permuted LOGO R2: -0.558 | RMSE:  128.9 | Elapsed Time: 996.8s
+  Saved full results to: C:/Users/IISiIS-ZWW-233/Documents/BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-11-22\stage6_corrected_2026-11-22\permutation_null_distribution_999.csv
+--------------------------------------------------------------------------------
+Shuffling caproate within each study
+Iteration 001/999 | Permuted LOGO R2: -7.313 | RMSE:  141.1 | Elapsed Time: 1.1s
+Iteration 010/999 | Permuted LOGO R2: -8.777 | RMSE:  128.3 | Elapsed Time: 10.7s
+Iteration 020/999 | Permuted LOGO R2: -5.557 | RMSE:  131.0 | Elapsed Time: 21.1s
+Iteration 030/999 | Permuted LOGO R2: -3.878 | RMSE:  134.5 | Elapsed Time: 31.8s
+Iteration 040/999 | Permuted LOGO R2: -5.131 | RMSE:  116.3 | Elapsed Time: 41.8s
+Iteration 050/999 | Permuted LOGO R2: -8.761 | RMSE:  149.0 | Elapsed Time: 50.5s
+Iteration 060/999 | Permuted LOGO R2: -8.213 | RMSE:  131.8 | Elapsed Time: 61.2s
+Iteration 070/999 | Permuted LOGO R2: -6.848 | RMSE:  138.8 | Elapsed Time: 70.3s
+Iteration 080/999 | Permuted LOGO R2: -6.393 | RMSE:  126.3 | Elapsed Time: 80.6s
+Iteration 090/999 | Permuted LOGO R2: -3.955 | RMSE:  122.3 | Elapsed Time: 91.4s
+Iteration 100/999 | Permuted LOGO R2: -5.436 | RMSE:  127.4 | Elapsed Time: 101.8s
+Iteration 110/999 | Permuted LOGO R2: -5.651 | RMSE:  126.2 | Elapsed Time: 111.9s
+Iteration 120/999 | Permuted LOGO R2: -4.426 | RMSE:  128.9 | Elapsed Time: 122.1s
+Iteration 130/999 | Permuted LOGO R2: -4.327 | RMSE:  131.4 | Elapsed Time: 132.8s
+Iteration 140/999 | Permuted LOGO R2: -10.368 | RMSE:  140.2 | Elapsed Time: 143.3s
+Iteration 150/999 | Permuted LOGO R2: -7.144 | RMSE:  138.8 | Elapsed Time: 153.9s
+Iteration 160/999 | Permuted LOGO R2: -8.181 | RMSE:  147.1 | Elapsed Time: 164.5s
+Iteration 170/999 | Permuted LOGO R2: -5.047 | RMSE:  128.7 | Elapsed Time: 175.1s
+Iteration 180/999 | Permuted LOGO R2: -4.183 | RMSE:  122.4 | Elapsed Time: 185.6s
+Iteration 190/999 | Permuted LOGO R2: -3.885 | RMSE:  131.3 | Elapsed Time: 195.2s
+Iteration 200/999 | Permuted LOGO R2: -7.948 | RMSE:  138.6 | Elapsed Time: 205.7s
+Iteration 210/999 | Permuted LOGO R2: -3.795 | RMSE:  135.0 | Elapsed Time: 216.2s
+Iteration 220/999 | Permuted LOGO R2: -4.515 | RMSE:  126.4 | Elapsed Time: 227.1s
+Iteration 230/999 | Permuted LOGO R2: -7.850 | RMSE:  132.0 | Elapsed Time: 238.0s
+Iteration 240/999 | Permuted LOGO R2: -7.351 | RMSE:  133.7 | Elapsed Time: 248.5s
+Iteration 250/999 | Permuted LOGO R2: -4.696 | RMSE:  117.3 | Elapsed Time: 259.2s
+Iteration 260/999 | Permuted LOGO R2: -7.193 | RMSE:  131.8 | Elapsed Time: 269.3s
+Iteration 270/999 | Permuted LOGO R2: -7.009 | RMSE:  141.0 | Elapsed Time: 279.6s
+Iteration 280/999 | Permuted LOGO R2: -6.198 | RMSE:  144.6 | Elapsed Time: 290.4s
+Iteration 290/999 | Permuted LOGO R2: -3.755 | RMSE:  120.7 | Elapsed Time: 300.9s
+Iteration 300/999 | Permuted LOGO R2: -5.895 | RMSE:  128.8 | Elapsed Time: 311.7s
+Iteration 310/999 | Permuted LOGO R2: -5.437 | RMSE:  130.1 | Elapsed Time: 321.7s
+Iteration 320/999 | Permuted LOGO R2: -2.831 | RMSE:  131.6 | Elapsed Time: 332.7s
+Iteration 330/999 | Permuted LOGO R2: -4.003 | RMSE:  136.8 | Elapsed Time: 343.5s
+Iteration 340/999 | Permuted LOGO R2: -5.263 | RMSE:  133.4 | Elapsed Time: 354.2s
+Iteration 350/999 | Permuted LOGO R2: -8.070 | RMSE:  139.2 | Elapsed Time: 365.2s
+Iteration 360/999 | Permuted LOGO R2: -4.339 | RMSE:  125.7 | Elapsed Time: 375.8s
+Iteration 370/999 | Permuted LOGO R2: -5.086 | RMSE:  138.4 | Elapsed Time: 386.3s
+Iteration 380/999 | Permuted LOGO R2: -5.602 | RMSE:  124.4 | Elapsed Time: 396.9s
+Iteration 390/999 | Permuted LOGO R2: -4.854 | RMSE:  135.7 | Elapsed Time: 407.5s
+Iteration 400/999 | Permuted LOGO R2: -6.596 | RMSE:  134.6 | Elapsed Time: 418.1s
+Iteration 410/999 | Permuted LOGO R2: -2.744 | RMSE:  127.1 | Elapsed Time: 428.6s
+Iteration 420/999 | Permuted LOGO R2: -6.874 | RMSE:  124.9 | Elapsed Time: 438.8s
+Iteration 430/999 | Permuted LOGO R2: -7.914 | RMSE:  132.2 | Elapsed Time: 449.5s
+Iteration 440/999 | Permuted LOGO R2: -5.527 | RMSE:  133.0 | Elapsed Time: 460.0s
+Iteration 450/999 | Permuted LOGO R2: -5.959 | RMSE:  133.8 | Elapsed Time: 470.8s
+Iteration 460/999 | Permuted LOGO R2: -8.053 | RMSE:  146.9 | Elapsed Time: 481.1s
+Iteration 470/999 | Permuted LOGO R2: -8.400 | RMSE:  136.8 | Elapsed Time: 492.1s
+Iteration 480/999 | Permuted LOGO R2: -5.253 | RMSE:  143.4 | Elapsed Time: 502.7s
+Iteration 490/999 | Permuted LOGO R2: -5.459 | RMSE:  131.0 | Elapsed Time: 513.2s
+Iteration 500/999 | Permuted LOGO R2: -4.863 | RMSE:  130.5 | Elapsed Time: 524.2s
+Iteration 510/999 | Permuted LOGO R2: -3.892 | RMSE:  132.5 | Elapsed Time: 534.9s
+Iteration 520/999 | Permuted LOGO R2: -5.805 | RMSE:  126.1 | Elapsed Time: 545.9s
+Iteration 530/999 | Permuted LOGO R2: -5.917 | RMSE:  134.7 | Elapsed Time: 556.2s
+Iteration 540/999 | Permuted LOGO R2: -4.256 | RMSE:  122.1 | Elapsed Time: 567.0s
+Iteration 550/999 | Permuted LOGO R2: -9.786 | RMSE:  141.0 | Elapsed Time: 577.7s
+Iteration 560/999 | Permuted LOGO R2: -7.225 | RMSE:  133.3 | Elapsed Time: 588.4s
+Iteration 570/999 | Permuted LOGO R2: -4.301 | RMSE:  138.8 | Elapsed Time: 599.2s
+Iteration 580/999 | Permuted LOGO R2: -4.324 | RMSE:  121.2 | Elapsed Time: 610.2s
+Iteration 590/999 | Permuted LOGO R2: -4.246 | RMSE:  123.0 | Elapsed Time: 620.6s
+Iteration 600/999 | Permuted LOGO R2: -7.114 | RMSE:  130.7 | Elapsed Time: 631.3s
+Iteration 610/999 | Permuted LOGO R2: -4.162 | RMSE:  124.6 | Elapsed Time: 641.9s
+Iteration 620/999 | Permuted LOGO R2: -5.447 | RMSE:  128.6 | Elapsed Time: 652.4s
+Iteration 630/999 | Permuted LOGO R2: -2.952 | RMSE:  123.6 | Elapsed Time: 663.1s
+Iteration 640/999 | Permuted LOGO R2: -7.192 | RMSE:  131.2 | Elapsed Time: 674.6s
+Iteration 650/999 | Permuted LOGO R2: -4.831 | RMSE:  130.9 | Elapsed Time: 686.5s
+Iteration 660/999 | Permuted LOGO R2: -5.689 | RMSE:  137.8 | Elapsed Time: 698.8s
+Iteration 670/999 | Permuted LOGO R2: -5.083 | RMSE:  141.6 | Elapsed Time: 711.0s
+Iteration 680/999 | Permuted LOGO R2: -4.892 | RMSE:  125.3 | Elapsed Time: 723.2s
+Iteration 690/999 | Permuted LOGO R2: -5.425 | RMSE:  126.0 | Elapsed Time: 734.6s
+Iteration 700/999 | Permuted LOGO R2: -9.474 | RMSE:  147.7 | Elapsed Time: 747.1s
+Iteration 710/999 | Permuted LOGO R2: -6.862 | RMSE:  129.0 | Elapsed Time: 759.5s
+Iteration 720/999 | Permuted LOGO R2: -9.105 | RMSE:  141.4 | Elapsed Time: 771.8s
+Iteration 730/999 | Permuted LOGO R2: -6.783 | RMSE:  146.8 | Elapsed Time: 784.1s
+Iteration 740/999 | Permuted LOGO R2: -7.012 | RMSE:  141.0 | Elapsed Time: 796.3s
+Iteration 750/999 | Permuted LOGO R2: -4.399 | RMSE:  138.9 | Elapsed Time: 808.2s
+Iteration 760/999 | Permuted LOGO R2: -5.105 | RMSE:  133.9 | Elapsed Time: 820.2s
+Iteration 770/999 | Permuted LOGO R2: -4.443 | RMSE:  114.0 | Elapsed Time: 832.5s
+Iteration 780/999 | Permuted LOGO R2: -4.761 | RMSE:  137.4 | Elapsed Time: 843.6s
+Iteration 790/999 | Permuted LOGO R2: -4.861 | RMSE:  123.9 | Elapsed Time: 854.8s
+Iteration 800/999 | Permuted LOGO R2: -4.600 | RMSE:  115.7 | Elapsed Time: 866.8s
+Iteration 810/999 | Permuted LOGO R2: -5.178 | RMSE:  125.6 | Elapsed Time: 878.8s
+Iteration 820/999 | Permuted LOGO R2: -5.919 | RMSE:  132.3 | Elapsed Time: 891.0s
+Iteration 830/999 | Permuted LOGO R2: -9.273 | RMSE:  134.3 | Elapsed Time: 902.8s
+Iteration 840/999 | Permuted LOGO R2: -5.353 | RMSE:  129.5 | Elapsed Time: 914.4s
+Iteration 850/999 | Permuted LOGO R2: -4.870 | RMSE:  116.9 | Elapsed Time: 926.2s
+Iteration 860/999 | Permuted LOGO R2: -6.731 | RMSE:  130.2 | Elapsed Time: 937.9s
+Iteration 870/999 | Permuted LOGO R2: -8.114 | RMSE:  133.1 | Elapsed Time: 949.6s
+Iteration 880/999 | Permuted LOGO R2: -9.546 | RMSE:  141.1 | Elapsed Time: 961.7s
+Iteration 890/999 | Permuted LOGO R2: -5.999 | RMSE:  139.6 | Elapsed Time: 973.5s
+Iteration 900/999 | Permuted LOGO R2: -4.100 | RMSE:  137.6 | Elapsed Time: 985.6s
+Iteration 910/999 | Permuted LOGO R2: -4.790 | RMSE:  130.5 | Elapsed Time: 997.4s
+Iteration 920/999 | Permuted LOGO R2: -4.525 | RMSE:  113.6 | Elapsed Time: 1009.6s
+Iteration 930/999 | Permuted LOGO R2: -6.226 | RMSE:  128.3 | Elapsed Time: 1022.0s
+Iteration 940/999 | Permuted LOGO R2: -4.846 | RMSE:  123.7 | Elapsed Time: 1033.9s
+Iteration 950/999 | Permuted LOGO R2: -9.090 | RMSE:  142.1 | Elapsed Time: 1045.9s
+Iteration 960/999 | Permuted LOGO R2: -6.043 | RMSE:  136.5 | Elapsed Time: 1057.6s
+Iteration 970/999 | Permuted LOGO R2: -3.662 | RMSE:  121.6 | Elapsed Time: 1069.8s
+Iteration 980/999 | Permuted LOGO R2: -5.962 | RMSE:  132.2 | Elapsed Time: 1081.3s
+Iteration 990/999 | Permuted LOGO R2: -4.146 | RMSE:  118.3 | Elapsed Time: 1093.4s
+Iteration 999/999 | Permuted LOGO R2: -7.122 | RMSE:  134.3 | Elapsed Time: 1104.0s
+  Saved full results to: C:/Users/IISiIS-ZWW-233/Documents/BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-11-22\stage6_corrected_2026-11-22\permutation_null_within_study_999.csv
+--------------------------------------------------------------------------------
+NULL DISTRIBUTIONS (N=999), observed R2 -0.838, RMSE 96.8 mM C:
+  Shuffled across studies     R2  -0.584 (± 0.896), median  -0.440 | k = 856, p = 0.8570 || RMSE  127.8 (± 8.6) | k =   0, p = 0.0010
+  Shuffled within each study  R2  -5.886 (± 2.071), median  -5.516 | k =   0, p = 0.0010 || RMSE  132.6 (± 8.3) | k =   0, p = 0.0010
+  k = shuffles that do at least as well as the true labels (R2 as high or higher, or RMSE as low or lower)
+Per held-out study (observed R2 and RMSE; p of each shuffle scheme):
+  Brodowski_2022                     R2  -0.581, RMSE   72.3 | across studies: p(R2) 0.6330, p(RMSE) 0.0270 | within each study: p(R2) 0.0160, p(RMSE) 0.0160
+  Brodowski_2022_EXTERNAL_ACETATE    R2  -1.842, RMSE  168.8 | across studies: p(R2) 0.9640, p(RMSE) 0.9270 | within each study: p(R2) 0.1220, p(RMSE) 0.1220
+  Brodowski_2025                     R2   0.392, RMSE   55.5 | across studies: p(R2) 0.0030, p(RMSE) 0.0010 | within each study: p(R2) 0.0010, p(RMSE) 0.0010
+  Duber_2020                         R2   0.227, RMSE   98.7 | across studies: p(R2) 0.0420, p(RMSE) 0.2320 | within each study: p(R2) 0.0380, p(RMSE) 0.0380
+  Duber_2022                         R2  -4.146, RMSE   50.7 | across studies: p(R2) 0.9930, p(RMSE) 0.0010 | within each study: p(R2) 0.0010, p(RMSE) 0.0010
+  Duber_2024                         R2   0.068, RMSE   97.7 | across studies: p(R2) 0.0570, p(RMSE) 0.0820 | within each study: p(R2) 0.0630, p(RMSE) 0.0630
+  Hanna_2025                         R2   0.013, RMSE  133.7 | across studies: p(R2) 0.0890, p(RMSE) 0.6040 | within each study: p(R2) 0.0940, p(RMSE) 0.0940
+Self-check (within each study): per held-out study, p by R2 must equal p by RMSE when every sampling unit of the study has the same number of rows.
+  7 of 7 held-out studies agree; 0 mismatch(es).
+  Saved: C:/Users/IISiIS-ZWW-233/Documents/BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-11-22\stage6_corrected_2026-11-22\03_permutation_tests.csv
+  Saved: C:/Users/IISiIS-ZWW-233/Documents/BIOTWIN_Grand_Merge\primer_trimmed_2026-10-06\corrected_2026-11-22\stage6_corrected_2026-11-22\03_permutation_tests_by_study.csv
+--------------------------------------------------------------------------------

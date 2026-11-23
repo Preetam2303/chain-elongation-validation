@@ -1,0 +1,20 @@
+Inputs (SHA-256; the matrix with line endings read as LF, the workbooks as saved):
+  results/primer_trimmed_2026-10-06/corrected_2026-11-22/BIOTWIN_FINAL_GRAND_MERGE_Substrates.csv  9e7d691a6fd78695e980b2d39a049517e602d70c5ea0ac89a7cc91168a68743a
+  2020_Evaluation.....xlsx  1eaa20f9b968051cd4b139a336aec7bbd775b66dad34b370233ee55833d2478d
+  2022_Lactate and ethanol....xlsx  d103c4f5f8b1b725c5d44cf77569e39b11a3c5d436c4802071161bcdb6fe419e
+  2024_Single vs two stage....xlsx  262a4cefcdb6b96cc4035c3b2a1da89cd70e22575e7af3482284a8d08bd67083
+  Brodowski CEJ 2025.xlsx  2f15506d61bf0d37d40db979843aafcaae30dea605c1ffed0a897e07687d5cc4
+  Brodowski STOTEN2021 Effect of external acetate.xlsx  048f92784c541212113185dde0cc73c9f27af729bbac1884b7193ea9c69463a5
+  Brodowski STOTEN2022 Influence of lactate to acetate ratio.xlsx  f79212d7e1e93249a2564c761c938557fbc580956d376278f78b799935b62527
+  metadata_Expanding the product_Prusak.xlsx  a1b723508a659d3b10e4ffbbdec888e4d7e8e79d6e77975e4b6dd0a77cd387f5
+
+Duber_2020 ERR3200168: 2020_Evaluation.....xlsx, sheet UASB II mmol C, column O ('kwas kapronowy'), row 82, day 107: 278.8801652892562 mM C = 278.88 mM C; matrix 278.88; agrees: True
+Duber_2022 SRR18079352: 2022_Lactate and ethanol....xlsx, sheet LA, column AK ('caporate'), row 62, day 22: 0.56196 g/L = 29.027 mM C; matrix 29.03; agrees: True
+Duber_2024 SRR28047211: 2024_Single vs two stage....xlsx, sheet R1 mmol C, column O ('kwas kapronowy'), row 159, day 151: 170.2995867768595 mM C = 170.3 mM C; matrix 170.3; agrees: True
+Brodowski_2022 SRR18962132: Brodowski STOTEN2022 Influence of lactate to acetate ratio.xlsx, sheet B2, column J ('caproate'), row 68, day 65: 136.46694214876032 mM C = 136.467 mM C; matrix 136.0; agrees: True
+Brodowski_2022_EXTERNAL_ACETATE SRR13989643: Brodowski STOTEN2021 Effect of external acetate.xlsx, sheet B1, column J ('Caproate'), row 91, day 88: 287.3078512396695 mM C = 287.308 mM C; matrix 287.0; agrees: True
+Brodowski_2025 SRR28044222: Brodowski CEJ 2025.xlsx, sheet BLE, column J ('Caproate'), row 57, day 54: 232.7995867768595 mM C = 232.8 mM C; matrix 233.0; agrees: True
+Hanna_2025 sample_B4: metadata_Expanding the product_Prusak.xlsx, sheet SUCC_META, column Q ('caproic'), row 20, day d96: 6.515 g/L = 336.519 mM C; matrix 336.5185950413223; agrees: True
+
+Agree within 0.51 mM C: 7 of 7
+Wrote results/primer_trimmed_2026-10-06/source_checks_2026-11-22/caproate_trace.csv

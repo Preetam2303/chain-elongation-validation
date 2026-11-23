@@ -1,0 +1,161 @@
+seed,scheme,rows,r2,rmse
+0,Single random 80/20 split (ASV level),every sample,0.6809601334153839,47.646019189106326
+0,Random 5-fold CV (ASV level),every sample,0.7635400193678828,50.46211748095702
+0,"Shuffled 10-fold CV, per-fold SHAP top-25 genera",every sample,0.8118212708792656,44.47439003228944
+0,Single-study internal 80/20 split (Duber 2024),every sample,0.996636154409405,7.475733015669331
+0,Single random 80/20 split (ASV level),one row per sampling day,0.46548620221415604,100.44335382538718
+0,Random 5-fold CV (ASV level),one row per sampling day,0.6981007913904613,58.4827196313748
+0,"Shuffled 10-fold CV, per-fold SHAP top-25 genera",one row per sampling day,0.5441267797044981,70.96848601027393
+0,Single-study internal 80/20 split (Duber 2024),one row per sampling day,-6.122992199928085,227.1428824451326
+1,Single random 80/20 split (ASV level),every sample,0.8172752241240914,49.08477956553967
+1,Random 5-fold CV (ASV level),every sample,0.8135980938429203,45.1494743069705
+1,"Shuffled 10-fold CV, per-fold SHAP top-25 genera",every sample,0.855210871369235,42.17401844137003
+1,Single-study internal 80/20 split (Duber 2024),every sample,0.48657490249642454,84.9147512459706
+1,Single random 80/20 split (ASV level),one row per sampling day,0.5913874572680501,67.35356073912577
+1,Random 5-fold CV (ASV level),one row per sampling day,0.6526584849329564,62.8516707252664
+1,"Shuffled 10-fold CV, per-fold SHAP top-25 genera",one row per sampling day,0.49280328658911854,74.84860931948911
+1,Single-study internal 80/20 split (Duber 2024),one row per sampling day,-1.819691483213238,123.25532914821437
+2,Single random 80/20 split (ASV level),every sample,0.8891884814072462,29.352993076419814
+2,Random 5-fold CV (ASV level),every sample,0.7570927558163056,50.933407743204356
+2,"Shuffled 10-fold CV, per-fold SHAP top-25 genera",every sample,0.826642944411321,47.040662602602325
+2,Single-study internal 80/20 split (Duber 2024),every sample,0.9965187677688424,7.209879380817316
+2,Single random 80/20 split (ASV level),one row per sampling day,0.49226895951167926,86.15641368437625
+2,Random 5-fold CV (ASV level),one row per sampling day,0.5327279645024403,67.0007245548604
+2,"Shuffled 10-fold CV, per-fold SHAP top-25 genera",one row per sampling day,0.5796449568045015,66.44390943413603
+2,Single-study internal 80/20 split (Duber 2024),one row per sampling day,-1.3502023220304853,72.52655361437102
+3,Single random 80/20 split (ASV level),every sample,0.8225451021921748,48.173459280447744
+3,Random 5-fold CV (ASV level),every sample,0.7406672685720204,51.16046335139346
+3,"Shuffled 10-fold CV, per-fold SHAP top-25 genera",every sample,0.7558075428970165,49.40021284211677
+3,Single-study internal 80/20 split (Duber 2024),every sample,0.9478577209349173,13.433594136531946
+3,Single random 80/20 split (ASV level),one row per sampling day,0.6594604125676556,61.03931807308333
+3,Random 5-fold CV (ASV level),one row per sampling day,0.6153546465394651,64.8452360093888
+3,"Shuffled 10-fold CV, per-fold SHAP top-25 genera",one row per sampling day,0.6022165524105173,69.13377285968781
+3,Single-study internal 80/20 split (Duber 2024),one row per sampling day,-0.2305943747182968,106.58537654924625
+4,Single random 80/20 split (ASV level),every sample,0.7324093263375687,46.628158684223735
+4,Random 5-fold CV (ASV level),every sample,0.8373976009258088,41.372557060609736
+4,"Shuffled 10-fold CV, per-fold SHAP top-25 genera",every sample,0.8471006687861704,44.486002053227274
+4,Single-study internal 80/20 split (Duber 2024),every sample,0.5074374968113948,85.96321035484455
+4,Single random 80/20 split (ASV level),one row per sampling day,0.7028340477321737,54.354669364726966
+4,Random 5-fold CV (ASV level),one row per sampling day,0.47577937181854874,72.208104671745
+4,"Shuffled 10-fold CV, per-fold SHAP top-25 genera",one row per sampling day,0.34523634260657243,72.59056014733088
+4,Single-study internal 80/20 split (Duber 2024),one row per sampling day,-0.15683706356742522,144.54099394453135
+5,Single random 80/20 split (ASV level),every sample,0.719454410559365,62.342350936990684
+5,Random 5-fold CV (ASV level),every sample,0.7244445477430004,53.135741589472936
+5,"Shuffled 10-fold CV, per-fold SHAP top-25 genera",every sample,0.8626851245095862,39.38386230055625
+5,Single-study internal 80/20 split (Duber 2024),every sample,0.993301149598352,8.662550485790527
+5,Single random 80/20 split (ASV level),one row per sampling day,0.46076754588378066,80.70551437107555
+5,Random 5-fold CV (ASV level),one row per sampling day,0.5492323114756001,67.7359592037308
+5,"Shuffled 10-fold CV, per-fold SHAP top-25 genera",one row per sampling day,0.5034176607424097,69.71219298890071
+5,Single-study internal 80/20 split (Duber 2024),one row per sampling day,-1.8885199525925307,72.36907810954548
+6,Single random 80/20 split (ASV level),every sample,0.9087863245761558,29.6599871648369
+6,Random 5-fold CV (ASV level),every sample,0.7977566602582329,47.170920503342266
+6,"Shuffled 10-fold CV, per-fold SHAP top-25 genera",every sample,0.8547275561464485,41.74596280424672
+6,Single-study internal 80/20 split (Duber 2024),every sample,0.9004886543674275,21.350295246807544
+6,Single random 80/20 split (ASV level),one row per sampling day,0.6902795823356664,62.926394539025765
+6,Random 5-fold CV (ASV level),one row per sampling day,0.64472996937259,59.80334640739352
+6,"Shuffled 10-fold CV, per-fold SHAP top-25 genera",one row per sampling day,0.050590168651737086,71.4357827717077
+6,Single-study internal 80/20 split (Duber 2024),one row per sampling day,-7.033816498638702,111.0949274402264
+7,Single random 80/20 split (ASV level),every sample,0.5931987374820809,76.33341282147789
+7,Random 5-fold CV (ASV level),every sample,0.7284081370902374,53.20020994958077
+7,"Shuffled 10-fold CV, per-fold SHAP top-25 genera",every sample,0.8520978031244489,40.65099598230874
+7,Single-study internal 80/20 split (Duber 2024),every sample,0.9952488166633826,6.72076606826478
+7,Single random 80/20 split (ASV level),one row per sampling day,0.21844557924690133,64.40859055070565
+7,Random 5-fold CV (ASV level),one row per sampling day,0.5640296261862942,66.80620080914049
+7,"Shuffled 10-fold CV, per-fold SHAP top-25 genera",one row per sampling day,0.5128840877796351,70.65777963435926
+7,Single-study internal 80/20 split (Duber 2024),one row per sampling day,0.878927994850762,37.92493922916534
+8,Single random 80/20 split (ASV level),every sample,0.9354410932550022,24.265359091081525
+8,Random 5-fold CV (ASV level),every sample,0.7850229603015477,46.91354668042281
+8,"Shuffled 10-fold CV, per-fold SHAP top-25 genera",every sample,0.8242825283336627,43.893832556064645
+8,Single-study internal 80/20 split (Duber 2024),every sample,0.9898808985988086,12.17386667922405
+8,Single random 80/20 split (ASV level),one row per sampling day,0.8411763552099325,44.113663955763286
+8,Random 5-fold CV (ASV level),one row per sampling day,0.6879746111756487,58.29159608873148
+8,"Shuffled 10-fold CV, per-fold SHAP top-25 genera",one row per sampling day,0.36751006500341726,75.11586644617834
+8,Single-study internal 80/20 split (Duber 2024),one row per sampling day,-0.019565882462806883,62.495586667572624
+9,Single random 80/20 split (ASV level),every sample,0.7748128914968394,53.151422924035955
+9,Random 5-fold CV (ASV level),every sample,0.7755765066842674,49.839304088838205
+9,"Shuffled 10-fold CV, per-fold SHAP top-25 genera",every sample,0.8367800256357002,44.14877734286931
+9,Single-study internal 80/20 split (Duber 2024),every sample,0.9945795644379924,6.965527489517118
+9,Single random 80/20 split (ASV level),one row per sampling day,0.7264551740540688,64.93708154820479
+9,Random 5-fold CV (ASV level),one row per sampling day,0.6435787354287203,61.67882514421982
+9,"Shuffled 10-fold CV, per-fold SHAP top-25 genera",one row per sampling day,0.6377015766989182,64.67386668412215
+9,Single-study internal 80/20 split (Duber 2024),one row per sampling day,0.04296665002961464,82.42233289350713
+10,Single random 80/20 split (ASV level),every sample,0.7671152533151575,55.54274501383579
+10,Random 5-fold CV (ASV level),every sample,0.7898642944216931,47.96077451081295
+10,"Shuffled 10-fold CV, per-fold SHAP top-25 genera",every sample,0.801785866136796,44.48095576996489
+10,Single-study internal 80/20 split (Duber 2024),every sample,0.1814128203248565,90.42364974653272
+10,Single random 80/20 split (ASV level),one row per sampling day,0.6092557938934438,70.82297527833708
+10,Random 5-fold CV (ASV level),one row per sampling day,0.6230325950479776,65.00372408699926
+10,"Shuffled 10-fold CV, per-fold SHAP top-25 genera",one row per sampling day,0.4397018870239421,81.16411701317661
+10,Single-study internal 80/20 split (Duber 2024),one row per sampling day,-0.3985164852307699,100.8949477126418
+11,Single random 80/20 split (ASV level),every sample,0.7566961350488597,52.00663801537579
+11,Random 5-fold CV (ASV level),every sample,0.797818515570915,46.05584446246162
+11,"Shuffled 10-fold CV, per-fold SHAP top-25 genera",every sample,0.7280509905402344,49.703540455623504
+11,Single-study internal 80/20 split (Duber 2024),every sample,0.9871825345333005,8.749711346001956
+11,Single random 80/20 split (ASV level),one row per sampling day,0.7913784423682895,43.46048447437218
+11,Random 5-fold CV (ASV level),one row per sampling day,0.5414078707506104,71.28554004789116
+11,"Shuffled 10-fold CV, per-fold SHAP top-25 genera",one row per sampling day,0.27891393808508896,75.19777560582071
+11,Single-study internal 80/20 split (Duber 2024),one row per sampling day,0.0663129891287999,126.02093508137956
+12,Single random 80/20 split (ASV level),every sample,0.9273677662548365,28.48177180680916
+12,Random 5-fold CV (ASV level),every sample,0.7528935413810633,50.99295532430483
+12,"Shuffled 10-fold CV, per-fold SHAP top-25 genera",every sample,0.8389144880583664,45.09250353235058
+12,Single-study internal 80/20 split (Duber 2024),every sample,0.9946285373214229,8.132722212967504
+12,Single random 80/20 split (ASV level),one row per sampling day,0.6505514455065957,71.75753708597819
+12,Random 5-fold CV (ASV level),one row per sampling day,0.6477099541463847,60.48552354381293
+12,"Shuffled 10-fold CV, per-fold SHAP top-25 genera",one row per sampling day,0.4506386334877356,74.83175345090201
+12,Single-study internal 80/20 split (Duber 2024),one row per sampling day,0.41821468506776216,109.90238241327323
+13,Single random 80/20 split (ASV level),every sample,0.9518415532107064,25.291356654530176
+13,Random 5-fold CV (ASV level),every sample,0.7750390274878804,44.91167018689988
+13,"Shuffled 10-fold CV, per-fold SHAP top-25 genera",every sample,0.8538199328485374,40.19446565729784
+13,Single-study internal 80/20 split (Duber 2024),every sample,0.9952039133739925,7.95969794789368
+13,Single random 80/20 split (ASV level),one row per sampling day,0.7019910696037773,75.76925664920016
+13,Random 5-fold CV (ASV level),one row per sampling day,0.5463685384125053,69.01515976787019
+13,"Shuffled 10-fold CV, per-fold SHAP top-25 genera",one row per sampling day,0.5262113219906768,70.78673794004884
+13,Single-study internal 80/20 split (Duber 2024),one row per sampling day,0.8029001313780637,54.96691341972345
+14,Single random 80/20 split (ASV level),every sample,0.882369749001281,34.73194193982423
+14,Random 5-fold CV (ASV level),every sample,0.7599078627103042,50.57339863049138
+14,"Shuffled 10-fold CV, per-fold SHAP top-25 genera",every sample,0.7802411023519435,51.444716070913884
+14,Single-study internal 80/20 split (Duber 2024),every sample,0.9910181097090123,6.904012559607429
+14,Single random 80/20 split (ASV level),one row per sampling day,0.8444326054606813,47.451573104850574
+14,Random 5-fold CV (ASV level),one row per sampling day,0.6311831522691449,62.94584872365671
+14,"Shuffled 10-fold CV, per-fold SHAP top-25 genera",one row per sampling day,0.5138498989998801,77.71042947215719
+14,Single-study internal 80/20 split (Duber 2024),one row per sampling day,-116.96133694845157,42.42464369759273
+15,Single random 80/20 split (ASV level),every sample,0.8417313513097242,41.64172449627899
+15,Random 5-fold CV (ASV level),every sample,0.7682338349827832,49.241325004189925
+15,"Shuffled 10-fold CV, per-fold SHAP top-25 genera",every sample,0.8306087827383914,45.972968506257715
+15,Single-study internal 80/20 split (Duber 2024),every sample,0.9013447772152947,29.121209778477258
+15,Single random 80/20 split (ASV level),one row per sampling day,0.870226787972244,31.600206653734237
+15,Random 5-fold CV (ASV level),one row per sampling day,0.5581086515687556,67.89809103182833
+15,"Shuffled 10-fold CV, per-fold SHAP top-25 genera",one row per sampling day,0.4838212718515785,74.88610143168846
+15,Single-study internal 80/20 split (Duber 2024),one row per sampling day,-14.276773119627801,163.7863301483897
+16,Single random 80/20 split (ASV level),every sample,0.8729800455651775,38.232128885219694
+16,Random 5-fold CV (ASV level),every sample,0.7929921075684014,48.203939544753844
+16,"Shuffled 10-fold CV, per-fold SHAP top-25 genera",every sample,0.8614681221638009,41.014766884504596
+16,Single-study internal 80/20 split (Duber 2024),every sample,-0.29107365064835067,98.9622234231947
+16,Single random 80/20 split (ASV level),one row per sampling day,0.5212507955824579,67.5946314619536
+16,Random 5-fold CV (ASV level),one row per sampling day,0.5989023287503576,66.58698833835477
+16,"Shuffled 10-fold CV, per-fold SHAP top-25 genera",one row per sampling day,0.24935017664223963,81.5634229646054
+16,Single-study internal 80/20 split (Duber 2024),one row per sampling day,-1.4141995448459914,93.74666631931
+17,Single random 80/20 split (ASV level),every sample,0.828420027182363,48.65563006138264
+17,Random 5-fold CV (ASV level),every sample,0.6427374429889904,60.28538484348305
+17,"Shuffled 10-fold CV, per-fold SHAP top-25 genera",every sample,0.8230255729609783,43.68596060055142
+17,Single-study internal 80/20 split (Duber 2024),every sample,0.9839872738336752,14.049322577892664
+17,Single random 80/20 split (ASV level),one row per sampling day,0.6977946302089393,52.01401750999701
+17,Random 5-fold CV (ASV level),one row per sampling day,0.6419591635589155,61.15481829163097
+17,"Shuffled 10-fold CV, per-fold SHAP top-25 genera",one row per sampling day,0.5909505827603964,67.2674755045049
+17,Single-study internal 80/20 split (Duber 2024),one row per sampling day,-2.4547715910372023,90.59528236774567
+18,Single random 80/20 split (ASV level),every sample,0.899283293931348,31.808600400571706
+18,Random 5-fold CV (ASV level),every sample,0.7614567752351042,49.2201823184496
+18,"Shuffled 10-fold CV, per-fold SHAP top-25 genera",every sample,0.8332737503436626,41.44470389795307
+18,Single-study internal 80/20 split (Duber 2024),every sample,0.996762643048263,5.323947532631523
+18,Single random 80/20 split (ASV level),one row per sampling day,0.3597975393486115,93.15977672264489
+18,Random 5-fold CV (ASV level),one row per sampling day,0.7244310659158845,53.491311743828646
+18,"Shuffled 10-fold CV, per-fold SHAP top-25 genera",one row per sampling day,0.49086484843781664,72.69937588803137
+18,Single-study internal 80/20 split (Duber 2024),one row per sampling day,0.8537445080870835,27.65034616770161
+19,Single random 80/20 split (ASV level),every sample,0.8909563951920396,40.438748241148275
+19,Random 5-fold CV (ASV level),every sample,0.8155146535594346,44.86438846090768
+19,"Shuffled 10-fold CV, per-fold SHAP top-25 genera",every sample,0.8474967345019703,42.92694900066162
+19,Single-study internal 80/20 split (Duber 2024),every sample,0.45074950813785164,82.85333623531237
+19,Single random 80/20 split (ASV level),one row per sampling day,0.37992909673361663,73.19369471927479
+19,Random 5-fold CV (ASV level),one row per sampling day,0.5465067079563164,69.29187237978883
+19,"Shuffled 10-fold CV, per-fold SHAP top-25 genera",one row per sampling day,0.5775862507326626,67.12157703473703
+19,Single-study internal 80/20 split (Duber 2024),one row per sampling day,-1.1050510253293795,102.8668266699953

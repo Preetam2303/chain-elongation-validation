@@ -1,6 +1,6 @@
 # build_results_reference.py
 # Stage 9 of the primer-trimmed rerun: builds results_reference.json from the
-# run of record in results/primer_trimmed_2026-10-06/corrected_2026-11-19/ (the
+# run of record in results/primer_trimmed_2026-10-06/corrected_2026-11-22/ (the
 # laptop's files, copied unchanged). Every value is read from a results
 # file: the read tracking of Stage 1, the matrices that R/04, 00 and 00b wrote,
 # the tables and logs of Stage 6 (02 to 11), the figure logs (Stage 8) and
@@ -35,11 +35,11 @@ import numpy as np
 import pandas as pd
 
 REPO = Path(__file__).resolve().parents[1]
-# The run of record since 2026-11-19: the full laptop rerun after PR #30 (Brodowski 2022 batch rows at day 7).
-# The earlier run of record, corrected_2026-10-11, is kept unchanged next to it.
-RUN_OF_RECORD = REPO / "results" / "primer_trimmed_2026-10-06" / "corrected_2026-11-19"
-# Table S2 (12 and 12b) is in the run's own Stage 6 folder; 12b read the BLAST file in data/table_s2/.
-TABLE_S2_DIR = RUN_OF_RECORD / "stage6_corrected_2026-11-19"
+# The run of record since 2026-11-22: the full laptop rerun after PR #32 (the feed-label fix).
+# The earlier runs of record, corrected_2026-10-11 and corrected_2026-11-19, are kept unchanged next to it.
+RUN_OF_RECORD = REPO / "results" / "primer_trimmed_2026-10-06" / "corrected_2026-11-22"
+# Table S2 (12 and 12b) is in the run's own Stage 6 folder, with the BLAST file 12b read.
+TABLE_S2_DIR = RUN_OF_RECORD / "stage6_corrected_2026-11-22"
 REFERENCE = REPO / "results_reference.json"
 sys.path.insert(0, str(REPO / "python" / "pipeline"))
 sys.path.insert(0, str(REPO / "python" / "figures"))
@@ -549,8 +549,8 @@ def figure_3_leakage_tightening_progression(run):
         "stage_1_unscaled_random_forest": {
             "r2": V(d["R2"], 8), "rmsd": V(d["RMSD"], 3), "train_n": int(d["Train_Size"]),
             "test_n": int(d["Test_Size"]),
-            "_note": "07d, scikit-learn random forest (seeded). Its R2 rounds to 0.155 at three decimals but sits "
-                     "next to the rounding boundary, so it is given to eight."},
+            "_note": "07d, scikit-learn random forest (seeded). Its R2 is given to eight decimals, as in the earlier "
+                     "runs of record, where it sat next to a boundary for rounding to three decimals."},
         "stage_2_intermediate_unscaled_xgboost": {
             "r2": r3(c["R2"]), "rmse": r1(c["RMSE"]), "train_n": int(c["Train_Size"]), "test_n": int(c["Test_Size"]),
             "top_10_mean_abs_shap": {f: num(v) for f, v in shap},
@@ -1124,12 +1124,13 @@ def about(run):
                       "Elongation: A Multi-Study, Multi-Platform Validation Framework",
         "run_of_record": {
             "folder": "results/primer_trimmed_2026-10-06 (copied unchanged from the laptop run; see its README)",
-            "matrices": f"{run.name(run.corrected)} (R/04_metadata_merge.R, 00 and 00b, 2026-11-19)",
+            "matrices": f"{run.name(run.corrected)} (R/04_metadata_merge.R, 00 and 00b, 2026-11-22)",
             "matrix_sha256_lf": matrices,
             "stage6_folder_of_each_script": stage6,
             "figures": run.name(run._folder("figures_corrected_*", "figure1_*.log")),
-            "table_s2": f"{run.name(run.table_s2)} (12 and 12b, 2026-11-19; BLAST file "
-                        "repository: data/table_s2/CTJH4F4E014-Alignment.txt)",
+            "table_s2": f"{run.name(run.table_s2)} (12 and 12b, 2026-11-22; BLAST file "
+                        "G6AH6P3Y014-Alignment.txt in the same folder, searched on 2026-11-22, with its "
+                        "search record in BLAST_search_record.txt)",
         },
         "reference_environment": {"python": python[0], "os": python[1],
                                   "packages": "exactly as pinned in requirements.txt"},
@@ -1152,10 +1153,12 @@ def about(run):
         },
         "earlier_values": "The published run's values (before primer trimming, with the earlier settings and "
                           "predictors) are in this file as it stood at tag draft-v1-2026-10-04 (commit 29635f7). "
-                          "They reproduce with the code at commit 844f478. The previous run of record, "
-                          "corrected_2026-10-11 (Brodowski 2022 batch rows at their starting pH and day 6), is "
-                          "kept unchanged; its values are in this file as of commit 95420b1, and every value that "
-                          "changed is listed in differences_2026-10-11_to_2026-11-19.csv.",
+                          "They reproduce with the code at commit 844f478. The two earlier runs of record are kept "
+                          "unchanged. corrected_2026-10-11 (Brodowski 2022 batch rows at their starting pH and day "
+                          "6) has its values in this file as of commit 95420b1; corrected_2026-11-19 (before the "
+                          "feed-label fix of PR #32) has its values in this file as of commit 59844de. Every value "
+                          "that changed is listed in differences_2026-10-11_to_2026-11-19.csv and "
+                          "differences_2026-11-19_to_2026-11-22.csv.",
         "sources_note": "Paths in each section's _source are relative to results/primer_trimmed_2026-10-06 unless "
                         "marked as repository paths.",
     }

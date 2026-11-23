@@ -1,0 +1,8 @@
+Paper_ID,Sample_ID,reactor_or_trial,day_in_matrix,source_file,sheet,column,column_header,excel_row,day_in_source,source_unit,value_in_source,conversion,source_in_mM_C,final_matrix_mM_C,ratio_matrix_to_source,agrees_within_0.51_mM_C
+Duber_2020,ERR3200168,B1,107,2020_Evaluation.....xlsx,UASB II mmol C,O,kwas kapronowy,82,107,mM C,278.8801652892562,none (file in mM C),278.88,278.88,1.0,True
+Duber_2022,SRR18079352,R2,22,2022_Lactate and ethanol....xlsx,LA,AK,caporate,62,22,g/L,0.56196,mM C = g/L x 1000 / (116.16/6),29.027,29.03,1.0001,True
+Duber_2024,SRR28047211,B1,151,2024_Single vs two stage....xlsx,R1 mmol C,O,kwas kapronowy,159,151,mM C,170.2995867768595,none (file in mM C),170.3,170.3,1.0,True
+Brodowski_2022,SRR18962132,B2,65,Brodowski STOTEN2022 Influence of lactate to acetate ratio.xlsx,B2,J,caproate,68,65,mM C,136.46694214876032,none (file in mM C),136.467,136.0,0.9966,True
+Brodowski_2022_EXTERNAL_ACETATE,SRR13989643,B1,88,Brodowski STOTEN2021 Effect of external acetate.xlsx,B1,J,Caproate,91,88,mM C,287.3078512396695,none (file in mM C),287.308,287.0,0.9989,True
+Brodowski_2025,SRR28044222,B2,54,Brodowski CEJ 2025.xlsx,BLE,J,Caproate,57,54,mM C,232.7995867768595,none (file in mM C),232.8,233.0,1.0009,True
+Hanna_2025,sample_B4,B1,d96,metadata_Expanding the product_Prusak.xlsx,SUCC_META,Q,caproic,20,d96,g/L,6.515,mM C = g/L x 1000 / (116.16/6),336.519,336.5185950413223,1.0,True
