@@ -81,7 +81,7 @@ def generate_figure_s1():
     ax.set_xticklabels([LABELS[t] for t in all_tiers])
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
-    ax.legend(loc="lower right", frameon=True, edgecolor="none")
+    ax.legend(loc="lower left", frameon=True, edgecolor="none")
 
     plt.tight_layout()
     fi.save(fig, "Figure_S1_Substrate_Ladder")

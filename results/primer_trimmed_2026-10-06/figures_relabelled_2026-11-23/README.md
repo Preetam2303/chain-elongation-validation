@@ -1,5 +1,7 @@
 # Figures 1 and S1 with corrected labels (2026-11-23)
 
+**Figure S1 here is superseded by `figures_relabelled_2026-11-23_S1/`**, drawn the same day with the same tier names and the legend moved to the lower left. Figure 1 here is current.
+
 On 23 Nov 2026 Preetam asked for two figure labels to be corrected from the saved results, with no rerun. This folder holds the two figures drawn again with the corrected labels. Only the label text differs from the run of record's figures in `corrected_2026-11-22/figures_corrected_2026-11-22/`, which stay unchanged. The figures were made in the repository, not on the laptop.
 
 - **Figure 1.** The bar "GroupKFold by Vessel (CSTRs Only)" now reads "GroupKFold by Vessel (Continuous-Reactor Subset)".

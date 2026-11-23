@@ -23,9 +23,9 @@ These files come from the laptop runs of the primer-trimmed rerun, unchanged, in
 
 `figures_relabelled_2026-11-23/` holds Figures 1 and S1 drawn again from the run of record's Stage 6 tables, with two labels corrected at Preetam's request of 23 Nov 2026:
 - **Figure 1:** the vessel-grouped bar for the continuous reactors reads "Continuous-Reactor Subset" instead of "CSTRs Only".
-- **Figure S1:** each tier is named by the predictors it adds, as Table 4 does.
+- **Figure S1:** each tier is named by the predictors it adds, as Table 4 does. The current Figure S1 is in `figures_relabelled_2026-11-23_S1/`, drawn again with its legend at the lower left. At the lower right, the legend covered the lower whisker of the Illumina-only tier-4 bar.
 
-Every plotted value and every input's SHA-256 are the same as in `figures_corrected_2026-11-22/`, which stays unchanged. They were made in the repository (Linux, with Liberation Sans in place of Arial), not on the laptop. Its README gives the details.
+Every plotted value and every input's SHA-256 are the same as in `figures_corrected_2026-11-22/`, which stays unchanged. They were made in the repository (Linux, with Liberation Sans in place of Arial), not on the laptop. Each folder's README gives the details.
 
 ## Shared by every run (Stages 1 and 2)
 
