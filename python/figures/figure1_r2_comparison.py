@@ -5,7 +5,7 @@
 # read from the corrected run's results tables (Tables 3a and 3b), so the
 # figure cannot drift from them:
 #   10_table3a_naive_splits.csv   Table 3a: the four naive schemes (seed 42)
-#   04_groupkfold_by_vessel.csv   Table 3b: GroupKFold by vessel, all vessels and CSTRs only
+#   04_groupkfold_by_vessel.csv   Table 3b: GroupKFold by vessel, all groups and the continuous-reactor subset
 #   02_loso_tables_3b_4.csv       Table 3b: LOSO with the core set (the headline) and
 #                                 with the per-fold SHAP top-25 genera
 #   06_platform_transfer.csv      Table 3b: platform transfer, relative abundance and raw counts
@@ -65,7 +65,7 @@ def generate_figure_1():
                fi.one_row(t3a, scheme="Random 5-fold CV (ASV level)")),
         scheme("GroupKFold by Vessel (All Vessels)", GROUPED,
                fi.one_row(xgb_vessel, scheme="Mode 2: All Vessels (CSTR + Batch R1-R9)")),
-        scheme("GroupKFold by Vessel (CSTRs Only)", GROUPED,
+        scheme("GroupKFold by Vessel\n(Continuous-Reactor Subset)", GROUPED,
                fi.one_row(xgb_vessel, scheme="Mode 1: CSTR Only (B1, B2 Vessels)")),
         scheme("LOSO (Core Set; Headline)", GROUPED,
                fi.one_row(loso, column="full matrix",
